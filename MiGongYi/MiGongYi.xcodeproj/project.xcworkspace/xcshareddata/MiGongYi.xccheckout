@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9638564C-B808-4DCA-A5E7-F0E6DB153CD0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MiGongYi</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C4E6DB8D-80C5-45E8-931D-F645423CD74C</key>
+		<string>https://github.com/673697831/MiGongYi.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MiGongYi/MiGongYi.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C4E6DB8D-80C5-45E8-931D-F645423CD74C</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/673697831/MiGongYi.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C4E6DB8D-80C5-45E8-931D-F645423CD74C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C4E6DB8D-80C5-45E8-931D-F645423CD74C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MiGongYi</string>
+		</dict>
+	</array>
+</dict>
+</plist>

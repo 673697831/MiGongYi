@@ -1,0 +1,7 @@
+platform :ios, '7.1'
+pod 'AFNetworking', '~> 2.3.1'
+pod 'Masonry', '~> 0.5.3'
+pod 'SDWebImage', '~> 3.7.1'
+pod 'Mantle', '~> 1.5'
+pod 'MBProgressHUD', '~> 0.9'
+pod 'UIColor-Utilities', '~> 1.0.1'
