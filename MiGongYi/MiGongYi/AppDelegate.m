@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BlackMagic.h"
+#import "MainTabBar.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -17,6 +18,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [BlackMagic blackMagicAFJSONResponseSerializer];
+    MainTabBar *bar = [[MainTabBar alloc] initWithNibName:nil bundle:nil];
+    //UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:bar];
+    //nav.navigationBar.hidden = YES;
+    self.window.rootViewController = bar;
+    //[nav setHidesBottomBarWhenPushed:YES];
     return YES;
 }
 
