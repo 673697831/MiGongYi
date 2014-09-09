@@ -9,6 +9,7 @@
 #import "ProgramListCell.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
+#import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation ProgramListCell
@@ -90,73 +91,85 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-        self.photoView = [[UIImageView alloc] init];
-        [self.contentView addSubview:self.photoView];
         
-        self.photoView.backgroundColor = [UIColor blueColor];
-        [self.photoView setImage:nil];
-        self.nameLabel = [[UILabel alloc] init];
-        self.nameLabel.text = @"虎子";
-        self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
-        self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
-        [self.contentView addSubview:self.nameLabel];
-        
-        self.lineLabel1 = [[UILabel alloc] init];
-        self.lineLabel1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
-        [self.contentView addSubview:self.lineLabel1];
-        
-        
-        //[self createProgress:self.progressLabel Tag:0 Width:274/2];
-        self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 137/4*3, 6) BackgroundFrame:CGRectMake(0, 0, 274/2, 6)];
-        [self.contentView addSubview:self.progressLabel];
-        
-        self.miliView = [[UIImageView alloc] init];
-        [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
-        [self.contentView addSubview:self.miliView];
-        
-        
-        
-        
-        self.lineLabel2 = [[UILabel alloc] init];
-        [self.contentView addSubview:self.lineLabel2];
-        self.lineLabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-        
-        self.miliNum = [[UILabel alloc] init];
-        [self.contentView addSubview:self.miliNum];
-        self.miliNum.textColor = [UIColor colorWithHexString:@"464646"];
-        self.miliNum.text = @"24.57K";
-        self.miliNum.font = [UIFont fontWithName:@"Helvetica" size:10];
-        
-        self.miliLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:self.miliLabel];
-        self.miliLabel.textColor = [UIColor colorWithHexString:@"bababa"];
-        self.miliLabel.text = @"捐赠米粒(粒)";
-        self.miliLabel.font = [UIFont fontWithName:@"Helvetica" size:6];
-        
-        self.peopleView = [[UIImageView alloc] init];
-        [self.contentView addSubview:self.peopleView];
-        [self.peopleView setImage:[UIImage imageNamed:@"page_Participant_normal"]];
-        
-        self.peopleNum = [[UILabel alloc] init];
-        [self.contentView addSubview:self.peopleNum];
-        self.peopleNum.textColor = [UIColor colorWithHexString:@"464646"];
-        self.peopleNum.text = @"256938";
-        self.peopleNum.font = [UIFont fontWithName:@"Helvetica" size:10];
-        
-        self.poppleLable = [[UILabel alloc] init];
-        [self.contentView addSubview:self.poppleLable];
-        self.poppleLable.textColor = [UIColor colorWithHexString:@"bababa"];
-        self.poppleLable.text = @"参与人数(人)";
-        self.poppleLable.font = [UIFont fontWithName:@"Helvetica" size:6];
-        [self setup];
         // Initialization code
     }
     return self;
 }
 
+-(void)setDetails:(Project *)args
+{
+    self.backgroundColor = [UIColor whiteColor];
+    self.photoView = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.photoView];
+    
+    //self.photoView.backgroundColor = [UIColor blueColor];
+    //[self.photoView setImage:nil];
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
+    self.nameLabel = [[UILabel alloc] init];
+    //self.nameLabel.text = @"虎子";
+    self.nameLabel.text = args.title;
+    self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
+    self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+    [self.contentView addSubview:self.nameLabel];
+    
+    self.lineLabel1 = [[UILabel alloc] init];
+    self.lineLabel1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
+    [self.contentView addSubview:self.lineLabel1];
+    
+    
+    //[self createProgress:self.progressLabel Tag:0 Width:274/2];
+    self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 273.0/2.0 * args.progress / 100, 6) BackgroundFrame:CGRectMake(0, 0, 274/2, 6)];
+    [self.contentView addSubview:self.progressLabel];
+    
+    self.miliView = [[UIImageView alloc] init];
+    [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
+    [self.contentView addSubview:self.miliView];
+    
+    
+    
+    
+    self.lineLabel2 = [[UILabel alloc] init];
+    [self.contentView addSubview:self.lineLabel2];
+    self.lineLabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    
+    self.miliNum = [[UILabel alloc] init];
+    [self.contentView addSubview:self.miliNum];
+    self.miliNum.textColor = [UIColor colorWithHexString:@"464646"];
+    //self.miliNum.text = @"24.57K";
+    self.miliNum.text = [NSString stringWithFormat:@"%d", args.rice_donate];
+    self.miliNum.font = [UIFont fontWithName:@"Helvetica" size:10];
+    
+    self.miliLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:self.miliLabel];
+    self.miliLabel.textColor = [UIColor colorWithHexString:@"bababa"];
+    self.miliLabel.text = @"捐赠米粒(粒)";
+    self.miliLabel.font = [UIFont fontWithName:@"Helvetica" size:6];
+    
+    self.peopleView = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.peopleView];
+    [self.peopleView setImage:[UIImage imageNamed:@"page_Participant_normal"]];
+    
+    self.peopleNum = [[UILabel alloc] init];
+    [self.contentView addSubview:self.peopleNum];
+    self.peopleNum.textColor = [UIColor colorWithHexString:@"464646"];
+    //self.peopleNum.text = @"256938";
+    self.peopleNum.text = [NSString stringWithFormat:@"%d", args.join_member_num];
+    self.peopleNum.font = [UIFont fontWithName:@"Helvetica" size:10];
+    
+    self.poppleLable = [[UILabel alloc] init];
+    [self.contentView addSubview:self.poppleLable];
+    self.poppleLable.textColor = [UIColor colorWithHexString:@"bababa"];
+    self.poppleLable.text = @"参与人数(人)";
+    self.poppleLable.font = [UIFont fontWithName:@"Helvetica" size:6];
+    [self setup];
+}
 
-
+-(void)setImage:(UIImage *)image
+{
+    [self.photoView setImage:image];
+ 
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

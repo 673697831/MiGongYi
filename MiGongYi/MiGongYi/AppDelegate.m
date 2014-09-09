@@ -18,7 +18,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [BlackMagic blackMagicAFJSONResponseSerializer];
-    MainTabBar *bar = [[MainTabBar alloc] initWithNibName:nil bundle:nil];
+    MainTabBar *bar = [MainTabBar shareInstance];
     //UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:bar];
     //nav.navigationBar.hidden = YES;
     self.window.rootViewController = bar;

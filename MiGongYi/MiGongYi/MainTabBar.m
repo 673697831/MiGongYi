@@ -7,13 +7,22 @@
 //
 
 #import "MainTabBar.h"
-#import "ProgramListView.h"
-#import "DetailsMainView.h"
+#import "DataManager.h"
 @interface MainTabBar ()
 
 @end
 
 @implementation MainTabBar
+
++ (MainTabBar *)shareInstance
+{
+    static MainTabBar *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[MainTabBar alloc] initWithNibName:nil bundle:nil];
+    });
+    return instance;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,30 +33,27 @@
         //tabBarController.tabBar.translucent = NO;
         self.tabBar.translucent = NO;
         [self.tabBar setTintColor:[UIColor orangeColor]];
-        UINavigationController *tab1Nav = [[UINavigationController alloc] init];
-        tab1Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
-        
-        ProgramListView *listView = [[ProgramListView alloc] init];
+        self.tab1Nav = [[UINavigationController alloc] init];
+        self.tab1Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
+        self.listView = [[ProgramListView alloc] init];
+        [self.tab1Nav pushViewController:self.listView animated:YES];
         //ProgramListView *listView = [[ProgramListView alloc] initWithNibName:nil bundle:nil];
-        [tab1Nav pushViewController:listView animated:YES];
-        [tab1Nav setHidesBottomBarWhenPushed:YES];
+        [self.tab1Nav setHidesBottomBarWhenPushed:YES];
         //[tab1Nav pushViewController:tab1 animated:NO];
-        
         // TabBar2
-
-        UINavigationController *tab2Nav = [[UINavigationController alloc] init];
-        tab2Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:0];
+        self.tab2Nav = [[UINavigationController alloc] init];
+        self.tab2Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:0];
         // TabBar3
         
-        UINavigationController *tab3Nav = [[UINavigationController alloc] init];
-        tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:0];
-        DetailsMainView *detailsView = [[DetailsMainView alloc] initWithStyle:UITableViewStylePlain];
-        [tab3Nav pushViewController:detailsView animated:YES];
-        [tab3Nav setHidesBottomBarWhenPushed:YES];
+        self.tab3Nav = [[UINavigationController alloc] init];
+        self.tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:0];
+        self.detailsView = [[DetailsMainView alloc] initWithStyle:UITableViewStylePlain];
+        [self.tab3Nav pushViewController:self.detailsView animated:YES];
+        [self.tab3Nav setHidesBottomBarWhenPushed:YES];
         
         // TabBar4
-        UINavigationController *tab4Nav = [[UINavigationController alloc] init];
-        tab4Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:0];
+        self.tab4Nav = [[UINavigationController alloc] init];
+        self.tab4Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:0];
         
         //tab1Nav.navigationBar.hidden = YES;
         
@@ -55,7 +61,7 @@
 //tab3Nav.navigationBar.hidden = YES;
         //tab4Nav.navigationBar.hidden = YES;
         // 组装TabBar
-        self.viewControllers = [NSArray arrayWithObjects:tab1Nav, tab2Nav, tab3Nav, tab4Nav, nil];
+        self.viewControllers = [NSArray arrayWithObjects:self.tab1Nav, self.tab2Nav, self.tab3Nav, self.tab4Nav, nil];
 
     }
     return self;
@@ -63,8 +69,8 @@
 
 - (void)viewDidLoad
 {
-    self.navigationController.navigationBar.hidden = YES;
     [super viewDidLoad];
+    [[DataManager shareInstance] RequestForList:2 Start:0 Limit:10];
     // Do any additional setup after loading the view.
 }
 
@@ -72,6 +78,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)RefreshProgramListView
+{
+    [self.listView resetData:[DataManager shareInstance].projectList];
 }
 
 /*

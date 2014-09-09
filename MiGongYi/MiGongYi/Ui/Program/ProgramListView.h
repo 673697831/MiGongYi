@@ -10,5 +10,5 @@
 
 @interface ProgramListView : UICollectionViewController
 @property(nonatomic, strong) UIButton *whiteButton;
-
+-(void)resetData:(NSMutableArray *)array;
 @end

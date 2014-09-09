@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ProgressLabel.h"
+#import "Project.h"
 
 @interface ProgramListCell : UICollectionViewCell
+
+-(id)initWithFrame:(CGRect)frame Args:(NSArray *) args;
+-(void)setDetails:(Project *)args;
+-(void)setImage:(UIImage *)image;
 @property(nonatomic, strong) UIImageView *photoView;
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) UILabel *lineLabel1;

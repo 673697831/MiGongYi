@@ -12,9 +12,10 @@
 #import "ProgramListCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "TitleSubLayer.h"
+#import "Project.h"
 
 @interface ProgramListView ()
-
+@property (nonatomic, strong) NSMutableArray* array;
 @end
 
 @implementation ProgramListView
@@ -31,6 +32,7 @@
 
 - (id)init
 {
+    self.array = [NSMutableArray array];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     // 每一个网格的尺寸
@@ -82,7 +84,6 @@
     self.whiteButton.frame = CGRectMake(frame.size.width - 24 - 10, frame.size.height - 24 -10, 24, 24);
     [self.navigationController.navigationBar addSubview:self.whiteButton];
     
-    NSLog(@"%f %f", self.view.frame.size.height, self.view.frame.size.width);
     // Do any additional setup after loading the view.
 }
 
@@ -99,16 +100,27 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 10;
+    return floor(self.array.count/2);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ProgramListCell *cell = (ProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Programe Cell" forIndexPath:indexPath];
-    //cell.backgroundColor = [UIColor orangeColor];
+    if (indexPath.row * 2 + indexPath.section +1 > self.array.count) {
+        return cell;
+    }
+    //NSLog(@"ccccccc  %d %d", indexPath.row, indexPath.section);
+    
+    [cell setDetails:self.array[indexPath.row * 2 + indexPath.section]];
     return cell;
 }
 
+- (void)resetData:(NSMutableArray *)array
+{
+    [self.array removeAllObjects];
+    [self.array addObjectsFromArray:array];
+    [self.collectionView reloadData];
+}
 /*
 #pragma mark - Navigation
 
