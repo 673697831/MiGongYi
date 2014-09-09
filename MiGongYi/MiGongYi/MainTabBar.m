@@ -34,7 +34,7 @@
         self.tabBar.translucent = NO;
         [self.tabBar setTintColor:[UIColor orangeColor]];
         self.tab1Nav = [[UINavigationController alloc] init];
-        self.tab1Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
+        self.tab1Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:1];
         self.listView = [[ProgramListView alloc] init];
         [self.tab1Nav pushViewController:self.listView animated:YES];
         //ProgramListView *listView = [[ProgramListView alloc] initWithNibName:nil bundle:nil];
@@ -42,18 +42,18 @@
         //[tab1Nav pushViewController:tab1 animated:NO];
         // TabBar2
         self.tab2Nav = [[UINavigationController alloc] init];
-        self.tab2Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:0];
+        self.tab2Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:2];
         // TabBar3
         
         self.tab3Nav = [[UINavigationController alloc] init];
-        self.tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:0];
+        self.tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:3];
         self.detailsView = [[DetailsMainView alloc] initWithStyle:UITableViewStylePlain];
         [self.tab3Nav pushViewController:self.detailsView animated:YES];
         [self.tab3Nav setHidesBottomBarWhenPushed:YES];
         
         // TabBar4
         self.tab4Nav = [[UINavigationController alloc] init];
-        self.tab4Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:0];
+        self.tab4Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:4];
         
         //tab1Nav.navigationBar.hidden = YES;
         
@@ -80,20 +80,47 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)RefreshProgramListView
+- (void)RefreshProgramListView:(int)type
 {
-    [self.listView resetData:[DataManager shareInstance].projectList];
+    if (type == 1) {
+        [self.detailsView resetData:[DataManager shareInstance].itemList];
+    }
+    if (type == 2) {
+        //[self.listView resetData:[DataManager shareInstance].projectList];
+        [self.listView resetData:[DataManager shareInstance].childList];
+    }
+    
 }
 
-/*
-#pragma mark - Navigation
+//
+//#pragma mark - Navigation
+//
+//// In a storyboard-based application, you will often want to do a little preparation before navigation
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    NSLog(@"%@", sender);
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    // 留守儿童
+    switch (item.tag) {
+        case 1:
+            [[DataManager shareInstance] RequestForList:2 Start:0 Limit:10];
+            break;
+        case 2:
+            break;
+        case 3:
+            [[DataManager shareInstance] RequestForList:1 Start:0 Limit:3];
+            break;
+        case 4:
+            break;
+        default:
+            break;
+    }
+    
 }
-*/
 
 @end

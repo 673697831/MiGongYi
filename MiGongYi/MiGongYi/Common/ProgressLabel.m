@@ -16,6 +16,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+        self.blackgroundLayer = [CAGradientLayer layer];
+        self.blackgroundLayer.frame = frame;
+        self.blackgroundLayer.startPoint = CGPointMake(0, 0.5);
+        self.blackgroundLayer.endPoint = CGPointMake(1, 0.5);
+        self.blackgroundLayer.colors = [NSArray arrayWithObjects:
+                                        (id)[UIColor colorWithHexString:@"dddddd"].CGColor,
+                                        (id)[UIColor colorWithHexString:@"dddddd"].CGColor,
+                                        nil];
+        self.blackgroundLayer.cornerRadius = frame.size.height/2;
+        [self.layer insertSublayer:self.blackgroundLayer atIndex:0];
     }
     return self;
 }
@@ -36,7 +47,7 @@
                        nil];
     gradient.cornerRadius = frame.size.height/2;
     [self.layer insertSublayer:gradient atIndex:0];
-    
+
     CAGradientLayer *gradient2 = [CAGradientLayer layer];
     gradient2.frame = frame;
     gradient.startPoint = CGPointMake(0, 0.5);
@@ -49,6 +60,22 @@
     [self.layer insertSublayer:gradient2 atIndex:1];
     
     return self;
+}
+
+-(void)resetProgress:(CGRect)frame
+{
+    [self.progressLayer removeFromSuperlayer];
+    self.progressLayer = [CAGradientLayer layer];
+    self.progressLayer.frame = frame;
+    self.progressLayer.startPoint = CGPointMake(0, 0.5);
+    self.progressLayer.endPoint = CGPointMake(1, 0.5);
+    self.progressLayer.colors = [NSArray arrayWithObjects:
+                                 (id)[UIColor colorWithHexString:@"f16400"].CGColor,
+                                 (id)[UIColor colorWithHexString:@"f17d00"].CGColor,
+                                 nil];
+    self.progressLayer.cornerRadius = frame.size.height/2;
+    [self.layer insertSublayer:self.progressLayer atIndex:1];
+    
 }
 
 /*

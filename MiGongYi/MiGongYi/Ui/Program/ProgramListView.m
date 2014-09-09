@@ -112,6 +112,7 @@
     //NSLog(@"ccccccc  %d %d", indexPath.row, indexPath.section);
     
     [cell setDetails:self.array[indexPath.row * 2 + indexPath.section]];
+    
     return cell;
 }
 

@@ -11,8 +11,12 @@
 @interface DataManager : NSObject
 {
     NSMutableArray *__projectList;
+    NSMutableArray *__childList;
+    NSMutableArray *__itemList;
 }
 @property(nonatomic, readonly) NSMutableArray* projectList;
+@property(nonatomic, readonly) NSMutableArray* childList;
+@property(nonatomic, readonly) NSMutableArray* itemList;
 -(void)AddProjects:(NSArray *)list Type:(int)type;
 -(void)SetProjects:(NSArray *)list Type:(int)type;
 +(DataManager *)shareInstance;

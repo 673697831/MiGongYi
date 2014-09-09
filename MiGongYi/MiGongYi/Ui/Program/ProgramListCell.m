@@ -91,27 +91,32 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         // Initialization code
     }
     return self;
 }
 
--(void)setDetails:(Project *)args
+
+- (void)drwaCell
 {
     self.backgroundColor = [UIColor whiteColor];
-    self.photoView = [[UIImageView alloc] init];
-    [self.contentView addSubview:self.photoView];
+    
+    if (!self.photoView) {
+        self.photoView = [[UIImageView alloc] init];
+        [self.contentView addSubview:self.photoView];
+    }
     
     //self.photoView.backgroundColor = [UIColor blueColor];
     //[self.photoView setImage:nil];
-    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
-    self.nameLabel = [[UILabel alloc] init];
-    //self.nameLabel.text = @"虎子";
-    self.nameLabel.text = args.title;
-    self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
-    self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
-    [self.contentView addSubview:self.nameLabel];
+    
+    if (!self.nameLabel) {
+        self.nameLabel = [[UILabel alloc] init];
+        //self.nameLabel.text = @"虎子";
+        self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
+        self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+        [self.contentView addSubview:self.nameLabel];
+        
+    }
     
     self.lineLabel1 = [[UILabel alloc] init];
     self.lineLabel1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
@@ -119,12 +124,6 @@
     
     
     //[self createProgress:self.progressLabel Tag:0 Width:274/2];
-    self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 273.0/2.0 * args.progress / 100, 6) BackgroundFrame:CGRectMake(0, 0, 274/2, 6)];
-    [self.contentView addSubview:self.progressLabel];
-    
-    self.miliView = [[UIImageView alloc] init];
-    [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
-    [self.contentView addSubview:self.miliView];
     
     
     
@@ -137,7 +136,6 @@
     [self.contentView addSubview:self.miliNum];
     self.miliNum.textColor = [UIColor colorWithHexString:@"464646"];
     //self.miliNum.text = @"24.57K";
-    self.miliNum.text = [NSString stringWithFormat:@"%d", args.rice_donate];
     self.miliNum.font = [UIFont fontWithName:@"Helvetica" size:10];
     
     self.miliLabel = [[UILabel alloc] init];
@@ -154,7 +152,6 @@
     [self.contentView addSubview:self.peopleNum];
     self.peopleNum.textColor = [UIColor colorWithHexString:@"464646"];
     //self.peopleNum.text = @"256938";
-    self.peopleNum.text = [NSString stringWithFormat:@"%d", args.join_member_num];
     self.peopleNum.font = [UIFont fontWithName:@"Helvetica" size:10];
     
     self.poppleLable = [[UILabel alloc] init];
@@ -162,14 +159,32 @@
     self.poppleLable.textColor = [UIColor colorWithHexString:@"bababa"];
     self.poppleLable.text = @"参与人数(人)";
     self.poppleLable.font = [UIFont fontWithName:@"Helvetica" size:6];
+    
+    self.miliView = [[UIImageView alloc] init];
+    [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
+    [self.contentView addSubview:self.miliView];
+    
+    self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
+    [self.contentView addSubview:self.progressLabel];
     [self setup];
+
+}
+-(void)setDetails:(Project *)args
+{
+    
+    if (!self.hasDrawn) {
+        [self drwaCell];
+        self.hasDrawn = YES;
+    }
+    
+    [self.progressLabel resetProgress:CGRectMake(0, 0, 273.0/2.0 * args.progress / 100, 6)];
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
+    self.nameLabel.text = args.title;
+    self.miliNum.text = [NSString stringWithFormat:@"%d", args.rice_donate];
+    self.peopleNum.text = [NSString stringWithFormat:@"%d", args.join_member_num];
+    
 }
 
--(void)setImage:(UIImage *)image
-{
-    [self.photoView setImage:image];
- 
-}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

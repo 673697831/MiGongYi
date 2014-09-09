@@ -9,6 +9,7 @@
 #import "DetailsViewCell.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
+#import "UIImageView+WebCache.h"
 
 
 @implementation DetailsViewCell
@@ -94,7 +95,7 @@
     if (self) {
         self.photoView = [[UIImageView alloc] init];
         [self.contentView addSubview:self.photoView];
-        self.photoView.backgroundColor = [UIColor yellowColor];
+        //self.photoView.backgroundColor = [UIColor yellowColor];
         
         self.title = [[UILabel alloc] init];
         [self.contentView addSubview:self.title];
@@ -102,7 +103,8 @@
         self.title.textColor = [UIColor colorWithHexString:@"464646"];
         self.title.font = [UIFont fontWithName:@"Helvetica" size:13];
         
-        self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 552/2/4, 10) BackgroundFrame:CGRectMake(0, 0, 552/2, 10)];
+        //self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 552/2/4, 10) BackgroundFrame:CGRectMake(0, 0, 552/2, 10)];
+        self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
         [self.contentView addSubview:self.progressLabel];
         
         self.detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
@@ -130,6 +132,16 @@
         [self setup];
     }
     return self;
+}
+
+- (void)setDetails:(Project *)args
+{
+    self.title.text = args.title;
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
+    [self.progressLabel resetProgress:CGRectMake(0, 0, 552.0/2*args.progress/100, 10)];
+    self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.rice_donate];
+    self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.join_member_num];
+    self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.fay_num];
 }
 
 - (void)awakeFromNib

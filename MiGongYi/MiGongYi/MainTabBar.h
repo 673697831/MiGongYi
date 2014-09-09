@@ -10,7 +10,7 @@
 #import "ProgramListView.h"
 #import "DetailsMainView.h"
 @interface MainTabBar : UITabBarController
--(void)RefreshProgramListView;
+-(void)RefreshProgramListView:(int)type;
 @property(nonatomic, strong) UINavigationController *tab1Nav;
 @property(nonatomic, strong) ProgramListView *listView;
 @property(nonatomic, strong) UINavigationController *tab2Nav;

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ProgressLabel.h"
 #import "DetailsIcon.h"
+#import "Project.h"
 
 @interface DetailsViewCell : UITableViewCell
+-(void)setDetails:(Project *)args;
 @property(nonatomic, strong) UIImageView *photoView;
 @property(nonatomic, strong) UILabel *title;
 @property(nonatomic, strong) ProgressLabel *progressLabel;

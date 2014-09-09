@@ -17,6 +17,8 @@
 
 @implementation DataManager
 @synthesize projectList = __projectList;
+@synthesize childList = __childList;
+@synthesize itemList = __itemList;
 +(DataManager *)shareInstance
 {
     static DataManager *instance;
@@ -31,6 +33,8 @@
 {
     self = [super init];
     __projectList = [[NSMutableArray alloc] init];
+    __childList = [[NSMutableArray alloc] init];
+    __itemList = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -41,12 +45,22 @@
         
         [self.projectList addObject:newProject];
         
+        if (type == 1) {
+            [self.itemList addObject:newProject];
+        }
+        
+        if (type == 2) {
+            [self.childList addObject:newProject];
+        }
+        
     }
 }
 
 -(void)SetProjects:(NSArray *)list Type:(int)type
 {
     [self.projectList removeAllObjects];
+    [self.itemList removeAllObjects];
+    [self.childList removeAllObjects];
     [self AddProjects:list Type:type];
 }
 
@@ -57,12 +71,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"start":[NSNumber numberWithInt:start], @"limit":[NSNumber numberWithInt:limit], @"project_type":[NSNumber numberWithInt:type]};
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        
         if ([responseObject[@"data"] isKindOfClass:[NSArray class]]) {
             //NSLog(@"%@", responseObject[@"data"]);
         }
         [self SetProjects:responseObject[@"data"] Type:type];
-        [[MainTabBar shareInstance] RefreshProgramListView];
+        [[MainTabBar shareInstance] RefreshProgramListView:type];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];

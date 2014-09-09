@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ProgressLabel : UILabel
+@property(nonatomic, strong) CAGradientLayer* blackgroundLayer;
+@property(nonatomic, strong) CAGradientLayer* progressLayer;
 - (id)initWithFrame:(CGRect)frame BackgroundFrame:(CGRect)backgroundFrame;
+- (void)resetProgress:(CGRect)frame;
 @end

@@ -12,9 +12,7 @@
 
 @interface ProgramListCell : UICollectionViewCell
 
--(id)initWithFrame:(CGRect)frame Args:(NSArray *) args;
 -(void)setDetails:(Project *)args;
--(void)setImage:(UIImage *)image;
 @property(nonatomic, strong) UIImageView *photoView;
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) UILabel *lineLabel1;
@@ -26,4 +24,5 @@
 @property(nonatomic, strong) UIImageView *peopleView;
 @property(nonatomic, strong) UILabel *peopleNum;
 @property(nonatomic, strong) UILabel *poppleLable;
+@property(nonatomic, assign) BOOL hasDrawn;
 @end

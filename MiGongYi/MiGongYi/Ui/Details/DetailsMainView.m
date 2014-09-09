@@ -10,9 +10,10 @@
 #import "DetailsViewCell.h"
 #import "UIColor+Expanded.h"
 #import "TitleSubLayer.h"
+#import "Project.h"
 
 @interface DetailsMainView ()
-
+@property (nonatomic, strong) NSMutableArray* array;
 @end
 
 @implementation DetailsMainView
@@ -22,6 +23,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.array = [NSMutableArray array];
         
     }
     return self;
@@ -66,14 +68,15 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 5;
+   // NSLog(@"%d uuuu", self.array.count);
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 1;
+    return self.array.count;
 }
 
 
@@ -84,9 +87,12 @@
     // Configure the cell...
     DetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Details Cell" forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[DetailsViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Details Cell"];
-        
+        cell = [[DetailsViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Details Cell" ];
+       // cell = [[DetailsViewCell alloc] initwi];
     }
+    
+    [cell setDetails:self.array[indexPath.row]];
+    NSLog(@"ttttttttttt %d", indexPath.row);
     //NSLog(@"cellforrowatindexpath");
     
     
@@ -96,6 +102,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return (448 +200 +50)/2;
+}
+
+-(void)resetData:(NSMutableArray *)array
+{
+    [self.array removeAllObjects];
+    [self.array addObjectsFromArray:array];
+    [self.tableView reloadData];
 }
 
 /*
