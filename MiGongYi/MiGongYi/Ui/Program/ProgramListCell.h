@@ -25,4 +25,6 @@
 @property(nonatomic, strong) UILabel *peopleNum;
 @property(nonatomic, strong) UILabel *poppleLable;
 @property(nonatomic, assign) BOOL hasDrawn;
+@property(nonatomic, strong) UILabel *finishLabel;
+@property(nonatomic, strong) UILabel *finishText;
 @end

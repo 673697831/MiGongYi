@@ -13,9 +13,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TitleSubLayer.h"
 #import "Project.h"
+#import "DataManager.h"
+#import "MainTabBar.h"
+#import "AppDelegate.h"
 
 @interface ProgramListView ()
 @property (nonatomic, strong) NSMutableArray* array;
+@property (nonatomic, assign) BOOL isLoading;
 @end
 
 @implementation ProgramListView
@@ -76,14 +80,15 @@
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
                          [UIColor whiteColor], NSForegroundColorAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:dic];
-//    CGFloat verticalOffset = -5;
-//    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
     self.whiteButton = [[UIButton alloc] init];
     self.whiteButton.backgroundColor = [UIColor whiteColor];
     self.whiteButton.frame = CGRectMake(frame.size.width - 24 - 10, frame.size.height - 24 -10, 24, 24);
     [self.navigationController.navigationBar addSubview:self.whiteButton];
     
+    self.programDetailsView = [[ProgramDetailsView alloc] initWithNibName:nil bundle:nil];
+    
+    [self.navigationController setHidesBottomBarWhenPushed:YES];
     // Do any additional setup after loading the view.
 }
 
@@ -106,21 +111,41 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ProgramListCell *cell = (ProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Programe Cell" forIndexPath:indexPath];
-    if (indexPath.row * 2 + indexPath.section +1 > self.array.count) {
+    int index = indexPath.row + indexPath.section * 2;
+    if ( index >= self.array.count) {
         return cell;
     }
-    //NSLog(@"ccccccc  %d %d", indexPath.row, indexPath.section);
     
-    [cell setDetails:self.array[indexPath.row * 2 + indexPath.section]];
+    [cell setDetails:self.array[index]];
+    
+    if (self.array.count - index > 2*2) {
+        if (self.isLoading) {
+            return cell;
+        }
+        self.isLoading = YES;
+        [[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
+    }
     
     return cell;
 }
 
-- (void)resetData:(NSMutableArray *)array
+- (void)resetData:(NSMutableArray *)array Reset:(BOOL)reset
 {
-    [self.array removeAllObjects];
+    if (reset) {
+        [self.array removeAllObjects];
+    }
     [self.array addObjectsFromArray:array];
     [self.collectionView reloadData];
+    self.isLoading = NO;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [[MainTabBar shareInstance].navigationController pushViewController:self.programDetailsView animated:NO];
+    //[self.navigationController pushViewController:self.programDetailsView animated:YES];
+//    [[[UIApplication sharedApplication] keyWindow].rootViewController.navigationController pushViewController:self.programDetailsView animated:YES];
+    //[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:self.programDetailsView animated:YES completion:nil];
+    //[[MainTabBar shareInstance] OpenDetailsSubView];
 }
 /*
 #pragma mark - Navigation

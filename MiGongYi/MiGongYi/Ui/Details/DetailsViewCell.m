@@ -86,6 +86,11 @@
         make.height.mas_equalTo(25);
     }];
     
+    [self.finishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.photoView.mas_centerX);
+        make.centerY.equalTo(self.photoView.mas_centerY);
+    }];
+    
 }
 
 
@@ -95,7 +100,19 @@
     if (self) {
         self.photoView = [[UIImageView alloc] init];
         [self.contentView addSubview:self.photoView];
-        //self.photoView.backgroundColor = [UIColor yellowColor];
+
+        self.finishLabel = [[UILabel alloc] init];
+        [self.photoView addSubview:self.finishLabel];
+        self.finishLabel.text = @"捐赠已完成";
+        self.finishLabel.textColor = [UIColor whiteColor];
+        
+        CATextLayer *subLayer = [CATextLayer layer];
+        [self.finishLabel.layer insertSublayer:subLayer atIndex:10];
+        subLayer.frame = CGRectMake(-500, -9, 1000, 40);
+        subLayer.opacity = 0.5;
+        subLayer.backgroundColor = [UIColor grayColor].CGColor;
+        self.finishLabel.hidden = YES;
+    
         
         self.title = [[UILabel alloc] init];
         [self.contentView addSubview:self.title];
@@ -142,6 +159,12 @@
     self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.rice_donate];
     self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.join_member_num];
     self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.fay_num];
+    if (args.status == 0) {
+        self.finishLabel.hidden = NO;
+    }else
+    {
+        self.finishLabel.hidden = YES;
+    }
 }
 
 - (void)awakeFromNib

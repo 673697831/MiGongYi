@@ -9,7 +9,6 @@
 #import "DataManager.h"
 #import "AFNetworking.h"
 #import "MainTabBar.h"
-#define URI "http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=list"
 
 @interface DataManager ()
 @end
@@ -42,7 +41,6 @@
 {
     for (NSDictionary *dic in list) {
         Project *newProject = [[Project alloc] initWithKeys:type ProjectId:[dic[@"type"] intValue] CoverImg:dic[@"cover_img"] Title:dic[@"title"] RiceDonate:[dic[@"rice_donate"] intValue] Progress:[dic[@"progress"] intValue] FayNum:[dic[@"fay_num"] intValue] JoinMemberNum:[dic[@"join_member_num"] intValue] Status:[dic[@"status"] intValue]];
-        
         [self.projectList addObject:newProject];
         
         if (type == 1) {
@@ -56,15 +54,21 @@
     }
 }
 
--(void)SetProjects:(NSArray *)list Type:(int)type
+-(void)SetProjects:(NSArray *)list Type:(int)type Reset:(BOOL)reset
 {
-    [self.projectList removeAllObjects];
-    [self.itemList removeAllObjects];
-    [self.childList removeAllObjects];
+    if (reset) {
+        if (type == 1) {
+            [self.itemList removeAllObjects];
+        }
+        if (type == 2) {
+            [self.childList removeAllObjects];
+        }
+        [self.projectList removeAllObjects];
+    }
     [self AddProjects:list Type:type];
 }
 
--(void)RequestForList:(int)type Start:(int)start Limit:(int)limit
+-(void)RequestForList:(int)type Start:(int)start Limit:(int)limit Reset:(BOOL)reset
 {
     NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=list";
     
@@ -74,8 +78,11 @@
         if ([responseObject[@"data"] isKindOfClass:[NSArray class]]) {
             //NSLog(@"%@", responseObject[@"data"]);
         }
-        [self SetProjects:responseObject[@"data"] Type:type];
-        [[MainTabBar shareInstance] RefreshProgramListView:type];
+        if ([responseObject[@"data"] count] == 0) {
+            return;
+        }
+        [self SetProjects:responseObject[@"data"] Type:type Reset:reset];
+        [[MainTabBar shareInstance] RefreshProgramListView:type Reset:reset];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];

@@ -85,6 +85,18 @@
         make.top.equalTo(self.peopleNum.mas_bottom).with.offset(1);
         make.left.equalTo(self.peopleNum.mas_left);
     }];
+    
+    [self.finishText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.photoView.mas_centerX);
+        make.centerY.equalTo(self.photoView.mas_centerY);
+    }];
+    
+    [self.finishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.finishText.mas_centerX);
+        make.centerY.equalTo(self.finishText.mas_centerY);
+        make.width.equalTo(self.photoView.mas_width);
+        make.height.mas_equalTo(40);
+    }];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -101,22 +113,27 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     
-    if (!self.photoView) {
-        self.photoView = [[UIImageView alloc] init];
-        [self.contentView addSubview:self.photoView];
-    }
+    self.photoView = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.photoView];
     
-    //self.photoView.backgroundColor = [UIColor blueColor];
-    //[self.photoView setImage:nil];
+    self.finishText = [[UILabel alloc] init];
+    [self.photoView addSubview:self.finishText];
+    self.finishText.text = @"捐赠已完成";
+    self.finishText.textColor = [UIColor whiteColor];
     
-    if (!self.nameLabel) {
-        self.nameLabel = [[UILabel alloc] init];
-        //self.nameLabel.text = @"虎子";
-        self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
-        self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
-        [self.contentView addSubview:self.nameLabel];
-        
-    }
+    self.finishLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:self.finishLabel];
+    self.finishLabel.backgroundColor = [UIColor grayColor];
+    self.finishLabel.alpha = 0.5;
+    self.finishText.hidden = YES;
+    self.finishLabel.hidden = YES;
+    
+    self.nameLabel = [[UILabel alloc] init];
+    //self.nameLabel.text = @"虎子";
+    self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
+    self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+    [self.contentView addSubview:self.nameLabel];
+    
     
     self.lineLabel1 = [[UILabel alloc] init];
     self.lineLabel1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
@@ -182,7 +199,14 @@
     self.nameLabel.text = args.title;
     self.miliNum.text = [NSString stringWithFormat:@"%d", args.rice_donate];
     self.peopleNum.text = [NSString stringWithFormat:@"%d", args.join_member_num];
-    
+    if (args.status == 0) {
+        self.finishLabel.hidden = NO;
+        self.finishText.hidden = NO;
+    }else
+    {
+        self.finishLabel.hidden = YES;
+        self.finishText.hidden = YES;
+    }
 }
 
 /*

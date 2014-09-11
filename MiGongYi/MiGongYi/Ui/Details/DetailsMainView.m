@@ -11,9 +11,11 @@
 #import "UIColor+Expanded.h"
 #import "TitleSubLayer.h"
 #import "Project.h"
+#import "DataManager.h"
 
 @interface DetailsMainView ()
 @property (nonatomic, strong) NSMutableArray* array;
+@property(nonatomic, assign) BOOL isLoading;
 @end
 
 @implementation DetailsMainView
@@ -24,9 +26,26 @@
     if (self) {
         // Custom initialization
         self.array = [NSMutableArray array];
+        //self.refreshControl.hidden = YES;
+        //self.tableView.contentInset = UIEdgeInsetsMake(64.f, 0.f, 0.f, 0.f);
+        //self.refreshControl = [[UIRefreshControl alloc]init];
+        //self.refreshControl.frame = CGRectMake(0, 0, 0, 0);
+        //self.refreshControl.layer.zPosition = self.navigationController.navigationBar.layer.zPosition + 100;
+        //self.refreshControl.backgroundColor = [UIColor clearColor];
+        //self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"下拉刷新"];
+        //[self.refreshControl addTarget:self action:@selector(handleData) forControlEvents:UIControlEventValueChanged];
         
     }
     return self;
+}
+
+- (void) handleData
+{
+    if (self.isLoading) {
+        return;
+    }
+    self.isLoading = YES;
+    [[DataManager shareInstance] RequestForList:1 Start:0 Limit:3 Reset:YES];
 }
 
 - (void)viewDidLoad
@@ -92,7 +111,10 @@
     }
     
     [cell setDetails:self.array[indexPath.row]];
-    NSLog(@"ttttttttttt %d", indexPath.row);
+    if (!self.isLoading && self.array.count - indexPath.row > 1) {
+        self.isLoading = YES;
+        [[DataManager shareInstance] RequestForList:1 Start:self.array.count Limit:3 Reset:NO];
+    }
     //NSLog(@"cellforrowatindexpath");
     
     
@@ -104,11 +126,15 @@
     return (448 +200 +50)/2;
 }
 
--(void)resetData:(NSMutableArray *)array
+-(void)resetData:(NSMutableArray *)array Reset:(BOOL)reset
 {
-    [self.array removeAllObjects];
+    if (reset) {
+        [self.array removeAllObjects];
+    }
     [self.array addObjectsFromArray:array];
     [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
+    self.isLoading = NO;
 }
 
 /*

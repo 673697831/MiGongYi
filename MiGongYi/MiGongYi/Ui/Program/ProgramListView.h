@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProgramDetailsView.h"
 
 @interface ProgramListView : UICollectionViewController
 @property(nonatomic, strong) UIButton *whiteButton;
--(void)resetData:(NSMutableArray *)array;
+@property(nonatomic, strong) ProgramDetailsView *programDetailsView;
+-(void)resetData:(NSMutableArray *)array Reset:(BOOL)reset;
 @end

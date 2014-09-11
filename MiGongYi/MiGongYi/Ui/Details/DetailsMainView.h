@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailsMainView : UITableViewController<UITableViewDelegate,UITableViewDataSource>
--(void)resetData:(NSMutableArray *)array;
+-(void)resetData:(NSMutableArray *)array Reset:(BOOL)reset;
 @end

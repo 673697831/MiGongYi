@@ -22,4 +22,5 @@
 @property(nonatomic, strong) UILabel *line1;
 @property(nonatomic, strong) UILabel *line2;
 @property(nonatomic, strong) UILabel *buttomLabel;
+@property(nonatomic, strong) UILabel *finishLabel;
 @end

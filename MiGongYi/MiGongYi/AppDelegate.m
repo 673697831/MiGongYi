@@ -19,10 +19,10 @@
     [self.window makeKeyAndVisible];
     [BlackMagic blackMagicAFJSONResponseSerializer];
     MainTabBar *bar = [MainTabBar shareInstance];
-    //UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:bar];
-    //nav.navigationBar.hidden = YES;
-    self.window.rootViewController = bar;
-    //[nav setHidesBottomBarWhenPushed:YES];
+    self.nav = [[MainNav alloc] initWithRootViewController:bar];
+    self.nav.navigationBar.hidden = YES;
+    self.window.rootViewController = self.nav;
+    [self.nav setHidesBottomBarWhenPushed:YES];
     return YES;
 }
 

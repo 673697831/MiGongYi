@@ -18,8 +18,7 @@
 @property(nonatomic, readonly) NSMutableArray* childList;
 @property(nonatomic, readonly) NSMutableArray* itemList;
 -(void)AddProjects:(NSArray *)list Type:(int)type;
--(void)SetProjects:(NSArray *)list Type:(int)type;
+-(void)SetProjects:(NSArray *)list Type:(int)type Reset:(BOOL)reset;
 +(DataManager *)shareInstance;
-+(void)getData;
--(void)RequestForList:(int)type Start:(int)start Limit:(int)limit;
+-(void)RequestForList:(int)type Start:(int)start Limit:(int)limit Reset:(BOOL)reset;
 @end
