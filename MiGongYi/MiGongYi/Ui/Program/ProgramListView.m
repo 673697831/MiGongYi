@@ -14,7 +14,7 @@
 #import "TitleSubLayer.h"
 #import "Project.h"
 #import "DataManager.h"
-#import "MainTabBar.h"
+#import "MGYTabBarController.h"
 #import "AppDelegate.h"
 
 @interface ProgramListView ()
@@ -89,6 +89,8 @@
     self.programDetailsView = [[ProgramDetailsView alloc] initWithNibName:nil bundle:nil];
     
     [self.navigationController setHidesBottomBarWhenPushed:YES];
+    
+    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES];
     // Do any additional setup after loading the view.
 }
 
@@ -111,19 +113,19 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ProgramListCell *cell = (ProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Programe Cell" forIndexPath:indexPath];
-    int index = indexPath.row + indexPath.section * 2;
+    NSInteger index = indexPath.row + indexPath.section * 2;
     if ( index >= self.array.count) {
         return cell;
     }
     
-    [cell setDetails:self.array[index]];
+    [cell update:self.array[index]];
     
     if (self.array.count - index > 2*2) {
         if (self.isLoading) {
             return cell;
         }
         self.isLoading = YES;
-        [[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
+        [[DataManager shareInstance] requestForList:2 start:self.array.count limit:10 reset:NO];
     }
     
     return cell;
@@ -141,12 +143,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[MainTabBar shareInstance].navigationController pushViewController:self.programDetailsView animated:NO];
+    [[MGYTabBarController shareInstance].navigationController pushViewController:self.programDetailsView animated:NO];
     //[self.navigationController pushViewController:self.programDetailsView animated:YES];
 //    [[[UIApplication sharedApplication] keyWindow].rootViewController.navigationController pushViewController:self.programDetailsView animated:YES];
     //[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:self.programDetailsView animated:YES completion:nil];
     //[[MainTabBar shareInstance] OpenDetailsSubView];
 }
+
 /*
 #pragma mark - Navigation
 

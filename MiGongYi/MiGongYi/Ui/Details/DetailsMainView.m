@@ -26,15 +26,6 @@
     if (self) {
         // Custom initialization
         self.array = [NSMutableArray array];
-        //self.refreshControl.hidden = YES;
-        //self.tableView.contentInset = UIEdgeInsetsMake(64.f, 0.f, 0.f, 0.f);
-        //self.refreshControl = [[UIRefreshControl alloc]init];
-        //self.refreshControl.frame = CGRectMake(0, 0, 0, 0);
-        //self.refreshControl.layer.zPosition = self.navigationController.navigationBar.layer.zPosition + 100;
-        //self.refreshControl.backgroundColor = [UIColor clearColor];
-        //self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"下拉刷新"];
-        //[self.refreshControl addTarget:self action:@selector(handleData) forControlEvents:UIControlEventValueChanged];
-        
     }
     return self;
 }
@@ -45,12 +36,13 @@
         return;
     }
     self.isLoading = YES;
-    [[DataManager shareInstance] RequestForList:1 Start:0 Limit:3 Reset:YES];
+    [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"viewdidload~~~~~~~");
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.title = @"公益项目";
     [self.tableView registerClass:[DetailsViewCell class] forCellReuseIdentifier:@"Details Cell"];
@@ -68,6 +60,7 @@
                          [UIColor whiteColor], NSForegroundColorAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:dic];
     
+    [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -85,7 +78,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
    // NSLog(@"%d uuuu", self.array.count);
     return 1;
@@ -93,7 +85,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return self.array.count;
 }
@@ -110,10 +101,10 @@
        // cell = [[DetailsViewCell alloc] initwi];
     }
     
-    [cell setDetails:self.array[indexPath.row]];
+    [cell updateDetails:self.array[indexPath.row]];
     if (!self.isLoading && self.array.count - indexPath.row > 1) {
         self.isLoading = YES;
-        [[DataManager shareInstance] RequestForList:1 Start:self.array.count Limit:3 Reset:NO];
+        [[DataManager shareInstance] requestForList:1 start:self.array.count limit:3 reset:NO];
     }
     //NSLog(@"cellforrowatindexpath");
     
@@ -131,6 +122,7 @@
     if (reset) {
         [self.array removeAllObjects];
     }
+    NSLog(@"resetData~~~~~~");
     [self.array addObjectsFromArray:array];
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];

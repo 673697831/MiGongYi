@@ -10,18 +10,23 @@
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
 #import "UIImageView+WebCache.h"
+#import "MGYProgressView.h"
 
+@interface DetailsViewCell ()
+@property(nonatomic, weak) UIImageView *photoView;
+@property(nonatomic, weak) UILabel *title;
+//@property(nonatomic, weak) ProgressLabel *progressLabel;
+@property(nonatomic, weak) MGYProgressView *progressLabel;
+@property(nonatomic, weak) DetailsIcon *detailsIconLeft;
+@property(nonatomic, weak) DetailsIcon *detailsIconMiddle;
+@property(nonatomic, weak) DetailsIcon *detailsIconRight;
+@property(nonatomic, weak) UILabel *line1;
+@property(nonatomic, weak) UILabel *line2;
+@property(nonatomic, weak) UILabel *buttomLabel;
+@property(nonatomic, weak) UILabel *finishLabel;
+@end
 
 @implementation DetailsViewCell
-@synthesize photoView;
-@synthesize title;
-@synthesize progressLabel;
-@synthesize detailsIconLeft;
-@synthesize detailsIconMiddle;
-@synthesize detailsIconRight;
-@synthesize line1;
-@synthesize line2;
-@synthesize buttomLabel;
 - (void)setup
 {
     [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,10 +103,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.photoView = [[UIImageView alloc] init];
+        
+        UIImageView *photoView = [UIImageView new];
+        self.photoView = photoView;
         [self.contentView addSubview:self.photoView];
-
-        self.finishLabel = [[UILabel alloc] init];
+        
+        UILabel *finishLabel = [UILabel new];
+        self.finishLabel = finishLabel;
         [self.photoView addSubview:self.finishLabel];
         self.finishLabel.text = @"捐赠已完成";
         self.finishLabel.textColor = [UIColor whiteColor];
@@ -113,49 +121,59 @@
         subLayer.backgroundColor = [UIColor grayColor].CGColor;
         self.finishLabel.hidden = YES;
     
-        
-        self.title = [[UILabel alloc] init];
+        UILabel *title = [UILabel new];
+        self.title = title;
         [self.contentView addSubview:self.title];
         self.title.text = @"一碗粮, 关爱一个流浪的生命";
         self.title.textColor = [UIColor colorWithHexString:@"464646"];
         self.title.font = [UIFont fontWithName:@"Helvetica" size:13];
         
-        //self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 552/2/4, 10) BackgroundFrame:CGRectMake(0, 0, 552/2, 10)];
-        self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
+        MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
+        self.progressLabel = progressLabel;
+        progressLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.progressLabel];
         
-        self.detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
+        DetailsIcon *detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
+        self.detailsIconLeft = detailsIconLeft;
         [self.contentView addSubview:self.detailsIconLeft];
         
-        self.detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_People_normal2", @"path", @"参与人数", @"text", nil]];
+        DetailsIcon *detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_People_normal2", @"path", @"参与人数", @"text", nil]];
+        self.detailsIconMiddle = detailsIconMiddle;
         [self.contentView addSubview:self.detailsIconMiddle];
         
-        self.detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Fav_normal2", @"path", @"收藏次数", @"text", nil]];
+        DetailsIcon *detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Fav_normal2", @"path", @"收藏次数", @"text", nil]];
+        self.detailsIconRight = detailsIconRight;
         [self.contentView addSubview:self.detailsIconRight];
         
-        self.line1 = [[UILabel alloc] init];
+        UILabel *line1 = [UILabel new];
+        self.line1 = line1;
         [self.contentView addSubview:self.line1];
         self.line1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
         
-        self.line2 = [[UILabel alloc] init];
+        UILabel *line2 = [UILabel new];
+        self.line2 = line2;
         [self.contentView addSubview:self.line2];
         self.line2.backgroundColor = [UIColor colorWithHexString:@"bababa"];
         
-        self.buttomLabel = [[UILabel alloc] init];
+        UILabel *buttomLabel = [UILabel new];
+        self.buttomLabel = buttomLabel;
         [self.contentView addSubview:self.buttomLabel];
         self.buttomLabel.backgroundColor = [UIColor colorWithHexString:@"ebebeb"];
         //tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"page_Fav_normal2"] tag:0];
         
         [self setup];
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
 
-- (void)setDetails:(Project *)args
+- (void)updateDetails:(Project *)args
 {
     self.title.text = args.title;
     [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
-    [self.progressLabel resetProgress:CGRectMake(0, 0, 552.0/2*args.progress/100, 10)];
+    //[self.progressLabel resetProgress:CGRectMake(0, 0, 552.0/2*args.progress/100, 10)];
+    [self.progressLabel updateProgress:args.progress];
     self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.rice_donate];
     self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.join_member_num];
     self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.fay_num];

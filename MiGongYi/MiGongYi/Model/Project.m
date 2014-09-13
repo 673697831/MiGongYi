@@ -23,4 +23,27 @@
     self.status = status;
     return self;
 }
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"project_id": @"project_id",
+             @"cover_img": @"cover_img",
+             @"title": @"title",
+             @"rice_donate": @"rice_donate",
+             @"progress": @"progress",
+             @"fay_num": @"fay_num",
+             @"join_member_num": @"join_member_num",
+             @"status": @"status",
+             };
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error {
+    self = [super initWithDictionary:dictionaryValue error:error];
+    if (self == nil) return nil;
+    
+    // Store a value that needs to be determined locally upon initialization.
+    //_retrievedAt = [NSDate date];
+    
+    return self;
+}
 @end

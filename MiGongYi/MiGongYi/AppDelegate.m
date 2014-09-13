@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BlackMagic.h"
-#import "MainTabBar.h"
+#import "MGYTabBarController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -18,11 +18,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [BlackMagic blackMagicAFJSONResponseSerializer];
-    MainTabBar *bar = [MainTabBar shareInstance];
-    self.nav = [[MainNav alloc] initWithRootViewController:bar];
-    self.nav.navigationBar.hidden = YES;
-    self.window.rootViewController = self.nav;
-    [self.nav setHidesBottomBarWhenPushed:YES];
+    MGYTabBarController *bar = [MGYTabBarController shareInstance];
+    self.window.rootViewController = bar;
+    //application.statusBarStyle = UIStatusBarStyleLightContent;
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }
 

@@ -60,13 +60,16 @@
 		20A2D28E19B9DCDC004C7697 /* ProgramListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D28A19B9DCDC004C7697 /* ProgramListView.m */; };
 		20A2D29119B9DDD5004C7697 /* TitleSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29019B9DDD5004C7697 /* TitleSubLayer.m */; };
 		20A2D29419B9E82D004C7697 /* DetailsIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29319B9E82D004C7697 /* DetailsIcon.m */; };
-		20A2D29719B9EB84004C7697 /* DetailsIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29619B9EB84004C7697 /* DetailsIconView.m */; };
 		20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29919BAAFC0004C7697 /* DataManager.m */; };
 		20A2D2A119BE98C5004C7697 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D2A019BE98C5004C7697 /* Project.m */; };
 		20CC63F619C1446E007230A1 /* ProgramDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC63F519C1446E007230A1 /* ProgramDetailsView.m */; };
-		20CC63F919C1504F007230A1 /* MainNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC63F819C1504F007230A1 /* MainNav.m */; };
+		20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640319C2A807007230A1 /* MGYBaseViewController.m */; };
+		20CC640719C2AAF5007230A1 /* MGYBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640619C2AAF5007230A1 /* MGYBaseProgressView.m */; };
+		20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640919C2AEDC007230A1 /* MGYProgramChildrenViewController.m */; };
+		20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640D19C2FB61007230A1 /* MGYProgressView.m */; };
+		20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC641019C3EDA8007230A1 /* MGYProgramItemViewController.m */; };
 		20E445A919B63030007B2900 /* BlackMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445A819B63030007B2900 /* BlackMagic.m */; };
-		20E445AC19B637EA007B2900 /* MainTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445AB19B637EA007B2900 /* MainTabBar.m */; };
+		20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445AB19B637EA007B2900 /* MGYTabBarController.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -146,20 +149,26 @@
 		20A2D29019B9DDD5004C7697 /* TitleSubLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleSubLayer.m; sourceTree = "<group>"; };
 		20A2D29219B9E82D004C7697 /* DetailsIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsIcon.h; sourceTree = "<group>"; };
 		20A2D29319B9E82D004C7697 /* DetailsIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsIcon.m; sourceTree = "<group>"; };
-		20A2D29519B9EB84004C7697 /* DetailsIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsIconView.h; sourceTree = "<group>"; };
-		20A2D29619B9EB84004C7697 /* DetailsIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsIconView.m; sourceTree = "<group>"; };
 		20A2D29819BAAFC0004C7697 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		20A2D29919BAAFC0004C7697 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		20A2D29F19BE98C5004C7697 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		20A2D2A019BE98C5004C7697 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		20CC63F419C1446E007230A1 /* ProgramDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramDetailsView.h; sourceTree = "<group>"; };
 		20CC63F519C1446E007230A1 /* ProgramDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramDetailsView.m; sourceTree = "<group>"; };
-		20CC63F719C1504F007230A1 /* MainNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNav.h; sourceTree = "<group>"; };
-		20CC63F819C1504F007230A1 /* MainNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNav.m; sourceTree = "<group>"; };
+		20CC640219C2A807007230A1 /* MGYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBaseViewController.h; sourceTree = "<group>"; };
+		20CC640319C2A807007230A1 /* MGYBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBaseViewController.m; sourceTree = "<group>"; };
+		20CC640519C2AAF5007230A1 /* MGYBaseProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBaseProgressView.h; sourceTree = "<group>"; };
+		20CC640619C2AAF5007230A1 /* MGYBaseProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBaseProgressView.m; sourceTree = "<group>"; };
+		20CC640819C2AEDC007230A1 /* MGYProgramChildrenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProgramChildrenViewController.h; sourceTree = "<group>"; };
+		20CC640919C2AEDC007230A1 /* MGYProgramChildrenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProgramChildrenViewController.m; sourceTree = "<group>"; };
+		20CC640C19C2FB61007230A1 /* MGYProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProgressView.h; sourceTree = "<group>"; };
+		20CC640D19C2FB61007230A1 /* MGYProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProgressView.m; sourceTree = "<group>"; };
+		20CC640F19C3EDA8007230A1 /* MGYProgramItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProgramItemViewController.h; sourceTree = "<group>"; };
+		20CC641019C3EDA8007230A1 /* MGYProgramItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProgramItemViewController.m; sourceTree = "<group>"; };
 		20E445A719B63030007B2900 /* BlackMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackMagic.h; sourceTree = "<group>"; };
 		20E445A819B63030007B2900 /* BlackMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackMagic.m; sourceTree = "<group>"; };
-		20E445AA19B637EA007B2900 /* MainTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBar.h; sourceTree = "<group>"; };
-		20E445AB19B637EA007B2900 /* MainTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBar.m; sourceTree = "<group>"; };
+		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYTabBarController.h; sourceTree = "<group>"; };
+		20E445AB19B637EA007B2900 /* MGYTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYTabBarController.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -233,12 +242,10 @@
 				2085C85C19B6280C00E9FA3B /* Supporting Files */,
 				20E445A719B63030007B2900 /* BlackMagic.h */,
 				20E445A819B63030007B2900 /* BlackMagic.m */,
-				20E445AA19B637EA007B2900 /* MainTabBar.h */,
-				20E445AB19B637EA007B2900 /* MainTabBar.m */,
+				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
+				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
 				20A2D29819BAAFC0004C7697 /* DataManager.h */,
 				20A2D29919BAAFC0004C7697 /* DataManager.m */,
-				20CC63F719C1504F007230A1 /* MainNav.h */,
-				20CC63F819C1504F007230A1 /* MainNav.m */,
 			);
 			path = MiGongYi;
 			sourceTree = "<group>";
@@ -338,8 +345,6 @@
 				20A2D29019B9DDD5004C7697 /* TitleSubLayer.m */,
 				20A2D29219B9E82D004C7697 /* DetailsIcon.h */,
 				20A2D29319B9E82D004C7697 /* DetailsIcon.m */,
-				20A2D29519B9EB84004C7697 /* DetailsIconView.h */,
-				20A2D29619B9EB84004C7697 /* DetailsIconView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -347,8 +352,13 @@
 		20A2D28019B9DCDC004C7697 /* Ui */ = {
 			isa = PBXGroup;
 			children = (
+				20CC640119C2A7ED007230A1 /* Template */,
 				20A2D28119B9DCDC004C7697 /* Details */,
 				20A2D28619B9DCDC004C7697 /* Program */,
+				20CC640819C2AEDC007230A1 /* MGYProgramChildrenViewController.h */,
+				20CC640919C2AEDC007230A1 /* MGYProgramChildrenViewController.m */,
+				20CC640F19C3EDA8007230A1 /* MGYProgramItemViewController.h */,
+				20CC641019C3EDA8007230A1 /* MGYProgramItemViewController.m */,
 			);
 			path = Ui;
 			sourceTree = "<group>";
@@ -384,6 +394,27 @@
 				20A2D2A019BE98C5004C7697 /* Project.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		20CC640119C2A7ED007230A1 /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				20CC640B19C2FA9C007230A1 /* Cell */,
+				20CC640219C2A807007230A1 /* MGYBaseViewController.h */,
+				20CC640319C2A807007230A1 /* MGYBaseViewController.m */,
+				20CC640519C2AAF5007230A1 /* MGYBaseProgressView.h */,
+				20CC640619C2AAF5007230A1 /* MGYBaseProgressView.m */,
+				20CC640C19C2FB61007230A1 /* MGYProgressView.h */,
+				20CC640D19C2FB61007230A1 /* MGYProgressView.m */,
+			);
+			path = Template;
+			sourceTree = "<group>";
+		};
+		20CC640B19C2FA9C007230A1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -553,18 +584,21 @@
 				20A2D27F19B9DBC7004C7697 /* ProgressLabel.m in Sources */,
 				20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */,
 				20A2D29419B9E82D004C7697 /* DetailsIcon.m in Sources */,
-				20E445AC19B637EA007B2900 /* MainTabBar.m in Sources */,
+				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
 				20A2D28B19B9DCDC004C7697 /* DetailsMainView.m in Sources */,
+				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
 				20A2D28E19B9DCDC004C7697 /* ProgramListView.m in Sources */,
+				20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */,
+				20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */,
 				2085C86619B6280C00E9FA3B /* AppDelegate.m in Sources */,
 				20CC63F619C1446E007230A1 /* ProgramDetailsView.m in Sources */,
 				2085C86219B6280C00E9FA3B /* main.m in Sources */,
 				20E445A919B63030007B2900 /* BlackMagic.m in Sources */,
+				20CC640719C2AAF5007230A1 /* MGYBaseProgressView.m in Sources */,
 				20A2D28D19B9DCDC004C7697 /* ProgramListCell.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* Project.m in Sources */,
-				20A2D29719B9EB84004C7697 /* DetailsIconView.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* DetailsViewCell.m in Sources */,
-				20CC63F919C1504F007230A1 /* MainNav.m in Sources */,
+				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
 				20A2D29119B9DDD5004C7697 /* TitleSubLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

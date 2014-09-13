@@ -8,17 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import "Project.h"
+
+typedef NS_ENUM(NSInteger, ProjectType) {
+    ItemType = 1,
+    ChildrenType = 2,
+};
+
 @interface DataManager : NSObject
 {
     NSMutableArray *__projectList;
     NSMutableArray *__childList;
     NSMutableArray *__itemList;
 }
-@property(nonatomic, readonly) NSMutableArray* projectList;
-@property(nonatomic, readonly) NSMutableArray* childList;
-@property(nonatomic, readonly) NSMutableArray* itemList;
--(void)AddProjects:(NSArray *)list Type:(int)type;
--(void)SetProjects:(NSArray *)list Type:(int)type Reset:(BOOL)reset;
+@property(nonatomic, readonly) NSArray* projectList;
+@property(nonatomic, readonly) NSArray* childList;
+@property(nonatomic, readonly) NSArray* itemList;
+
 +(DataManager *)shareInstance;
--(void)RequestForList:(int)type Start:(int)start Limit:(int)limit Reset:(BOOL)reset;
+
+-(void)addProjects:(NSArray *)list
+              type:(ProjectType)type;
+-(void)setProjects:(NSArray *)list
+              type:(ProjectType)type
+             reset:(BOOL)reset;
+-(void)requestForList:(ProjectType)type
+                start:(NSInteger)start
+                limit:(NSInteger)limit
+                reset:(BOOL)reset;
+
 @end

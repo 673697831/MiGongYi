@@ -11,15 +11,31 @@
 #import "UIColor+Expanded.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MGYProgressView.h"
+
+@interface ProgramListCell ()
+{
+    
+}
+
+@property(nonatomic, weak) UIImageView* photoView;
+@property(nonatomic, weak) UILabel *nameLabel;
+@property(nonatomic, weak) UILabel *lineLabel1;
+@property(nonatomic, weak) UILabel *lineLabel2;
+@property(nonatomic, weak) MGYProgressView *progressLabel;
+@property(nonatomic, weak) UIImageView *miliView;
+@property(nonatomic, weak) UILabel *miliNum;
+@property(nonatomic, weak) UILabel *miliLabel;
+@property(nonatomic, weak) UIImageView *peopleView;
+@property(nonatomic, weak) UILabel *peopleNum;
+@property(nonatomic, weak) UILabel *poppleLable;
+@property(nonatomic, assign) BOOL hasDrawn;
+@property(nonatomic, weak) UILabel *finishLabel;
+@property(nonatomic, weak) UILabel *finishText;
+
+@end
 
 @implementation ProgramListCell
-@synthesize photoView;
-@synthesize nameLabel;
-@synthesize lineLabel1;
-@synthesize lineLabel2;
-@synthesize progressLabel;
-
-
 - (void)setup
 {
     [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,7 +115,7 @@
     }];
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -113,80 +129,97 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     
-    self.photoView = [[UIImageView alloc] init];
+    UIImageView *photoView = [UIImageView new];
+    self.photoView = photoView;
     [self.contentView addSubview:self.photoView];
     
-    self.finishText = [[UILabel alloc] init];
+    
+    
+    UILabel *finishText = [UILabel new];
+    self.finishText = finishText;
     [self.photoView addSubview:self.finishText];
     self.finishText.text = @"捐赠已完成";
     self.finishText.textColor = [UIColor whiteColor];
-    
-    self.finishLabel = [[UILabel alloc] init];
+
+    UILabel *finishLabel = [UILabel new];
+    self.finishLabel = finishLabel;
     [self.contentView addSubview:self.finishLabel];
     self.finishLabel.backgroundColor = [UIColor grayColor];
     self.finishLabel.alpha = 0.5;
     self.finishText.hidden = YES;
     self.finishLabel.hidden = YES;
     
-    self.nameLabel = [[UILabel alloc] init];
+    UILabel *nameLabel = [UILabel new];
+    self.nameLabel = nameLabel;
     //self.nameLabel.text = @"虎子";
     self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
     self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
     [self.contentView addSubview:self.nameLabel];
     
-    
-    self.lineLabel1 = [[UILabel alloc] init];
+    UILabel *lineLabel1 = [UILabel new];
+    self.lineLabel1 = lineLabel1;
     self.lineLabel1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
     [self.contentView addSubview:self.lineLabel1];
     
     
     //[self createProgress:self.progressLabel Tag:0 Width:274/2];
     
-    
-    
-    
-    self.lineLabel2 = [[UILabel alloc] init];
+    UILabel *lineLabel2 = [UILabel new];
+    self.lineLabel2 = lineLabel2;
     [self.contentView addSubview:self.lineLabel2];
     self.lineLabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     
-    self.miliNum = [[UILabel alloc] init];
+    UILabel *miliNum = [UILabel new];
+    self.miliNum = miliNum;
     [self.contentView addSubview:self.miliNum];
     self.miliNum.textColor = [UIColor colorWithHexString:@"464646"];
     //self.miliNum.text = @"24.57K";
     self.miliNum.font = [UIFont fontWithName:@"Helvetica" size:10];
     
-    self.miliLabel = [[UILabel alloc] init];
+    UILabel *miliLabel = [UILabel new];
+    self.miliLabel = miliLabel;
     [self.contentView addSubview:self.miliLabel];
     self.miliLabel.textColor = [UIColor colorWithHexString:@"bababa"];
     self.miliLabel.text = @"捐赠米粒(粒)";
     self.miliLabel.font = [UIFont fontWithName:@"Helvetica" size:6];
     
-    self.peopleView = [[UIImageView alloc] init];
+    UIImageView *peopleView = [UIImageView new];
+    self.peopleView = peopleView;
     [self.contentView addSubview:self.peopleView];
     [self.peopleView setImage:[UIImage imageNamed:@"page_Participant_normal"]];
     
-    self.peopleNum = [[UILabel alloc] init];
+    UILabel *peopleNum = [UILabel new];
+    self.peopleNum = peopleNum;
     [self.contentView addSubview:self.peopleNum];
     self.peopleNum.textColor = [UIColor colorWithHexString:@"464646"];
     //self.peopleNum.text = @"256938";
     self.peopleNum.font = [UIFont fontWithName:@"Helvetica" size:10];
     
-    self.poppleLable = [[UILabel alloc] init];
+    UILabel *peopleLabel = [UILabel new];
+    self.poppleLable = peopleLabel;
     [self.contentView addSubview:self.poppleLable];
     self.poppleLable.textColor = [UIColor colorWithHexString:@"bababa"];
     self.poppleLable.text = @"参与人数(人)";
     self.poppleLable.font = [UIFont fontWithName:@"Helvetica" size:6];
     
-    self.miliView = [[UIImageView alloc] init];
+    UIImageView *miliView = [UIImageView new];
+    self.miliView = miliView;
     [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
     [self.contentView addSubview:self.miliView];
     
-    self.progressLabel = [[ProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
-    [self.contentView addSubview:self.progressLabel];
+    //MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
+    //progressLabel.backgroundColor = [UIColor orangeColor];
+    //progressLabel.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+   // progressLabel.layer.cornerRadius = 1;
+    MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
+    self.progressLabel = progressLabel;
+    progressLabel.backgroundColor = [UIColor clearColor];
+    //progressLabel.layer.cornerRadius = 3;
+    [self.contentView addSubview:progressLabel];
     [self setup];
 
 }
--(void)setDetails:(Project *)args
+-(void)update:(Project *)args
 {
     
     if (!self.hasDrawn) {
@@ -194,7 +227,8 @@
         self.hasDrawn = YES;
     }
     
-    [self.progressLabel resetProgress:CGRectMake(0, 0, 273.0/2.0 * args.progress / 100, 6)];
+    //[self.progressLabel resetProgress:CGRectMake(0, 0, 273.0/2.0 * args.progress / 100, 6)];
+    [self.progressLabel updateProgress:args.progress];
     [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
     self.nameLabel.text = args.title;
     self.miliNum.text = [NSString stringWithFormat:@"%d", args.rice_donate];

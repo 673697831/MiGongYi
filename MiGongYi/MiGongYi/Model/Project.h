@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle.h>
 
-@interface Project : NSObject
+@interface Project : MTLModel <MTLJSONSerializing>
 @property(nonatomic, assign) int type;
 @property(nonatomic, assign) int project_id;
-@property(nonatomic, strong) NSString *cover_img;
-@property(nonatomic, strong) NSString *title;
+@property(nonatomic, copy) NSString *cover_img;
+@property(nonatomic, copy) NSString *title;
 @property(nonatomic, assign) int rice_donate;
 @property(nonatomic, assign) int progress;
 @property(nonatomic, assign) int fay_num;
