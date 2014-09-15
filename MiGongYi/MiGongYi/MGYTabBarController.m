@@ -142,6 +142,10 @@
         //[self.listView resetData:[DataManager shareInstance].projectList];
         [self.listView resetData:[DataManager shareInstance].childList reset:YES];
     }
+}
+
+- (void)refreshAboutMeView
+{
     
 }
 

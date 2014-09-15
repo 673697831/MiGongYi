@@ -9,6 +9,8 @@
 #import "MGYAboutMeViewController.h"
 #import "MGYBaseProgressView.h"
 #import "Masonry.h"
+#import "PersonalDetails.h"
+#import "DataManager.h"
 
 @interface MGYAboutMeViewController ()
 
@@ -23,6 +25,7 @@
 @property(nonatomic, weak) UIImageView *photoView;
 @property(nonatomic, weak) UIImageView *editImageView;
 @property(nonatomic, weak) UIImageView *settingImageView;
+@property(nonatomic, weak) UITabBar *tabBar;
 @end
 
 @implementation MGYAboutMeViewController
@@ -163,10 +166,28 @@
     [self.view addSubview:settingImageView];
     [settingImageView setImage:[UIImage imageNamed:@"page_setting_nomal"]];
     self.settingImageView = settingImageView;
+    
+    UITabBar *tabBar = [UITabBar new];
+    
     [self setup];
+    [[DataManager shareInstance] requestForPersonalDetails];
+    //[self updateDetails];
 //
 //    self.titleBackgroundView = titleBackgroundView;
     // Do any additional setup after loading the view.
+}
+
+- (void)updatePersonalDetails
+{
+//    PersonalDetails *personalDetail = [DataManager shareInstance].personalDetails;
+//    self.nameLabel.text = personalDetail.nickname;
+//    [self.photoView setImage:[UIImage imageNamed:personalDetail.avatar]];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,6 +195,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

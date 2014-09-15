@@ -11,5 +11,5 @@
 #import "UIColor+Expanded.h"
 
 @interface MGYAboutMeViewController : UIViewController
-
+- (void)updatePersonalDetails;
 @end

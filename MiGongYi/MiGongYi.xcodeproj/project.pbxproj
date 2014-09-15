@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		202E3F7B19C5CC2000E58B4E /* MGYAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F7A19C5CC2000E58B4E /* MGYAboutMeViewController.m */; };
 		202E3F9A19C6CE4500E58B4E /* PersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* PersonalDetails.m */; };
+		202E3F9E19C6F66100E58B4E /* AboutMeTaBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9D19C6F66100E58B4E /* AboutMeTaBarItem.m */; };
 		2085C85619B6280C00E9FA3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85519B6280C00E9FA3B /* Foundation.framework */; };
 		2085C85819B6280C00E9FA3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85719B6280C00E9FA3B /* CoreGraphics.framework */; };
 		2085C85A19B6280C00E9FA3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85919B6280C00E9FA3B /* UIKit.framework */; };
@@ -57,6 +58,8 @@
 		202E3F7A19C5CC2000E58B4E /* MGYAboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYAboutMeViewController.m; sourceTree = "<group>"; };
 		202E3F9819C6CE4500E58B4E /* PersonalDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalDetails.h; sourceTree = "<group>"; };
 		202E3F9919C6CE4500E58B4E /* PersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalDetails.m; sourceTree = "<group>"; };
+		202E3F9C19C6F66100E58B4E /* AboutMeTaBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTaBarItem.h; sourceTree = "<group>"; };
+		202E3F9D19C6F66100E58B4E /* AboutMeTaBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTaBarItem.m; sourceTree = "<group>"; };
 		2085C85219B6280C00E9FA3B /* MiGongYi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiGongYi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2085C85519B6280C00E9FA3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2085C85719B6280C00E9FA3B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -135,6 +138,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		202E3F9B19C6F61100E58B4E /* AboutMe */ = {
+			isa = PBXGroup;
+			children = (
+				202E3F9C19C6F66100E58B4E /* AboutMeTaBarItem.h */,
+				202E3F9D19C6F66100E58B4E /* AboutMeTaBarItem.m */,
+			);
+			path = AboutMe;
+			sourceTree = "<group>";
+		};
 		2085C84919B6280C00E9FA3B = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +244,7 @@
 		20A2D28019B9DCDC004C7697 /* Ui */ = {
 			isa = PBXGroup;
 			children = (
+				202E3F9B19C6F61100E58B4E /* AboutMe */,
 				20CC640119C2A7ED007230A1 /* Template */,
 				20A2D28119B9DCDC004C7697 /* Details */,
 				20A2D28619B9DCDC004C7697 /* Program */,
@@ -450,6 +463,7 @@
 				20A2D28D19B9DCDC004C7697 /* ProgramListCell.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* Project.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* DetailsViewCell.m in Sources */,
+				202E3F9E19C6F66100E58B4E /* AboutMeTaBarItem.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
 				20A2D29119B9DDD5004C7697 /* TitleSubLayer.m in Sources */,
 			);

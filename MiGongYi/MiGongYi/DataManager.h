@@ -8,16 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "Project.h"
+#import "PersonalDetails.h"
 
 @interface DataManager : NSObject
 {
     NSMutableArray *__projectList;
     NSMutableArray *__childList;
     NSMutableArray *__itemList;
+    //PersonalDetails *__personalDetails;
 }
 @property(nonatomic, readonly) NSArray* projectList;
 @property(nonatomic, readonly) NSArray* childList;
 @property(nonatomic, readonly) NSArray* itemList;
+@property(nonatomic, weak) PersonalDetails *personalDetails;
+@property(nonatomic, assign) NSInteger uid;
 
 + (DataManager *)shareInstance;
 
@@ -30,5 +34,6 @@
                 start:(NSInteger)start
                 limit:(NSInteger)limit
                 reset:(BOOL)reset;
-
+- (void)requestForEnterUID;
+- (void)requestForPersonalDetails;
 @end

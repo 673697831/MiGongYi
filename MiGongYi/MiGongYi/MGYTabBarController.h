@@ -16,4 +16,5 @@
 + (MGYTabBarController *)shareInstance;
 
 - (void)refreshProgramListView:(ProjectType)type reset:(BOOL)reset;
+- (void)refreshAboutMeView;
 @end

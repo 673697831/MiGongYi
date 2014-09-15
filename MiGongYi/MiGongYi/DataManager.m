@@ -18,7 +18,9 @@
 @synthesize projectList = __projectList;
 @synthesize childList = __childList;
 @synthesize itemList = __itemList;
-+(DataManager *)shareInstance
+//@synthesize personalDetails = __personalDetails;
+
++ (DataManager *)shareInstance
 {
     static DataManager *instance;
     static dispatch_once_t onceToken;
@@ -28,18 +30,25 @@
     return instance;
 }
 
--(id)init
+- (id)init
 {
     self = [super init];
     if (self) {
         __projectList = [NSMutableArray new];
         __childList = [NSMutableArray new];
         __itemList = [NSMutableArray new];
+        NSInteger uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
+        if (uid) {
+            self.uid = uid;
+        }else
+        {
+            [self requestForEnterUID];
+        }
     }
     return self;
 }
 
--(void)addProjects:(NSArray *)list type:(ProjectType)type
+- (void)addProjects:(NSArray *)list type:(ProjectType)type
 {
     for (NSDictionary *dic in list) {
         //Project *newProject = [[Project alloc] initWithDictionary:dic error:nil];
@@ -60,7 +69,7 @@
     }
 }
 
--(void)setProjects:(NSArray *)list type:(ProjectType)type reset:(BOOL)reset
+- (void)setProjects:(NSArray *)list type:(ProjectType)type reset:(BOOL)reset
 {
     if (reset) {
         if (type == 1) {
@@ -75,7 +84,7 @@
     [[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
 }
 
--(void)requestForList:(ProjectType)type start:(NSInteger)start limit:(NSInteger)limit reset:(BOOL)reset
+- (void)requestForList:(ProjectType)type start:(NSInteger)start limit:(NSInteger)limit reset:(BOOL)reset
 {
     NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=list";
     
@@ -93,6 +102,34 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (void)requestForEnterUID
+{
+    NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/user.php?type=reg&reg_type=startup";
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        self.uid = [responseObject[@"data"][@"uid"] integerValue];
+        [[NSUserDefaults standardUserDefaults] setInteger:self.uid forKey:@"uid"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)requestForPersonalDetails
+{
+    NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/user.php?type=detail";
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //NSLog(@"pppppppppp %d", __personalDetails.uid);
+    [manager GET:url parameters:@{@"uid": [NSNumber numberWithInteger:self.uid]} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        PersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[PersonalDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        self.personalDetails = newPersonalDetails;
+        [[MGYTabBarController shareInstance] refreshAboutMeView];
+        //NSLog(@"%@", )
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
 }
 
 @end
