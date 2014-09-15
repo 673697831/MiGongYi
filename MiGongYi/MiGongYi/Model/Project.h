@@ -9,16 +9,23 @@
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
 
+typedef NS_ENUM(NSInteger, ProjectType) {
+    ItemType = 1,
+    ChildrenType = 2,
+};
 @interface Project : MTLModel <MTLJSONSerializing>
-@property(nonatomic, assign) int type;
-@property(nonatomic, assign) int project_id;
-@property(nonatomic, copy) NSString *cover_img;
+@property(nonatomic, assign) ProjectType type;
+@property(nonatomic, assign) NSInteger projectId;
+//@property(nonatomic, assign) NSInteger project_id;
+@property(nonatomic, copy) NSString *coverImg;
+//@property(nonatomic, copy) NSString *cover_img;
 @property(nonatomic, copy) NSString *title;
-@property(nonatomic, assign) int rice_donate;
-@property(nonatomic, assign) int progress;
-@property(nonatomic, assign) int fay_num;
-@property(nonatomic, assign) int join_member_num;
-@property(nonatomic, assign) int status;
-
--(id)initWithKeys:(int)type ProjectId:(int)project_id CoverImg:(NSString *)cover_img Title:(NSString *)title RiceDonate:(int)rice_donate Progress:(int)progress FayNum:(int)fay_num JoinMemberNum:(int)join_member_num Status:(int)status;
+@property(nonatomic, assign) NSInteger riceDonate;
+//@property(nonatomic, assign) NSInteger rice_donate;
+@property(nonatomic, assign) NSInteger progress;
+@property(nonatomic, assign) NSInteger favNum;
+//@property(nonatomic, assign) NSInteger fav_num;
+@property(nonatomic, assign) NSInteger joinMemberNum;
+//@property(nonatomic, assign) NSInteger join_member_num;
+@property(nonatomic, assign) NSInteger status;
 @end

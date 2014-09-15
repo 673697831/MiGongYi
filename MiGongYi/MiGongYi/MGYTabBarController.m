@@ -9,6 +9,7 @@
 #import "MGYTabBarController.h"
 #import "MGYProgramChildrenViewController.h"
 #import "MGYProgramItemViewController.h"
+#import "MGYAboutMeViewController.h"
 #import "TitleSubLayer.h"
 @interface MGYTabBarController ()
 
@@ -16,6 +17,7 @@
 //@property(nonatomic, weak) DetailsMainView *detailsView;
 @property(nonatomic, weak) MGYProgramItemViewController *detailsView;
 @property(nonatomic, weak) ProgramDetailsView *detailsSubView;
+@property(nonatomic, weak) MGYAboutMeViewController *aboutMeView;
 
 @end
 
@@ -43,11 +45,8 @@
         [self.tabBar setTintColor:[UIColor orangeColor]];
         UINavigationController *tab1Nav = [UINavigationController new];
         UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
-        //BaseViewController *bvc = [BaseViewController new];
         MGYProgramChildrenViewController *listView = [MGYProgramChildrenViewController new];
         self.listView = listView;
-        //[tab1Nav pushViewController:self.listView animated:YES];
-        //MGYProgramChildrenViewController *bvc = [MGYProgramChildrenViewController new];
         [tab1Nav pushViewController:self.listView animated:YES];
         
         
@@ -56,13 +55,16 @@
         
         UINavigationController *tab3Nav = [UINavigationController new];
         UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
-        //DetailsMainView *detailsView = [[DetailsMainView alloc] initWithStyle:UITableViewStylePlain];
         MGYProgramItemViewController *detailsView = [MGYProgramItemViewController new];
         [tab3Nav pushViewController:detailsView animated:YES];
         self.detailsView = detailsView;
         
         UINavigationController *tab4Nav = [UINavigationController new];
         UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:3];
+        MGYAboutMeViewController *aboutMeView = [MGYAboutMeViewController new];
+        [tab4Nav pushViewController:aboutMeView animated:YES];
+        self.aboutMeView = aboutMeView;
+        
         
         UITabBar *tabbar = [UITabBar new];
         tabbar.frame = self.tabBar.frame;

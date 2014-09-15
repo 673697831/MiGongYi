@@ -227,12 +227,11 @@
         self.hasDrawn = YES;
     }
     
-    //[self.progressLabel resetProgress:CGRectMake(0, 0, 273.0/2.0 * args.progress / 100, 6)];
     [self.progressLabel updateProgress:args.progress];
-    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.coverImg]];
     self.nameLabel.text = args.title;
-    self.miliNum.text = [NSString stringWithFormat:@"%d", args.rice_donate];
-    self.peopleNum.text = [NSString stringWithFormat:@"%d", args.join_member_num];
+    self.miliNum.text = [NSString stringWithFormat:@"%d", args.riceDonate];
+    self.peopleNum.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
     if (args.status == 0) {
         self.finishLabel.hidden = NO;
         self.finishText.hidden = NO;

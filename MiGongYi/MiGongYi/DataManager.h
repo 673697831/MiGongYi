@@ -9,11 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Project.h"
 
-typedef NS_ENUM(NSInteger, ProjectType) {
-    ItemType = 1,
-    ChildrenType = 2,
-};
-
 @interface DataManager : NSObject
 {
     NSMutableArray *__projectList;

@@ -171,12 +171,11 @@
 - (void)updateDetails:(Project *)args
 {
     self.title.text = args.title;
-    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.cover_img]];
-    //[self.progressLabel resetProgress:CGRectMake(0, 0, 552.0/2*args.progress/100, 10)];
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.coverImg]];
     [self.progressLabel updateProgress:args.progress];
-    self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.rice_donate];
-    self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.join_member_num];
-    self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.fay_num];
+    self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.riceDonate];
+    self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
+    self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.favNum];
     if (args.status == 0) {
         self.finishLabel.hidden = NO;
     }else

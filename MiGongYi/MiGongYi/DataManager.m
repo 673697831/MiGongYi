@@ -42,7 +42,11 @@
 -(void)addProjects:(NSArray *)list type:(ProjectType)type
 {
     for (NSDictionary *dic in list) {
-        Project *newProject = [[Project alloc] initWithKeys:type ProjectId:[dic[@"type"] intValue] CoverImg:dic[@"cover_img"] Title:dic[@"title"] RiceDonate:[dic[@"rice_donate"] intValue] Progress:[dic[@"progress"] intValue] FayNum:[dic[@"fay_num"] intValue] JoinMemberNum:[dic[@"join_member_num"] intValue] Status:[dic[@"status"] intValue]];
+        //Project *newProject = [[Project alloc] initWithDictionary:dic error:nil];
+        Project *newProject = [MTLJSONAdapter modelOfClass:[Project class] fromJSONDictionary:dic error:nil];
+        newProject.type = type;
+        
+        
         [__projectList addObject:newProject];
         
         if (type == 1) {
@@ -68,6 +72,7 @@
         [__projectList removeAllObjects];
     }
     [self addProjects:list type:type];
+    [[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
 }
 
 -(void)requestForList:(ProjectType)type start:(NSInteger)start limit:(NSInteger)limit reset:(BOOL)reset
@@ -83,9 +88,8 @@
         if ([responseObject[@"data"] count] == 0) {
             return;
         }
+        
         [self setProjects:responseObject[@"data"] type:type reset:reset];
-        [[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
-        NSLog(@"requestForList~~~~~~");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
