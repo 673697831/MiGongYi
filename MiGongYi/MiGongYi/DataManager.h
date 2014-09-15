@@ -19,14 +19,14 @@
 @property(nonatomic, readonly) NSArray* childList;
 @property(nonatomic, readonly) NSArray* itemList;
 
-+(DataManager *)shareInstance;
++ (DataManager *)shareInstance;
 
--(void)addProjects:(NSArray *)list
+- (void)addProjects:(NSArray *)list
               type:(ProjectType)type;
--(void)setProjects:(NSArray *)list
+- (void)setProjects:(NSArray *)list
               type:(ProjectType)type
              reset:(BOOL)reset;
--(void)requestForList:(ProjectType)type
+- (void)requestForList:(ProjectType)type
                 start:(NSInteger)start
                 limit:(NSInteger)limit
                 reset:(BOOL)reset;

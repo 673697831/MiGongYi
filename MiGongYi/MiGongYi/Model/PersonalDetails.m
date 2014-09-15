@@ -10,4 +10,15 @@
 
 @implementation PersonalDetails
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"uid": @"uid",
+             @"sex": @"sex",
+             @"title": @"title",
+             @"nickname": @"nickname",
+             @"passport": @"passport",
+             @"avatar": @"avatar",
+             };
+}
+
 @end
