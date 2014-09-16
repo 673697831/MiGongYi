@@ -11,11 +11,15 @@
 #import "Masonry.h"
 #import "MGYPersonalDetails.h"
 #import "DataManager.h"
+#import "AboutMeItemView.h"
 
 @interface MGYAboutMeViewController ()
 
+@property(nonatomic, copy) NSDictionary *dic;
+@property(nonatomic, copy) NSDictionary *pathDic;
 @property(nonatomic, weak) UIView *statusBackgroundView;
-@property(nonatomic, weak) MGYBaseProgressView *titleBackgroundView;
+//@property(nonatomic, weak) MGYBaseProgressView *titleBackgroundView;
+@property(nonatomic, weak) UIView *titleBackgroundView;
 @property(nonatomic, weak) UILabel *backLabel;
 @property(nonatomic, weak) UILabel *titleTextLabel;
 @property(nonatomic, weak) UIImageView *childImageView;
@@ -25,7 +29,11 @@
 @property(nonatomic, weak) UIImageView *photoView;
 @property(nonatomic, weak) UIImageView *editImageView;
 @property(nonatomic, weak) UIImageView *settingImageView;
-@property(nonatomic, weak) UITabBar *tabBar;
+@property(nonatomic, weak) UIView *tabView;
+
+@property(nonatomic, weak) AboutMeItemView *riceItemView;
+@property(nonatomic, weak) AboutMeItemView *friendItemView;
+@property(nonatomic, weak) AboutMeItemView *favItemView;
 @end
 
 @implementation MGYAboutMeViewController
@@ -98,12 +106,55 @@
         make.right.equalTo(self.titleBackgroundView.mas_right).with.offset(-13);
     }];
     
-    [self.tabBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.titleBackgroundView.mas_bottom);
-        make.left.equalTo(self.titleBackgroundView.mas_left);
-        make.right.equalTo(self.titleBackgroundView);
+//    [self.tabBar mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.titleBackgroundView.mas_bottom);
+//        make.left.equalTo(self.titleBackgroundView.mas_left);
+//        make.right.equalTo(self.titleBackgroundView);
+//        make.height.mas_equalTo(55);
+//    }];
+    [self.tabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(55);
+        make.bottom.equalTo(self.titleBackgroundView.mas_bottom);
+        make.left.equalTo(self.titleBackgroundView.mas_left).with.offset(30);
+        make.right.equalTo(self.titleBackgroundView.mas_right).with.offset(-30);
     }];
+    
+    
+    [self.friendItemView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.tabView.mas_centerX);
+        make.centerY.equalTo(self.tabView.mas_centerY);
+        make.height.mas_equalTo(55);
+        make.width.mas_equalTo(90);
+    }];
+    
+    
+    [self.favItemView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.tabView.mas_right);
+        make.bottom.equalTo(self.tabView.mas_bottom);
+        make.height.mas_equalTo(55);
+        make.width.mas_equalTo(90);
+    }];
+}
+
+- (void)clickEventOnImage:(id)sender
+{
+    NSLog(@"ooooooooooooooo");
+    for (int i=1; i<=3; i++) {
+        NSNumber *num = [NSNumber numberWithInt:i];
+        AboutMeItemView *item = [self.dic objectForKey:num];
+        if ([sender tag] == i) {
+            item.myButton.backgroundColor = [UIColor whiteColor];
+            item.myLabel.textColor = [UIColor orangeColor];
+            [item.myImageView setImage:[UIImage imageNamed:[self.pathDic objectForKey:num][1]]];
+        }else
+        {
+            item.myButton.backgroundColor = [UIColor orangeColor];
+            item.myLabel.textColor = [UIColor whiteColor];
+            [item.myImageView setImage:[UIImage imageNamed:[self.pathDic objectForKey:num][0]]];
+
+        }
+    }
+
 }
 
 - (void)viewDidLoad
@@ -121,8 +172,12 @@
     statusBackgroundView.backgroundColor = [UIColor blackColor];
     self.statusBackgroundView = statusBackgroundView;
     
-    MGYBaseProgressView *titleBackgroundView = [MGYBaseProgressView new];
+//    MGYBaseProgressView *titleBackgroundView = [MGYBaseProgressView new];
+//    [self.view addSubview:titleBackgroundView];
+//    self.titleBackgroundView = titleBackgroundView;
+    UIView *titleBackgroundView = [UIView new];
     [self.view addSubview:titleBackgroundView];
+    titleBackgroundView.backgroundColor = [UIColor orangeColor];
     self.titleBackgroundView = titleBackgroundView;
     
     UILabel *backLabel = [UILabel new];
@@ -174,27 +229,51 @@
     [settingImageView setImage:[UIImage imageNamed:@"page_setting_nomal"]];
     self.settingImageView = settingImageView;
     
-    UITabBar *tabBar = [UITabBar new];
-   // tabBar.frame = self.tabBar.frame;
-    tabBar.tintColor = [UIColor whiteColor];
-    [tabBar setBackgroundImage:[UIImage new]];
-    [tabBar setShadowImage:[UIImage new]];
-    tabBar.translucent = YES;
-    tabBar.selectedImageTintColor = [UIColor orangeColor];
+//    UITabBar *tabBar = [UITabBar new];
+//    tabBar.tintColor = [UIColor whiteColor];
+//    [tabBar setBackgroundImage:[UIImage new]];
+//    [tabBar setShadowImage:[UIImage new]];
+//    tabBar.translucent = YES;
+//    tabBar.selectedImageTintColor = [UIColor orangeColor];
+//    
+//    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"获得米粒" image:[UIImage imageNamed:@"tab_rice_normal"] selectedImage:[UIImage imageNamed:@"tab_rice_selected"]];
+//    
+//    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"好友列表" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:1];
+//    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"收藏项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
+//    tabBar.items = [NSArray arrayWithObjects:tab1BarItem, tab2BarItem, tab3BarItem, nil];
+//    tabBar.selectedItem = tab1BarItem;
+//    [self.view addSubview:tabBar];
+//    self.tabBar = tabBar;
     
-    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"获得米粒" image:[UIImage imageNamed:@"tab_rice_normal"] selectedImage:[UIImage imageNamed:@"tab_rice_selected"]];
+    UIView *tabView = [UIView new];
+    [self.view addSubview:tabView];
+    tabView.backgroundColor = [UIColor whiteColor];
+    self.tabView = tabView;
     
-    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"好友列表" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:1];
-    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"收藏项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
-    //UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:3];
-    tabBar.items = [NSArray arrayWithObjects:tab1BarItem, tab2BarItem, tab3BarItem, nil];
-    tabBar.selectedItem = tab1BarItem;
-    //tabBar.delegate = self;
-    //tabBar.translucent = NO;
-    [self.view addSubview:tabBar];
-    self.tabBar = tabBar;
+    AboutMeItemView *riceItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55)];
+    [self.tabView addSubview:riceItemView];
+    [riceItemView initialize:@"tab_rice_normal" text:@"拥有米粒"];
+    riceItemView.myButton.tag = 1;
+    [riceItemView.myButton addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
+    self.riceItemView = riceItemView;
+    
+    AboutMeItemView *friendItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55)];
+    [self.tabView addSubview:friendItemView];
+    [friendItemView initialize:@"tab_friends_normal" text:@"好友列表"];
+    friendItemView.myButton.tag = 2;
+    [friendItemView.myButton addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
+    self.friendItemView = friendItemView;
+    
+    AboutMeItemView *favItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55)];
+    [self.tabView addSubview:favItemView];
+    [favItemView initialize:@"tab_fav_normal" text:@"收藏项目"];
+    favItemView.myButton.tag = 3;
+    [favItemView.myButton addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
+    self.favItemView = favItemView;
     
     [self setup];
+    self.dic = @{@1: self.riceItemView, @2: self.friendItemView, @3: self.favItemView};
+    self.pathDic = @{@1: @[@"tab_rice_normal", @"tab_rice_selected"], @2:@[@"tab_friends_normal", @"tab_friends_selected"], @3:@[@"tab_fav_normal", @"tab_fav_selected"]};
     [[DataManager shareInstance] requestForPersonalDetails];
     //[self updateDetails];
 //

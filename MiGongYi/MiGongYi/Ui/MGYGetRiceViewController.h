@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MGYBaseViewController.h"
 
-@interface MGYGetRiceViewController : MGYBaseViewController
+@interface MGYGetRiceViewController : MGYBaseViewController<UIGestureRecognizerDelegate>
 
 @end

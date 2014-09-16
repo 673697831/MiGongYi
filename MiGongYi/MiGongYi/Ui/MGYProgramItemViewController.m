@@ -63,7 +63,6 @@
     if (reset) {
         [__array removeAllObjects];
     }
-    NSLog(@"resetData~~~~~~");
     [__array addObjectsFromArray:array];
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
