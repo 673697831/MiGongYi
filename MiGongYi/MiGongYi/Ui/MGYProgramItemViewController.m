@@ -7,7 +7,7 @@
 //
 
 #import "MGYProgramItemViewController.h"
-#import "Details/DetailsViewCell.h"
+#import "Details/MGYDetailsViewCell.h"
 #import "DataManager.h"
 #import "UIColor+Expanded.h"
 
@@ -40,7 +40,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Configure the cell...
-    DetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item Cell" forIndexPath:indexPath];
+    MGYDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item Cell" forIndexPath:indexPath];
  
     [cell updateDetails:__array[indexPath.row]];
     if (!self.isLoading && __array.count - indexPath.row == 1 ) {
@@ -92,7 +92,7 @@
     UITableView *tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
     [self.view addSubview:tableView];
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [tableView registerClass:[DetailsViewCell class] forCellReuseIdentifier:@"Item Cell"];
+    [tableView registerClass:[MGYDetailsViewCell class] forCellReuseIdentifier:@"Item Cell"];
 
     tableView.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     tableView.delegate = self;

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DetailsIcon.h"
-#import "Project.h"
+#import "MGYDetailsIcon.h"
+#import "MGYProject.h"
 
-@interface DetailsViewCell : UITableViewCell
--(void)updateDetails:(Project *)args;
+@interface MGYDetailsViewCell : UITableViewCell
+-(void)updateDetails:(MGYProject *)args;
 @end

@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "ProgramListCell.h"
+#import "MGYProgramListCell.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MGYProgressView.h"
 
-@interface ProgramListCell ()
+@interface MGYProgramListCell ()
 {
     
 }
@@ -35,7 +35,7 @@
 
 @end
 
-@implementation ProgramListCell
+@implementation MGYProgramListCell
 - (void)setup
 {
     [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -219,7 +219,7 @@
     [self setup];
 
 }
--(void)update:(Project *)args
+-(void)update:(MGYProject *)args
 {
     
     if (!self.hasDrawn) {

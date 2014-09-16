@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "DetailsIcon.h"
+#import "MGYDetailsIcon.h"
 #import "UIColor+Expanded.h"
 #import "Masonry.h"
 
-@implementation DetailsIcon
+@implementation MGYDetailsIcon
 
 - (void)setup
 {

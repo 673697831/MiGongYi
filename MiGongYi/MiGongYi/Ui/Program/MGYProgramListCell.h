@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Project.h"
+#import "MGYProject.h"
 
-@interface ProgramListCell : UICollectionViewCell
+@interface MGYProgramListCell : UICollectionViewCell
 
--(void)update:(Project *)args;
+-(void)update:(MGYProject *)args;
 @end

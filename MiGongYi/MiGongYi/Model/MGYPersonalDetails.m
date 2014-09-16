@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "PersonalDetails.h"
+#import "MGYPersonalDetails.h"
 
-@implementation PersonalDetails
+@implementation MGYPersonalDetails
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{

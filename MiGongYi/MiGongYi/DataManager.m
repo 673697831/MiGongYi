@@ -52,7 +52,7 @@
 {
     for (NSDictionary *dic in list) {
         //Project *newProject = [[Project alloc] initWithDictionary:dic error:nil];
-        Project *newProject = [MTLJSONAdapter modelOfClass:[Project class] fromJSONDictionary:dic error:nil];
+        MGYProject *newProject = [MTLJSONAdapter modelOfClass:[MGYProject class] fromJSONDictionary:dic error:nil];
         newProject.type = type;
         
         
@@ -122,7 +122,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //NSLog(@"pppppppppp %d", __personalDetails.uid);
     [manager GET:url parameters:@{@"uid": [NSNumber numberWithInteger:self.uid]} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        PersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[PersonalDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        MGYPersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[MGYPersonalDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
         self.personalDetails = newPersonalDetails;
         [[MGYTabBarController shareInstance] refreshAboutMeView];
         //NSLog(@"%@", )

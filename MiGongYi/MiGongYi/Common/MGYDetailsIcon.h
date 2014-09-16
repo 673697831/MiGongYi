@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailsIcon : UILabel
+@interface MGYDetailsIcon : UILabel
 @property(nonatomic, weak) UILabel *numLabel;
 @property(nonatomic, weak) UIImageView *imageView;
 @property(nonatomic, weak) UILabel *itemLabel;

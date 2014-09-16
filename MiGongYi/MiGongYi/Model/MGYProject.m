@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "Project.h"
+#import "MGYProject.h"
 
-@implementation Project
+@implementation MGYProject
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{

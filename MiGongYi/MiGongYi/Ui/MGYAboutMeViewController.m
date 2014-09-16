@@ -9,7 +9,7 @@
 #import "MGYAboutMeViewController.h"
 #import "MGYBaseProgressView.h"
 #import "Masonry.h"
-#import "PersonalDetails.h"
+#import "MGYPersonalDetails.h"
 #import "DataManager.h"
 
 @interface MGYAboutMeViewController ()

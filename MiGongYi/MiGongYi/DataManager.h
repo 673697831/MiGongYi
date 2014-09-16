@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Project.h"
-#import "PersonalDetails.h"
+#import "MGYProject.h"
+#import "MGYPersonalDetails.h"
 
 @interface DataManager : NSObject
 {
@@ -20,7 +20,7 @@
 @property(nonatomic, readonly) NSArray* projectList;
 @property(nonatomic, readonly) NSArray* childList;
 @property(nonatomic, readonly) NSArray* itemList;
-@property(nonatomic, weak) PersonalDetails *personalDetails;
+@property(nonatomic, weak) MGYPersonalDetails *personalDetails;
 @property(nonatomic, assign) NSInteger uid;
 
 + (DataManager *)shareInstance;

@@ -7,7 +7,7 @@
 //
 
 #import "MGYProgramChildrenViewController.h"
-#import "ProgramListCell.h"
+#import "MGYProgramListCell.h"
 #import "DataManager.h"
 #import "UIColor+Expanded.h"
 
@@ -24,7 +24,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ProgramListCell *cell = (ProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Children Cell" forIndexPath:indexPath];
+    MGYProgramListCell *cell = (MGYProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Children Cell" forIndexPath:indexPath];
     NSInteger index = indexPath.row + indexPath.section * 2;
     if ( index >= __array.count) {
         return cell;
@@ -80,7 +80,7 @@
     self.childrenCollectionView.delegate = self;
     self.childrenCollectionView.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     self.childrenCollectionView.dataSource = self;
-    [self.childrenCollectionView registerClass:[ProgramListCell class] forCellWithReuseIdentifier:@"Children Cell"];
+    [self.childrenCollectionView registerClass:[MGYProgramListCell class] forCellWithReuseIdentifier:@"Children Cell"];
     [self.view addSubview:self.childrenCollectionView];
    
     //增加刷新控件

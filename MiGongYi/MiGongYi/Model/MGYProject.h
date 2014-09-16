@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, ProjectType) {
     ItemType = 1,
     ChildrenType = 2,
 };
-@interface Project : MTLModel <MTLJSONSerializing>
+@interface MGYProject : MTLModel <MTLJSONSerializing>
 @property(nonatomic, assign) ProjectType type;
 @property(nonatomic, assign) NSInteger projectId;
 @property(nonatomic, copy) NSString *coverImg;
