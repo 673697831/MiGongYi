@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProgramListView.h"
-#import "DetailsMainView.h"
-#import "ProgramDetailsView.h"
 #import "DataManager.h"
 @interface MGYTabBarController : UITabBarController
 

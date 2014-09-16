@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProgressLabel.h"
 #import "Project.h"
 
 @interface ProgramListCell : UICollectionViewCell

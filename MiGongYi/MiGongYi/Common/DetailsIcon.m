@@ -11,9 +11,6 @@
 #import "Masonry.h"
 
 @implementation DetailsIcon
-@synthesize numLabel;
-@synthesize imageView;
-@synthesize itemLabel;
 
 - (void)setup
 {
@@ -38,33 +35,32 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        UILabel *numLabel = [UILabel new];
+        self.numLabel = numLabel;
+        [self addSubview:self.numLabel];
+        self.numLabel.textColor = [UIColor colorWithHexString:@"464646"];
+        self.numLabel.font = [UIFont systemFontOfSize:16];
         
+        UIImageView *imageView = [UIImageView new];
+        self.imageView = imageView;
+        [self addSubview:self.imageView];
+        
+        UILabel *itemLabel = [UILabel new];
+        self.itemLabel = itemLabel;
+        [self addSubview:self.itemLabel];
+        self.itemLabel.textColor = [UIColor colorWithHexString:@"bababa"];
+        self.itemLabel.font = [UIFont systemFontOfSize:10];
+        
+        [self setup];
     }
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame Args:(NSDictionary *)args
+- (void)resetArgs:(NSDictionary *)args
 {
-    self = [super initWithFrame:frame];
-    
-    self.numLabel = [[UILabel alloc] init];
-    [self addSubview:self.numLabel];
     self.numLabel.text = args[@"num"];
-    self.numLabel.textColor = [UIColor colorWithHexString:@"464646"];
-    self.numLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-    
-    self.imageView = [[UIImageView alloc] init];
-    [self addSubview:self.imageView];
     [self.imageView setImage:[UIImage imageNamed:args[@"path"]]];
-    
-    self.itemLabel = [[UILabel alloc] init];
-    [self addSubview:self.itemLabel];
     self.itemLabel.text = args[@"text"];
-    self.itemLabel.textColor = [UIColor colorWithHexString:@"bababa"];
-    self.itemLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
-    
-    [self setup];
-    return self;
 }
 
 /*

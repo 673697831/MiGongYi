@@ -97,6 +97,13 @@
         make.top.equalTo(self.titleBackgroundView.mas_top).with.offset(98/2);
         make.right.equalTo(self.titleBackgroundView.mas_right).with.offset(-13);
     }];
+    
+    [self.tabBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.titleBackgroundView.mas_bottom);
+        make.left.equalTo(self.titleBackgroundView.mas_left);
+        make.right.equalTo(self.titleBackgroundView);
+        make.height.mas_equalTo(55);
+    }];
 }
 
 - (void)viewDidLoad
@@ -168,6 +175,24 @@
     self.settingImageView = settingImageView;
     
     UITabBar *tabBar = [UITabBar new];
+   // tabBar.frame = self.tabBar.frame;
+    tabBar.tintColor = [UIColor whiteColor];
+    [tabBar setBackgroundImage:[UIImage new]];
+    [tabBar setShadowImage:[UIImage new]];
+    tabBar.translucent = YES;
+    tabBar.selectedImageTintColor = [UIColor orangeColor];
+    
+    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"获得米粒" image:[UIImage imageNamed:@"tab_rice_normal"] selectedImage:[UIImage imageNamed:@"tab_rice_selected"]];
+    
+    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"好友列表" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:1];
+    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"收藏项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
+    //UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:3];
+    tabBar.items = [NSArray arrayWithObjects:tab1BarItem, tab2BarItem, tab3BarItem, nil];
+    tabBar.selectedItem = tab1BarItem;
+    //tabBar.delegate = self;
+    //tabBar.translucent = NO;
+    [self.view addSubview:tabBar];
+    self.tabBar = tabBar;
     
     [self setup];
     [[DataManager shareInstance] requestForPersonalDetails];

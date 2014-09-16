@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailsIcon : UILabel
-@property(nonatomic, strong) UILabel *numLabel;
-@property(nonatomic, strong) UIImageView *imageView;
-@property(nonatomic, strong) UILabel *itemLabel;
+@property(nonatomic, weak) UILabel *numLabel;
+@property(nonatomic, weak) UIImageView *imageView;
+@property(nonatomic, weak) UILabel *itemLabel;
 
-- (id)initWithFrame:(CGRect)frame Args:(NSDictionary *)args;
+- (void)resetArgs:(NSDictionary *)args;
 @end

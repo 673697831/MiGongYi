@@ -133,16 +133,22 @@
         progressLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.progressLabel];
         
-        DetailsIcon *detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
+        //DetailsIcon *detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
+        DetailsIcon *detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
+        [detailsIconLeft resetArgs:@{@"num":@"355580", @"path":@"page_Rice_normal2", @"text":@"捐赠米粒"}];
         self.detailsIconLeft = detailsIconLeft;
         [self.contentView addSubview:self.detailsIconLeft];
         
-        DetailsIcon *detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_People_normal2", @"path", @"参与人数", @"text", nil]];
+        //DetailsIcon *detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_People_normal2", @"path", @"参与人数", @"text", nil]];
+        DetailsIcon *detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
+        [detailsIconMiddle resetArgs:@{@"num":@"355580", @"path":@"page_People_normal2", @"text":@"参与人数"}];
         self.detailsIconMiddle = detailsIconMiddle;
         [self.contentView addSubview:self.detailsIconMiddle];
         
-        DetailsIcon *detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Fav_normal2", @"path", @"收藏次数", @"text", nil]];
+        //DetailsIcon *detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Fav_normal2", @"path", @"收藏次数", @"text", nil]];
+        DetailsIcon *detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
         self.detailsIconRight = detailsIconRight;
+        [detailsIconRight resetArgs:@{@"num":@"355580", @"path":@"page_Fav_normal2", @"text":@"收藏次数"}];
         [self.contentView addSubview:self.detailsIconRight];
         
         UILabel *line1 = [UILabel new];

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGYBaseProgressView.h"
 
 @interface MGYBaseViewController : UIViewController
 @property(nonatomic, weak) UILabel *textLabel;
+@property(nonatomic, weak) MGYBaseProgressView *titleView;
 @end

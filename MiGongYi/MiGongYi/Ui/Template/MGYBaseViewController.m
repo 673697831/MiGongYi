@@ -8,10 +8,8 @@
 
 #import "MGYBaseViewController.h"
 #import "Masonry.h"
-#import "MGYBaseProgressView.h"
 
 @interface MGYBaseViewController ()
-- (void)setup;
 @end
 
 @implementation MGYBaseViewController
@@ -25,8 +23,9 @@
     return self;
 }
 
-- (void)setup
+- (void)viewDidLoad
 {
+    [super viewDidLoad];
     //把navBar弄透明
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -41,14 +40,7 @@
         make.right.equalTo(self.view.mas_right);
         make.height.mas_equalTo(self.navigationController.navigationBar.frame.size.height + 20);
     }];
-    
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self setup];
-    
+    self.titleView = titleView;
     
     // Do any additional setup after loading the view.
     //NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:

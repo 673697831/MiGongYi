@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProgressLabel.h"
 #import "DetailsIcon.h"
 #import "Project.h"
 
