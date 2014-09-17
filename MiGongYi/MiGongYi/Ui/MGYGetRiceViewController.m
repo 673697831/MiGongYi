@@ -183,7 +183,7 @@
     //presentationLayer layer的动画层
     CALayer *layer1=[[self.boxingView.layer presentationLayer] hitTest:locationInView];
     if (layer1) {
-        [self removeAllAnimation];
+        [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
         self.isClicked = YES;
         return;
@@ -191,8 +191,7 @@
     
     CALayer *layer2=[[self.shoeView.layer presentationLayer] hitTest:locationInView];
     if (layer2) {
-        [self removeAllAnimation];
-        NSLog(@"gegegegegegeg");
+        [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
         self.isClicked = YES;
         return;
@@ -200,7 +199,7 @@
     
     CALayer *layer3=[[self.knowView.layer presentationLayer] hitTest:locationInView];
     if (layer3) {
-        [self removeAllAnimation];
+        [self pauseAllAnimation];
         self.knowledgeImageView.hidden = NO;
         self.isClicked = YES;
         return;
@@ -208,7 +207,7 @@
     
     CALayer *layer4=[[self.phoneView.layer presentationLayer] hitTest:locationInView];
     if (layer4) {
-        [self removeAllAnimation];
+        [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
         self.isClicked = YES;
         return;
@@ -223,6 +222,39 @@
     [self.shoeView.layer removeAllAnimations];
     [self.knowView.layer removeAllAnimations];
     [self.phoneView.layer removeAllAnimations];
+}
+
+- (void)pauseAllAnimation
+{
+    [self pauseLayer:self.boxingView.layer];
+    [self pauseLayer:self.shoeView.layer];
+    [self pauseLayer:self.knowView.layer];
+    [self pauseLayer:self.phoneView.layer];
+}
+
+- (void)resumeAllAnimation
+{
+    [self resumeLayer:self.boxingView.layer];
+    [self resumeLayer:self.shoeView.layer];
+    [self resumeLayer:self.knowView.layer];
+    [self resumeLayer:self.phoneView.layer];
+}
+
+- (void)pauseLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+
+- (void)resumeLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
 }
 
 - (void)animationBegin
@@ -362,17 +394,18 @@
 //    [self.phoneView.layer addAnimation:translation forKey:@"translation"];
     
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];//设置view从初始位置经过一系列点
-    //animation.keyTimes = [self createTimes:30 dis:120 dir:0];
     CGFloat dis = 120;
     animation.repeatCount = NSNotFound;
     animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
+    CGFloat totalTime = 3;
     
     NSInteger offsetY = arc4random() % 60;
     NSInteger dir = arc4random() % 2;
-    CGFloat totalTime = (arc4random() % 300)/100 + 3;
+    totalTime = (arc4random() % 300)/100 + 3;
     
     animation.duration = totalTime;
+    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
     [animation setValues:[self createTrack:CGPointMake(originFrame1.origin.x + originFrame1.size.width / 2, originFrame1.origin.y + originFrame1.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
     
     [self.boxingView.layer addAnimation:animation forKey:@"animation"]; //执行动画
@@ -382,6 +415,7 @@
     totalTime = (arc4random() % 300)/100 + 3;
     
     animation.duration = totalTime;
+    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
     [animation setValues:[self createTrack:CGPointMake(originFrame2.origin.x + originFrame2.size.width / 2, originFrame2.origin.y + originFrame2.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
     [self.shoeView.layer addAnimation:animation forKey:@"animation"];
     
@@ -390,7 +424,8 @@
     totalTime = (arc4random() % 300)/100 + 3;
     
     animation.duration = totalTime;
-    [animation setValues:[self createTrack:CGPointMake(originFrame3.origin.x + originFrame3.size.width / 2, originFrame3.origin.y + originFrame3.size.height / 2 + 60) offsetY:offsetY dis:dis dir:dir]];
+    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
+    [animation setValues:[self createTrack:CGPointMake(originFrame3.origin.x + originFrame3.size.width / 2, originFrame3.origin.y + originFrame3.size.height / 2 + dis/2) offsetY:offsetY dis:dis dir:dir]];
     [self.knowView.layer addAnimation:animation forKey:@"animation"];
     
     offsetY = arc4random() % 60;
@@ -398,7 +433,8 @@
     totalTime = (arc4random() % 300)/100   + 3;
     
     animation.duration = totalTime;
-    [animation setValues:[self createTrack:CGPointMake(originFrame4.origin.x + originFrame4.size.width / 2, originFrame4.origin.y + originFrame4.size.height / 2 + 60) offsetY:offsetY dis:dis dir:dir]];
+    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
+    [animation setValues:[self createTrack:CGPointMake(originFrame4.origin.x + originFrame4.size.width / 2, originFrame4.origin.y + originFrame4.size.height / 2 + dis/2) offsetY:offsetY dis:dis dir:dir]];
     [self.phoneView.layer addAnimation:animation forKey:@"animation"];
     
 }
@@ -410,12 +446,12 @@
 {
     //向下
     if (dir == 0) {
-//        return [CGPointMake(buttomPoint.x, buttomPoint.y + offsetY), CGPointMake(buttomPoint.x, buttomPoint.y), CGPointMake(buttomPoint.x, buttomPoint.y + 30), CGPointMake(buttomPoint.x, buttomPoint.y + offsetY)];
         return @[[NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - dis / 2)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)]];
     }else
     {
         return @[[NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - dis / 2)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)]];
     }
+//    return @[[NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - dis/2)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)]];
 }
 
 - (NSArray *)createTimes:(CGFloat) offsetY
@@ -423,18 +459,19 @@
                      dir:(NSInteger) dir
 {
     //向下
-    if (dir == 0) {
-        NSLog(@"%f", offsetY / dis * 3 +0.5 * 3 +(0.5 - offsetY / dis)*3);
-        return @[[NSNumber numberWithFloat:offsetY / dis * 3], @(0.5 * 3), [NSNumber numberWithFloat:(0.5 - offsetY / dis)*3]];
+    NSNumber *time1 = [NSNumber numberWithFloat:offsetY / dis ];
+    if (dir == 1){
+        time1 = [NSNumber numberWithFloat:0.5 - offsetY / dis];
     }
-    else
-    {
-        return @[[NSNumber numberWithFloat:3 *(0.5 - offsetY / dis)], @ (3 * 0.5), [NSNumber numberWithFloat:offsetY / dis * 3]];
-    }
+    NSNumber *time2 = [NSNumber numberWithFloat:([time1 floatValue] + 0.5)];
+    return @[@0, time1, time2, @1];
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [self removeAllAnimation];
+    [self resumeAllAnimation];
     [self animationBegin];
     self.isClicked = NO;
     self.knowledgeImageView.hidden = YES;
