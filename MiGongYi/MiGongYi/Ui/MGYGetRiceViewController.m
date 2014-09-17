@@ -338,26 +338,99 @@
 //    
 //    [UIView commitAnimations];
     
-    CABasicAnimation *translation = [CABasicAnimation animationWithKeyPath:@"position"];
-    //translation.fromValue = [NSValue valueWithCGPoint:originFrame1.origin];
-    CGRect tmpFrame = originFrame1;
-    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
-    translation.duration = 1;
-    translation.repeatCount = NSNotFound;
-    translation.autoreverses = YES;
-    [self.boxingView.layer addAnimation:translation forKey:@"translation"];
+//    CABasicAnimation *translation = [CABasicAnimation animationWithKeyPath:@"position"];
+//    translation.duration = 1;
+//    translation.repeatCount = NSNotFound;
+//    translation.removedOnCompletion = NO;
+//    translation.fillMode = kCAFillModeForwards;
+//    translation.autoreverses = YES;
+//    CGRect tmpFrame = originFrame1;
+//    
+//    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+//    [self.boxingView.layer addAnimation:translation forKey:@"translation"];
+//    
+//    tmpFrame = originFrame2;
+//    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+//    [self.shoeView.layer addAnimation:translation forKey:@"translation"];
+//    
+//    tmpFrame = originFrame3;
+//    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+//    [self.knowView.layer addAnimation:translation forKey:@"translation"];
+//    
+//    tmpFrame = originFrame4;
+//    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+//    [self.phoneView.layer addAnimation:translation forKey:@"translation"];
     
-    tmpFrame = originFrame2;
-    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
-    [self.shoeView.layer addAnimation:translation forKey:@"translation"];
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];//设置view从初始位置经过一系列点
+    //animation.keyTimes = [self createTimes:30 dis:120 dir:0];
+    CGFloat dis = 120;
+    animation.repeatCount = NSNotFound;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
     
-    tmpFrame = originFrame3;
-    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
-    [self.knowView.layer addAnimation:translation forKey:@"translation"];
+    NSInteger offsetY = arc4random() % 60;
+    NSInteger dir = arc4random() % 2;
+    CGFloat totalTime = (arc4random() % 300)/100 + 3;
     
-    tmpFrame = originFrame4;
-    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
-    [self.phoneView.layer addAnimation:translation forKey:@"translation"];
+    animation.duration = totalTime;
+    [animation setValues:[self createTrack:CGPointMake(originFrame1.origin.x + originFrame1.size.width / 2, originFrame1.origin.y + originFrame1.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
+    
+    [self.boxingView.layer addAnimation:animation forKey:@"animation"]; //执行动画
+    
+    offsetY = arc4random() % 60;
+    dir = arc4random() % 2;
+    totalTime = (arc4random() % 300)/100 + 3;
+    
+    animation.duration = totalTime;
+    [animation setValues:[self createTrack:CGPointMake(originFrame2.origin.x + originFrame2.size.width / 2, originFrame2.origin.y + originFrame2.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
+    [self.shoeView.layer addAnimation:animation forKey:@"animation"];
+    
+    offsetY = arc4random() % 60;
+    dir = arc4random() % 2;
+    totalTime = (arc4random() % 300)/100 + 3;
+    
+    animation.duration = totalTime;
+    [animation setValues:[self createTrack:CGPointMake(originFrame3.origin.x + originFrame3.size.width / 2, originFrame3.origin.y + originFrame3.size.height / 2 + 60) offsetY:offsetY dis:dis dir:dir]];
+    [self.knowView.layer addAnimation:animation forKey:@"animation"];
+    
+    offsetY = arc4random() % 60;
+    dir = arc4random() % 2;
+    totalTime = (arc4random() % 300)/100   + 3;
+    
+    animation.duration = totalTime;
+    [animation setValues:[self createTrack:CGPointMake(originFrame4.origin.x + originFrame4.size.width / 2, originFrame4.origin.y + originFrame4.size.height / 2 + 60) offsetY:offsetY dis:dis dir:dir]];
+    [self.phoneView.layer addAnimation:animation forKey:@"animation"];
+    
+}
+
+- (NSArray *)createTrack:(CGPoint) buttomPoint
+                 offsetY:(CGFloat) offsetY
+                     dis:(CGFloat) dis
+                     dir:(NSInteger) dir
+{
+    //向下
+    if (dir == 0) {
+//        return [CGPointMake(buttomPoint.x, buttomPoint.y + offsetY), CGPointMake(buttomPoint.x, buttomPoint.y), CGPointMake(buttomPoint.x, buttomPoint.y + 30), CGPointMake(buttomPoint.x, buttomPoint.y + offsetY)];
+        return @[[NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - dis / 2)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)]];
+    }else
+    {
+        return @[[NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - dis / 2)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y)], [NSValue valueWithCGPoint:CGPointMake(buttomPoint.x, buttomPoint.y - offsetY)]];
+    }
+}
+
+- (NSArray *)createTimes:(CGFloat) offsetY
+                     dis:(CGFloat) dis
+                     dir:(NSInteger) dir
+{
+    //向下
+    if (dir == 0) {
+        NSLog(@"%f", offsetY / dis * 3 +0.5 * 3 +(0.5 - offsetY / dis)*3);
+        return @[[NSNumber numberWithFloat:offsetY / dis * 3], @(0.5 * 3), [NSNumber numberWithFloat:(0.5 - offsetY / dis)*3]];
+    }
+    else
+    {
+        return @[[NSNumber numberWithFloat:3 *(0.5 - offsetY / dis)], @ (3 * 0.5), [NSNumber numberWithFloat:offsetY / dis * 3]];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
