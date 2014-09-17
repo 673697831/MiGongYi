@@ -14,10 +14,10 @@
 @property(nonatomic, weak) UIImageView *backgroundImageView;
 @property(nonatomic, weak) UIImageView *knowledgeImageView;
 @property(nonatomic, weak) UIImageView *manImageView;
-@property(nonatomic, weak) UIButton *boxingView;
-@property(nonatomic, weak) UIButton *knowView;
-@property(nonatomic, weak) UIButton *shoeView;
-@property(nonatomic, weak) UIButton *phoneView;
+@property(nonatomic, weak) UIImageView *boxingView;
+@property(nonatomic, weak) UIImageView *knowView;
+@property(nonatomic, weak) UIImageView *shoeView;
+@property(nonatomic, weak) UIImageView *phoneView;
 @property(nonatomic, assign) BOOL isClicked;
 
 @end
@@ -82,7 +82,7 @@
     button.tag = tag;
     button.adjustsImageWhenHighlighted = NO;
     [button setImage:[UIImage imageNamed:path] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
+    //[button addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 
@@ -93,6 +93,7 @@
         return;
     }
     [self.view.layer removeAllAnimations];
+    [self.boxingView.layer removeAllAnimations];
     NSLog(@"iiiiiiiiiigggggggggggg %d", [sender tag]);
     
     switch ([sender tag]) {
@@ -137,21 +138,91 @@
     [manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
     self.manImageView = manImageView;
 
-    self.boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
-    [self.view addSubview:self.boxingView];
+//    self.boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
+//    [self.view addSubview:self.boxingView];
+//    
+//    self.shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
+//    [self.view addSubview:self.shoeView];
+//    
+//    self.knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
+//    [self.view addSubview:self.knowView];
+//    
+//    self.phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
+//    [self.view addSubview:self.phoneView];
     
-    self.shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
-    [self.view addSubview:self.shoeView];
+    UIImageView *boxingView = [UIImageView new];
+    [self.view addSubview:boxingView];
+    [boxingView setImage:[UIImage imageNamed:@"button_boxing_normal"]];
+    self.boxingView = boxingView;
     
-    self.knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
-    [self.view addSubview:self.knowView];
+    UIImageView *shoeView = [UIImageView new];
+    [self.view addSubview:shoeView];
+    [shoeView setImage:[UIImage imageNamed:@"button_aerobic exercise_normal"]];
+    self.shoeView = shoeView;
     
-    self.phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
-    [self.view addSubview:self.phoneView];
+    UIImageView *knowView = [UIImageView new];
+    [self.view addSubview:knowView];
+    [knowView setImage:[UIImage imageNamed:@"button_knowledge_normal"]];
+    self.knowView = knowView;
+    
+    UIImageView *phoneView = [UIImageView new];
+    [self.view addSubview:phoneView];
+    [phoneView setImage:[UIImage imageNamed:@"button_call_normal"]];
+    self.phoneView = phoneView;
+    
     [self setup];
     
-    
+    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesPoint:)];
+    [self.view addGestureRecognizer:tapGesture];
     // Do any additional setup after loading the view.
+}
+
+-(void)touchesPoint:(UITapGestureRecognizer *)gestureRecognizer
+{
+    CGPoint locationInView = [gestureRecognizer locationInView:self.view];
+    //presentationLayer layer的动画层
+    CALayer *layer1=[[self.boxingView.layer presentationLayer] hitTest:locationInView];
+    if (layer1) {
+        [self removeAllAnimation];
+        [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
+        self.isClicked = YES;
+        return;
+    }
+    
+    CALayer *layer2=[[self.shoeView.layer presentationLayer] hitTest:locationInView];
+    if (layer2) {
+        [self removeAllAnimation];
+        NSLog(@"gegegegegegeg");
+        [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
+        self.isClicked = YES;
+        return;
+    }
+    
+    CALayer *layer3=[[self.knowView.layer presentationLayer] hitTest:locationInView];
+    if (layer3) {
+        [self removeAllAnimation];
+        self.knowledgeImageView.hidden = NO;
+        self.isClicked = YES;
+        return;
+    }
+    
+    CALayer *layer4=[[self.phoneView.layer presentationLayer] hitTest:locationInView];
+    if (layer4) {
+        [self removeAllAnimation];
+        [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
+        self.isClicked = YES;
+        return;
+    }
+    
+    NSLog(@"%f %f", locationInView.x, locationInView.y);
+}
+
+- (void)removeAllAnimation
+{
+    [self.boxingView.layer removeAllAnimations];
+    [self.shoeView.layer removeAllAnimations];
+    [self.knowView.layer removeAllAnimations];
+    [self.phoneView.layer removeAllAnimations];
 }
 
 - (void)animationBegin
@@ -160,30 +231,57 @@
     CGRect originFrame2 = self.shoeView.frame;
     CGRect originFrame3 = self.knowView.frame;
     CGRect originFrame4 = self.phoneView.frame;
-    [UIView transitionWithView:self.view duration:1 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        [UIView setAnimationRepeatCount:NSNotFound];
-        [UIView setAnimationRepeatAutoreverses:YES];
-        CGRect frame1 = self.shoeView.frame;
-        frame1.origin.y = frame1.origin.y - 30;
-        self.shoeView.frame = frame1;
-        
-        CGRect frame2 = self.boxingView.frame;
-        frame2.origin.y = frame2.origin.y - 30;
-        self.boxingView.frame = frame2;
-        
-        CGRect frame3 = self.knowView.frame;
-        frame3.origin.y = frame3.origin.y - 30;
-        self.knowView.frame = frame3;
-        
-        CGRect frame4 = self.phoneView.frame;
-        frame4.origin.y = frame4.origin.y - 30;
-        self.phoneView.frame = frame4;
-    } completion:^(BOOL finished) {
-        self.boxingView.frame = originFrame1;
-        self.shoeView.frame = originFrame2;
-        self.knowView.frame = originFrame3;
-        self.phoneView.frame = originFrame4;
-    }];
+//    
+//    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+//        [UIView setAnimationRepeatCount:NSNotFound];
+//        [UIView setAnimationDelegate:self];
+//        [UIView setAnimationRepeatAutoreverses:YES];
+//        CGRect frame1 = self.shoeView.frame;
+//        frame1.origin.y = frame1.origin.y - 30;
+//        self.shoeView.frame = frame1;
+//        
+//        CGRect frame2 = self.boxingView.frame;
+//        frame2.origin.y = frame2.origin.y - 30;
+//        self.boxingView.frame = frame2;
+//        
+//        CGRect frame3 = self.knowView.frame;
+//        frame3.origin.y = frame3.origin.y - 30;
+//        self.knowView.frame = frame3;
+//        
+//        CGRect frame4 = self.phoneView.frame;
+//        frame4.origin.y = frame4.origin.y - 30;
+//        self.phoneView.frame = frame4;
+//    } completion:^(BOOL finished) {
+//        self.boxingView.frame = originFrame1;
+//        self.shoeView.frame = originFrame2;
+//        self.knowView.frame = originFrame3;
+//        self.phoneView.frame = originFrame4;
+//    }];
+    
+//    [UIView transitionWithView:self.view duration:1 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+//        [UIView setAnimationRepeatCount:NSNotFound];
+//        [UIView setAnimationRepeatAutoreverses:YES];
+//        CGRect frame1 = self.shoeView.frame;
+//        frame1.origin.y = frame1.origin.y - 30;
+//        self.shoeView.frame = frame1;
+//        
+//        CGRect frame2 = self.boxingView.frame;
+//        frame2.origin.y = frame2.origin.y - 30;
+//        self.boxingView.frame = frame2;
+//        
+//        CGRect frame3 = self.knowView.frame;
+//        frame3.origin.y = frame3.origin.y - 30;
+//        self.knowView.frame = frame3;
+//        
+//        CGRect frame4 = self.phoneView.frame;
+//        frame4.origin.y = frame4.origin.y - 30;
+//        self.phoneView.frame = frame4;
+//    } completion:^(BOOL finished) {
+//        self.boxingView.frame = originFrame1;
+//        self.shoeView.frame = originFrame2;
+//        self.knowView.frame = originFrame3;
+//        self.phoneView.frame = originFrame4;
+//    }];
     
 //    [UIView animateWithDuration:1 animations:^{
 //        [UIView setAnimationRepeatCount:NSNotFound];
@@ -210,6 +308,56 @@
 //        self.knowView.frame = originFrame3;
 //        self.phoneView.frame = originFrame4;
 //    }];
+    
+    //[self.view.layer removeAllAnimations];
+    
+//    self.view.alpha = 0.0;
+//    
+//    [UIView beginAnimations:@"showView" context:nil];
+//    [UIView setAnimationDelegate:self];
+//    [UIView setAnimationDuration:1.0f];
+//    [UIView setAnimationRepeatCount:NSNotFound];
+//    [UIView setAnimationRepeatAutoreverses:YES];
+//    
+//    self.view.alpha = 1.0;
+//    CGRect frame1 = self.shoeView.frame;
+//    frame1.origin.y = frame1.origin.y - 30;
+//    self.shoeView.frame = frame1;
+//    //
+//    CGRect frame2 = self.boxingView.frame;
+//    frame2.origin.y = frame2.origin.y - 30;
+//    self.boxingView.frame = frame2;
+//    //
+//    CGRect frame3 = self.knowView.frame;
+//    frame3.origin.y = frame3.origin.y - 30;
+//    self.knowView.frame = frame3;
+//    //
+//    CGRect frame4 = self.phoneView.frame;
+//    frame4.origin.y = frame4.origin.y - 30;
+//    self.phoneView.frame = frame4;
+//    
+//    [UIView commitAnimations];
+    
+    CABasicAnimation *translation = [CABasicAnimation animationWithKeyPath:@"position"];
+    //translation.fromValue = [NSValue valueWithCGPoint:originFrame1.origin];
+    CGRect tmpFrame = originFrame1;
+    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+    translation.duration = 1;
+    translation.repeatCount = NSNotFound;
+    translation.autoreverses = YES;
+    [self.boxingView.layer addAnimation:translation forKey:@"translation"];
+    
+    tmpFrame = originFrame2;
+    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+    [self.shoeView.layer addAnimation:translation forKey:@"translation"];
+    
+    tmpFrame = originFrame3;
+    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+    [self.knowView.layer addAnimation:translation forKey:@"translation"];
+    
+    tmpFrame = originFrame4;
+    translation.toValue = [NSValue valueWithCGPoint:CGPointMake(tmpFrame.origin.x + tmpFrame.size.width / 2, tmpFrame.origin.y - 30 + tmpFrame.size.height / 2)];
+    [self.phoneView.layer addAnimation:translation forKey:@"translation"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -217,6 +365,7 @@
     [self animationBegin];
     self.isClicked = NO;
     self.knowledgeImageView.hidden = YES;
+    [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
 }
 
 /*

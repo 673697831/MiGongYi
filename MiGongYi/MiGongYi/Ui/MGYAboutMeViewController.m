@@ -138,7 +138,6 @@
 
 - (void)clickEventOnImage:(id)sender
 {
-    NSLog(@"ooooooooooooooo");
     for (int i=1; i<=3; i++) {
         NSNumber *num = [NSNumber numberWithInt:i];
         AboutMeItemView *item = [self.dic objectForKey:num];
