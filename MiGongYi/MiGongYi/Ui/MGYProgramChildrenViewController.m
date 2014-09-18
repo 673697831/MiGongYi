@@ -67,7 +67,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"留守儿童";
+    self.title = NSLocalizedString(@"留守儿童", "留守儿童");
     __array = [NSMutableArray array];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];

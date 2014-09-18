@@ -11,6 +11,8 @@
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
 		202E3FA519C869A100E58B4E /* AboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* AboutMeItemView.m */; };
+		203D636319CAA5D600116ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D635F19CAA5D600116ECA /* InfoPlist.strings */; };
+		203D636419CAA5D600116ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636119CAA5D600116ECA /* Localizable.strings */; };
 		2085C85619B6280C00E9FA3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85519B6280C00E9FA3B /* Foundation.framework */; };
 		2085C85819B6280C00E9FA3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85719B6280C00E9FA3B /* CoreGraphics.framework */; };
 		2085C85A19B6280C00E9FA3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85919B6280C00E9FA3B /* UIKit.framework */; };
@@ -58,6 +60,10 @@
 		202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYGetRiceViewController.m; sourceTree = "<group>"; };
 		202E3FA319C869A100E58B4E /* AboutMeItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeItemView.h; sourceTree = "<group>"; };
 		202E3FA419C869A100E58B4E /* AboutMeItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeItemView.m; sourceTree = "<group>"; };
+		203D635C19CAA54700116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		203D635D19CAA54700116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		203D636019CAA5D600116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
+		203D636219CAA5D600116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		2085C85219B6280C00E9FA3B /* MiGongYi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiGongYi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2085C85519B6280C00E9FA3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2085C85719B6280C00E9FA3B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,6 +142,15 @@
 			path = AboutME;
 			sourceTree = "<group>";
 		};
+		203D635E19CAA5D600116ECA /* zh-Hans.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				203D635F19CAA5D600116ECA /* InfoPlist.strings */,
+				203D636119CAA5D600116ECA /* Localizable.strings */,
+			);
+			path = "zh-Hans.lproj";
+			sourceTree = "<group>";
+		};
 		2085C84919B6280C00E9FA3B = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +186,7 @@
 		2085C85B19B6280C00E9FA3B /* MiGongYi */ = {
 			isa = PBXGroup;
 			children = (
+				203D635E19CAA5D600116ECA /* zh-Hans.lproj */,
 				20A2D29E19BE97C6004C7697 /* Model */,
 				20A2D27C19B9DB89004C7697 /* Common */,
 				20A2D28019B9DCDC004C7697 /* Ui */,
@@ -355,6 +371,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 2085C84919B6280C00E9FA3B;
 			productRefGroup = 2085C85319B6280C00E9FA3B /* Products */;
@@ -373,6 +390,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2085C86019B6280C00E9FA3B /* InfoPlist.strings in Resources */,
+				203D636419CAA5D600116ECA /* Localizable.strings in Resources */,
+				203D636319CAA5D600116ECA /* InfoPlist.strings in Resources */,
 				2085C86819B6280C00E9FA3B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,10 +484,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		203D635F19CAA5D600116ECA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				203D636019CAA5D600116ECA /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		203D636119CAA5D600116ECA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				203D636219CAA5D600116ECA /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		2085C85E19B6280C00E9FA3B /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2085C85F19B6280C00E9FA3B /* en */,
+				203D635C19CAA54700116ECA /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -477,6 +513,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2085C87819B6280D00E9FA3B /* en */,
+				203D635D19CAA54700116ECA /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
