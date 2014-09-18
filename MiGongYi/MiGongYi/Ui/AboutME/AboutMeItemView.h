@@ -13,7 +13,11 @@
 @property(nonatomic, weak) UIImageView *myImageView;
 @property(nonatomic, weak) UILabel *myLabel;
 
-- (void)initialize:(NSString *)imagePath
-              text:(NSString *)text;
+- (instancetype)initWithFrame:(CGRect)frame
+              normalImagePath:(NSString *)normalImagePath
+            selectedImagePath:(NSString *)selectedImagePath
+                        title:(NSString *)title;
+
+- (void)setSelect:(BOOL)isSelected;
 
 @end

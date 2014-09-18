@@ -12,6 +12,7 @@
 #import "MGYPersonalDetails.h"
 #import "DataManager.h"
 #import "AboutMeItemView.h"
+#import "AboutMeItemGroup.h"
 
 @interface MGYAboutMeViewController ()
 
@@ -34,6 +35,7 @@
 @property(nonatomic, weak) AboutMeItemView *riceItemView;
 @property(nonatomic, weak) AboutMeItemView *friendItemView;
 @property(nonatomic, weak) AboutMeItemView *favItemView;
+@property(nonatomic, strong) AboutMeItemGroup *itemGroup;
 @end
 
 @implementation MGYAboutMeViewController
@@ -115,8 +117,10 @@
     [self.tabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(55);
         make.bottom.equalTo(self.titleBackgroundView.mas_bottom);
-        make.left.equalTo(self.titleBackgroundView.mas_left).with.offset(30);
-        make.right.equalTo(self.titleBackgroundView.mas_right).with.offset(-30);
+        make.width.mas_equalTo(540/2);
+        make.centerX.equalTo(self.titleBackgroundView.mas_centerX);
+        //make.left.equalTo(self.titleBackgroundView.mas_left).with.offset(30);
+        //make.right.equalTo(self.titleBackgroundView.mas_right).with.offset(-30);
     }];
     
     
@@ -138,22 +142,7 @@
 
 - (void)clickEventOnImage:(id)sender
 {
-    for (int i=1; i<=3; i++) {
-        NSNumber *num = [NSNumber numberWithInt:i];
-        AboutMeItemView *item = [self.dic objectForKey:num];
-        if ([sender tag] == i) {
-            item.myButton.backgroundColor = [UIColor whiteColor];
-            item.myLabel.textColor = [UIColor orangeColor];
-            [item.myImageView setImage:[UIImage imageNamed:[self.pathDic objectForKey:num][1]]];
-        }else
-        {
-            item.myButton.backgroundColor = [UIColor orangeColor];
-            item.myLabel.textColor = [UIColor whiteColor];
-            [item.myImageView setImage:[UIImage imageNamed:[self.pathDic objectForKey:num][0]]];
-
-        }
-    }
-
+    [self.itemGroup selectInIndex:[sender tag] - 1];
 }
 
 - (void)viewDidLoad
@@ -249,33 +238,32 @@
     tabView.backgroundColor = [UIColor whiteColor];
     self.tabView = tabView;
     
-    AboutMeItemView *riceItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55)];
+    AboutMeItemView *riceItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55) normalImagePath:@"tab_rice_normal" selectedImagePath:@"tab_rice_selected" title:@"拥有米粒"];
     [self.tabView addSubview:riceItemView];
-    [riceItemView initialize:@"tab_rice_normal" text:@"拥有米粒"];
     riceItemView.myButton.tag = 1;
     [riceItemView.myButton addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
     self.riceItemView = riceItemView;
     
-    AboutMeItemView *friendItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55)];
+    AboutMeItemView *friendItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55) normalImagePath:@"tab_friends_normal" selectedImagePath:@"tab_friends_selected" title:@"好友列表"];
     [self.tabView addSubview:friendItemView];
-    [friendItemView initialize:@"tab_friends_normal" text:@"好友列表"];
     friendItemView.myButton.tag = 2;
     [friendItemView.myButton addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
     self.friendItemView = friendItemView;
     
-    AboutMeItemView *favItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55)];
+    AboutMeItemView *favItemView = [[AboutMeItemView alloc] initWithFrame:CGRectMake(0, 0, 90, 55) normalImagePath:@"tab_fav_normal" selectedImagePath:@"tab_fav_selected" title:@"收藏项目"];
     [self.tabView addSubview:favItemView];
-    [favItemView initialize:@"tab_fav_normal" text:@"收藏项目"];
     favItemView.myButton.tag = 3;
     [favItemView.myButton addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
     self.favItemView = favItemView;
     
     [self setup];
-    self.dic = @{@1: self.riceItemView, @2: self.friendItemView, @3: self.favItemView};
-    self.pathDic = @{@1: @[@"tab_rice_normal", @"tab_rice_selected"], @2:@[@"tab_friends_normal", @"tab_friends_selected"], @3:@[@"tab_fav_normal", @"tab_fav_selected"]};
+    
+    self.itemGroup = [AboutMeItemGroup new];
+    [self.itemGroup addItems:@[riceItemView, friendItemView, favItemView]];
+    [self.itemGroup selectInIndex:0];
+    
     [[DataManager shareInstance] requestForPersonalDetails];
-    //[self updateDetails];
-//
+    
 //    self.titleBackgroundView = titleBackgroundView;
     // Do any additional setup after loading the view.
 }
