@@ -10,6 +10,7 @@
 #import "MGYProgramListCell.h"
 #import "DataManager.h"
 #import "UIColor+Expanded.h"
+#import "MGYDetailsViewController.h"
 
 @interface MGYProgramChildrenViewController ()
 {
@@ -109,6 +110,14 @@
     self.isLoading = NO;
     [self.refreshControl endRefreshing];
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"iiiiiiiiiii");
+    MGYDetailsViewController *view = [MGYDetailsViewController new];
+    [self.navigationController pushViewController:view animated:YES];
+}
+
 /*
 #pragma mark - Navigation
 

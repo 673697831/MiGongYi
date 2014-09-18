@@ -76,6 +76,7 @@
         tabbar.selectedItem = tab1BarItem;
         tabbar.delegate = self;
         [self.view addSubview:tabbar];
+        self.barView = tabbar;
         self.viewControllers = [NSArray arrayWithObjects:tab1Nav, tab2Nav, tab3Nav, tab4Nav, nil];
         
         self.tabBar.hidden = YES;

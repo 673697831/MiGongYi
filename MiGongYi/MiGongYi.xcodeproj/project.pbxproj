@@ -13,6 +13,7 @@
 		202E3FA519C869A100E58B4E /* AboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* AboutMeItemView.m */; };
 		203D636319CAA5D600116ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D635F19CAA5D600116ECA /* InfoPlist.strings */; };
 		203D636419CAA5D600116ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636119CAA5D600116ECA /* Localizable.strings */; };
+		203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D636619CAC7E800116ECA /* MGYDetailsViewController.m */; };
 		2085C85619B6280C00E9FA3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85519B6280C00E9FA3B /* Foundation.framework */; };
 		2085C85819B6280C00E9FA3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85719B6280C00E9FA3B /* CoreGraphics.framework */; };
 		2085C85A19B6280C00E9FA3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85919B6280C00E9FA3B /* UIKit.framework */; };
@@ -64,6 +65,8 @@
 		203D635D19CAA54700116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		203D636019CAA5D600116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		203D636219CAA5D600116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
+		203D636519CAC7E800116ECA /* MGYDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDetailsViewController.h; sourceTree = "<group>"; };
+		203D636619CAC7E800116ECA /* MGYDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDetailsViewController.m; sourceTree = "<group>"; };
 		2085C85219B6280C00E9FA3B /* MiGongYi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiGongYi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2085C85519B6280C00E9FA3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2085C85719B6280C00E9FA3B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -266,6 +269,8 @@
 				20A2D29319B9E82D004C7697 /* MGYDetailsIcon.m */,
 				20A2D28419B9DCDC004C7697 /* MGYDetailsViewCell.h */,
 				20A2D28519B9DCDC004C7697 /* MGYDetailsViewCell.m */,
+				203D636519CAC7E800116ECA /* MGYDetailsViewController.h */,
+				203D636619CAC7E800116ECA /* MGYDetailsViewController.m */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -462,6 +467,7 @@
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
+				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

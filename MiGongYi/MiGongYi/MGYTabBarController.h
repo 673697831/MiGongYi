@@ -10,6 +10,8 @@
 #import "DataManager.h"
 @interface MGYTabBarController : UITabBarController
 
+@property(nonatomic, weak) UITabBar *barView;
+
 + (MGYTabBarController *)shareInstance;
 
 - (void)refreshProgramListView:(ProjectType)type reset:(BOOL)reset;
