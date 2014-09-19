@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
 
-typedef NS_ENUM(NSInteger, ProjectType) {
-    ItemType = 1,
-    ChildrenType = 2,
+typedef NS_ENUM(NSInteger, MGYProjectType) {
+    MGYItemType = 1,
+    MGYChildrenType = 2,
 };
 @interface MGYProject : MTLModel <MTLJSONSerializing>
-@property(nonatomic, assign) ProjectType type;
+@property(nonatomic, assign) MGYProjectType type;
 @property(nonatomic, assign) NSInteger projectId;
 @property(nonatomic, copy) NSString *coverImg;
 @property(nonatomic, copy) NSString *title;

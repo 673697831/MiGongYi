@@ -24,16 +24,6 @@
 
 @implementation MGYTabBarController
 
-+ (MGYTabBarController *)shareInstance
-{
-    static MGYTabBarController *instance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[MGYTabBarController alloc] initWithNibName:nil bundle:nil];
-    });
-    return instance;
-}
-
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -120,27 +110,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)refreshProgramListView:(ProjectType)type reset:(BOOL)reset
-{
-    if (type == 1) {
-        [self.detailsView resetData:[DataManager shareInstance].itemList reset:YES];
-    }
-    if (type == 2) {
-        //[self.listView resetData:[DataManager shareInstance].projectList];
-        [self.listView resetData:[DataManager shareInstance].childList reset:YES];
-    }
-}
-
-- (void)refreshAboutMeView
-{
-    
-}
 
 //
 //#pragma mark - Navigation
@@ -157,28 +126,6 @@
 {
     // 留守儿童
     [self setSelectedIndex:item.tag];
-    //[self selectHandle:item.tag];
-    
-}
-
-
--(void)selectHandle:(int)selectedIndex
-{
-    switch (selectedIndex) {
-        case 1:
-            [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES];
-            break;
-        case 2:
-            break;
-        case 3:
-            [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES];
-            break;
-        case 4:
-            break;
-        default:
-            break;
-    }
-    
 }
 
 @end

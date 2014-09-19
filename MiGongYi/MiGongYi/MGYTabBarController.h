@@ -12,8 +12,4 @@
 
 @property(nonatomic, weak) UITabBar *barView;
 
-+ (MGYTabBarController *)shareInstance;
-
-- (void)refreshProgramListView:(ProjectType)type reset:(BOOL)reset;
-- (void)refreshAboutMeView;
 @end

@@ -45,7 +45,9 @@
     [cell updateDetails:__array[indexPath.row]];
     if (!self.isLoading && __array.count - indexPath.row == 1 ) {
         self.isLoading = YES;
-        [[DataManager shareInstance] requestForList:1 start:__array.count limit:3 reset:NO];
+        [[DataManager shareInstance] requestForList:1 start:__array.count limit:1 reset:NO success:^(NSArray *array) {
+            [self resetData:array reset:YES];
+        }];
     }
     //NSLog(@"cellforrowatindexpath");
     
@@ -76,9 +78,11 @@
 //    if (self.isLoading) {
 //        return;
 //    }
-    
-    [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES];
-    //[refreshControl endRefreshing];
+    self.isLoading = YES;
+    [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES success:^(NSArray *array) {
+        [self resetData:array reset:YES];
+    }];
+    [refreshControl endRefreshing];
 }
 
 - (void)viewDidLoad
@@ -106,16 +110,12 @@
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
     
-    [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES];
+    [[DataManager shareInstance] requestForList:1 start:0 limit:1 reset:YES success:^(NSArray *array) {
+        [self resetData:array reset:YES];
+    }];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillAppear:(BOOL)animated

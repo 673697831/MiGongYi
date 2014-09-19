@@ -19,7 +19,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [BlackMagic blackMagicAFJSONResponseSerializer];
-    MGYTabBarController *bar = [MGYTabBarController shareInstance];
+    MGYTabBarController *bar = [[MGYTabBarController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = bar;
     //application.statusBarStyle = UIStatusBarStyleLightContent;
     [application setStatusBarStyle:UIStatusBarStyleLightContent];

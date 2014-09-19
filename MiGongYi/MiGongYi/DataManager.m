@@ -11,13 +11,12 @@
 #import "MGYTabBarController.h"
 
 @interface DataManager ()
+
 @end
 
 
 @implementation DataManager
-@synthesize projectList = __projectList;
-@synthesize childList = __childList;
-@synthesize itemList = __itemList;
+
 //@synthesize personalDetails = __personalDetails;
 
 + (DataManager *)shareInstance
@@ -34,9 +33,8 @@
 {
     self = [super init];
     if (self) {
-        __projectList = [NSMutableArray new];
-        __childList = [NSMutableArray new];
-        __itemList = [NSMutableArray new];
+        _itemList = [NSMutableArray new];
+        _childList = [NSMutableArray new];
         NSInteger uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
         if (uid) {
             self.uid = uid;
@@ -48,43 +46,38 @@
     return self;
 }
 
-- (void)addProjects:(NSArray *)list type:(ProjectType)type
+- (void)addProjects:(NSArray *)list type:(MGYProjectType)type
 {
     for (NSDictionary *dic in list) {
-        //Project *newProject = [[Project alloc] initWithDictionary:dic error:nil];
         MGYProject *newProject = [MTLJSONAdapter modelOfClass:[MGYProject class] fromJSONDictionary:dic error:nil];
         newProject.type = type;
         
-        
-        [__projectList addObject:newProject];
-        
         if (type == 1) {
-            [__itemList addObject:newProject];
+            [_itemList addObject:newProject];
         }
         
         if (type == 2) {
-            [__childList addObject:newProject];
+            [_childList addObject:newProject];
         }
         
     }
 }
 
-- (void)setProjects:(NSArray *)list type:(ProjectType)type reset:(BOOL)reset
+- (void)setProjects:(NSArray *)list type:(MGYProjectType)type reset:(BOOL)reset
 {
     if (reset) {
-        if (type == 1) {
-            [__itemList removeAllObjects];
+        if (type == MGYItemType) {
+            [_itemList removeAllObjects];
         }
-        if (type == 2) {
-            [__childList removeAllObjects];
+        if (type == MGYChildrenType) {
+            [_childList removeAllObjects];
         }
-        [__projectList removeAllObjects];
     }
     [self addProjects:list type:type];
-    [[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
+    //[[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
 }
 
-- (void)requestForList:(ProjectType)type start:(NSInteger)start limit:(NSInteger)limit reset:(BOOL)reset
+- (void)requestForList:(MGYProjectType)type start:(NSInteger)start limit:(NSInteger)limit reset:(BOOL)reset success:(void (^)(NSArray *array))success
 {
     NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=list";
     
@@ -99,6 +92,7 @@
         }
         
         [self setProjects:responseObject[@"data"] type:type reset:reset];
+        success(type == MGYChildrenType ? self.childList : self.itemList);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -124,7 +118,6 @@
     [manager GET:url parameters:@{@"uid": [NSNumber numberWithInteger:self.uid]} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
         MGYPersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[MGYPersonalDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
         self.personalDetails = newPersonalDetails;
-        [[MGYTabBarController shareInstance] refreshAboutMeView];
         //NSLog(@"%@", )
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

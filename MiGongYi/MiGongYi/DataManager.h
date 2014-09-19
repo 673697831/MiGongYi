@@ -12,12 +12,11 @@
 
 @interface DataManager : NSObject
 {
-    NSMutableArray *__projectList;
-    NSMutableArray *__childList;
-    NSMutableArray *__itemList;
+    NSMutableArray *_childList;
+    NSMutableArray *_itemList;
     //PersonalDetails *__personalDetails;
 }
-@property(nonatomic, readonly) NSArray* projectList;
+
 @property(nonatomic, readonly) NSArray* childList;
 @property(nonatomic, readonly) NSArray* itemList;
 @property(nonatomic, weak) MGYPersonalDetails *personalDetails;
@@ -26,14 +25,16 @@
 + (DataManager *)shareInstance;
 
 - (void)addProjects:(NSArray *)list
-              type:(ProjectType)type;
+              type:(MGYProjectType)type;
 - (void)setProjects:(NSArray *)list
-              type:(ProjectType)type
+              type:(MGYProjectType)type
              reset:(BOOL)reset;
-- (void)requestForList:(ProjectType)type
+- (void)requestForList:(MGYProjectType)type
                 start:(NSInteger)start
                 limit:(NSInteger)limit
-                reset:(BOOL)reset;
+                reset:(BOOL)reset
+               success:(void (^)(NSArray *array))success;
 - (void)requestForEnterUID;
 - (void)requestForPersonalDetails;
+
 @end

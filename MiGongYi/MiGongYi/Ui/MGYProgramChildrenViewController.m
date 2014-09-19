@@ -68,7 +68,9 @@
 //        return;
 //    }
     self.isLoading = YES;
-    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES];
+    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES success:^(NSArray *array) {
+        [self resetData:array reset:YES];
+    }];
     //[refreshControl endRefreshing];
 }
 
@@ -106,8 +108,9 @@
     [self.childrenCollectionView addSubview:refreshControl];
     self.refreshControl = refreshControl;
     
-    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES];
-    
+    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES success:^(NSArray *array) {
+        [self resetData:array reset:YES];
+    }];
     self.automaticallyAdjustsScrollViewInsets = YES;
     
     // Do any additional setup after loading the view.
