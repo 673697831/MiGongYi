@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MGYBaseProgressView.h"
 
-@interface MGYBaseViewController : UIViewController
+@interface MGYBaseViewController : UIViewController<UITabBarDelegate>
+
 @property(nonatomic, weak) UILabel *textLabel;
 @property(nonatomic, weak) MGYBaseProgressView *titleView;
+@property(nonatomic, weak) UITabBar *barView;
+
+- (void)setSelectedIndex:(NSInteger) selectedIndex;
 @end

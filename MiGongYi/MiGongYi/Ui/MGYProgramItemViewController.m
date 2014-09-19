@@ -83,6 +83,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
     self.title = @"公益项目";
     __array = [NSMutableArray array];
     
@@ -106,7 +108,7 @@
     
     [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES];
     
-    [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -114,6 +116,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setSelectedIndex:2];
 }
 
 /*

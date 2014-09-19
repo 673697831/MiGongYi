@@ -11,6 +11,7 @@
 #import "DataManager.h"
 #import "UIColor+Expanded.h"
 #import "MGYDetailsViewController.h"
+#import "Masonry.h"
 
 @interface MGYProgramChildrenViewController ()
 {
@@ -26,33 +27,36 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MGYProgramListCell *cell = (MGYProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Children Cell" forIndexPath:indexPath];
-    NSInteger index = indexPath.row + indexPath.section * 2;
-    if ( index >= __array.count) {
-        return cell;
-    }
+    //NSInteger index = indexPath.row + indexPath.section * 2;
+//    if ( index >= __array.count) {
+//        return cell;
+//    }
     
-    [cell update:__array[index]];
-    
-    if (__array.count - index < 2*2) {
-        if (self.isLoading) {
-            return cell;
-        }
-        self.isLoading = YES;
-        //[[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
-    }
+    [cell update:__array[indexPath.row]];
+//    
+//    if (__array.count - index < 2*2) {
+//        if (self.isLoading) {
+//            return cell;
+//        }
+//        self.isLoading = YES;
+//        //[[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
+//    }
     
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 2;
+    return __array.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return floor(__array.count/2);
+    //return floor(__array.count/2);
     //return 10;
+    //return __array.count;
+    return 1;
+    
 }
 
 -(void) refreshView:(UIRefreshControl *)refreshControl
@@ -70,13 +74,19 @@
     [super viewDidLoad];
     self.title = NSLocalizedString(@"留守儿童", "留守儿童");
     __array = [NSMutableArray array];
-    
+    NSLog(@"%f %f", self.view.bounds.size.width, self.view.bounds.size.height);
+    CGFloat width = self.view.bounds.size.width;
+    CGFloat height = self.view.bounds.size.height;
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.itemSize = CGSizeMake((320 - 10)/2, (548 - 48 - 40)/2 - 10 -2);
-    layout.minimumLineSpacing = 0;
-    layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
+    layout.itemSize = CGSizeMake((width - 8)/2, (height - 64 - 49 - 16)/2);
+    //layout.itemSize = CGSizeMake(316/2, )
+    layout.minimumLineSpacing = 8;
+    layout.minimumInteritemSpacing = 0;
     
-    UICollectionView *childrenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, self.view.frame.size.height-49-self.navigationController.navigationBar.frame.size.height - 20) collectionViewLayout:layout];
+    //layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
+    
+//    UICollectionView *childrenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, self.view.frame.size.height-49-self.navigationController.navigationBar.frame.size.height - 20) collectionViewLayout:layout];
+    UICollectionView *childrenCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     self.childrenCollectionView = childrenCollectionView;
     self.childrenCollectionView.delegate = self;
     self.childrenCollectionView.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
@@ -84,6 +94,9 @@
     [self.childrenCollectionView registerClass:[MGYProgramListCell class] forCellWithReuseIdentifier:@"Children Cell"];
     [self.view addSubview:self.childrenCollectionView];
    
+    [self.childrenCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     //增加刷新控件
     UIRefreshControl *refreshControl = [UIRefreshControl new];
     [refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
@@ -91,13 +104,10 @@
     self.refreshControl = refreshControl;
     
     [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES];
+    
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    
     // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)resetData:(NSMutableArray *)array reset:(BOOL)reset
@@ -113,9 +123,20 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"iiiiiiiiiii");
-    MGYDetailsViewController *view = [MGYDetailsViewController new];
-    [self.navigationController pushViewController:view animated:YES];
+   // MGYDetailsViewController *view = [MGYDetailsViewController new];
+   // [self.navigationController pushViewController:view animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setSelectedIndex:0];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"%f %f", self.titleView.bounds.size.height, self.barView.bounds.size.height);
 }
 
 /*

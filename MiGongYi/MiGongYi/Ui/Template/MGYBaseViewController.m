@@ -10,18 +10,12 @@
 #import "Masonry.h"
 
 @interface MGYBaseViewController ()
+
+@property(nonatomic, readonly) NSArray *itemList;
+
 @end
 
 @implementation MGYBaseViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -47,12 +41,48 @@
                          //[UIColor whiteColor], NSForegroundColorAttributeName,nil];
     NSDictionary *dic = @{ NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.navigationController.navigationBar setTitleTextAttributes:dic];
+    
+    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
+    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:1];
+    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
+    UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:3];
+    
+    UITabBar *tabbar = [UITabBar new];
+    //tabbar.frame = self.tabBarController.tabBar.frame;
+    tabbar.tintColor = [UIColor orangeColor];
+    _itemList = [NSArray arrayWithObjects:tab1BarItem, tab2BarItem, tab3BarItem, tab4BarItem, nil];
+    tabbar.items = _itemList;
+    tabbar.selectedItem = tab1BarItem;
+    tabbar.delegate = self;
+    tabbar.translucent = NO;
+    [self.view addSubview:tabbar];
+    self.barView = tabbar;
+
+    [self.barView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.width.mas_equalTo(self.view.mas_width);
+        make.height.mas_equalTo(49);
+    }];
+    
 }
 
-- (void)didReceiveMemoryWarning
+- (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.barView.selectedItem = self.barView.items[selectedIndex];
+    
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    [self.tabBarController setSelectedIndex:item.tag];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view bringSubviewToFront:self.titleView];
+    [self.view bringSubviewToFront:self.barView];
 }
 
 /*

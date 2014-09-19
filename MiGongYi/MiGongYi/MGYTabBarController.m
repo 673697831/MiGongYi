@@ -11,6 +11,7 @@
 #import "MGYProgramItemViewController.h"
 #import "MGYAboutMeViewController.h"
 #import "MGYGetRiceViewController.h"
+#import "MGYBaseViewController.h"
 @interface MGYTabBarController ()
 
 @property(nonatomic, weak) MGYProgramChildrenViewController *listView;
@@ -41,13 +42,14 @@
         // TabBar1
         //tabBarController.tabBar.translucent = NO;
         
-        self.tabBar.translucent = NO;
+        //self.tabBar.translucent = NO;
         [self.tabBar setTintColor:[UIColor orangeColor]];
         UINavigationController *tab1Nav = [UINavigationController new];
 
         MGYProgramChildrenViewController *listView = [MGYProgramChildrenViewController new];
+        //MGYBaseViewController *listView = [MGYBaseViewController new];
         self.listView = listView;
-        [tab1Nav pushViewController:self.listView animated:YES];
+        [tab1Nav pushViewController:listView animated:YES];
         
         UINavigationController *tab2Nav = [UINavigationController new];
         MGYGetRiceViewController *getRiceView = [MGYGetRiceViewController new];
@@ -64,23 +66,10 @@
         [tab4Nav pushViewController:aboutMeView animated:YES];
         self.aboutMeView = aboutMeView;
         
-        UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
-        UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:1];
-        UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
-        UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:3];
         
-        UITabBar *tabbar = [UITabBar new];
-        tabbar.frame = self.tabBar.frame;
-        tabbar.tintColor = [UIColor orangeColor];
-        tabbar.items = [NSArray arrayWithObjects:tab1BarItem, tab2BarItem, tab3BarItem, tab4BarItem, nil];
-        tabbar.selectedItem = tab1BarItem;
-        tabbar.delegate = self;
-        [self.view addSubview:tabbar];
-        self.barView = tabbar;
-        self.viewControllers = [NSArray arrayWithObjects:tab1Nav, tab2Nav, tab3Nav, tab4Nav, nil];
         
         self.tabBar.hidden = YES;
-        
+        self.viewControllers = [NSArray arrayWithObjects:tab1Nav, tab2Nav, tab3Nav, tab4Nav, nil];
        // NSLog(@"iiiiiiiii %@", tab1BarItem.);
         
         

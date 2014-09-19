@@ -14,10 +14,10 @@
 @property(nonatomic, weak) UIImageView *backgroundImageView;
 @property(nonatomic, weak) UIImageView *knowledgeImageView;
 @property(nonatomic, weak) UIImageView *manImageView;
-@property(nonatomic, weak) UIImageView *boxingView;
-@property(nonatomic, weak) UIImageView *knowView;
-@property(nonatomic, weak) UIImageView *shoeView;
-@property(nonatomic, weak) UIImageView *phoneView;
+@property(nonatomic, weak) UIButton *boxingView;
+@property(nonatomic, weak) UIButton *knowView;
+@property(nonatomic, weak) UIButton *shoeView;
+@property(nonatomic, weak) UIButton *phoneView;
 @property(nonatomic, assign) BOOL isClicked;
 
 @end
@@ -36,9 +36,9 @@
 - (void)setup
 {
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.titleView.mas_bottom);
+        make.bottom.equalTo(self.barView.mas_top);
     }];
     
     [self.knowledgeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +82,7 @@
     button.tag = tag;
     button.adjustsImageWhenHighlighted = NO;
     [button setImage:[UIImage imageNamed:path] forState:UIControlStateNormal];
-    //[button addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(clickEventOnImage:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 
@@ -92,9 +92,6 @@
     if (self.isClicked) {
         return;
     }
-    [self.view.layer removeAllAnimations];
-    [self.boxingView.layer removeAllAnimations];
-    NSLog(@"iiiiiiiiiigggggggggggg %d", [sender tag]);
     
     switch ([sender tag]) {
         case 1:
@@ -113,7 +110,7 @@
             break;
     }
     self.isClicked = YES;
-    
+    [self pauseAllAnimation];
     
 }
 
@@ -138,42 +135,43 @@
     [manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
     self.manImageView = manImageView;
 
-//    self.boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
-//    [self.view addSubview:self.boxingView];
+    self.boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
+    [self.view addSubview:self.boxingView];
+    
+    self.shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
+    [self.view addSubview:self.shoeView];
+    
+    self.knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
+    [self.view addSubview:self.knowView];
+    
+    self.phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
+    [self.view addSubview:self.phoneView];
+    
+//    UIImageView *boxingView = [UIImageView new];
+//    [self.view addSubview:boxingView];
+//    [boxingView setImage:[UIImage imageNamed:@"button_boxing_normal"]];
+//    self.boxingView = boxingView;
 //    
-//    self.shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
-//    [self.view addSubview:self.shoeView];
+//    UIImageView *shoeView = [UIImageView new];
+//    [self.view addSubview:shoeView];
+//    [shoeView setImage:[UIImage imageNamed:@"button_aerobic exercise_normal"]];
+//    self.shoeView = shoeView;
 //    
-//    self.knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
-//    [self.view addSubview:self.knowView];
+//    UIImageView *knowView = [UIImageView new];
+//    [self.view addSubview:knowView];
+//    [knowView setImage:[UIImage imageNamed:@"button_knowledge_normal"]];
+//    self.knowView = knowView;
 //    
-//    self.phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
-//    [self.view addSubview:self.phoneView];
-    
-    UIImageView *boxingView = [UIImageView new];
-    [self.view addSubview:boxingView];
-    [boxingView setImage:[UIImage imageNamed:@"button_boxing_normal"]];
-    self.boxingView = boxingView;
-    
-    UIImageView *shoeView = [UIImageView new];
-    [self.view addSubview:shoeView];
-    [shoeView setImage:[UIImage imageNamed:@"button_aerobic exercise_normal"]];
-    self.shoeView = shoeView;
-    
-    UIImageView *knowView = [UIImageView new];
-    [self.view addSubview:knowView];
-    [knowView setImage:[UIImage imageNamed:@"button_knowledge_normal"]];
-    self.knowView = knowView;
-    
-    UIImageView *phoneView = [UIImageView new];
-    [self.view addSubview:phoneView];
-    [phoneView setImage:[UIImage imageNamed:@"button_call_normal"]];
-    self.phoneView = phoneView;
+//    UIImageView *phoneView = [UIImageView new];
+//    [self.view addSubview:phoneView];
+//    [phoneView setImage:[UIImage imageNamed:@"button_call_normal"]];
+//    self.phoneView = phoneView;
     
     [self setup];
+    [self setSelectedIndex:1];
+//    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesPoint:)];
+//    [self.view addGestureRecognizer:tapGesture];
     
-    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesPoint:)];
-    [self.view addGestureRecognizer:tapGesture];
     // Do any additional setup after loading the view.
 }
 
@@ -470,12 +468,19 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     [self removeAllAnimation];
     [self resumeAllAnimation];
     [self animationBegin];
     self.isClicked = NO;
     self.knowledgeImageView.hidden = YES;
     [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setSelectedIndex:1];
 }
 
 /*
