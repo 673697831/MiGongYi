@@ -36,18 +36,10 @@
 @property(nonatomic, weak) AboutMeItemView *friendItemView;
 @property(nonatomic, weak) AboutMeItemView *favItemView;
 @property(nonatomic, strong) AboutMeItemGroup *itemGroup;
+
 @end
 
 @implementation MGYAboutMeViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)setup
 {
@@ -148,7 +140,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     //把navBar弄透明
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -268,24 +259,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)updatePersonalDetails
-{
-//    PersonalDetails *personalDetail = [DataManager shareInstance].personalDetails;
-//    self.nameLabel.text = personalDetail.nickname;
-//    [self.photoView setImage:[UIImage imageNamed:personalDetail.avatar]];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 /*

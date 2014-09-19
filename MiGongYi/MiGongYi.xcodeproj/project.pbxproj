@@ -35,6 +35,7 @@
 		20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640919C2AEDC007230A1 /* MGYProgramChildrenViewController.m */; };
 		20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640D19C2FB61007230A1 /* MGYProgressView.m */; };
 		20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC641019C3EDA8007230A1 /* MGYProgramItemViewController.m */; };
+		20D0BE5719CC36510051BFD2 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D0BE5619CC36510051BFD2 /* AboutMeViewController.m */; };
 		20E445A919B63030007B2900 /* BlackMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445A819B63030007B2900 /* BlackMagic.m */; };
 		20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445AB19B637EA007B2900 /* MGYTabBarController.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
@@ -100,6 +101,8 @@
 		20CC640D19C2FB61007230A1 /* MGYProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProgressView.m; sourceTree = "<group>"; };
 		20CC640F19C3EDA8007230A1 /* MGYProgramItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProgramItemViewController.h; sourceTree = "<group>"; };
 		20CC641019C3EDA8007230A1 /* MGYProgramItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProgramItemViewController.m; sourceTree = "<group>"; };
+		20D0BE5519CC36510051BFD2 /* AboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutMeViewController.h; path = MiGongYi/Ui/AboutMeViewController.h; sourceTree = SOURCE_ROOT; };
+		20D0BE5619CC36510051BFD2 /* AboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutMeViewController.m; path = MiGongYi/Ui/AboutMeViewController.m; sourceTree = SOURCE_ROOT; };
 		20E445A719B63030007B2900 /* BlackMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackMagic.h; sourceTree = "<group>"; };
 		20E445A819B63030007B2900 /* BlackMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackMagic.m; sourceTree = "<group>"; };
 		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYTabBarController.h; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 				202E3F7A19C5CC2000E58B4E /* MGYAboutMeViewController.m */,
 				202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */,
 				202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */,
+				20D0BE5519CC36510051BFD2 /* AboutMeViewController.h */,
+				20D0BE5619CC36510051BFD2 /* AboutMeViewController.m */,
 			);
 			path = Ui;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 				202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */,
 				202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */,
 				20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */,
+				20D0BE5719CC36510051BFD2 /* AboutMeViewController.m in Sources */,
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
 				20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */,
