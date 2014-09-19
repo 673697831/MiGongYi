@@ -32,6 +32,9 @@
 //        return cell;
 //    }
     
+    if (indexPath.row >= __array.count) {
+        return cell;
+    }
     [cell update:__array[indexPath.row]];
 //    
 //    if (__array.count - index < 2*2) {
@@ -47,7 +50,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return __array.count;
+    return __array.count ;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -83,10 +86,10 @@
     layout.minimumLineSpacing = 8;
     layout.minimumInteritemSpacing = 0;
     
-    //layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
-//    UICollectionView *childrenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, self.view.frame.size.height-49-self.navigationController.navigationBar.frame.size.height - 20) collectionViewLayout:layout];
     UICollectionView *childrenCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    childrenCollectionView.alwaysBounceVertical = YES;
     self.childrenCollectionView = childrenCollectionView;
     self.childrenCollectionView.delegate = self;
     self.childrenCollectionView.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
@@ -134,10 +137,10 @@
     
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    NSLog(@"%f %f", self.titleView.bounds.size.height, self.barView.bounds.size.height);
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    NSLog(@"%f %f", self.titleView.bounds.size.height, self.barView.bounds.size.height);
+//}
 
 /*
 #pragma mark - Navigation
