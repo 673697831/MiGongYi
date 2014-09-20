@@ -14,6 +14,7 @@
 #import "AboutMeItemView.h"
 #import "AboutMeItemGroup.h"
 #import "UIColor+Expanded.h"
+#import "AboutME/AboutMeTableViewCell.h"
 
 @interface AboutMeViewController ()
 
@@ -23,13 +24,6 @@
 @property(nonatomic, weak) UIView *titleBackgroundView;
 @property(nonatomic, weak) UILabel *backLabel;
 @property(nonatomic, weak) UILabel *titleTextLabel;
-@property(nonatomic, weak) UIImageView *childImageView;
-@property(nonatomic, weak) UILabel *childLabel;
-@property(nonatomic, weak) UILabel *nameLabel;
-@property(nonatomic, weak) UIImageView *photoBackgroundView;
-@property(nonatomic, weak) UIImageView *photoView;
-@property(nonatomic, weak) UIImageView *editImageView;
-@property(nonatomic, weak) UIImageView *settingImageView;
 @property(nonatomic, weak) UIView *tabView;
 @property(nonatomic, weak) AboutMeItemView *riceItemView;
 @property(nonatomic, weak) AboutMeItemView *friendItemView;
@@ -47,10 +41,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AboutMe Cell" forIndexPath:indexPath];
+    UITableViewCell *cell;
     
     if (indexPath.section == 0) {
-        cell.backgroundColor =[UIColor orangeColor];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"section0 Cell" forIndexPath:indexPath];
+    }
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"tableView Cell" forIndexPath:indexPath];
     }
     return cell;
 }
@@ -73,7 +71,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return (552/2 - 40);
+        return (552/2 - 40 + 134/2);
     }
     return 44;
 }
@@ -91,7 +89,8 @@
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"AboutMe Cell"];
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tableView Cell"];
+    [tableView registerClass:[AboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
     // Do any additional setup after loading the view.
 }
 

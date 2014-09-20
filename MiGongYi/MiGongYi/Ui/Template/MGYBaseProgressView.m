@@ -15,15 +15,6 @@
 
 @implementation MGYBaseProgressView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 - (void)drawGradientLayer:(CGRect)rect
 {
     CAGradientLayer *programLayer = [CAGradientLayer layer];
