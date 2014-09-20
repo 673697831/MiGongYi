@@ -42,14 +42,15 @@
     NSDictionary *dic = @{ NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.navigationController.navigationBar setTitleTextAttributes:dic];
     
-    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:0];
-    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:1];
-    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:2];
-    UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:3];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     
+    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[[UIImage imageNamed:@"tabbar_Child_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Child_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[[UIImage imageNamed:@"tabbar_Get rice_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_get rice_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[[UIImage imageNamed:@"tabbar_Commonweal_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Commonweal_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[[UIImage imageNamed:@"tabbar_Me_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Me_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     UITabBar *tabbar = [UITabBar new];
     //tabbar.frame = self.tabBarController.tabBar.frame;
-    tabbar.tintColor = [UIColor orangeColor];
+    tabbar.tintColor = [UIColor whiteColor];
     _itemList = [NSArray arrayWithObjects:tab1BarItem, tab2BarItem, tab3BarItem, tab4BarItem, nil];
     tabbar.items = _itemList;
     tabbar.selectedItem = tab1BarItem;

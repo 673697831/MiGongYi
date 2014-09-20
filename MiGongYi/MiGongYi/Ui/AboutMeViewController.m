@@ -40,22 +40,65 @@
 
 @implementation AboutMeViewController
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AboutMe Cell" forIndexPath:indexPath];
+    
+    if (indexPath.section == 0) {
+        cell.backgroundColor =[UIColor orangeColor];
+    }
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 1;
+    }else
+    {
+        return 10;
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return (552/2 - 40);
+    }
+    return 44;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.titleView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(552/2);
-    }];
+    
     
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
+    tableView.delegate =self;
+    tableView.dataSource = self;
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"AboutMe Cell"];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self setSelectedIndex:3];
 }
 
