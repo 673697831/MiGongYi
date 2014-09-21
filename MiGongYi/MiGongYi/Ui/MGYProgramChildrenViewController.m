@@ -132,6 +132,9 @@
 {
    // MGYDetailsViewController *view = [MGYDetailsViewController new];
    // [self.navigationController pushViewController:view animated:YES];
+    MGYProject *project =__array[indexPath.row];
+    NSLog(@"%d", project.projectId);
+    [[DataManager shareInstance] requestForProjectDetails:project.projectId];
 }
 
 - (void)viewWillAppear:(BOOL)animated

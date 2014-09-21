@@ -7,7 +7,6 @@
 //
 
 #import "MGYDetailsViewController.h"
-#import "MGYTabBarController.h"
 
 @interface MGYDetailsViewController ()
 

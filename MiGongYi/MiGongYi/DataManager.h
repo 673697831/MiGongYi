@@ -36,5 +36,6 @@
                success:(void (^)(NSArray *array))success;
 - (void)requestForEnterUID;
 - (void)requestForPersonalDetails;
+- (void)requestForProjectDetails:(NSInteger) projectId;
 
 @end
