@@ -89,6 +89,8 @@
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    [tableView setEditing:NO];
+    tableView.allowsSelection = NO;
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tableView Cell"];
     [tableView registerClass:[AboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
     // Do any additional setup after loading the view.

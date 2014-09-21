@@ -78,6 +78,7 @@
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"留守儿童", "留守儿童");
+    NSLocalizedString(@"我日", nil);
     __array = [NSMutableArray array];
     NSLog(@"%f %f", self.view.bounds.size.width, self.view.bounds.size.height);
     CGFloat width = self.view.bounds.size.width;

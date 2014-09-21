@@ -24,15 +24,6 @@
 
 @implementation MGYGetRiceViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)setup
 {
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -211,7 +202,7 @@
         return;
     }
     
-    NSLog(@"%f %f", locationInView.x, locationInView.y);
+    //NSLog(@"%f %f", locationInView.x, locationInView.y);
 }
 
 - (void)removeAllAnimation

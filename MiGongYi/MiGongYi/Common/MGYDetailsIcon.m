@@ -56,11 +56,22 @@
     return self;
 }
 
-- (void)resetArgs:(NSDictionary *)args
+//- (void)resetArgs:(NSDictionary *)args
+//{
+//    self.numLabel.text = args[@"num"];
+//    [self.imageView setImage:[UIImage imageNamed:args[@"path"]]];
+//    self.itemLabel.text = args[@"text"];
+//}
+- (void)resetDetails:(NSString *)num path:(NSString *)path text:(NSString *)text
 {
-    self.numLabel.text = args[@"num"];
-    [self.imageView setImage:[UIImage imageNamed:args[@"path"]]];
-    self.itemLabel.text = args[@"text"];
+    self.numLabel.text = num;
+    if (path) {
+        self.imageView.image = [UIImage imageNamed:path];
+    }
+    if (text) {
+        self.itemLabel.text = text;
+    }
+    
 }
 
 /*

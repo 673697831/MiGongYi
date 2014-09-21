@@ -31,7 +31,7 @@
 @property(nonatomic, weak) UILabel *poppleLable;
 @property(nonatomic, assign) BOOL hasDrawn;
 @property(nonatomic, weak) UILabel *finishLabel;
-@property(nonatomic, weak) UILabel *finishText;
+//@property(nonatomic, weak) UILabel *finishText;
 
 @end
 
@@ -102,14 +102,16 @@
         make.left.equalTo(self.peopleNum.mas_left);
     }];
     
-    [self.finishText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.photoView.mas_centerX);
-        make.centerY.equalTo(self.photoView.mas_centerY);
-    }];
+//    [self.finishText mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.photoView.mas_centerX);
+//        make.centerY.equalTo(self.photoView.mas_centerY);
+//    }];
     
     [self.finishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.finishText.mas_centerX);
-        make.centerY.equalTo(self.finishText.mas_centerY);
+        //make.centerX.equalTo(self.finishText.mas_centerX);
+        //make.centerY.equalTo(self.finishText.mas_centerY);
+        make.centerX.equalTo(self.photoView.mas_centerX);
+        make.centerY.equalTo(self.photoView.mas_centerY);
         make.width.equalTo(self.photoView.mas_width);
         make.height.mas_equalTo(40);
     }];
@@ -135,25 +137,27 @@
     
     
     
-    UILabel *finishText = [UILabel new];
-    self.finishText = finishText;
-    [self.photoView addSubview:self.finishText];
-    self.finishText.text = @"捐赠已完成";
-    self.finishText.textColor = [UIColor whiteColor];
+//    UILabel *finishText = [UILabel new];
+//    self.finishText = finishText;
+//    [self.photoView addSubview:self.finishText];
+//    self.finishText.text = @"捐赠已完成";
+//    self.finishText.textColor = [UIColor whiteColor];
 
     UILabel *finishLabel = [UILabel new];
     self.finishLabel = finishLabel;
     [self.contentView addSubview:self.finishLabel];
     self.finishLabel.backgroundColor = [UIColor grayColor];
     self.finishLabel.alpha = 0.5;
-    self.finishText.hidden = YES;
+    finishLabel.text = @"捐赠已完成";
+    finishLabel.textAlignment = NSTextAlignmentCenter;
+    finishLabel.textColor = [UIColor whiteColor];
     self.finishLabel.hidden = YES;
     
     UILabel *nameLabel = [UILabel new];
     self.nameLabel = nameLabel;
     //self.nameLabel.text = @"虎子";
     self.nameLabel.textColor = [UIColor colorWithHexString:@"464646"];
-    self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+    self.nameLabel.font = [UIFont systemFontOfSize:10];
     [self.contentView addSubview:self.nameLabel];
     
     UILabel *lineLabel1 = [UILabel new];
@@ -174,14 +178,14 @@
     [self.contentView addSubview:self.miliNum];
     self.miliNum.textColor = [UIColor colorWithHexString:@"464646"];
     //self.miliNum.text = @"24.57K";
-    self.miliNum.font = [UIFont fontWithName:@"Helvetica" size:10];
+    self.miliNum.font = [UIFont systemFontOfSize:10];
     
     UILabel *miliLabel = [UILabel new];
     self.miliLabel = miliLabel;
     [self.contentView addSubview:self.miliLabel];
     self.miliLabel.textColor = [UIColor colorWithHexString:@"bababa"];
     self.miliLabel.text = @"捐赠米粒(粒)";
-    self.miliLabel.font = [UIFont fontWithName:@"Helvetica" size:6];
+    self.miliLabel.font = [UIFont systemFontOfSize:6];
     
     UIImageView *peopleView = [UIImageView new];
     self.peopleView = peopleView;
@@ -193,14 +197,14 @@
     [self.contentView addSubview:self.peopleNum];
     self.peopleNum.textColor = [UIColor colorWithHexString:@"464646"];
     //self.peopleNum.text = @"256938";
-    self.peopleNum.font = [UIFont fontWithName:@"Helvetica" size:10];
+    self.peopleNum.font = [UIFont systemFontOfSize:10];
     
     UILabel *peopleLabel = [UILabel new];
     self.poppleLable = peopleLabel;
     [self.contentView addSubview:self.poppleLable];
     self.poppleLable.textColor = [UIColor colorWithHexString:@"bababa"];
     self.poppleLable.text = @"参与人数(人)";
-    self.poppleLable.font = [UIFont fontWithName:@"Helvetica" size:6];
+    self.poppleLable.font = [UIFont systemFontOfSize:6];
     
     UIImageView *miliView = [UIImageView new];
     self.miliView = miliView;
@@ -234,11 +238,11 @@
     self.peopleNum.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
     if (args.status == 0) {
         self.finishLabel.hidden = NO;
-        self.finishText.hidden = NO;
+        //self.finishText.hidden = NO;
     }else
     {
         self.finishLabel.hidden = YES;
-        self.finishText.hidden = YES;
+        //self.finishText.hidden = YES;
     }
 }
 

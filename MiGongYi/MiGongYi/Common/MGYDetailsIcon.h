@@ -14,5 +14,8 @@
 @property(nonatomic, weak) UIImageView *imageView;
 @property(nonatomic, weak) UILabel *itemLabel;
 
-- (void)resetArgs:(NSDictionary *)args;
+//- (void)resetArgs:(NSDictionary *)args;
+- (void)resetDetails:(NSString *)num
+                path:(NSString *)path
+                text:(NSString *)text;
 @end

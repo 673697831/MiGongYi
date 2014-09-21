@@ -94,6 +94,9 @@
     [self.finishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.photoView.mas_centerX);
         make.centerY.equalTo(self.photoView.mas_centerY);
+        make.width.equalTo(self.photoView);
+        make.height.mas_equalTo(40);
+//        make.centerY.equalTo(self.photoView.mas_centerY);
     }];
     
 }
@@ -113,20 +116,27 @@
         [self.photoView addSubview:self.finishLabel];
         self.finishLabel.text = @"捐赠已完成";
         self.finishLabel.textColor = [UIColor whiteColor];
-        
-        CATextLayer *subLayer = [CATextLayer layer];
-        [self.finishLabel.layer insertSublayer:subLayer atIndex:10];
-        subLayer.frame = CGRectMake(-500, -9, 1000, 40);
-        subLayer.opacity = 0.5;
-        subLayer.backgroundColor = [UIColor grayColor].CGColor;
+        self.finishLabel.backgroundColor = [UIColor grayColor];
+        self.finishLabel.alpha = 0.5;
+        finishLabel.textAlignment = NSTextAlignmentCenter;
+        finishLabel.textColor = [UIColor whiteColor];
         self.finishLabel.hidden = YES;
+
+        
+//        CATextLayer *subLayer = [CATextLayer layer];
+//        [self.finishLabel.layer insertSublayer:subLayer
+//                                       atIndex:10];
+//        subLayer.frame = CGRectMake(-500, -9, 1000, 40);
+//        subLayer.opacity = 0.5;
+//        subLayer.backgroundColor = [UIColor grayColor].CGColor;
     
         UILabel *title = [UILabel new];
         self.title = title;
         [self.contentView addSubview:self.title];
         self.title.text = @"一碗粮, 关爱一个流浪的生命";
         self.title.textColor = [UIColor colorWithHexString:@"464646"];
-        self.title.font = [UIFont fontWithName:@"Helvetica" size:13];
+        self.title.font = [UIFont fontWithName:@"Helvetica"
+                                          size:13];
         
         MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
         self.progressLabel = progressLabel;
@@ -135,20 +145,27 @@
         
         //DetailsIcon *detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
         MGYDetailsIcon *detailsIconLeft = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
-        [detailsIconLeft resetArgs:@{@"num":@"355580", @"path":@"page_Rice_normal2", @"text":@"捐赠米粒"}];
+        //[detailsIconLeft resetArgs:@{@"num":@"355580", @"path":@"page_Rice_normal2", @"text":@"捐赠米粒"}];
+        [detailsIconLeft resetDetails:@"355580"
+                                 path:@"page_Rice_normal2"
+                                 text:@"捐赠米粒"];
         self.detailsIconLeft = detailsIconLeft;
         [self.contentView addSubview:self.detailsIconLeft];
         
         //DetailsIcon *detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_People_normal2", @"path", @"参与人数", @"text", nil]];
         MGYDetailsIcon *detailsIconMiddle = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
-        [detailsIconMiddle resetArgs:@{@"num":@"355580", @"path":@"page_People_normal2", @"text":@"参与人数"}];
+        //[detailsIconMiddle resetArgs:@{@"num":@"355580", @"path":@"page_People_normal2", @"text":@"参与人数"}];
+        [detailsIconMiddle resetDetails:@"355580"
+                                   path:@"page_People_normal2"
+                                   text:@"参与人数"];
         self.detailsIconMiddle = detailsIconMiddle;
         [self.contentView addSubview:self.detailsIconMiddle];
         
         //DetailsIcon *detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Fav_normal2", @"path", @"收藏次数", @"text", nil]];
         MGYDetailsIcon *detailsIconRight = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
         self.detailsIconRight = detailsIconRight;
-        [detailsIconRight resetArgs:@{@"num":@"355580", @"path":@"page_Fav_normal2", @"text":@"收藏次数"}];
+        //[detailsIconRight resetArgs:@{@"num":@"355580", @"path":@"page_Fav_normal2", @"text":@"收藏次数"}];
+        [detailsIconRight resetDetails:@"355580" path:@"page_Fav_normal2" text:@"收藏次数"];
         [self.contentView addSubview:self.detailsIconRight];
         
         UILabel *line1 = [UILabel new];
@@ -179,9 +196,19 @@
     self.title.text = args.title;
     [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.coverImg]];
     [self.progressLabel updateProgress:args.progress];
-    self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.riceDonate];
-    self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
-    self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.favNum];
+    //self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.riceDonate];
+    //self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
+    //self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.favNum];
+    [self.detailsIconLeft resetDetails:[NSString stringWithFormat:@"%d", args.riceDonate]
+                             path:nil
+                             text:nil];
+    [self.detailsIconMiddle resetDetails:[NSString stringWithFormat:@"%d", args.joinMemberNum]
+                                  path:nil
+                                  text:nil];
+    [self.detailsIconRight resetDetails:[NSString stringWithFormat:@"%d", args.favNum]
+                                  path:nil
+                                  text:nil];
+    
     if (args.status == 0) {
         self.finishLabel.hidden = NO;
     }else
