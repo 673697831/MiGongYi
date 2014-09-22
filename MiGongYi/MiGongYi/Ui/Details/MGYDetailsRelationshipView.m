@@ -30,6 +30,8 @@
 @property(nonatomic, weak) UILabel *numLabel;
 @property(nonatomic, weak) UILabel *itemTitleLabel3;
 
+@property(nonatomic, weak) UILabel *lineLabel2;
+
 @end
 
 @implementation MGYDetailsRelationshipView
@@ -122,6 +124,13 @@
         make.top.equalTo(self.blockLabel3);
         make.centerX.equalTo(self.numLabel.mas_right).with.offset(168/2);
     }];
+    
+    [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(1);
+        make.width.mas_equalTo(552/2);
+        make.top.equalTo(self.itemTitleLabel3.mas_bottom).with.offset(10);
+        make.left.equalTo(self);
+    }];
 }
 
 - (void)drawCell
@@ -178,6 +187,10 @@
     self.itemTitleLabel3 = [self labelFactory];
     [self addSubview:self.itemTitleLabel3];
     
+    UILabel *lineLabel2 = [UILabel new];
+    [self addSubview:lineLabel2];
+    lineLabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    self.lineLabel2 = lineLabel2;
     [self setup];
 }
 

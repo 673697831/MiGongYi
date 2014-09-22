@@ -69,7 +69,24 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 700;
+      // NSLog(@"uuuuuuuu %f", [])
+        CGFloat height = 0;
+        height = height + tableView.bounds.size.width * 0.7;
+        height = height + 17;
+        height = height + 20;
+        height = height + 105;
+        height = height + 15;
+        //height = height + self.summaryLabel.bounds.size.height;
+        if (self.details) {
+             CGSize labelSize = [self.details.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
+            height = height + labelSize.height;
+        }
+        height = height + 10;
+        height = height + 35;
+        height = height + 15;
+        height = height + 15 + 10 + 10 + 15 + 52 + 20 + 55 + 40;
+        NSLog(@"uuuuuuuuu %f", height);
+        return height;
     }
     return 44;
 }

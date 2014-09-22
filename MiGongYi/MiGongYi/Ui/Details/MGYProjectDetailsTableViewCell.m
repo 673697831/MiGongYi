@@ -11,12 +11,17 @@
 #import "UIImageView+WebCache.h"
 #import "UIColor+Expanded.h"
 #import "MGYDetailsRelationshipView.h"
+#import "MGYProgressView.h"
 
 @interface MGYProjectDetailsTableViewCell ()
 
 @property(nonatomic, weak) UIImageView *detailsImageView;
 @property(nonatomic, weak) UILabel *titleLabel;
 @property(nonatomic, weak) MGYDetailsRelationshipView *relationshipView;
+@property(nonatomic, weak) UILabel *summaryLabel;
+@property(nonatomic, weak) UIButton *readmoreButton;
+@property(nonatomic, weak) UILabel *linelabel1;
+@property(nonatomic, weak) MGYProgressView *progressView;
 
 @end
 
@@ -43,6 +48,32 @@
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(15);
     }];
     
+    [self.summaryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(552/2);
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.relationshipView.mas_bottom).with.offset(10);
+    }];
+    
+    [self.readmoreButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(80);
+        make.height.mas_equalTo(35);
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(15);
+    }];
+    
+    [self.linelabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(552/2);
+        make.height.mas_equalTo(1);
+        make.top.equalTo(self.readmoreButton.mas_bottom).with.offset(15);
+        make.centerX.equalTo(self);
+    }];
+    
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(10);
+        make.width.mas_equalTo(552/2);
+        make.top.equalTo(self.linelabel1.mas_bottom).with.offset(10);
+        make.centerX.equalTo(self);
+    }];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -63,6 +94,37 @@
         MGYDetailsRelationshipView *relationshipView = [MGYDetailsRelationshipView new];
         [self addSubview:relationshipView];
         self.relationshipView = relationshipView;
+        
+        UILabel *summaryLabel = [UILabel new];
+        summaryLabel.numberOfLines = 0;
+        //summaryLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+        summaryLabel.font = [UIFont systemFontOfSize:13];
+        summaryLabel.textColor = [UIColor colorWithHexString:@"838383"];
+        [self addSubview:summaryLabel];
+        self.summaryLabel = summaryLabel;
+        
+        UIButton *readmoreButton = [UIButton new];
+        [self addSubview:readmoreButton];
+        readmoreButton.layer.borderWidth = 1;
+        readmoreButton.layer.borderColor = [UIColor colorWithHexString:@"f16400"].CGColor;
+        [readmoreButton setTitle:@"阅读更多"
+                        forState:UIControlStateNormal];
+        readmoreButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [readmoreButton setTitleColor:[UIColor colorWithHexString:@"f16400"]
+                             forState:UIControlStateNormal];
+        self.readmoreButton = readmoreButton;
+        
+        UILabel *linelabel1 = [UILabel new];
+        [self addSubview:linelabel1];
+        linelabel1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.linelabel1 = linelabel1;
+        
+        //MGYProgressView *progressView = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
+        MGYProgressView *progressView = [MGYProgressView new];
+        [self addSubview:progressView];
+        progressView.backgroundColor = [UIColor clearColor];
+        self.progressView = progressView;
+        
         [self setup];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -74,7 +136,29 @@
     [self.detailsImageView sd_setImageWithURL:[NSURL URLWithString:details.detailImg]];
     self.titleLabel.text = details.title;
     [self.relationshipView update:details];
-    NSLog(@"iiiiiii %@", details.title);
+    CGSize labelSize = [details.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
+    self.summaryLabel.text = details.summary;
+    
+    self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
+    
+
+    NSLog(@"iiiiiii %f %f", labelSize.height, labelSize.width);
+}
+
+- (CGFloat)getCellHeight
+{
+    CGFloat height = 0;
+    height = height + self.detailsImageView.bounds.size.height;
+    height = height + self.titleLabel.bounds.size.height;
+    height = height + 20;
+    height = height + self.relationshipView.bounds.size.height;
+    height = height + 15;
+    height = height + self.summaryLabel.bounds.size.height;
+    height = height + 10;
+    height = height + self.readmoreButton.bounds.size.height;
+    height = height + 15;
+    
+    return height;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

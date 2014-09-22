@@ -28,6 +28,7 @@
 		2087137919CEA5200035B21B /* MGYProjectDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087137819CEA5200035B21B /* MGYProjectDetails.m */; };
 		2087137C19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087137B19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m */; };
 		2087137F19CFF4670035B21B /* MGYDetailsRelationshipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087137E19CFF4670035B21B /* MGYDetailsRelationshipView.m */; };
+		2087138219D014440035B21B /* MGYSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087138119D014440035B21B /* MGYSummaryView.m */; };
 		20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D28519B9DCDC004C7697 /* MGYDetailsViewCell.m */; };
 		20A2D28D19B9DCDC004C7697 /* MGYProgramListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D28819B9DCDC004C7697 /* MGYProgramListCell.m */; };
 		20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29319B9E82D004C7697 /* MGYDetailsIcon.m */; };
@@ -91,6 +92,8 @@
 		2087137B19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProjectDetailsTableViewCell.m; sourceTree = "<group>"; };
 		2087137D19CFF4670035B21B /* MGYDetailsRelationshipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDetailsRelationshipView.h; sourceTree = "<group>"; };
 		2087137E19CFF4670035B21B /* MGYDetailsRelationshipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDetailsRelationshipView.m; sourceTree = "<group>"; };
+		2087138019D014440035B21B /* MGYSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYSummaryView.h; sourceTree = "<group>"; };
+		2087138119D014440035B21B /* MGYSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYSummaryView.m; sourceTree = "<group>"; };
 		20A2D28419B9DCDC004C7697 /* MGYDetailsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDetailsViewCell.h; sourceTree = "<group>"; };
 		20A2D28519B9DCDC004C7697 /* MGYDetailsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDetailsViewCell.m; sourceTree = "<group>"; };
 		20A2D28719B9DCDC004C7697 /* MGYProgramListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProgramListCell.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				2087137B19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m */,
 				2087137D19CFF4670035B21B /* MGYDetailsRelationshipView.h */,
 				2087137E19CFF4670035B21B /* MGYDetailsRelationshipView.m */,
+				2087138019D014440035B21B /* MGYSummaryView.h */,
+				2087138119D014440035B21B /* MGYSummaryView.m */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
+				2087138219D014440035B21B /* MGYSummaryView.m in Sources */,
 				203D636A19CAD68000116ECA /* AboutMeItemGroup.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,
 			);

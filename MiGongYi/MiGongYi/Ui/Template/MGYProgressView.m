@@ -36,6 +36,11 @@
 
 - (void)drawCAlayer:(CGRect)rect
 {
+    if (!self.progress) {
+        NSLog(@"pppppppppppp");
+        self.progress = 0;
+    }
+    
     CALayer *backgroundLayer = [CALayer layer];
     backgroundLayer.backgroundColor = [UIColor colorWithHexString:@"dddddd"].CGColor;
     backgroundLayer.frame = rect;
@@ -46,12 +51,13 @@
 
 - (void)drawMask
 {
-    CGFloat r = self.frame.size.height/2;
+    CGFloat r = self.progress > 0 ? self.frame.size.height/2 : 0;
     CGFloat value = self.progress / 100.0 * self.frame.size.width - r;
     UIBezierPath *aPath = [UIBezierPath bezierPath];
     if (value <=  r) {
         // 画整个圆
         value = value + r;
+        
 //        [aPath addArcWithCenter:CGPointMake(value, r) radius: value startAngle:-M_PI/2 endAngle:M_PI/2 clockwise:YES];
 //        [aPath addArcWithCenter:CGPointMake(value, r) radius: value startAngle:M_PI/2 endAngle:-M_PI/2 clockwise:YES];
         CGFloat tmp = sqrt(2*r*value - value*value) / r ;
