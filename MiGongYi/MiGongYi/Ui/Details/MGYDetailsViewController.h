@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MGYBaseViewController.h"
 
-@interface MGYDetailsViewController : MGYBaseViewController<UITableViewDataSource>
+@interface MGYDetailsViewController : MGYBaseViewController<UITableViewDataSource, UITableViewDelegate>
+
+- (instancetype)initWithProjectId:(NSInteger) projectId;
 
 @end

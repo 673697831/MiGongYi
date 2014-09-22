@@ -26,6 +26,8 @@
 		2085C87119B6280D00E9FA3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85919B6280C00E9FA3B /* UIKit.framework */; };
 		2085C87B19B6280D00E9FA3B /* MiGongYiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2085C87A19B6280D00E9FA3B /* MiGongYiTests.m */; };
 		2087137919CEA5200035B21B /* MGYProjectDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087137819CEA5200035B21B /* MGYProjectDetails.m */; };
+		2087137C19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087137B19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m */; };
+		2087137F19CFF4670035B21B /* MGYDetailsRelationshipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087137E19CFF4670035B21B /* MGYDetailsRelationshipView.m */; };
 		20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D28519B9DCDC004C7697 /* MGYDetailsViewCell.m */; };
 		20A2D28D19B9DCDC004C7697 /* MGYProgramListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D28819B9DCDC004C7697 /* MGYProgramListCell.m */; };
 		20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29319B9E82D004C7697 /* MGYDetailsIcon.m */; };
@@ -85,6 +87,10 @@
 		2085C87A19B6280D00E9FA3B /* MiGongYiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiGongYiTests.m; sourceTree = "<group>"; };
 		2087137719CEA5200035B21B /* MGYProjectDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProjectDetails.h; sourceTree = "<group>"; };
 		2087137819CEA5200035B21B /* MGYProjectDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProjectDetails.m; sourceTree = "<group>"; };
+		2087137A19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProjectDetailsTableViewCell.h; sourceTree = "<group>"; };
+		2087137B19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProjectDetailsTableViewCell.m; sourceTree = "<group>"; };
+		2087137D19CFF4670035B21B /* MGYDetailsRelationshipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDetailsRelationshipView.h; sourceTree = "<group>"; };
+		2087137E19CFF4670035B21B /* MGYDetailsRelationshipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDetailsRelationshipView.m; sourceTree = "<group>"; };
 		20A2D28419B9DCDC004C7697 /* MGYDetailsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDetailsViewCell.h; sourceTree = "<group>"; };
 		20A2D28519B9DCDC004C7697 /* MGYDetailsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDetailsViewCell.m; sourceTree = "<group>"; };
 		20A2D28719B9DCDC004C7697 /* MGYProgramListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProgramListCell.h; sourceTree = "<group>"; };
@@ -281,6 +287,10 @@
 				20A2D28519B9DCDC004C7697 /* MGYDetailsViewCell.m */,
 				203D636519CAC7E800116ECA /* MGYDetailsViewController.h */,
 				203D636619CAC7E800116ECA /* MGYDetailsViewController.m */,
+				2087137A19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.h */,
+				2087137B19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m */,
+				2087137D19CFF4670035B21B /* MGYDetailsRelationshipView.h */,
+				2087137E19CFF4670035B21B /* MGYDetailsRelationshipView.m */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -459,10 +469,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2087137C19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m in Sources */,
 				20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */,
 				202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */,
 				202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */,
 				20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */,
+				2087137F19CFF4670035B21B /* MGYDetailsRelationshipView.m in Sources */,
 				20D0BE5719CC36510051BFD2 /* AboutMeViewController.m in Sources */,
 				20D0BE5A19CD2D630051BFD2 /* AboutMeTableViewCell.m in Sources */,
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,

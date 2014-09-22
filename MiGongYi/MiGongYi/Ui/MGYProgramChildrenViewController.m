@@ -130,11 +130,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-   // MGYDetailsViewController *view = [MGYDetailsViewController new];
-   // [self.navigationController pushViewController:view animated:YES];
     MGYProject *project =__array[indexPath.row];
-    NSLog(@"%d", project.projectId);
-    [[DataManager shareInstance] requestForProjectDetails:project.projectId];
+    MGYDetailsViewController *view = [[MGYDetailsViewController alloc]initWithProjectId:project.projectId];
+    [self.navigationController pushViewController:view animated:YES];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -10,6 +10,7 @@
 #import "Details/MGYDetailsViewCell.h"
 #import "DataManager.h"
 #import "UIColor+Expanded.h"
+#import "Masonry.h"
 
 @interface MGYProgramItemViewController ()
 {
@@ -92,9 +93,10 @@
     self.title = @"公益项目";
     __array = [NSMutableArray array];
     
-    CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-49);
+    //CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-49);
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+    //UITableView *tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+    UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [tableView registerClass:[MGYDetailsViewCell class] forCellReuseIdentifier:@"Item Cell"];
@@ -103,6 +105,10 @@
     tableView.delegate = self;
     tableView.dataSource = self;
     self.tableView = tableView;
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
     
     //增加刷新控件
     UIRefreshControl *refreshControl = [UIRefreshControl new];
@@ -111,6 +117,7 @@
     self.refreshControl = refreshControl;
     
     [[DataManager shareInstance] requestForList:1 start:0 limit:1 reset:YES success:^(NSArray *array) {
+        
         [self resetData:array reset:YES];
     }];
     

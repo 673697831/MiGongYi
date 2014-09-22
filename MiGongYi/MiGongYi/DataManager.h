@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MGYProject.h"
 #import "MGYPersonalDetails.h"
+#import "MGYProjectDetails.h"
 
 @interface DataManager : NSObject
 {
@@ -36,6 +37,7 @@
                success:(void (^)(NSArray *array))success;
 - (void)requestForEnterUID;
 - (void)requestForPersonalDetails;
-- (void)requestForProjectDetails:(NSInteger) projectId;
+- (void)requestForProjectDetails:(NSInteger) projectId
+                         success:(void (^)(MGYProjectDetails *details))success;
 
 @end

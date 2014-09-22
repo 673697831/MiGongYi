@@ -126,13 +126,14 @@
 }
 
 - (void)requestForProjectDetails:(NSInteger)projectId
+                         success:(void (^)(MGYProjectDetails *))success
 {
     NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=detail";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //NSLog(@"pppppppppp %d", __personalDetails.uid);
     [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
         MGYProjectDetails *projectDetails = [MTLJSONAdapter modelOfClass:[MGYProjectDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
-        NSLog(@"yyyyyy %@", projectDetails);
+        success(projectDetails);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
