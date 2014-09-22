@@ -76,6 +76,52 @@
         make.top.equalTo(self.blockLabel1);
         make.centerX.equalTo(self.donorImageView.mas_right).with.offset(168/2);
     }];
+    
+    [self.blockLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(2);
+        make.left.equalTo(self.mas_left).with.offset(5);
+        make.top.equalTo(self.blockLabel1.mas_bottom).with.offset(10);
+    }];
+    
+    [self.itemlabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.blockLabel2.mas_right).with.offset(5);
+        make.top.equalTo(self.blockLabel2.mas_top);
+    }];
+    
+    [self.recipientImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(30);
+        make.height.mas_equalTo(20);
+        make.top.equalTo(self.blockLabel2);
+        make.left.equalTo(self.blockLabel2.mas_left).with.offset(168/2);
+    }];
+    
+    [self.itemTitleLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.blockLabel2);
+        make.centerX.equalTo(self.recipientImageView.mas_right).with.offset(168/2);
+    }];
+    
+    [self.blockLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(2);
+        make.left.equalTo(self.mas_left).with.offset(5);
+        make.top.equalTo(self.blockLabel2.mas_bottom).with.offset(10);
+    }];
+    
+    [self.itemlabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.blockLabel3.mas_right).with.offset(5);
+        make.top.equalTo(self.blockLabel3.mas_top);
+    }];
+    
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.blockLabel3);
+        make.centerX.equalTo(self.recipientImageView.mas_centerX);
+    }];
+    
+    [self.itemTitleLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.blockLabel3);
+        make.centerX.equalTo(self.numLabel.mas_right).with.offset(168/2);
+    }];
 }
 
 - (void)drawCell
@@ -90,34 +136,67 @@
     blockLabel1.backgroundColor = [UIColor colorWithHexString:@"f16400"];
     self.blockLabel1 = blockLabel1;
     
-    UILabel *itemlabel1 = [UILabel new];
-    [self addSubview:itemlabel1];
-    itemlabel1.text = @"捐赠方";
-    [self setFont:itemlabel1];
-    self.itemlabel1 = itemlabel1;
+    self.itemlabel1 = [self labelFactory];
+    [self addSubview:self.itemlabel1];
+    self.itemlabel1.text = @"捐赠方";
     
     UIImageView *donorImageView = [UIImageView new];
     [self addSubview:donorImageView];
     self.donorImageView = donorImageView;
     
-    UILabel *itemTitleLabel1 = [UILabel new];
-    [self addSubview:itemTitleLabel1];
-    [self setFont:itemTitleLabel1];
-    self.itemTitleLabel1 = itemTitleLabel1;
+    self.itemTitleLabel1 = [self labelFactory];
+    [self addSubview:self.itemTitleLabel1];
+    
+    UILabel *blockLabel2 = [UILabel new];
+    [self addSubview:blockLabel2];
+    blockLabel2.backgroundColor = [UIColor colorWithHexString:@"a2dcf4"];
+    self.blockLabel2 = blockLabel2;
+    
+    self.itemlabel2 = [self labelFactory];
+    [self addSubview:self.itemlabel2];
+    self.itemlabel2.text = @"接受方";
+    
+    UIImageView *recipientImageView = [UIImageView new];
+    [self addSubview:recipientImageView];
+    self.recipientImageView = recipientImageView;
+    
+    self.itemTitleLabel2 = [self labelFactory];
+    [self addSubview:self.itemTitleLabel2];
+    
+    UILabel *blockLabel3 = [UILabel new];
+    [self addSubview:blockLabel3];
+    blockLabel3.backgroundColor = [UIColor colorWithHexString:@"676767"];
+    self.blockLabel3 = blockLabel3;
+    
+    self.itemlabel3 = [self labelFactory];
+    [self addSubview:self.itemlabel3];
+    self.itemlabel3.text = @"捐赠量";
+    
+    self.numLabel = [self labelFactory];
+    [self addSubview:self.numLabel];
+    
+    self.itemTitleLabel3 = [self labelFactory];
+    [self addSubview:self.itemTitleLabel3];
     
     [self setup];
 }
 
-- (void)setFont:(UILabel *) label
+- (UILabel *)labelFactory
 {
+    UILabel *label = [UILabel new];
     label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor colorWithHexString:@"676767"];
+    return label;
 }
 
 - (void)update:(MGYProjectDetails *)details
 {
     [self.donorImageView sd_setImageWithURL:[NSURL URLWithString:details.donor[@"show_img"]]];
     self.itemTitleLabel1.text = details.donor[@"title"];
+    [self.recipientImageView sd_setImageWithURL:[NSURL URLWithString:details.recipient[@"show_img"]]];
+    self.itemTitleLabel2.text = details.recipient[@"title"];
+    self.numLabel.text = [NSString stringWithFormat:@"%d",[details.resource[@"resource_num"] integerValue]];
+    self.itemTitleLabel3.text = details.resource[@"resource_name"];
 }
 
 /*
