@@ -11,6 +11,8 @@
 #import "MGYTabBarController.h"
 #import "MGYProjectDetails.h"
 
+#define BaseURL @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public"
+
 @interface DataManager ()
 
 @end
@@ -36,6 +38,7 @@
     if (self) {
         _itemList = [NSMutableArray new];
         _childList = [NSMutableArray new];
+        
         NSInteger uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
         if (uid) {
             self.uid = uid;
@@ -115,7 +118,6 @@
 {
     NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/user.php?type=detail";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //NSLog(@"pppppppppp %d", __personalDetails.uid);
     [manager GET:url parameters:@{@"uid": @(self.uid)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
         MGYPersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[MGYPersonalDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
         self.personalDetails = newPersonalDetails;
@@ -130,13 +132,18 @@
 {
     NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=detail";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //NSLog(@"pppppppppp %d", __personalDetails.uid);
     [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
         MGYProjectDetails *projectDetails = [MTLJSONAdapter modelOfClass:[MGYProjectDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
         success(projectDetails);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (void)requestForAddfav:(NSInteger)projectId
+{
+    NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=addfav"];
+    NSLog(@"%@ %d", url, projectId);
 }
 
 @end

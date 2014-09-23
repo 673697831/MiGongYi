@@ -37,7 +37,6 @@
 - (void)drawCAlayer:(CGRect)rect
 {
     if (!self.progress) {
-        NSLog(@"pppppppppppp");
         self.progress = 0;
     }
     

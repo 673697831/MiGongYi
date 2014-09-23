@@ -17,8 +17,10 @@
 
 - (void)drawGradientLayer:(CGRect)rect
 {
+    [self.programLayer removeFromSuperlayer];
     CAGradientLayer *programLayer = [CAGradientLayer layer];
     programLayer.frame = rect;
+    programLayer.cornerRadius = self.cornerRadius ? self.cornerRadius : 0;
     programLayer.startPoint = CGPointMake(0, 0.5);
     programLayer.endPoint = CGPointMake(1, 0.5);
     programLayer.colors = [NSArray arrayWithObjects:

@@ -25,6 +25,8 @@
 
 + (DataManager *)shareInstance;
 
++ (NSString *)baseURL;
+
 - (void)addProjects:(NSArray *)list
               type:(MGYProjectType)type;
 - (void)setProjects:(NSArray *)list
@@ -39,5 +41,6 @@
 - (void)requestForPersonalDetails;
 - (void)requestForProjectDetails:(NSInteger) projectId
                          success:(void (^)(MGYProjectDetails *details))success;
+- (void)requestForAddfav:(NSInteger)projectId;
 
 @end

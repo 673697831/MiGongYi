@@ -11,6 +11,8 @@
 @interface MGYBaseProgressView : UIView
 
 @property(nonatomic, weak) CAGradientLayer *programLayer;
+@property(nonatomic, assign) NSInteger cornerRadius;
 
 - (void)drawGradientLayer:(CGRect)rect;
+
 @end

@@ -25,6 +25,9 @@
 @property(nonatomic, weak) MGYProgressView *progressView;
 @property(nonatomic, weak) MGYDetailsIconListView *iconListView;
 @property(nonatomic, weak) UILabel *lineLabel2;
+@property(nonatomic, weak) UILabel *helpNumLabel;
+@property(nonatomic, weak) UILabel *lineLabel3;
+@property(nonatomic, weak) UILabel *updateLabel;
 
 @end
 
@@ -97,6 +100,25 @@
         make.centerX.equalTo(self);
         make.top.equalTo(self.iconListView.mas_bottom).with.offset(20);
     }];
+    
+    [self.helpNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(110/2);
+        make.top.equalTo(self.lineLabel2.mas_bottom);
+        make.centerX.equalTo(self);
+    }];
+    
+    [self.lineLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(552/2);
+        make.height.mas_equalTo(1);
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.helpNumLabel.mas_bottom);
+    }];
+    
+    [self.updateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.lineLabel3.mas_bottom);
+        make.height.mas_equalTo(40);
+    }];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -159,6 +181,20 @@
         self.lineLabel2 = [self lineLabelFactory];
         [self addSubview:self.lineLabel2];
         
+        UILabel *helpNumLabel = [UILabel new];
+        //helpNumLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:helpNumLabel];
+        self.helpNumLabel = helpNumLabel;
+        
+        self.lineLabel3 = [self lineLabelFactory];
+        [self addSubview:self.lineLabel3];
+        
+        UILabel *updateLabel = [UILabel new];
+        updateLabel.text = @"近况更新";
+        updateLabel.font = [UIFont systemFontOfSize:14];
+        updateLabel.textColor = [UIColor colorWithHexString:@"838383"];
+        [self addSubview:updateLabel];
+        self.updateLabel = updateLabel;
         
         [self setup];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -183,24 +219,37 @@
     
     self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
     [self.iconListView update:details.riceDonate joinNum:details.joinMemberNum favNum:details.favNum];
-
-    NSLog(@"iiiiiii %f %f", labelSize.height, labelSize.width);
-}
-
-- (CGFloat)getCellHeight
-{
-    CGFloat height = 0;
-    height = height + self.detailsImageView.bounds.size.height;
-    height = height + self.titleLabel.bounds.size.height;
-    height = height + 20;
-    height = height + self.relationshipView.bounds.size.height;
-    height = height + 15;
-    height = height + self.summaryLabel.bounds.size.height;
-    height = height + 10;
-    height = height + self.readmoreButton.bounds.size.height;
-    height = height + 15;
     
-    return height;
+    [self.progressView updateProgress:details.progress];
+    
+    NSString *st1 = @"目前为止已经有";
+    NSString *st2 = [NSString stringWithFormat:@"%d", details.helpMemberNum];
+    NSString *st3 = @"帮助过我";
+    //NSLog(@"%d %d %d", st1.length, st2.length, st3.length);
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", st1, st2, st3]];
+    [str addAttribute:NSForegroundColorAttributeName
+                value:[UIColor colorWithHexString:@"838383"]
+                range:NSMakeRange(0, st1.length)];
+    [str addAttribute:NSFontAttributeName
+                value:[UIFont systemFontOfSize:14]
+                range:NSMakeRange(0, st1.length)];
+    
+    [str addAttribute:NSForegroundColorAttributeName
+                value:[UIColor colorWithHexString:@"f16400"]
+                range:NSMakeRange(st1.length, st2.length)];
+    [str addAttribute:NSFontAttributeName
+                value:[UIFont systemFontOfSize:24]
+                range:NSMakeRange(st1.length, st2.length)];
+    
+    [str addAttribute:NSForegroundColorAttributeName
+                value:[UIColor colorWithHexString:@"838383"]
+                range:NSMakeRange(st1.length + st2.length, st3.length)];
+    [str addAttribute:NSFontAttributeName
+                value:[UIFont systemFontOfSize:14]
+                range:NSMakeRange(st1.length + st2.length, st3.length)];
+    
+    self.helpNumLabel.attributedText = str;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

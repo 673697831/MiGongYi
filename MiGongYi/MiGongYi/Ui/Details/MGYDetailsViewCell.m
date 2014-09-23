@@ -121,14 +121,6 @@
         finishLabel.textAlignment = NSTextAlignmentCenter;
         finishLabel.textColor = [UIColor whiteColor];
         self.finishLabel.hidden = YES;
-
-        
-//        CATextLayer *subLayer = [CATextLayer layer];
-//        [self.finishLabel.layer insertSublayer:subLayer
-//                                       atIndex:10];
-//        subLayer.frame = CGRectMake(-500, -9, 1000, 40);
-//        subLayer.opacity = 0.5;
-//        subLayer.backgroundColor = [UIColor grayColor].CGColor;
     
         UILabel *title = [UILabel new];
         self.title = title;
@@ -215,11 +207,6 @@
     {
         self.finishLabel.hidden = YES;
     }
-}
-
-- (void)awakeFromNib
-{
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
