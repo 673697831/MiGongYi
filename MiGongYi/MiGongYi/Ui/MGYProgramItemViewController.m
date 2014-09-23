@@ -44,7 +44,7 @@
     // Configure the cell...
     MGYDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item Cell" forIndexPath:indexPath];
  
-    [cell updateDetails:__array[indexPath.row]];
+    [cell reset:__array[indexPath.row]];
     if (!self.isLoading && __array.count - indexPath.row == 1 ) {
         self.isLoading = YES;
         [[DataManager shareInstance] requestForList:1 start:__array.count limit:1 reset:NO success:^(NSArray *array) {

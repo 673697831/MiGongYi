@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGYProjectRecent.h"
 
 @interface MGYProjectDevelopmentsTableViewCell : UITableViewCell
+
+- (void)reset:(MGYProjectRecent*) projectRecent;
 
 @end

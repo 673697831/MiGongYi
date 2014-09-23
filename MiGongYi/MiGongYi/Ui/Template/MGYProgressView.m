@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void)updateProgress:(NSInteger)percent
+- (void)resetProgress:(NSInteger)percent
 {
     self.progress = percent;
     [self setNeedsDisplay];

@@ -202,7 +202,7 @@
     return label;
 }
 
-- (void)update:(MGYProjectDetails *)details
+- (void)reset:(MGYProjectDetails *)details
 {
     [self.donorImageView sd_setImageWithURL:[NSURL URLWithString:details.donor[@"show_img"]]];
     self.itemTitleLabel1.text = details.donor[@"title"];

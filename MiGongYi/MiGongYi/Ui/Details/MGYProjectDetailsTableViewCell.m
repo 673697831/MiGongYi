@@ -168,12 +168,6 @@
         progressView.backgroundColor = [UIColor clearColor];
         self.progressView = progressView;
         
-//        MGYDetailsIcon *leftIconView = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/3/2, 104/2)];
-//        [leftIconView resetDetails:@"355580"
-//                                 path:@"page_Rice_normal2"
-//                                 text:@"捐赠米粒"];
-//        [self addSubview:leftIconView];
-//        self.leftIconView = leftIconView;
         MGYDetailsIconListView *iconListView = [[MGYDetailsIconListView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 104/2)];
         [self addSubview:iconListView];
         self.iconListView = iconListView;
@@ -213,14 +207,14 @@
 {
     [self.detailsImageView sd_setImageWithURL:[NSURL URLWithString:details.detailImg]];
     self.titleLabel.text = details.title;
-    [self.relationshipView update:details];
+    [self.relationshipView reset:details];
     CGSize labelSize = [details.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
     self.summaryLabel.text = details.summary;
     
     self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
-    [self.iconListView update:details.riceDonate joinNum:details.joinMemberNum favNum:details.favNum];
+    [self.iconListView reset:details.riceDonate joinNum:details.joinMemberNum favNum:details.favNum];
     
-    [self.progressView updateProgress:details.progress];
+    [self.progressView resetProgress:details.progress];
     
     NSString *st1 = @"目前为止已经有";
     NSString *st2 = [NSString stringWithFormat:@"%d", details.helpMemberNum];

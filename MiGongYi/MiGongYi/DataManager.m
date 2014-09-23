@@ -94,7 +94,7 @@
         if ([responseObject[@"data"] count] == 0) {
             return;
         }
-        
+        //NSLog(@"%@", responseObject[@"data"][0]);
         [self setProjects:responseObject[@"data"] type:type reset:reset];
         success(type == MGYChildrenType ? self.childList : self.itemList);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -167,7 +167,19 @@
                           limit:(NSInteger)limit
                         success:(void (^)(NSArray *))success
 {
-
+    NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=recentsituation"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"project_id":@(projectId), @"start":@(start), @"limit":@(limit)};
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        
+        if ([responseObject[@"data"] count] == 0) {
+            return ;
+        }
+        
+        success(responseObject[@"data"]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 @end

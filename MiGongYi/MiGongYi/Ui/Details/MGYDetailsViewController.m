@@ -14,8 +14,12 @@
 #import "MGYProjectDetails.h"
 #import "UIImageView+WebCache.h"
 #import "UIColor+Expanded.h"
+#import "MGYProjectRecent.h"
 
 @interface MGYDetailsViewController ()
+{
+    NSMutableArray *_developmentList;
+}
 
 @property(nonatomic, strong) NSArray *developmentList;
 @property(nonatomic, assign) BOOL isLoading;
@@ -59,7 +63,9 @@
                                                            start:0
                                                            limit:1
                                                          success:^(NSArray *array) {
-                                                             [self.developmentList arrayByAddingObjectsFromArray:array];
+                                                             self.isLoading = NO;
+                                                             [_developmentList addObjectsFromArray:array];
+                                                             [self.tableView reloadData];
                                                          }];
         }
         
@@ -70,6 +76,26 @@
         MGYProjectDevelopmentsTableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"developmentsTableView Cell"
                                                forIndexPath:indexPath];
+        if (self.developmentList[indexPath.row - 1]) {
+            MGYProjectRecent *projectRecent = [MTLJSONAdapter modelOfClass:[MGYProjectRecent class]
+                                                        fromJSONDictionary:self.developmentList[indexPath.row - 1]
+                                                                     error:nil];
+            //NSLog(@"iiiiiiiiiiii%@", self.developmentList[indexPath.row - 1]);
+            [cell reset:projectRecent];
+        }
+        
+        if (self.developmentList.count == indexPath.row && !self.isLoading) {
+            self.isLoading = YES;
+            [[DataManager shareInstance] requestForProjectRecent:self.details.projectId
+                                                           start:indexPath.row
+                                                           limit:1
+                                                         success:^(NSArray *array) {
+                                                             self.isLoading = NO;
+                                                             [_developmentList addObjectsFromArray:array];
+                                                             [self.tableView reloadData];
+                                                         }];
+        
+        }
         return cell;
     }
     
@@ -77,7 +103,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.developmentList.count + 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -117,11 +143,13 @@
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
 //    backItem.tintColor = [UIColor whiteColor];
 //    self.navigationItem.leftBarButtonItem = backItem;
+    
     _developmentList = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     tableView.dataSource = self;
     tableView.delegate = self;
-    [tableView registerClass:[UITableViewCell class]
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [tableView registerClass:[MGYProjectDevelopmentsTableViewCell class]
       forCellReuseIdentifier:@"developmentsTableView Cell"];
     [tableView registerClass:[MGYProjectDetailsTableViewCell class]
       forCellReuseIdentifier:@"detailsTableView Cell"];

@@ -10,5 +10,5 @@
 #import "MGYBaseProgressView.h"
 
 @interface MGYProgressView : MGYBaseProgressView
-- (void)updateProgress:(NSInteger) percent;
+- (void)resetProgress:(NSInteger) percent;
 @end

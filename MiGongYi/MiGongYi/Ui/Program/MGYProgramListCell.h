@@ -11,5 +11,5 @@
 
 @interface MGYProgramListCell : UICollectionViewCell
 
--(void)update:(MGYProject *)args;
+-(void)reset:(MGYProject *)args;
 @end

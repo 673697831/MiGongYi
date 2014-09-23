@@ -11,7 +11,7 @@
 
 @interface MGYDetailsIconListView : UIView
 
-- (void)update:(NSInteger)riceNum
+- (void)reset:(NSInteger)riceNum
        joinNum:(NSInteger)joinNum
         favNum:(NSInteger)favNum;
 

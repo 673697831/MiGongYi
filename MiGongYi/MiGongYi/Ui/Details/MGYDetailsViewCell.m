@@ -183,11 +183,11 @@
     return self;
 }
 
-- (void)updateDetails:(MGYProject *)args
+- (void)reset:(MGYProject *)args
 {
     self.title.text = args.title;
     [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.coverImg]];
-    [self.progressLabel updateProgress:args.progress];
+    [self.progressLabel resetProgress:args.progress];
     //self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.riceDonate];
     //self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
     //self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.favNum];

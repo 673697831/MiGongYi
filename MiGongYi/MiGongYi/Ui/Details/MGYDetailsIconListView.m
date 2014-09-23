@@ -118,7 +118,7 @@
     }];
 }
 
-- (void)update:(NSInteger)riceNum joinNum:(NSInteger)joinNum favNum:(NSInteger)favNum
+- (void)reset:(NSInteger)riceNum joinNum:(NSInteger)joinNum favNum:(NSInteger)favNum
 {
     [self.riceIconView resetDetails:[NSString stringWithFormat:@"%d", riceNum] path:nil text:nil];
     [self.joinIconView resetDetails:[NSString stringWithFormat:@"%d", joinNum] path:nil text:nil];

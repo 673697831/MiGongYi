@@ -11,6 +11,6 @@
 
 @interface MGYDetailsRelationshipView : UIView
 
-- (void)update:(MGYProjectDetails *)details;
+- (void)reset:(MGYProjectDetails *)details;
 
 @end

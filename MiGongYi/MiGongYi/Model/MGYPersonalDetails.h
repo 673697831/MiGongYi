@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, MGYSexType) {
     MGYMale = 1,
     MGYFemale = 2,
 };
+
 @interface MGYPersonalDetails : MTLModel <MTLJSONSerializing>
 @property(nonatomic, assign) NSInteger uid;
 @property(nonatomic, assign) MGYSexType sex;

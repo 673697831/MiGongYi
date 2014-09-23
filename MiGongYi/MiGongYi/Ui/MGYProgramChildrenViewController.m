@@ -35,7 +35,7 @@
     if (indexPath.row >= __array.count) {
         return cell;
     }
-    [cell update:__array[indexPath.row]];
+    [cell reset:__array[indexPath.row]];
 //    
 //    if (__array.count - index < 2*2) {
 //        if (self.isLoading) {

@@ -223,7 +223,7 @@
     [self setup];
 
 }
--(void)update:(MGYProject *)args
+-(void)reset:(MGYProject *)args
 {
     
     if (!self.hasDrawn) {
@@ -231,7 +231,7 @@
         self.hasDrawn = YES;
     }
     
-    [self.progressLabel updateProgress:args.progress];
+    [self.progressLabel resetProgress:args.progress];
     [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.coverImg]];
     self.nameLabel.text = args.title;
     self.miliNum.text = [NSString stringWithFormat:@"%d", args.riceDonate];
