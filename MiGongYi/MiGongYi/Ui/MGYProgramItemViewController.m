@@ -8,6 +8,7 @@
 
 #import "MGYProgramItemViewController.h"
 #import "Details/MGYDetailsViewCell.h"
+#import "MGYDetailsViewController.h"
 #import "DataManager.h"
 #import "UIColor+Expanded.h"
 #import "Masonry.h"
@@ -129,6 +130,13 @@
 {
     [super viewWillAppear:animated];
     [self setSelectedIndex:2];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MGYProject *project =__array[indexPath.row];
+    MGYDetailsViewController *view = [[MGYDetailsViewController alloc]initWithProjectId:project.projectId];
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 /*
