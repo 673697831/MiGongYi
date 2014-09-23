@@ -140,10 +140,26 @@
     }];
 }
 
-- (void)requestForAddfav:(NSInteger)projectId
+- (void)requestForAddfav:(NSInteger)projectId success:(void (^)(NSInteger))success
 {
     NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=addfav"];
-    NSLog(@"%@ %d", url, projectId);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        success([responseObject[@"error"] integerValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)requestForCancelFav:(NSInteger)projectId success:(void (^)(NSInteger))success
+{
+    NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=cancelfav"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        success([responseObject[@"error"] integerValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 @end

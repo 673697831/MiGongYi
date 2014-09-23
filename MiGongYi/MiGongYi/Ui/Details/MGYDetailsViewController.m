@@ -160,6 +160,7 @@
                                                       //NSLog(@"ooooooo %@", details);
                                                       self.details = details;
                                                       [self.tableView reloadData];
+                                                      [self resetButtonStatus];
                                                   }];
 }
 
@@ -209,10 +210,22 @@
     switch ([sender tag]) {
         case 1:
             if (self.details.fav == 0) {
-                [[DataManager shareInstance] requestForAddfav:self.details.projectId];
+                [[DataManager shareInstance] requestForAddfav:self.details.projectId
+                                                      success:^(NSInteger error) {
+                                                          if (error == 0) {
+                                                              self.details.fav = 1;
+                                                              self.favButton.selected = YES;
+                                                          }
+                                                      }];
             }else
             {
-            
+                [[DataManager shareInstance] requestForCancelFav:self.details.projectId
+                                                         success:^(NSInteger error) {
+                                                             if (error == 0) {
+                                                                 self.details.fav = 0;
+                                                                 self.favButton.selected = NO;
+                                                             }
+                                                         }];
             }
             break;
         case 2:
@@ -220,6 +233,15 @@
         default:
             break;
     }
+}
+
+- (void)resetButtonStatus
+{
+    self.favButton.selected = self.details.fav == 1 ? YES:NO;
+    if (self.details.status == 0) {
+        self.exchangeLabel.text = @"项目已结束";
+    }
+    
 }
 
 /*
