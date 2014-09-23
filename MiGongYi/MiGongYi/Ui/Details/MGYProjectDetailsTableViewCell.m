@@ -12,6 +12,7 @@
 #import "UIColor+Expanded.h"
 #import "MGYDetailsRelationshipView.h"
 #import "MGYProgressView.h"
+#import "MGYDetailsIconListView.h"
 
 @interface MGYProjectDetailsTableViewCell ()
 
@@ -22,6 +23,8 @@
 @property(nonatomic, weak) UIButton *readmoreButton;
 @property(nonatomic, weak) UILabel *linelabel1;
 @property(nonatomic, weak) MGYProgressView *progressView;
+@property(nonatomic, weak) MGYDetailsIconListView *iconListView;
+@property(nonatomic, weak) UILabel *lineLabel2;
 
 @end
 
@@ -74,6 +77,26 @@
         make.top.equalTo(self.linelabel1.mas_bottom).with.offset(10);
         make.centerX.equalTo(self);
     }];
+    
+//    [self.leftIconView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.mas_equalTo(104/2);
+//        make.width.mas_equalTo(552/3/2);
+//        make.top.equalTo(self.progressView.mas_bottom).with.offset(15);
+//        make.left.equalTo(self.linelabel1.mas_left);
+//    }];
+    [self.iconListView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(104/2);
+        make.width.mas_equalTo(552/2);
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.progressView.mas_bottom).with.offset(15);
+    }];
+    
+    [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(552/2);
+        make.height.mas_equalTo(1);
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.iconListView.mas_bottom).with.offset(20);
+    }];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -114,10 +137,8 @@
                              forState:UIControlStateNormal];
         self.readmoreButton = readmoreButton;
         
-        UILabel *linelabel1 = [UILabel new];
-        [self addSubview:linelabel1];
-        linelabel1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-        self.linelabel1 = linelabel1;
+        self.linelabel1 = [self lineLabelFactory];
+        [self addSubview:self.linelabel1];
         
         //MGYProgressView *progressView = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
         MGYProgressView *progressView = [MGYProgressView new];
@@ -125,10 +146,31 @@
         progressView.backgroundColor = [UIColor clearColor];
         self.progressView = progressView;
         
+//        MGYDetailsIcon *leftIconView = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/3/2, 104/2)];
+//        [leftIconView resetDetails:@"355580"
+//                                 path:@"page_Rice_normal2"
+//                                 text:@"捐赠米粒"];
+//        [self addSubview:leftIconView];
+//        self.leftIconView = leftIconView;
+        MGYDetailsIconListView *iconListView = [[MGYDetailsIconListView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 104/2)];
+        [self addSubview:iconListView];
+        self.iconListView = iconListView;
+        
+        self.lineLabel2 = [self lineLabelFactory];
+        [self addSubview:self.lineLabel2];
+        
+        
         [self setup];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
+}
+
+- (UILabel *)lineLabelFactory
+{
+    UILabel *label = [UILabel new];
+    label.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    return label;
 }
 
 - (void)update:(MGYProjectDetails *)details
@@ -140,7 +182,7 @@
     self.summaryLabel.text = details.summary;
     
     self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
-    
+    [self.iconListView update:details.riceDonate joinNum:details.joinMemberNum favNum:details.favNum];
 
     NSLog(@"iiiiiii %f %f", labelSize.height, labelSize.width);
 }

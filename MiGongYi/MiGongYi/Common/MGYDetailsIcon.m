@@ -56,12 +56,12 @@
     return self;
 }
 
-//- (void)resetArgs:(NSDictionary *)args
-//{
-//    self.numLabel.text = args[@"num"];
-//    [self.imageView setImage:[UIImage imageNamed:args[@"path"]]];
-//    self.itemLabel.text = args[@"text"];
-//}
+- (void)resetFontColor:(NSString *)numberColor itemColor:(NSString *)itemColor
+{
+    self.numLabel.textColor = [UIColor colorWithHexString:numberColor];
+    self.itemLabel.textColor = [UIColor colorWithHexString:itemColor];
+}
+
 - (void)resetDetails:(NSString *)num path:(NSString *)path text:(NSString *)text
 {
     self.numLabel.text = num;

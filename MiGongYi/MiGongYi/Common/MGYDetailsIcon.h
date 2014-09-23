@@ -18,4 +18,7 @@
 - (void)resetDetails:(NSString *)num
                 path:(NSString *)path
                 text:(NSString *)text;
+
+- (void)resetFontColor:(NSString *)numberColor
+             itemColor:(NSString *)itemColor;
 @end
