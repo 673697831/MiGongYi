@@ -29,6 +29,7 @@
              @"readmoreUrl":@"readmore_url",
              @"fav":@"fav",
              @"helpMemberNum":@"help_member_num",
+             @"commentExist":@"comment_exist",
              };
 }
 

@@ -8,6 +8,7 @@
 
 #import "MGYDetailsViewController.h"
 #import "MGYProjectDetailsTableViewCell.h"
+#import "MGYProjectDevelopmentsTableViewCell.h"
 #import "DataManager.h"
 #import "Masonry.h"
 #import "MGYProjectDetails.h"
@@ -16,6 +17,8 @@
 
 @interface MGYDetailsViewController ()
 
+@property(nonatomic, strong) NSArray *developmentList;
+@property(nonatomic, assign) BOOL isLoading;
 @property(nonatomic, strong) MGYProjectDetails *details;
 @property(nonatomic, assign) NSInteger projectId;
 @property(nonatomic, weak) UITableView *tableView;
@@ -44,18 +47,28 @@
     
     if (indexPath.row == 0) {
         MGYProjectDetailsTableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableViewCell Cell"
+        cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableView Cell"
                                                forIndexPath:indexPath];
         if (self.details) {
             [cell update:self.details];
+        }
+        
+        if (self.developmentList.count == 0 && !self.isLoading && self.details) {
+            self.isLoading = YES;
+            [[DataManager shareInstance] requestForProjectRecent:self.details.projectId
+                                                           start:0
+                                                           limit:1
+                                                         success:^(NSArray *array) {
+                                                             [self.developmentList arrayByAddingObjectsFromArray:array];
+                                                         }];
         }
         
         return cell;
         
     }else
     {
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"tableView Cell"
+        MGYProjectDevelopmentsTableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"developmentsTableView Cell"
                                                forIndexPath:indexPath];
         return cell;
     }
@@ -93,7 +106,7 @@
         height = height + 15 + 10 + 10 + 15 + 52 + 20 + 55 + 40;
         return height;
     }
-    return 44;
+    return 500;
 }
 
 - (void)viewDidLoad
@@ -104,14 +117,14 @@
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
 //    backItem.tintColor = [UIColor whiteColor];
 //    self.navigationItem.leftBarButtonItem = backItem;
-    
+    _developmentList = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[UITableViewCell class]
-      forCellReuseIdentifier:@"tableView Cell"];
+      forCellReuseIdentifier:@"developmentsTableView Cell"];
     [tableView registerClass:[MGYProjectDetailsTableViewCell class]
-      forCellReuseIdentifier:@"detailsTableViewCell Cell"];
+      forCellReuseIdentifier:@"detailsTableView Cell"];
     [self.view addSubview:tableView];
     self.tableView = tableView;
    
@@ -237,7 +250,8 @@
 
 - (void)resetButtonStatus
 {
-    self.favButton.selected = self.details.fav == 1 ? YES:NO;
+    self.favButton.selected = self.details.fav == 1 ? YES : NO;
+    self.messageButton.selected = self.details.commentExist == 1 ? YES : NO;
     if (self.details.status == 0) {
         self.exchangeLabel.text = @"项目已结束";
     }

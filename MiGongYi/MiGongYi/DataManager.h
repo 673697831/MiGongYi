@@ -43,6 +43,10 @@
                  success:(void (^)(NSInteger error))success;
 - (void)requestForCancelFav:(NSInteger)projectId
                     success:(void (^)(NSInteger error))success;
+- (void)requestForProjectRecent:(NSInteger)projectId
+                          start:(NSInteger)start
+                          limit:(NSInteger)limit
+                        success:(void (^)(NSArray *array))success;
 
 
 @end

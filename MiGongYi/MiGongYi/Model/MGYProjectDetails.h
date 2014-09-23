@@ -30,5 +30,6 @@
 @property(nonatomic, assign) NSInteger status;
 @property(nonatomic, copy) NSString *readmoreUrl;
 @property(nonatomic, assign) NSInteger fav;
+@property(nonatomic, assign) NSInteger commentExist;
 
 @end
