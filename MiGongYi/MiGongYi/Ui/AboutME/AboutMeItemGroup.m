@@ -20,7 +20,6 @@
     self = [super init];
     if (self) {
         self.group = [NSMutableArray array];
-        NSLog(@"ttttttttttt");
     }
     return self;
 }

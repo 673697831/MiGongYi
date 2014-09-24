@@ -79,7 +79,6 @@
             MGYProjectRecent *projectRecent = [MTLJSONAdapter modelOfClass:[MGYProjectRecent class]
                                                         fromJSONDictionary:self.developmentList[indexPath.row - 1]
                                                                      error:nil];
-            //NSLog(@"iiiiiiiiiiii%@", self.developmentList[indexPath.row - 1]);
             [cell reset:projectRecent];
         }
         
@@ -119,9 +118,7 @@
         height = height + [MGYProjectDetailsTableViewCell minHeight];
         
         if (self.details) {
-            //NSLog(@"%@", self.details.summary);
             height = height + [self labelHeightWithString:self.details.summary];
-            //NSLog(@"hhhhhhhhhhhhh %f", [self labelHeightWithString:self.details.summary]);
         }
     }
     else
@@ -143,9 +140,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.barView.hidden = YES;
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
-//    backItem.tintColor = [UIColor whiteColor];
-//    self.navigationItem.leftBarButtonItem = backItem;
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:self action:@selector(click)];
+    //UIButton *button;
+    backItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem = backItem;
     
     _developmentList = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
@@ -203,13 +201,20 @@
                                                   success:^(MGYProjectDetails *details) {
                                                       //NSLog(@"ooooooo %@", details);
                                                       self.details = details;
+                                                      self.title = details.title;
                                                       [self.tableView reloadData];
                                                       [self resetButtonStatus];
                                                   }];
 }
 
+- (void)click
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)setup
 {
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
