@@ -14,6 +14,22 @@
 #import "MGYProgressView.h"
 #import "MGYDetailsIconListView.h"
 
+#define OFFSET_Y_1 20
+#define VIEW_H_1 17
+#define OFFSET_Y_2 15
+#define VIEW_H_2 100
+#define OFFSET_Y_3 10
+#define OFFSET_Y_4 15
+#define VIEW_H_3 35
+#define OFFSET_Y_5 15
+#define OFFSET_Y_6 10
+#define VIEW_H_4 10
+#define OFFSET_Y_7 15
+#define VIEW_H_5 52
+#define OFFSET_Y_8 20
+#define VIEW_H_6 55
+#define VIEW_H_7 40
+
 @interface MGYProjectDetailsTableViewCell ()
 
 @property(nonatomic, weak) UIImageView *detailsImageView;
@@ -43,66 +59,60 @@
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.detailsImageView.mas_bottom).with.offset(20);
+        make.top.equalTo(self.detailsImageView.mas_bottom).with.offset(OFFSET_Y_1);
         make.centerX.equalTo(self);
     }];
     
     [self.relationshipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(105);
+        make.height.mas_equalTo(VIEW_H_2);
         make.width.mas_equalTo(552/2);
         make.centerX.equalTo(self);
-        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(15);
+        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(OFFSET_Y_2);
     }];
     
     [self.summaryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(552/2);
         make.centerX.equalTo(self);
-        make.top.equalTo(self.relationshipView.mas_bottom).with.offset(10);
+        make.top.equalTo(self.relationshipView.mas_bottom).with.offset(OFFSET_Y_3);
     }];
     
     [self.readmoreButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(80);
-        make.height.mas_equalTo(35);
+        make.height.mas_equalTo(VIEW_H_3);
         make.centerX.equalTo(self);
-        make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(15);
+        make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(OFFSET_Y_4);
     }];
     
     [self.linelabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(552/2);
         make.height.mas_equalTo(1);
-        make.top.equalTo(self.readmoreButton.mas_bottom).with.offset(15);
+        make.top.equalTo(self.readmoreButton.mas_bottom).with.offset(OFFSET_Y_5);
         make.centerX.equalTo(self);
     }];
     
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(10);
+        make.height.mas_equalTo(VIEW_H_4);
         make.width.mas_equalTo(552/2);
-        make.top.equalTo(self.linelabel1.mas_bottom).with.offset(10);
+        make.top.equalTo(self.linelabel1.mas_bottom).with.offset(OFFSET_Y_6);
         make.centerX.equalTo(self);
     }];
     
-//    [self.leftIconView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.height.mas_equalTo(104/2);
-//        make.width.mas_equalTo(552/3/2);
-//        make.top.equalTo(self.progressView.mas_bottom).with.offset(15);
-//        make.left.equalTo(self.linelabel1.mas_left);
-//    }];
     [self.iconListView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(104/2);
+        make.height.mas_equalTo(VIEW_H_5);
         make.width.mas_equalTo(552/2);
         make.centerX.equalTo(self);
-        make.top.equalTo(self.progressView.mas_bottom).with.offset(15);
+        make.top.equalTo(self.progressView.mas_bottom).with.offset(OFFSET_Y_7);
     }];
     
     [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(552/2);
         make.height.mas_equalTo(1);
         make.centerX.equalTo(self);
-        make.top.equalTo(self.iconListView.mas_bottom).with.offset(20);
+        make.top.equalTo(self.iconListView.mas_bottom).with.offset(OFFSET_Y_8);
     }];
     
     [self.helpNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(110/2);
+        make.height.mas_equalTo(VIEW_H_6);
         make.top.equalTo(self.lineLabel2.mas_bottom);
         make.centerX.equalTo(self);
     }];
@@ -117,7 +127,7 @@
     [self.updateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self.lineLabel3.mas_bottom);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(VIEW_H_7);
     }];
 }
 
@@ -132,7 +142,7 @@
         
         UILabel *titleLabel = [UILabel new];
         titleLabel.textColor = [UIColor colorWithHexString:@"676767"];
-        titleLabel.font = [UIFont systemFontOfSize:17];
+        titleLabel.font = [UIFont systemFontOfSize:VIEW_H_1];
         [self addSubview:titleLabel];
         self.titleLabel = titleLabel;
         
@@ -141,8 +151,8 @@
         self.relationshipView = relationshipView;
         
         UILabel *summaryLabel = [UILabel new];
+        summaryLabel.backgroundColor = [UIColor blueColor];
         summaryLabel.numberOfLines = 0;
-        //summaryLabel.lineBreakMode = UILineBreakModeCharacterWrap;
         summaryLabel.font = [UIFont systemFontOfSize:13];
         summaryLabel.textColor = [UIColor colorWithHexString:@"838383"];
         [self addSubview:summaryLabel];
@@ -184,6 +194,7 @@
         [self addSubview:self.lineLabel3];
         
         UILabel *updateLabel = [UILabel new];
+        updateLabel.backgroundColor = [UIColor orangeColor];
         updateLabel.text = @"近况更新";
         updateLabel.font = [UIFont systemFontOfSize:14];
         updateLabel.textColor = [UIColor colorWithHexString:@"838383"];
@@ -192,6 +203,7 @@
         
         [self setup];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor yellowColor];
     }
     return self;
 }
@@ -203,15 +215,15 @@
     return label;
 }
 
-- (void)update:(MGYProjectDetails *)details
+- (void)reset:(MGYProjectDetails *)details
 {
     [self.detailsImageView sd_setImageWithURL:[NSURL URLWithString:details.detailImg]];
     self.titleLabel.text = details.title;
     [self.relationshipView reset:details];
-    CGSize labelSize = [details.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
     self.summaryLabel.text = details.summary;
-    
-    self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
+//    CGSize labelSize = [details.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
+//    self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
+//    NSLog(@"uuuuuuuuu %f", labelSize.height);
     [self.iconListView reset:details.riceDonate joinNum:details.joinMemberNum favNum:details.favNum];
     
     [self.progressView resetProgress:details.progress];
@@ -251,6 +263,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
++ (CGFloat)minHeight
+{
+    CGFloat height = 0;
+    height = OFFSET_Y_1 + OFFSET_Y_2 + OFFSET_Y_3 + OFFSET_Y_4 + OFFSET_Y_5 + OFFSET_Y_6 +OFFSET_Y_7 + OFFSET_Y_8 + VIEW_H_1 + VIEW_H_2 + VIEW_H_3 +VIEW_H_4 + VIEW_H_5 + VIEW_H_6 + VIEW_H_7 + 5;
+    return height;
 }
 
 @end

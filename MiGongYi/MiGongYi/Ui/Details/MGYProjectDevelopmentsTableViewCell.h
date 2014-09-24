@@ -13,4 +13,7 @@
 
 - (void)reset:(MGYProjectRecent*) projectRecent;
 
+//最少高度
++ (CGFloat)minHeight;
+
 @end

@@ -36,7 +36,7 @@
         
         UILabel *timeLabel = [UILabel new];
         timeLabel.font = [UIFont systemFontOfSize:12];
-        timeLabel.textColor = [UIColor colorWithString:@"838383"];
+        timeLabel.textColor = [UIColor colorWithHexString:@"838383"];
         [self addSubview:timeLabel];
         self.timeLabel = timeLabel;
         
@@ -45,7 +45,23 @@
         [self addSubview:lineLabel];
         self.lineLabel = lineLabel;
         
+        UILabel *summaryLabel = [UILabel new];
+        summaryLabel.numberOfLines = 0;
+        summaryLabel.font = [UIFont systemFontOfSize:13];
+        summaryLabel.textColor = [UIColor colorWithHexString:@"838383"];
+        [self addSubview:summaryLabel];
+        self.summaryLabel = summaryLabel;
+        
+        self.messageButton = [self buttonFactory];
+        [self.messageButton setTitle:@"进入聊天" forState:UIControlStateNormal];
+        [self addSubview:self.messageButton];
+        
+        self.readmoreButton = [self buttonFactory];
+        [self.readmoreButton setTitle:@"阅读更多" forState:UIControlStateNormal];
+        [self addSubview:self.readmoreButton];
+        
         [self setup];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -71,6 +87,37 @@
         make.centerX.equalTo(self);
         make.top.equalTo(self.timeLabel.mas_bottom);
     }];
+    
+    [self.summaryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.lineLabel.mas_width);
+        make.top.equalTo(self.lineLabel.mas_bottom).with.offset(15);
+        make.centerX.equalTo(self.lineLabel.mas_centerX);
+    }];
+    
+    [self.messageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(80);
+        make.height.mas_equalTo(35);
+        make.right.equalTo(self.mas_centerX).with.offset(-20);
+        make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(15);
+    }];
+    
+    [self.readmoreButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(80);
+        make.height.mas_equalTo(35);
+        make.left.equalTo(self.mas_centerX).with.offset(20);
+        make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(15);
+    }];
+}
+
+- (UIButton *)buttonFactory
+{
+    UIButton *messageButton = [UIButton new];
+    messageButton.layer.borderWidth = 1;
+    messageButton.layer.borderColor = [UIColor colorWithHexString:@"f16400"].CGColor;
+    messageButton.titleLabel.font = [UIFont systemFontOfSize:13];
+    [messageButton setTitleColor:[UIColor colorWithHexString:@"f16400"]
+                        forState:UIControlStateNormal];
+    return messageButton;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -84,14 +131,23 @@
 {
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:projectRecent.coverImg]];
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:projectRecent.showTime];
-    NSLog(@"%@",confromTimesp);
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
     NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     comps = [calendar components:unitFlags fromDate:confromTimesp];
-    NSLog(@"%d%d%d", [comps year], [comps month], [comps day]);
     self.timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日", [comps year], [comps month], [comps day]];
+    self.summaryLabel.text = projectRecent.summary;
+//    CGSize labelSize = [projectRecent.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
+//    self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
+    
+}
+
++ (CGFloat)minHeight
+{
+    CGFloat height = 0;
+    height = height + 56/2 + 30/2 + 30/2 + 70/2 +30/2;
+    return height;
 }
 
 @end

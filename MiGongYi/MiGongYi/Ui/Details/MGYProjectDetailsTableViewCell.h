@@ -11,6 +11,8 @@
 
 @interface MGYProjectDetailsTableViewCell : UITableViewCell
 
-- (void)update:(MGYProjectDetails *) details;
+- (void)reset:(MGYProjectDetails *) details;
+
++ (CGFloat)minHeight;
 
 @end

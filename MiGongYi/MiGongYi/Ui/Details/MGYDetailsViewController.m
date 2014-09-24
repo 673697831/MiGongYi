@@ -54,7 +54,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableView Cell"
                                                forIndexPath:indexPath];
         if (self.details) {
-            [cell update:self.details];
+            [cell reset:self.details];
         }
         
         if (self.developmentList.count == 0 && !self.isLoading && self.details) {
@@ -113,26 +113,30 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat height = 0;
+    height = height + tableView.bounds.size.width * 0.7;
+    
     if (indexPath.row == 0) {
-      // NSLog(@"uuuuuuuu %f", [])
-        CGFloat height = 0;
-        height = height + tableView.bounds.size.width * 0.7;
-        height = height + 17;
-        height = height + 20;
-        height = height + 105;
-        height = height + 15;
-        //height = height + self.summaryLabel.bounds.size.height;
+        height = height + [MGYProjectDetailsTableViewCell minHeight];
+        
         if (self.details) {
-             CGSize labelSize = [self.details.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
-            height = height + labelSize.height;
+            NSLog(@"%@", self.details.summary);
+            height = height + [self labelHeightWithString:self.details.summary];
+            NSLog(@"hhhhhhhhhhhhh %f", [self labelHeightWithString:self.details.summary]);
         }
-        height = height + 10;
-        height = height + 35;
-        height = height + 15;
-        height = height + 15 + 10 + 10 + 15 + 52 + 20 + 55 + 40;
-        return height;
     }
-    return 500;
+    else
+    {
+        height = height + [MGYProjectDevelopmentsTableViewCell minHeight];
+        
+        if (self.developmentList[indexPath.row - 1]) {
+            MGYProjectRecent *projectRecent = [MTLJSONAdapter modelOfClass:[MGYProjectRecent class]
+                                                        fromJSONDictionary:self.developmentList[indexPath.row - 1]
+                                                                     error:nil];
+            height = height + [self labelHeightWithString:projectRecent.summary];
+        }
+    }
+    return height;
 }
 
 - (void)viewDidLoad
@@ -284,6 +288,12 @@
         self.exchangeLabel.text = @"项目已结束";
     }
     
+}
+
+- (CGFloat)labelHeightWithString:(NSString *)string
+{
+    CGSize labelSize = [string boundingRectWithSize:CGSizeMake(512/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
+    return labelSize.height;
 }
 
 /*
