@@ -271,8 +271,8 @@
 			children = (
 				202E3FA219C8698400E58B4E /* AboutMe */,
 				20CC640119C2A7ED007230A1 /* Template */,
-				20A2D28119B9DCDC004C7697 /* Details */,
 				20A2D28619B9DCDC004C7697 /* Program */,
+				20A2D28119B9DCDC004C7697 /* Details */,
 				20CC640819C2AEDC007230A1 /* MGYProgramChildrenViewController.h */,
 				20CC640919C2AEDC007230A1 /* MGYProgramChildrenViewController.m */,
 				20CC640F19C3EDA8007230A1 /* MGYProgramItemViewController.h */,

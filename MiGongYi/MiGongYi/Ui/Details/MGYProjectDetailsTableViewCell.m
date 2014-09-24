@@ -17,7 +17,7 @@
 #define OFFSET_Y_1 20
 #define VIEW_H_1 17
 #define OFFSET_Y_2 15
-#define VIEW_H_2 100
+#define VIEW_H_2 102
 #define OFFSET_Y_3 10
 #define OFFSET_Y_4 15
 #define VIEW_H_3 35
@@ -151,7 +151,6 @@
         self.relationshipView = relationshipView;
         
         UILabel *summaryLabel = [UILabel new];
-        summaryLabel.backgroundColor = [UIColor blueColor];
         summaryLabel.numberOfLines = 0;
         summaryLabel.font = [UIFont systemFontOfSize:13];
         summaryLabel.textColor = [UIColor colorWithHexString:@"838383"];
@@ -194,7 +193,6 @@
         [self addSubview:self.lineLabel3];
         
         UILabel *updateLabel = [UILabel new];
-        updateLabel.backgroundColor = [UIColor orangeColor];
         updateLabel.text = @"近况更新";
         updateLabel.font = [UIFont systemFontOfSize:14];
         updateLabel.textColor = [UIColor colorWithHexString:@"838383"];
@@ -203,7 +201,6 @@
         
         [self setup];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = [UIColor yellowColor];
     }
     return self;
 }
@@ -268,7 +265,7 @@
 + (CGFloat)minHeight
 {
     CGFloat height = 0;
-    height = OFFSET_Y_1 + OFFSET_Y_2 + OFFSET_Y_3 + OFFSET_Y_4 + OFFSET_Y_5 + OFFSET_Y_6 +OFFSET_Y_7 + OFFSET_Y_8 + VIEW_H_1 + VIEW_H_2 + VIEW_H_3 +VIEW_H_4 + VIEW_H_5 + VIEW_H_6 + VIEW_H_7 + 5;
+    height = OFFSET_Y_1 + OFFSET_Y_2 + OFFSET_Y_3 + OFFSET_Y_4 + OFFSET_Y_5 + OFFSET_Y_6 +OFFSET_Y_7 + OFFSET_Y_8 + VIEW_H_1 + VIEW_H_2 + VIEW_H_3 +VIEW_H_4 + VIEW_H_5 + VIEW_H_6 + VIEW_H_7 + 10;
     return height;
 }
 

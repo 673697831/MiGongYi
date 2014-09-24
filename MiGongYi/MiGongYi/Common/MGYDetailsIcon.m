@@ -15,17 +15,18 @@
 - (void)setup
 {
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).with.offset(2);
+        make.top.equalTo(self.mas_top);
         make.centerX.equalTo(self.mas_centerX);
     }];
     
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.numLabel.mas_bottom).with.offset(2);
+        //make.top.equalTo(self.numLabel.mas_bottom).with.offset(2);
+        make.centerY.equalTo(self);
         make.centerX.equalTo(self.mas_centerX);
     }];
     
     [self.itemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imageView.mas_bottom).with.offset(2);
+        make.bottom.equalTo(self);
         make.centerX.equalTo(self.mas_centerX);
     }];
 }

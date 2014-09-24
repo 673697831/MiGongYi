@@ -68,7 +68,6 @@
                                                              [self.tableView reloadData];
                                                          }];
         }
-        
         return cell;
         
     }else
@@ -120,9 +119,9 @@
         height = height + [MGYProjectDetailsTableViewCell minHeight];
         
         if (self.details) {
-            NSLog(@"%@", self.details.summary);
+            //NSLog(@"%@", self.details.summary);
             height = height + [self labelHeightWithString:self.details.summary];
-            NSLog(@"hhhhhhhhhhhhh %f", [self labelHeightWithString:self.details.summary]);
+            //NSLog(@"hhhhhhhhhhhhh %f", [self labelHeightWithString:self.details.summary]);
         }
     }
     else
@@ -292,7 +291,7 @@
 
 - (CGFloat)labelHeightWithString:(NSString *)string
 {
-    CGSize labelSize = [string boundingRectWithSize:CGSizeMake(512/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
+    CGSize labelSize = [string boundingRectWithSize:CGSizeMake(552/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
     return labelSize.height;
 }
 

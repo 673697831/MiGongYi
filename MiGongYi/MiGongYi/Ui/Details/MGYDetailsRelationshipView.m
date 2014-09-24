@@ -59,7 +59,7 @@
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(2);
         make.left.equalTo(self.mas_left).with.offset(5);
-        make.top.equalTo(self.mas_top).with.offset(10);
+        make.top.equalTo(self.lineLabel.mas_bottom).with.offset(10);
     }];
     
     [self.itemlabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -128,7 +128,7 @@
     [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
         make.width.mas_equalTo(552/2);
-        make.top.equalTo(self.itemTitleLabel3.mas_bottom).with.offset(10);
+        make.top.equalTo(self.lineLabel.mas_bottom).with.offset(100);
         make.left.equalTo(self);
     }];
 }

@@ -11,15 +11,17 @@
 #import "UIColor+Expanded.h"
 #import "UIImageView+WebCache.h"
 #import "MGYProgressView.h"
+#import "MGYDetailsIconListView.h"
 
 @interface MGYDetailsViewCell ()
 @property(nonatomic, weak) UIImageView *photoView;
 @property(nonatomic, weak) UILabel *title;
 //@property(nonatomic, weak) ProgressLabel *progressLabel;
 @property(nonatomic, weak) MGYProgressView *progressLabel;
-@property(nonatomic, weak) MGYDetailsIcon *detailsIconLeft;
-@property(nonatomic, weak) MGYDetailsIcon *detailsIconMiddle;
-@property(nonatomic, weak) MGYDetailsIcon *detailsIconRight;
+//@property(nonatomic, weak) MGYDetailsIcon *detailsIconLeft;
+//@property(nonatomic, weak) MGYDetailsIcon *detailsIconMiddle;
+//@property(nonatomic, weak) MGYDetailsIcon *detailsIconRight;
+@property(nonatomic, weak) MGYDetailsIconListView *iconListView;
 @property(nonatomic, weak) UILabel *line1;
 @property(nonatomic, weak) UILabel *line2;
 @property(nonatomic, weak) UILabel *buttomLabel;
@@ -49,39 +51,12 @@
         make.height.mas_equalTo(20/2);
     }];
     
-    [self.detailsIconLeft mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressLabel.mas_bottom).with.offset(topOffset);
-        make.left.equalTo(self.progressLabel.mas_left);
-        make.width.mas_equalTo(552/2/3);
-        make.height.mas_equalTo(120);
-    }];
-    
-    [self.detailsIconMiddle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressLabel.mas_bottom).with.offset(topOffset);
-        make.centerX.equalTo(self.progressLabel.mas_centerX);
-        make.width.mas_equalTo(552/2/3);
-        make.height.mas_equalTo(120);
-    }];
-    
-    [self.detailsIconRight mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressLabel.mas_bottom).with.offset(topOffset);
-        make.right.equalTo(self.progressLabel.mas_right);
-        make.width.mas_equalTo(552/2/3);
-        make.height.mas_equalTo(120);
-    }];
-    
-    [self.line1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressLabel.mas_bottom).with.offset(6);
-        make.left.equalTo(self.progressLabel.mas_left).with.offset(552/2/3);
-        make.width.mas_equalTo(1);
-        make.height.mas_equalTo(96/2);
-    }];
-    
-    [self.line2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressLabel.mas_bottom).with.offset(6);
-        make.left.equalTo(self.progressLabel.mas_left).with.offset(552/2/3*2);
-        make.width.mas_equalTo(1);
-        make.height.mas_equalTo(96/2);
+    [self.iconListView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.progressLabel.mas_bottom).with.offset(4);
+        //make.left.equalTo(self.progressLabel.mas_left);
+        make.centerX.equalTo(self);
+        make.width.mas_equalTo(552/2);
+        make.height.mas_equalTo(48);
     }];
     
     [self.buttomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -135,30 +110,11 @@
         progressLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.progressLabel];
         
-        //DetailsIcon *detailsIconLeft = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Rice_normal2", @"path", @"捐赠米粒", @"text", nil]];
-        MGYDetailsIcon *detailsIconLeft = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
-        //[detailsIconLeft resetArgs:@{@"num":@"355580", @"path":@"page_Rice_normal2", @"text":@"捐赠米粒"}];
-        [detailsIconLeft resetDetails:@"355580"
-                                 path:@"page_Rice_normal2"
-                                 text:@"捐赠米粒"];
-        self.detailsIconLeft = detailsIconLeft;
-        [self.contentView addSubview:self.detailsIconLeft];
         
-        //DetailsIcon *detailsIconMiddle = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_People_normal2", @"path", @"参与人数", @"text", nil]];
-        MGYDetailsIcon *detailsIconMiddle = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
-        //[detailsIconMiddle resetArgs:@{@"num":@"355580", @"path":@"page_People_normal2", @"text":@"参与人数"}];
-        [detailsIconMiddle resetDetails:@"355580"
-                                   path:@"page_People_normal2"
-                                   text:@"参与人数"];
-        self.detailsIconMiddle = detailsIconMiddle;
-        [self.contentView addSubview:self.detailsIconMiddle];
-        
-        //DetailsIcon *detailsIconRight = [[DetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120) Args:[NSDictionary dictionaryWithObjectsAndKeys:@"355580", @"num", @"page_Fav_normal2", @"path", @"收藏次数", @"text", nil]];
-        MGYDetailsIcon *detailsIconRight = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/2/3, 120)];
-        self.detailsIconRight = detailsIconRight;
-        //[detailsIconRight resetArgs:@{@"num":@"355580", @"path":@"page_Fav_normal2", @"text":@"收藏次数"}];
-        [detailsIconRight resetDetails:@"355580" path:@"page_Fav_normal2" text:@"收藏次数"];
-        [self.contentView addSubview:self.detailsIconRight];
+        MGYDetailsIconListView *iconListView = [[MGYDetailsIconListView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 104/2)];
+        //iconListView.backgroundColor = [UIColor orangeColor];
+        [self addSubview:iconListView];
+        self.iconListView = iconListView;
         
         UILabel *line1 = [UILabel new];
         self.line1 = line1;
@@ -188,18 +144,7 @@
     self.title.text = args.title;
     [self.photoView sd_setImageWithURL:[NSURL URLWithString:args.coverImg]];
     [self.progressLabel resetProgress:args.progress];
-    //self.detailsIconLeft.numLabel.text = [NSString stringWithFormat:@"%d", args.riceDonate];
-    //self.detailsIconMiddle.numLabel.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
-    //self.detailsIconRight.numLabel.text = [NSString stringWithFormat:@"%d", args.favNum];
-    [self.detailsIconLeft resetDetails:[NSString stringWithFormat:@"%d", args.riceDonate]
-                             path:nil
-                             text:nil];
-    [self.detailsIconMiddle resetDetails:[NSString stringWithFormat:@"%d", args.joinMemberNum]
-                                  path:nil
-                                  text:nil];
-    [self.detailsIconRight resetDetails:[NSString stringWithFormat:@"%d", args.favNum]
-                                  path:nil
-                                  text:nil];
+    [self.iconListView reset:args.riceDonate joinNum:args.joinMemberNum favNum:args.favNum];
     
     if (args.status == 0) {
         self.finishLabel.hidden = NO;
