@@ -7,8 +7,9 @@
 //
 
 #import "MGYGetRiceViewController.h"
-#import<QuartzCore/QuartzCore.h>
 #import "Masonry.h"
+#import "MGYViewAdapter.h"
+#define DIS 60
 
 @interface MGYGetRiceViewController ()
 @property(nonatomic, weak) UIImageView *backgroundImageView;
@@ -26,6 +27,7 @@
 
 - (void)setup
 {
+    
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.titleView.mas_bottom);
@@ -40,8 +42,10 @@
     [self.manImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.top.equalTo(self.knowledgeImageView.mas_top).with.offset(30);
-        make.width.mas_equalTo(398/2);
-        make.height.mas_equalTo(808/2);
+        make.bottom.equalTo(self.barView.mas_top).with.offset(-30);
+        //make.top.equalTo(self.knowledgeImageView.mas_top).with.offset(30 * rate);
+        //make.width.mas_equalTo(398/2 * rate);
+        //make.height.mas_equalTo(808/2 * rate);
     }];
     
     [self.boxingView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -50,18 +54,18 @@
     }];
     
     [self.shoeView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(702/2);
+        make.bottom.equalTo(self.barView.mas_top).with.offset(-30);
         make.left.equalTo(self.view.mas_left).with.offset(20);
     }];
     
     
     [self.knowView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(30);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(30 + DIS/2);
         make.right.equalTo(self.view.mas_right).with.offset(-20);
     }];
     
     [self.phoneView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(488/2);
+        make.bottom.equalTo(self.barView.mas_top).with.offset(-101 + DIS/2);
         make.right.equalTo(self.view.mas_right).with.offset(-20);
     }];
 }
@@ -87,14 +91,18 @@
     switch ([sender tag]) {
         case 1:
             [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
+            self.boxingView.hidden = YES;
             break;
         case 2:
             [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
+            self.shoeView.hidden = YES;
             break;
         case 3:
+            self.knowView.hidden = YES;
             self.knowledgeImageView.hidden = NO;
             break;
         case 4:
+            self.phoneView.hidden = YES;
             [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
             break;
         default:
@@ -124,6 +132,7 @@
     UIImageView *manImageView = [UIImageView new];
     [self.view addSubview:manImageView];
     [manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
+    manImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.manImageView = manImageView;
 
     UIButton *boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
@@ -142,30 +151,8 @@
     self.phoneView = phoneView;
     [self.view addSubview:self.phoneView];
     
-//    UIImageView *boxingView = [UIImageView new];
-//    [self.view addSubview:boxingView];
-//    [boxingView setImage:[UIImage imageNamed:@"button_boxing_normal"]];
-//    self.boxingView = boxingView;
-//    
-//    UIImageView *shoeView = [UIImageView new];
-//    [self.view addSubview:shoeView];
-//    [shoeView setImage:[UIImage imageNamed:@"button_aerobic exercise_normal"]];
-//    self.shoeView = shoeView;
-//    
-//    UIImageView *knowView = [UIImageView new];
-//    [self.view addSubview:knowView];
-//    [knowView setImage:[UIImage imageNamed:@"button_knowledge_normal"]];
-//    self.knowView = knowView;
-//    
-//    UIImageView *phoneView = [UIImageView new];
-//    [self.view addSubview:phoneView];
-//    [phoneView setImage:[UIImage imageNamed:@"button_call_normal"]];
-//    self.phoneView = phoneView;
-    
     [self setup];
     [self setSelectedIndex:1];
-//    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesPoint:)];
-//    [self.view addGestureRecognizer:tapGesture];
     
     // Do any additional setup after loading the view.
 }
@@ -387,49 +374,36 @@
 //    [self.phoneView.layer addAnimation:translation forKey:@"translation"];
     
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];//设置view从初始位置经过一系列点
-    CGFloat dis = 120;
+    CGFloat dis = DIS;
     animation.repeatCount = NSNotFound;
     animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
-    CGFloat totalTime = 3;
-    
-    NSInteger offsetY = arc4random() % 60;
-    NSInteger dir = arc4random() % 2;
-    totalTime = (arc4random() % 300)/100 + 3;
-    
-    animation.duration = totalTime;
-    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
-    [animation setValues:[self createTrack:CGPointMake(originFrame1.origin.x + originFrame1.size.width / 2, originFrame1.origin.y + originFrame1.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
-    
+    [self resetAnimation:animation dis:dis originFrame:originFrame1];
     [self.boxingView.layer addAnimation:animation forKey:@"animation"]; //执行动画
-    
-    offsetY = arc4random() % 60;
-    dir = arc4random() % 2;
-    totalTime = (arc4random() % 300)/100 + 3;
-    
-    animation.duration = totalTime;
-    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
-    [animation setValues:[self createTrack:CGPointMake(originFrame2.origin.x + originFrame2.size.width / 2, originFrame2.origin.y + originFrame2.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
+
+    [self resetAnimation:animation dis:dis originFrame:originFrame2];
     [self.shoeView.layer addAnimation:animation forKey:@"animation"];
     
-    offsetY = arc4random() % 60;
-    dir = arc4random() % 2;
-    totalTime = (arc4random() % 300)/100 + 3;
-    
-    animation.duration = totalTime;
-    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
-    [animation setValues:[self createTrack:CGPointMake(originFrame3.origin.x + originFrame3.size.width / 2, originFrame3.origin.y + originFrame3.size.height / 2 + dis/2) offsetY:offsetY dis:dis dir:dir]];
+    [self resetAnimation:animation dis:dis originFrame:originFrame3];
     [self.knowView.layer addAnimation:animation forKey:@"animation"];
     
-    offsetY = arc4random() % 60;
-    dir = arc4random() % 2;
-    totalTime = (arc4random() % 300)/100   + 3;
-    
-    animation.duration = totalTime;
-    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
-    [animation setValues:[self createTrack:CGPointMake(originFrame4.origin.x + originFrame4.size.width / 2, originFrame4.origin.y + originFrame4.size.height / 2 + dis/2) offsetY:offsetY dis:dis dir:dir]];
+    [self resetAnimation:animation dis:dis originFrame:originFrame4];
     [self.phoneView.layer addAnimation:animation forKey:@"animation"];
     
+}
+
+- (void)resetAnimation:(CAKeyframeAnimation*) animation
+                   dis:(NSInteger)dis
+           originFrame:(CGRect)originFrame
+
+{
+    NSInteger offsetY = dis / 2;
+    offsetY = arc4random() % offsetY;
+    NSInteger dir = arc4random() % 2;
+    CGFloat totalTime = (arc4random() % 300)/100 + 3;
+    animation.duration = totalTime;
+    animation.keyTimes = [self createTimes:offsetY dis:dis dir:dir];
+    [animation setValues:[self createTrack:CGPointMake(originFrame.origin.x + originFrame.size.width / 2, originFrame.origin.y + originFrame.size.height / 2) offsetY:offsetY dis:dis dir:dir]];
 }
 
 - (NSArray *)createTrack:(CGPoint) buttomPoint
@@ -468,14 +442,23 @@
     [self resumeAllAnimation];
     [self animationBegin];
     self.isClicked = NO;
-    self.knowledgeImageView.hidden = YES;
-    [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.knowledgeImageView.hidden = YES;
+    [self showAllButton];
+    [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
     [super viewWillAppear:animated];
     [self setSelectedIndex:1];
+}
+
+- (void)showAllButton
+{
+    self.boxingView.hidden = NO;
+    self.shoeView.hidden = NO;
+    self.knowView.hidden = NO;
+    self.phoneView.hidden = NO;
 }
 
 /*

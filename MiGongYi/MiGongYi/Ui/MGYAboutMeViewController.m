@@ -23,7 +23,7 @@
 @property(nonatomic, weak) UIView *titleBackgroundView;
 @property(nonatomic, weak) UILabel *backLabel;
 @property(nonatomic, weak) UILabel *titleTextLabel;
-@property(nonatomic, weak) UIView *tabView;
+@property(nonatomic, weak) UITableView *tableView;
 @property(nonatomic, weak) MGYAboutMeItemView *riceItemView;
 @property(nonatomic, weak) MGYAboutMeItemView *friendItemView;
 @property(nonatomic, weak) MGYAboutMeItemView *favItemView;
@@ -51,6 +51,7 @@
     else
     {
         UITableViewCell *cell;
+        NSLog(@"%d", indexPath.row);
         cell = [tableView dequeueReusableCellWithIdentifier:@"tableView Cell" forIndexPath:indexPath];
         return cell;
     }
@@ -93,7 +94,7 @@
     
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tableView Cell"];
     [tableView registerClass:[MGYAboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
-    self.tabView = tableView;
+    self.tableView = tableView;
     // Do any additional setup after loading the view.
 }
 
@@ -106,7 +107,8 @@
 
 - (void)click:(NSInteger)type
 {
-    NSLog(@"uuuuuuuuuu %d", type);
+    //NSLog(@"uuuuuuuuuu %d", type);
+    [self.tableView reloadData];
 }
 
 /*

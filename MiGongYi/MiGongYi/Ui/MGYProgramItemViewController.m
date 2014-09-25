@@ -118,7 +118,6 @@
     self.refreshControl = refreshControl;
     
     [[DataManager shareInstance] requestForList:1 start:0 limit:1 reset:YES success:^(NSArray *array) {
-        
         [self resetData:array reset:YES];
     }];
     

@@ -83,11 +83,11 @@
     CGFloat width = self.view.bounds.size.width;
     CGFloat height = self.view.bounds.size.height;
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    height = 568;
     layout.itemSize = CGSizeMake((width - 8)/2, (height - 64 - 49 - 16)/2);
     //layout.itemSize = CGSizeMake(316/2, )
     layout.minimumLineSpacing = 8;
     layout.minimumInteritemSpacing = 0;
-    
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     UICollectionView *childrenCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
