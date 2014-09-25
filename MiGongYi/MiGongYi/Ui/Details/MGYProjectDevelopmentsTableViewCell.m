@@ -52,11 +52,13 @@
         [self addSubview:summaryLabel];
         self.summaryLabel = summaryLabel;
         
-        self.messageButton = [self buttonFactory];
+        UIButton *messageButton = [self buttonFactory];
+        self.messageButton = messageButton;
         [self.messageButton setTitle:@"进入聊天" forState:UIControlStateNormal];
         [self addSubview:self.messageButton];
         
-        self.readmoreButton = [self buttonFactory];
+        UIButton *readmoreButton = [self buttonFactory];
+        self.readmoreButton = readmoreButton;
         [self.readmoreButton setTitle:@"阅读更多" forState:UIControlStateNormal];
         [self addSubview:self.readmoreButton];
         

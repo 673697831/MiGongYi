@@ -152,16 +152,19 @@
         [self addSubview:countLabel];
         self.countLabel = countLabel;
         
-        self.riceButton = [self buttonFactory:@"拥有米粒" normalImage:@"tab_rice_normal" selectedImage:@"tab_rice_selected" tag:0];
+        UIButton *riceButton = [self buttonFactory:@"拥有米粒" normalImage:@"tab_rice_normal" selectedImage:@"tab_rice_selected" tag:0];
+        self.riceButton = riceButton;
         [self addSubview:self.riceButton];
         
-        self.friendButton = [self buttonFactory:@"好友列表" normalImage:@"tab_friends_normal" selectedImage:@"tab_friends_selected" tag:1];
+        UIButton *friendButton = [self buttonFactory:@"好友列表" normalImage:@"tab_friends_normal" selectedImage:@"tab_friends_selected" tag:1];
+        self.friendButton = friendButton;
         [self addSubview:self.friendButton];
         
-        self.favButton = [self buttonFactory:@"收藏项目" normalImage:@"tabbar_ fav_normal" selectedImage:@"tabbar_ fav_selected" tag:2];
+        UIButton *favButton = [self buttonFactory:@"收藏项目" normalImage:@"tabbar_ fav_normal" selectedImage:@"tabbar_ fav_selected" tag:2];
+        self.favButton = favButton;
         [self addSubview:self.favButton];
         [UIImage imageNamed:@"tab_friends_selected"];
-        _listButton = @[self.riceButton, self.friendButton, self.favButton];
+        _listButton = @[riceButton, friendButton, favButton];
         [self setup];
         [self selectButton:0];
         self.selectionStyle = UITableViewCellSelectionStyleNone;

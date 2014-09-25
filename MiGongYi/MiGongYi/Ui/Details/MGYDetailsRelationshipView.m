@@ -145,7 +145,8 @@
     blockLabel1.backgroundColor = [UIColor colorWithHexString:@"f16400"];
     self.blockLabel1 = blockLabel1;
     
-    self.itemlabel1 = [self labelFactory];
+    UILabel *itemlabel1 = [self labelFactory];
+    self.itemlabel1 = itemlabel1;
     [self addSubview:self.itemlabel1];
     self.itemlabel1.text = @"捐赠方";
     
@@ -153,7 +154,8 @@
     [self addSubview:donorImageView];
     self.donorImageView = donorImageView;
     
-    self.itemTitleLabel1 = [self labelFactory];
+    UILabel *itemTitleLabel1 = [self labelFactory];
+    self.itemTitleLabel1 = itemTitleLabel1;
     [self addSubview:self.itemTitleLabel1];
     
     UILabel *blockLabel2 = [UILabel new];
@@ -161,7 +163,8 @@
     blockLabel2.backgroundColor = [UIColor colorWithHexString:@"a2dcf4"];
     self.blockLabel2 = blockLabel2;
     
-    self.itemlabel2 = [self labelFactory];
+    UILabel *itemlabel2 = [self labelFactory];
+    self.itemlabel2 = itemlabel2;
     [self addSubview:self.itemlabel2];
     self.itemlabel2.text = @"接受方";
     
@@ -169,7 +172,8 @@
     [self addSubview:recipientImageView];
     self.recipientImageView = recipientImageView;
     
-    self.itemTitleLabel2 = [self labelFactory];
+    UILabel *itemTitleLabel2 = [self labelFactory];
+    self.itemTitleLabel2 = itemTitleLabel2;
     [self addSubview:self.itemTitleLabel2];
     
     UILabel *blockLabel3 = [UILabel new];
@@ -177,14 +181,17 @@
     blockLabel3.backgroundColor = [UIColor colorWithHexString:@"676767"];
     self.blockLabel3 = blockLabel3;
     
-    self.itemlabel3 = [self labelFactory];
+    UILabel *itemlabel3 = [self labelFactory];
+    self.itemlabel3 = itemlabel3;
     [self addSubview:self.itemlabel3];
     self.itemlabel3.text = @"捐赠量";
     
-    self.numLabel = [self labelFactory];
+    UILabel *numLabel = [self labelFactory];
+    self.numLabel = numLabel;
     [self addSubview:self.numLabel];
     
-    self.itemTitleLabel3 = [self labelFactory];
+    UILabel *itemTitleLabel3 = [self labelFactory];
+    self.itemTitleLabel3 = itemTitleLabel3;
     [self addSubview:self.itemTitleLabel3];
     
     UILabel *lineLabel2 = [UILabel new];

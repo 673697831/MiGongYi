@@ -126,16 +126,20 @@
     [manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
     self.manImageView = manImageView;
 
-    self.boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
+    UIButton *boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
+    self.boxingView = boxingView;
     [self.view addSubview:self.boxingView];
     
-    self.shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
+    UIButton *shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
+    self.shoeView = shoeView;
     [self.view addSubview:self.shoeView];
     
-    self.knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
+    UIButton *knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
+    self.knowView = knowView;
     [self.view addSubview:self.knowView];
     
-    self.phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
+    UIButton *phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
+    self.phoneView = phoneView;
     [self.view addSubview:self.phoneView];
     
 //    UIImageView *boxingView = [UIImageView new];

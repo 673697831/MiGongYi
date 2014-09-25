@@ -94,7 +94,7 @@
         if ([responseObject[@"data"] count] == 0) {
             return;
         }
-        //NSLog(@"%@", responseObject[@"data"][0]);
+        
         [self setProjects:responseObject[@"data"] type:type reset:reset];
         success(type == MGYChildrenType ? self.childList : self.itemList);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

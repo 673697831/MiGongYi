@@ -168,7 +168,9 @@
                              forState:UIControlStateNormal];
         self.readmoreButton = readmoreButton;
         
-        self.linelabel1 = [self lineLabelFactory];
+        UILabel *linelabel1 = [self lineLabelFactory];
+        linelabel1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.linelabel1 = linelabel1;
         [self addSubview:self.linelabel1];
         
         //MGYProgressView *progressView = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
@@ -181,7 +183,9 @@
         [self addSubview:iconListView];
         self.iconListView = iconListView;
         
-        self.lineLabel2 = [self lineLabelFactory];
+        UILabel *linelabel2 = [self lineLabelFactory];
+        linelabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.lineLabel2 = linelabel2;
         [self addSubview:self.lineLabel2];
         
         UILabel *helpNumLabel = [UILabel new];
@@ -189,7 +193,9 @@
         [self addSubview:helpNumLabel];
         self.helpNumLabel = helpNumLabel;
         
-        self.lineLabel3 = [self lineLabelFactory];
+        UILabel *linelabel3 = [self lineLabelFactory];;
+        linelabel3.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.lineLabel3 = linelabel3;
         [self addSubview:self.lineLabel3];
         
         UILabel *updateLabel = [UILabel new];
