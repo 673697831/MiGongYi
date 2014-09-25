@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "AboutMeItemView.h"
+#import "MGYAboutMeItemView.h"
 #import "Masonry.h"
 
-@interface AboutMeItemView ()
+@interface MGYAboutMeItemView ()
 @property(nonatomic, copy) NSString *normalImagePath;
 @property(nonatomic, copy) NSString *selectedImagePath;
 @property(nonatomic, copy) NSString *title;
 @end
 
-@implementation AboutMeItemView
+@implementation MGYAboutMeItemView
 
 - (instancetype)initWithFrame:(CGRect)frame
               normalImagePath:(NSString *)normalImagePath

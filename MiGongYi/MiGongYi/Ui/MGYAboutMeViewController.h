@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYBaseViewController.h"
-#import "AboutMeTableViewCell.h"
+#import "MGYAboutMeTableViewCell.h"
 
 @interface MGYAboutMeViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource, MGYAboutMeTableViewCellDelegate>
 

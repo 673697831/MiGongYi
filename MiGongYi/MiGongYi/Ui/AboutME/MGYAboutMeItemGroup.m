@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "AboutMeItemGroup.h"
-#import "AboutMeItemView.h"
+#import "MGYAboutMeItemGroup.h"
+#import "MGYAboutMeItemView.h"
 
-@interface AboutMeItemGroup ()
+@interface MGYAboutMeItemGroup ()
 @property(nonatomic, strong) NSMutableArray *group;
 @end
 
-@implementation AboutMeItemGroup
+@implementation MGYAboutMeItemGroup
 
 - (instancetype)init
 {
@@ -32,7 +32,7 @@
 - (void)selectInIndex:(NSInteger)index
 {
     for (int i=0; i < self.group.count; i ++) {
-        AboutMeItemView *view = self.group[i];
+        MGYAboutMeItemView *view = self.group[i];
         [view setSelect:i==index ? YES : NO];
     }
 }

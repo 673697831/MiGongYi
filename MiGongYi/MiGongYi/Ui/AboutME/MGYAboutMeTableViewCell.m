@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "AboutMeTableViewCell.h"
+#import "MGYAboutMeTableViewCell.h"
 #import "MGYBaseProgressView.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
 
-@interface AboutMeTableViewCell ()
+@interface MGYAboutMeTableViewCell ()
 
 @property(nonatomic, weak) UILabel *childLabel;
 @property(nonatomic, weak) UILabel *nameLabel;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation AboutMeTableViewCell
+@implementation MGYAboutMeTableViewCell
 
 - (void)setup
 {

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AboutMeItemView : UIView
+@interface MGYAboutMeItemView : UIView
 @property(nonatomic, weak) UIButton *myButton;
 @property(nonatomic, weak) UIImageView *myImageView;
 @property(nonatomic, weak) UILabel *myLabel;

@@ -11,8 +11,8 @@
 #import "Masonry.h"
 #import "MGYPersonalDetails.h"
 #import "DataManager.h"
-#import "AboutMeItemView.h"
-#import "AboutMeItemGroup.h"
+#import "MGYAboutMeItemView.h"
+#import "MGYAboutMeItemGroup.h"
 #import "UIColor+Expanded.h"
 
 @interface MGYAboutMeViewController ()
@@ -24,10 +24,10 @@
 @property(nonatomic, weak) UILabel *backLabel;
 @property(nonatomic, weak) UILabel *titleTextLabel;
 @property(nonatomic, weak) UIView *tabView;
-@property(nonatomic, weak) AboutMeItemView *riceItemView;
-@property(nonatomic, weak) AboutMeItemView *friendItemView;
-@property(nonatomic, weak) AboutMeItemView *favItemView;
-@property(nonatomic, strong) AboutMeItemGroup *itemGroup;
+@property(nonatomic, weak) MGYAboutMeItemView *riceItemView;
+@property(nonatomic, weak) MGYAboutMeItemView *friendItemView;
+@property(nonatomic, weak) MGYAboutMeItemView *favItemView;
+@property(nonatomic, strong) MGYAboutMeItemGroup *itemGroup;
 
 @end
 
@@ -43,7 +43,7 @@
     
     
     if (indexPath.section == 0) {
-        AboutMeTableViewCell *cell;
+        MGYAboutMeTableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"section0 Cell" forIndexPath:indexPath];
         cell.clickDelegate = self;
         return cell;
@@ -92,7 +92,7 @@
     }];
     
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tableView Cell"];
-    [tableView registerClass:[AboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
+    [tableView registerClass:[MGYAboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
     self.tabView = tableView;
     // Do any additional setup after loading the view.
 }

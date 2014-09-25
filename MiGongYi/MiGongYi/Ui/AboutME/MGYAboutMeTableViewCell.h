@@ -14,7 +14,7 @@
 
 @end
 
-@interface AboutMeTableViewCell : UITableViewCell
+@interface MGYAboutMeTableViewCell : UITableViewCell
 
 @property(nonatomic, strong) id<MGYAboutMeTableViewCellDelegate> clickDelegate;
 

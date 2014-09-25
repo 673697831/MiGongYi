@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AboutMeItemGroup : NSObject
+@interface MGYAboutMeItemGroup : NSObject
 
 - (void)addItems:(NSArray *)array;
 
