@@ -10,7 +10,7 @@
 #import "MGYProgramChildrenViewController.h"
 #import "MGYProgramItemViewController.h"
 #import "MGYAboutMeViewController.h"
-#import "AboutMeViewController.h"
+#import "MGYAboutMeViewController.h"
 #import "MGYGetRiceViewController.h"
 #import "MGYBaseViewController.h"
 
@@ -19,7 +19,7 @@
 @property(nonatomic, weak) MGYProgramChildrenViewController *listView;
 @property(nonatomic, weak) MGYProgramItemViewController *detailsView;
 //@property(nonatomic, weak) MGYAboutMeViewController *aboutMeView;
-@property(nonatomic, weak) AboutMeViewController *aboutMeView;
+@property(nonatomic, weak) MGYAboutMeViewController *aboutMeView;
 @property(nonatomic, weak) MGYGetRiceViewController *getRiceView;
 
 @end
@@ -55,7 +55,7 @@
         
         UINavigationController *tab4Nav = [UINavigationController new];
         //MGYAboutMeViewController *aboutMeView = [MGYAboutMeViewController new];
-        AboutMeViewController *aboutMeView = [AboutMeViewController new];
+        MGYAboutMeViewController *aboutMeView = [MGYAboutMeViewController new];
         [tab4Nav pushViewController:aboutMeView animated:YES];
         self.aboutMeView = aboutMeView;
         

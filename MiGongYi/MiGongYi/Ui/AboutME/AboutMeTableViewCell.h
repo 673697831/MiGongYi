@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MGYAboutMeTableViewCellDelegate <NSObject>
+
+- (void)click:(NSInteger)type;
+
+@end
+
 @interface AboutMeTableViewCell : UITableViewCell
+
+@property(nonatomic, strong) id<MGYAboutMeTableViewCellDelegate> clickDelegate;
 
 @end

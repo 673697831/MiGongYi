@@ -106,6 +106,7 @@
         // Initialization code
         
         MGYBaseProgressView *backgroundView = [MGYBaseProgressView new];
+        backgroundView.backgroundColor = [UIColor clearColor];
         [self addSubview:backgroundView];
         self.backgroundView = backgroundView;
         
@@ -145,15 +146,12 @@
         
         UILabel *countLabel = [UILabel new];
         countLabel.text = @"8";
-        //countLabel.text
         countLabel.textColor = [UIColor colorWithHexString:@"838383"];
         countLabel.font = [UIFont systemFontOfSize:68/2];
         countLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:countLabel];
         self.countLabel = countLabel;
         
-       // UIButton *button = [UIButton new];
-        //[self addSubview:button];
         self.riceButton = [self buttonFactory:@"拥有米粒" normalImage:@"tab_rice_normal" selectedImage:@"tab_rice_selected" tag:0];
         [self addSubview:self.riceButton];
         
@@ -163,27 +161,10 @@
         self.favButton = [self buttonFactory:@"收藏项目" normalImage:@"tabbar_ fav_normal" selectedImage:@"tabbar_ fav_selected" tag:2];
         [self addSubview:self.favButton];
         [UIImage imageNamed:@"tab_friends_selected"];
-//        [button bringSubviewToFront:button.titleLabel];
-//        [button setImage :[UIImage imageNamed:@"tabbar_ fav_normal"] forState:UIControlStateNormal];
-//        [button setImage:[UIImage imageNamed:@"tabbar_ fav_selected"] forState:UIControlStateSelected ];
-//        [button setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-//        button.selected = YES;
-//        CGFloat width = button.imageView.bounds.size.width;
-//        UIImage *imaged = [UIImage imageNamed:@"tabbar_ fav_selected"];
-//        NSLog(@"width ==%f", imaged.size.width);
-//        [button setTitle:@"收藏项目" forState:UIControlStateNormal];
-//        [button setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-//        [button setTitleColor:[UIColor blueColor]forState:UIControlStateSelected];
-//        button.titleLabel.font = [UIFont systemFontOfSize:9];
-//        //button.contentVerticalAlignment = UIViewContentModeRight;
-//        [button setImageEdgeInsets:UIEdgeInsetsMake(0,30,15,0)];
-//        [button setTitleEdgeInsets:UIEdgeInsetsMake(30,0,0,24)];
-        //[button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        //[button setContentVerticalAlignment:UIConvertica];
-        //button.tintColor = [UIColor colorWithHexString:@"f16400"];
-        //button.t
         _listButton = @[self.riceButton, self.friendButton, self.favButton];
         [self setup];
+        [self selectButton:0];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -200,19 +181,24 @@
     [button setTitleColor:[UIColor whiteColor]forState:UIControlStateNormal];
     [button setTitleColor:[UIColor colorWithHexString:@"f16400"]forState:UIControlStateSelected];
     button.titleLabel.font = [UIFont systemFontOfSize:9];
-    //button.contentVerticalAlignment = UIViewContentModeRight;
     [button setImageEdgeInsets:UIEdgeInsetsMake(0,30,15,0)];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(30,0,0,24)];
-    [button addTarget:self action:@selector(selectButton:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     button.tag = tag;
     
     return button;
 }
 
-- (void)selectButton:(id)sender
+- (void)clickButton:(id)sender
+{
+    [self selectButton:[sender tag]];
+    [self.clickDelegate click:[sender tag]];
+}
+
+- (void)selectButton:(NSInteger)index
 {
     for (UIButton *button in self.listButton) {
-        if ([sender tag] == button.tag) {
+        if (index == button.tag) {
             button.backgroundColor = [UIColor whiteColor];
             button.selected = YES;
         }
@@ -224,6 +210,7 @@
     }
     
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
