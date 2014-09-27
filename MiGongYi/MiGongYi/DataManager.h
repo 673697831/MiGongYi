@@ -10,6 +10,8 @@
 #import "MGYProject.h"
 #import "MGYPersonalDetails.h"
 #import "MGYProjectDetails.h"
+#import "MGYRiceFlow.h"
+#import "MGYMyFavList.h"
 
 @interface DataManager : NSObject
 {
@@ -47,6 +49,15 @@
                           start:(NSInteger)start
                           limit:(NSInteger)limit
                         success:(void (^)(NSArray *array))success;
+- (void)requestForRiceFlow:(NSInteger)start
+                     limit:(NSInteger)limit
+                   success:(void (^)(MGYRiceFlow *riceFlow))success
+                   failure:(void (^)(MGYRiceFlow *riceFlow))failure;
+- (void)requestForMyFavlist:(NSInteger)start
+                      limit:(NSInteger)limit
+                    success:(void (^)(MGYMyFavList *favList))success
+                    failure:(void (^)(MGYMyFavList *favList))failure;
+
 
 
 @end

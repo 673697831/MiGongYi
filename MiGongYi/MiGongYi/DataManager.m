@@ -15,6 +15,9 @@
 
 @interface DataManager ()
 
+@property(nonatomic, strong) MGYRiceFlow *myRiceFlow;
+@property(nonatomic, strong) MGYMyFavList *myFavList;
+
 @end
 
 
@@ -39,13 +42,20 @@
         _itemList = [NSMutableArray new];
         _childList = [NSMutableArray new];
         
-        NSInteger uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
-        if (uid) {
-            self.uid = uid;
-        }else
-        {
+        //测试专用
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"uid"];
+        
+        self.uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
+        
+        if (!self.uid) {
             [self requestForEnterUID];
         }
+        NSData *riceFlowObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"riceFlow"];
+        self.myRiceFlow = [NSKeyedUnarchiver unarchiveObjectWithData:riceFlowObject];
+        
+        NSData *myFavListObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"favList"];
+        self.myFavList = [NSKeyedUnarchiver unarchiveObjectWithData:myFavListObject];
+        
     }
     return self;
 }
@@ -179,6 +189,48 @@
         success(responseObject[@"data"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)requestForRiceFlow:(NSInteger)start
+                     limit:(NSInteger)limit
+                   success:(void (^)(MGYRiceFlow *))success
+                   failure:(void (^)(MGYRiceFlow *))failure
+{
+    NSString *url = [BaseURL stringByAppendingString:@"/user.php?type=riceflow"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"uid":@(self.uid), @"start":@(start), @"limit":@(limit)};
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:riceFlow];
+        [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"riceFlow"];
+        self.myRiceFlow = riceFlow;
+        success(riceFlow);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        failure(self.myRiceFlow);
+    }];
+    
+}
+
+- (void)requestForMyFavlist:(NSInteger)start
+                      limit:(NSInteger)limit
+                    success:(void (^)(MGYMyFavList *))success
+                    failure:(void (^)(MGYMyFavList *))failure
+{
+    NSString *url = [BaseURL stringByAppendingString:@"/user.php?type=favlist"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"uid":@(self.uid), @"start":@(start), @"limit":@(limit)};
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        MGYMyFavList *favList = [MTLJSONAdapter modelOfClass:[MGYMyFavList class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:favList];
+        [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"favList"];
+        self.myFavList = favList;
+        NSLog(@"%@", responseObject);
+        success(self.myFavList);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        failure(self.myFavList);
     }];
 }
 

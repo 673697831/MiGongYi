@@ -36,6 +36,9 @@
 		20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29919BAAFC0004C7697 /* DataManager.m */; };
 		20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D2A019BE98C5004C7697 /* MGYProject.m */; };
 		20C86B3F19D3FA9D0028E405 /* MGYViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B3E19D3FA9D0028E405 /* MGYViewAdapter.m */; };
+		20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4219D508BC0028E405 /* MGYRiceFlow.m */; };
+		20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4519D513E60028E405 /* MGYRiceRecord.m */; };
+		20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4819D5547E0028E405 /* MGYMyFavList.m */; };
 		20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640319C2A807007230A1 /* MGYBaseViewController.m */; };
 		20CC640719C2AAF5007230A1 /* MGYBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640619C2AAF5007230A1 /* MGYBaseProgressView.m */; };
 		20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC640919C2AEDC007230A1 /* MGYProgramChildrenViewController.m */; };
@@ -110,6 +113,12 @@
 		20A2D2A019BE98C5004C7697 /* MGYProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProject.m; sourceTree = "<group>"; };
 		20C86B3D19D3FA9D0028E405 /* MGYViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYViewAdapter.h; sourceTree = "<group>"; };
 		20C86B3E19D3FA9D0028E405 /* MGYViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYViewAdapter.m; sourceTree = "<group>"; };
+		20C86B4119D508BC0028E405 /* MGYRiceFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceFlow.h; sourceTree = "<group>"; };
+		20C86B4219D508BC0028E405 /* MGYRiceFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceFlow.m; sourceTree = "<group>"; };
+		20C86B4419D513E60028E405 /* MGYRiceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceRecord.h; sourceTree = "<group>"; };
+		20C86B4519D513E60028E405 /* MGYRiceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceRecord.m; sourceTree = "<group>"; };
+		20C86B4719D5547E0028E405 /* MGYMyFavList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMyFavList.h; sourceTree = "<group>"; };
+		20C86B4819D5547E0028E405 /* MGYMyFavList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMyFavList.m; sourceTree = "<group>"; };
 		20CC640219C2A807007230A1 /* MGYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBaseViewController.h; sourceTree = "<group>"; };
 		20CC640319C2A807007230A1 /* MGYBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBaseViewController.m; sourceTree = "<group>"; };
 		20CC640519C2AAF5007230A1 /* MGYBaseProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBaseProgressView.h; sourceTree = "<group>"; };
@@ -328,6 +337,12 @@
 				2087137819CEA5200035B21B /* MGYProjectDetails.m */,
 				2087138919D17D0B0035B21B /* MGYProjectRecent.h */,
 				2087138A19D17D0B0035B21B /* MGYProjectRecent.m */,
+				20C86B4119D508BC0028E405 /* MGYRiceFlow.h */,
+				20C86B4219D508BC0028E405 /* MGYRiceFlow.m */,
+				20C86B4419D513E60028E405 /* MGYRiceRecord.h */,
+				20C86B4519D513E60028E405 /* MGYRiceRecord.m */,
+				20C86B4719D5547E0028E405 /* MGYMyFavList.h */,
+				20C86B4819D5547E0028E405 /* MGYMyFavList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -498,6 +513,9 @@
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
 				2087138B19D17D0B0035B21B /* MGYProjectRecent.m in Sources */,
+				20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */,
+				20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */,
+				20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */,
 				20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */,
 				202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */,
 				2087137919CEA5200035B21B /* MGYProjectDetails.m in Sources */,

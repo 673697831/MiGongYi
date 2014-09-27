@@ -14,11 +14,16 @@
 #import "MGYAboutMeItemView.h"
 #import "MGYAboutMeItemGroup.h"
 #import "UIColor+Expanded.h"
+#import "DataManager.h"
+#import "MGYRiceFlow.h"
+#import "MGYMyFavList.h"
 
 @interface MGYAboutMeViewController ()
 
-@property(nonatomic, copy) NSDictionary *dic;
-@property(nonatomic, copy) NSDictionary *pathDic;
+@property(nonatomic, assign) BOOL isLoading;
+@property(nonatomic, strong) MGYRiceFlow *riceFlow;
+@property(nonatomic, strong) MGYMyFavList *favList;
+@property(nonatomic, assign) NSInteger selectedTableSourceIndex;
 @property(nonatomic, weak) UIView *statusBackgroundView;
 @property(nonatomic, weak) UIView *titleBackgroundView;
 @property(nonatomic, weak) UILabel *backLabel;
@@ -41,17 +46,35 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
     if (indexPath.section == 0) {
         MGYAboutMeTableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"section0 Cell" forIndexPath:indexPath];
-        cell.clickDelegate = self;
+        if (!cell.clickDelegate) {
+            cell.clickDelegate = self;
+        }
+        
+        NSInteger num = 0;
+        switch (self.selectedTableSourceIndex) {
+            case 0:
+                num = self.riceFlow ? self.riceFlow.riceRemain : 0 ;
+                break;
+            case 1:
+                //好友列表 暂无此功能
+                //[cell resetNum:0];
+                break;
+            case 2:
+                num = self.favList? self.favList.count : 0;
+                NSLog(@"iiiiii%@", self.favList);
+                break;
+            default:
+                break;
+        }
+        [cell resetNum:num];
         return cell;
     }
     else
     {
         UITableViewCell *cell;
-        NSLog(@"%d", indexPath.row);
         cell = [tableView dequeueReusableCellWithIdentifier:@"tableView Cell" forIndexPath:indexPath];
         return cell;
     }
@@ -95,6 +118,8 @@
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tableView Cell"];
     [tableView registerClass:[MGYAboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
     self.tableView = tableView;
+    
+    //[self refreshData:0];
     // Do any additional setup after loading the view.
 }
 
@@ -103,13 +128,64 @@
     [super viewWillAppear:animated];
     
     [self setSelectedIndex:3];
+    
+    [self refreshData:0];
+    
+}
+
+- (void)refreshData:(NSInteger)type
+{
+    self.selectedTableSourceIndex = type;
+    switch (type) {
+        case 0:
+        {
+            if (!self.riceFlow) {
+                [[DataManager shareInstance] requestForRiceFlow:0 limit:10 success:^(MGYRiceFlow *riceFlow) {
+                    self.riceFlow = riceFlow;
+                    [self.tableView reloadData];
+                    
+                } failure:^(MGYRiceFlow *riceFlow) {
+                    self.riceFlow = riceFlow;
+                    [self.tableView reloadData];
+                }];
+            }else
+            {
+                [self.tableView reloadData];
+            }
+            
+        }
+            break;
+        case 1:
+            [self.tableView reloadData];
+            break;
+        case 2:
+        {
+            if (!self.favList) {
+                [[DataManager shareInstance] requestForMyFavlist:0 limit:10 success:^(MGYMyFavList *favList) {
+                    self.favList = favList;
+                    [self.tableView reloadData];
+                } failure:^(MGYMyFavList *favList) {
+                    self.favList = favList;
+                    [self.tableView reloadData];
+                }];
+            }else
+            {
+                [self.tableView reloadData];
+            }
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)click:(NSInteger)type
 {
     //NSLog(@"uuuuuuuuuu %d", type);
-    [self.tableView reloadData];
+    [self refreshData:type];
 }
+
 
 /*
 #pragma mark - Navigation

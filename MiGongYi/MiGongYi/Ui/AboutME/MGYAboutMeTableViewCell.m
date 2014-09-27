@@ -145,7 +145,7 @@
         self.settingImageView = settingImageView;
         
         UILabel *countLabel = [UILabel new];
-        countLabel.text = @"8";
+        countLabel.text = @"0";
         countLabel.textColor = [UIColor colorWithHexString:@"838383"];
         countLabel.font = [UIFont systemFontOfSize:68/2];
         countLabel.textAlignment = NSTextAlignmentCenter;
@@ -212,6 +212,13 @@
         }
     }
     
+}
+
+- (void)resetNum:(NSInteger)number
+//    friendNumber:(NSInteger)friendNumber
+//       favNumber:(NSInteger)favNumber
+{
+    self.countLabel.text = [NSString stringWithFormat:@"%d", number];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
