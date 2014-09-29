@@ -226,12 +226,25 @@
         NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:favList];
         [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"favList"];
         self.myFavList = favList;
-        NSLog(@"%@", responseObject);
         success(self.myFavList);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         failure(self.myFavList);
     }];
+}
+
+- (void)requestForMiZhi:(void (^)(MGYMiZhi *))success
+{
+    NSString *url = [BaseURL stringByAppendingString:@"/daily.php?type=main"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+        NSLog(@"%@", responseObject);
+        MGYMiZhi *miZhi = [MTLJSONAdapter modelOfClass:[MGYMiZhi class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        success(miZhi);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
 }
 
 @end

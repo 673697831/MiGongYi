@@ -37,7 +37,6 @@
 		20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29319B9E82D004C7697 /* MGYDetailsIcon.m */; };
 		20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D29919BAAFC0004C7697 /* DataManager.m */; };
 		20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A2D2A019BE98C5004C7697 /* MGYProject.m */; };
-		20C86B3F19D3FA9D0028E405 /* MGYViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B3E19D3FA9D0028E405 /* MGYViewAdapter.m */; };
 		20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4219D508BC0028E405 /* MGYRiceFlow.m */; };
 		20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4519D513E60028E405 /* MGYRiceRecord.m */; };
 		20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4819D5547E0028E405 /* MGYMyFavList.m */; };
@@ -117,8 +116,6 @@
 		20A2D29919BAAFC0004C7697 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		20A2D29F19BE98C5004C7697 /* MGYProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProject.h; sourceTree = "<group>"; };
 		20A2D2A019BE98C5004C7697 /* MGYProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProject.m; sourceTree = "<group>"; };
-		20C86B3D19D3FA9D0028E405 /* MGYViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYViewAdapter.h; sourceTree = "<group>"; };
-		20C86B3E19D3FA9D0028E405 /* MGYViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYViewAdapter.m; sourceTree = "<group>"; };
 		20C86B4119D508BC0028E405 /* MGYRiceFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceFlow.h; sourceTree = "<group>"; };
 		20C86B4219D508BC0028E405 /* MGYRiceFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceFlow.m; sourceTree = "<group>"; };
 		20C86B4419D513E60028E405 /* MGYRiceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceRecord.h; sourceTree = "<group>"; };
@@ -259,9 +256,7 @@
 				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
 				20A2D29819BAAFC0004C7697 /* DataManager.h */,
 				20A2D29919BAAFC0004C7697 /* DataManager.m */,
-				20C86B3D19D3FA9D0028E405 /* MGYViewAdapter.h */,
 				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
-				20C86B3E19D3FA9D0028E405 /* MGYViewAdapter.m */,
 			);
 			path = MiGongYi;
 			sourceTree = "<group>";
@@ -553,7 +548,6 @@
 				20E445A919B63030007B2900 /* BlackMagic.m in Sources */,
 				20CC640719C2AAF5007230A1 /* MGYBaseProgressView.m in Sources */,
 				20A2D28D19B9DCDC004C7697 /* MGYProgramListCell.m in Sources */,
-				20C86B3F19D3FA9D0028E405 /* MGYViewAdapter.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				2087138819D15D170035B21B /* MGYProjectDevelopmentsTableViewCell.m in Sources */,

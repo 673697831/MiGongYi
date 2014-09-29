@@ -8,7 +8,6 @@
 
 #import "MGYGetRiceViewController.h"
 #import "Masonry.h"
-#import "MGYViewAdapter.h"
 #import "MGYMiZhiViewController.h"
 #define DIS 60
 

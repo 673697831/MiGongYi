@@ -8,6 +8,7 @@
 
 #import "MGYMiZhiViewController.h"
 #import "Masonry.h"
+#import "DataManager.h"
 
 @interface MGYMiZhiViewController ()
 
@@ -47,13 +48,16 @@
     self.timerLabel = timerLabel;
     
     [self setup];
+    
+    [[DataManager shareInstance] requestForMiZhi:^(MGYMiZhi *miZhi) {
+        NSLog(@"mizhi~~~~~~ %@", miZhi);
+    }];
     // Do any additional setup after loading the view.
 }
 
 - (void)startTimer:(NSTimer *)theTimer
 {
     self.num ++;
-    NSLog(@"%d", self.num);
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -12,6 +12,7 @@
 #import "MGYProjectDetails.h"
 #import "MGYRiceFlow.h"
 #import "MGYMyFavList.h"
+#import "MGYMiZhi.h"
 
 @interface DataManager : NSObject
 {
@@ -57,7 +58,7 @@
                       limit:(NSInteger)limit
                     success:(void (^)(MGYMyFavList *favList))success
                     failure:(void (^)(MGYMyFavList *favList))failure;
-
+- (void)requestForMiZhi:(void (^)(MGYMiZhi *miZhi))success;
 
 
 @end
