@@ -103,8 +103,8 @@
 
 - (void)clickButton:(id)sender
 {
-    NSLog(@"oii %f", self.contentLable.bounds.size.height);
-    [self.clickDelegate updateWebViewHeight:self.contentLable.bounds.size.height];
+    NSLog(@"oii %f %f", self.bounds.size.height, self.contentLable.bounds.origin.y);
+    [self.clickDelegate updateWebViewHeight:self.contentLable.bounds.size.height + 40 + self.bounds.size.width * 0.7 - self.bounds.size.height + self.shareButton.bounds.size.height];
     [self hideContent:NO];
 }
 

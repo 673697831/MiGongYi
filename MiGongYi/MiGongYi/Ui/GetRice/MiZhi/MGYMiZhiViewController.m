@@ -50,8 +50,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%f", self.myTableView.bounds.size.height + self.webViewHeight);
-    return self.myTableView.bounds.size.height + self.webViewHeight - 20 - 40;
+    return self.myTableView.bounds.size.height + self.webViewHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
