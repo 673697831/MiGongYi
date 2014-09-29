@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
 		202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */; };
@@ -63,6 +64,8 @@
 
 /* Begin PBXFileReference section */
 		04CD75F1FDE84522A5B19FAD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhiViewController.h; sourceTree = "<group>"; };
+		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiViewController.m; sourceTree = "<group>"; };
 		202E3F9819C6CE4500E58B4E /* MGYPersonalDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYPersonalDetails.h; sourceTree = "<group>"; };
 		202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPersonalDetails.m; sourceTree = "<group>"; };
 		202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYGetRiceViewController.h; sourceTree = "<group>"; };
@@ -165,6 +168,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		202E2A8619D8F929000E072B /* GetRice */ = {
+			isa = PBXGroup;
+			children = (
+				202E2A8719D8F929000E072B /* MiZhi */,
+			);
+			path = GetRice;
+			sourceTree = "<group>";
+		};
+		202E2A8719D8F929000E072B /* MiZhi */ = {
+			isa = PBXGroup;
+			children = (
+				202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */,
+				202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */,
+			);
+			path = MiZhi;
+			sourceTree = "<group>";
+		};
 		202E3FA219C8698400E58B4E /* AboutMe */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +300,7 @@
 		20A2D28019B9DCDC004C7697 /* Ui */ = {
 			isa = PBXGroup;
 			children = (
+				202E2A8619D8F929000E072B /* GetRice */,
 				202E3FA219C8698400E58B4E /* AboutMe */,
 				20CC640119C2A7ED007230A1 /* Template */,
 				20A2D28619B9DCDC004C7697 /* Program */,
@@ -502,6 +523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */,
 				2087137C19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m in Sources */,
 				20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */,
 				202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */,

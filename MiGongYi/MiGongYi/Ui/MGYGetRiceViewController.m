@@ -9,6 +9,7 @@
 #import "MGYGetRiceViewController.h"
 #import "Masonry.h"
 #import "MGYViewAdapter.h"
+#import "MGYMiZhiViewController.h"
 #define DIS 60
 
 @interface MGYGetRiceViewController ()
@@ -20,6 +21,7 @@
 @property(nonatomic, weak) UIButton *shoeView;
 @property(nonatomic, weak) UIButton *phoneView;
 @property(nonatomic, assign) BOOL isClicked;
+@property(nonatomic, assign) NSInteger num;
 
 @end
 
@@ -98,8 +100,21 @@
             self.shoeView.hidden = YES;
             break;
         case 3:
+        {
             self.knowView.hidden = YES;
             self.knowledgeImageView.hidden = NO;
+//            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
+//                                             target:self
+//                                           selector:@selector(startTimer:)
+//                                           userInfo:nil];
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                              target:self
+                                                            selector:@selector(pushView)
+                                                            userInfo:nil
+                                                             repeats:YES];
+            self.num = 0;
+            [timer setFireDate:[NSDate distantPast]];
+        }
             break;
         case 4:
             self.phoneView.hidden = YES;
@@ -111,6 +126,15 @@
     self.isClicked = YES;
     [self pauseAllAnimation];
     
+}
+
+- (void)pushView
+{
+    if (self.num == 1) {
+        MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
+        [self.navigationController pushViewController:miZhiView animated:NO];
+    }
+    self.num ++;
 }
 
 - (void)viewDidLoad
