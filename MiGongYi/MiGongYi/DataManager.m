@@ -238,13 +238,18 @@
     NSString *url = [BaseURL stringByAppendingString:@"/daily.php?type=main"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         MGYMiZhi *miZhi = [MTLJSONAdapter modelOfClass:[MGYMiZhi class] fromJSONDictionary:responseObject[@"data"] error:nil];
         success(miZhi);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 
+}
+
++ (NSString *)baseUrl
+{
+    return @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public";
 }
 
 @end

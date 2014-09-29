@@ -9,6 +9,7 @@
 #import "MGYGetRiceViewController.h"
 #import "Masonry.h"
 #import "MGYMiZhiViewController.h"
+#import "MGYMiChatViewController.h"
 #define DIS 60
 
 @interface MGYGetRiceViewController ()
@@ -116,8 +117,17 @@
         }
             break;
         case 4:
+        {
             self.phoneView.hidden = YES;
             [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                              target:self
+                                                            selector:@selector(pushView)
+                                                            userInfo:nil
+                                                             repeats:YES];
+            self.num = 0;
+            [timer setFireDate:[NSDate distantPast]];
+        }
             break;
         default:
             break;
@@ -132,6 +142,8 @@
     if (self.num == 1) {
         MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
         [self.navigationController pushViewController:miZhiView animated:NO];
+        //MGYMiChatViewController *miChatView = [MGYMiChatViewController new];
+        //[self.navigationController pushViewController:miChatView animated:NO];
     }
     self.num ++;
 }

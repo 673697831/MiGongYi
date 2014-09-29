@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYBaseViewController.h"
+#import "MGYMiZhiTableViewCell.h"
 
-@interface MGYMiZhiViewController : MGYBaseViewController
+@interface MGYMiZhiViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource, MGYMiZhiTableViewCellDelegate>
 
 @end

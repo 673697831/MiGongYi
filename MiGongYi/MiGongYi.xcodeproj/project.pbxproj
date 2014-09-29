@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
 		202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8C19D910D9000E072B /* MGYMiZhi.m */; };
+		202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9019D934EE000E072B /* MGYMiChatViewController.m */; };
+		202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9919D9620A000E072B /* MGYMiZhiTableViewCell.m */; };
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
 		202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */; };
@@ -68,6 +70,10 @@
 		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiViewController.m; sourceTree = "<group>"; };
 		202E2A8B19D910D9000E072B /* MGYMiZhi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhi.h; sourceTree = "<group>"; };
 		202E2A8C19D910D9000E072B /* MGYMiZhi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhi.m; sourceTree = "<group>"; };
+		202E2A8F19D934EE000E072B /* MGYMiChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatViewController.h; sourceTree = "<group>"; };
+		202E2A9019D934EE000E072B /* MGYMiChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatViewController.m; sourceTree = "<group>"; };
+		202E2A9819D9620A000E072B /* MGYMiZhiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhiTableViewCell.h; sourceTree = "<group>"; };
+		202E2A9919D9620A000E072B /* MGYMiZhiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiTableViewCell.m; sourceTree = "<group>"; };
 		202E3F9819C6CE4500E58B4E /* MGYPersonalDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYPersonalDetails.h; sourceTree = "<group>"; };
 		202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPersonalDetails.m; sourceTree = "<group>"; };
 		202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYGetRiceViewController.h; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 		202E2A8619D8F929000E072B /* GetRice */ = {
 			isa = PBXGroup;
 			children = (
+				202E2A8E19D934AD000E072B /* MiChat */,
 				202E2A8719D8F929000E072B /* MiZhi */,
 			);
 			path = GetRice;
@@ -181,8 +188,19 @@
 			children = (
 				202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */,
 				202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */,
+				202E2A9819D9620A000E072B /* MGYMiZhiTableViewCell.h */,
+				202E2A9919D9620A000E072B /* MGYMiZhiTableViewCell.m */,
 			);
 			path = MiZhi;
+			sourceTree = "<group>";
+		};
+		202E2A8E19D934AD000E072B /* MiChat */ = {
+			isa = PBXGroup;
+			children = (
+				202E2A8F19D934EE000E072B /* MGYMiChatViewController.h */,
+				202E2A9019D934EE000E072B /* MGYMiChatViewController.m */,
+			);
+			path = MiChat;
 			sourceTree = "<group>";
 		};
 		202E3FA219C8698400E58B4E /* AboutMe */ = {
@@ -254,9 +272,9 @@
 				20E445A719B63030007B2900 /* BlackMagic.h */,
 				20E445A819B63030007B2900 /* BlackMagic.m */,
 				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
+				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
 				20A2D29819BAAFC0004C7697 /* DataManager.h */,
 				20A2D29919BAAFC0004C7697 /* DataManager.m */,
-				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
 			);
 			path = MiGongYi;
 			sourceTree = "<group>";
@@ -550,9 +568,11 @@
 				20A2D28D19B9DCDC004C7697 /* MGYProgramListCell.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
+				202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */,
 				2087138819D15D170035B21B /* MGYProjectDevelopmentsTableViewCell.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
 				203D636A19CAD68000116ECA /* MGYAboutMeItemGroup.m in Sources */,
+				202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,
 			);

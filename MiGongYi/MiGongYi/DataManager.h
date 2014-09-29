@@ -28,6 +28,8 @@
 
 + (DataManager *)shareInstance;
 
++ (NSString *)baseUrl;
+
 - (void)addProjects:(NSArray *)list
               type:(MGYProjectType)type;
 - (void)setProjects:(NSArray *)list
