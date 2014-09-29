@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
+		202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8C19D910D9000E072B /* MGYMiZhi.m */; };
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
 		202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */; };
@@ -66,6 +67,8 @@
 		04CD75F1FDE84522A5B19FAD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhiViewController.h; sourceTree = "<group>"; };
 		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiViewController.m; sourceTree = "<group>"; };
+		202E2A8B19D910D9000E072B /* MGYMiZhi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhi.h; sourceTree = "<group>"; };
+		202E2A8C19D910D9000E072B /* MGYMiZhi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhi.m; sourceTree = "<group>"; };
 		202E3F9819C6CE4500E58B4E /* MGYPersonalDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYPersonalDetails.h; sourceTree = "<group>"; };
 		202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPersonalDetails.m; sourceTree = "<group>"; };
 		202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYGetRiceViewController.h; sourceTree = "<group>"; };
@@ -364,6 +367,8 @@
 				20C86B4519D513E60028E405 /* MGYRiceRecord.m */,
 				20C86B4719D5547E0028E405 /* MGYMyFavList.h */,
 				20C86B4819D5547E0028E405 /* MGYMyFavList.m */,
+				202E2A8B19D910D9000E072B /* MGYMiZhi.h */,
+				202E2A8C19D910D9000E072B /* MGYMiZhi.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,6 +536,7 @@
 				20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */,
 				2087137F19CFF4670035B21B /* MGYDetailsRelationshipView.m in Sources */,
 				20D0BE5719CC36510051BFD2 /* MGYAboutMeViewController.m in Sources */,
+				202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */,
 				20D0BE5A19CD2D630051BFD2 /* MGYAboutMeTableViewCell.m in Sources */,
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
