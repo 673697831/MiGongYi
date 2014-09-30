@@ -12,6 +12,7 @@
 		202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9019D934EE000E072B /* MGYMiChatViewController.m */; };
 		202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9919D9620A000E072B /* MGYMiZhiTableViewCell.m */; };
 		202E2A9D19DA84A5000E072B /* MGYSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9C19DA84A5000E072B /* MGYSubViewController.m */; };
+		202E2AA019DA86F2000E072B /* MGYMiChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9F19DA86F2000E072B /* MGYMiChatTableViewCell.m */; };
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
 		202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */; };
@@ -77,6 +78,8 @@
 		202E2A9919D9620A000E072B /* MGYMiZhiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiTableViewCell.m; sourceTree = "<group>"; };
 		202E2A9B19DA84A5000E072B /* MGYSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYSubViewController.h; sourceTree = "<group>"; };
 		202E2A9C19DA84A5000E072B /* MGYSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYSubViewController.m; sourceTree = "<group>"; };
+		202E2A9E19DA86F2000E072B /* MGYMiChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatTableViewCell.h; sourceTree = "<group>"; };
+		202E2A9F19DA86F2000E072B /* MGYMiChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatTableViewCell.m; sourceTree = "<group>"; };
 		202E3F9819C6CE4500E58B4E /* MGYPersonalDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYPersonalDetails.h; sourceTree = "<group>"; };
 		202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPersonalDetails.m; sourceTree = "<group>"; };
 		202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYGetRiceViewController.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 			children = (
 				202E2A8F19D934EE000E072B /* MGYMiChatViewController.h */,
 				202E2A9019D934EE000E072B /* MGYMiChatViewController.m */,
+				202E2A9E19DA86F2000E072B /* MGYMiChatTableViewCell.h */,
+				202E2A9F19DA86F2000E072B /* MGYMiChatTableViewCell.m */,
 			);
 			path = MiChat;
 			sourceTree = "<group>";
@@ -392,7 +397,6 @@
 		20CC640119C2A7ED007230A1 /* Template */ = {
 			isa = PBXGroup;
 			children = (
-				20CC640B19C2FA9C007230A1 /* Cell */,
 				20CC640219C2A807007230A1 /* MGYBaseViewController.h */,
 				20CC640319C2A807007230A1 /* MGYBaseViewController.m */,
 				20CC640519C2AAF5007230A1 /* MGYBaseProgressView.h */,
@@ -403,13 +407,6 @@
 				202E2A9C19DA84A5000E072B /* MGYSubViewController.m */,
 			);
 			path = Template;
-			sourceTree = "<group>";
-		};
-		20CC640B19C2FA9C007230A1 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,6 +576,7 @@
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
 				203D636A19CAD68000116ECA /* MGYAboutMeItemGroup.m in Sources */,
 				202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */,
+				202E2AA019DA86F2000E072B /* MGYMiChatTableViewCell.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,
 			);

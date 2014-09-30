@@ -1,5 +1,5 @@
 //
-//  MGYSubViewController.h
+//  MGYMiChatTableViewCell.h
 //  MiGongYi
 //
 //  Created by megil on 9/30/14.
@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGYBaseViewController.h"
 
-@interface MGYSubViewController : MGYBaseViewController
+@interface MGYMiChatTableViewCell : UITableViewCell
 
 @end

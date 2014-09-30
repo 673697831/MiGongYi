@@ -7,12 +7,46 @@
 //
 
 #import "MGYMiChatViewController.h"
+#import "MGYMiChatTableViewCell.h"
+#import "Masonry.h"
 
 @interface MGYMiChatViewController ()
+
+@property(nonatomic, weak) UITableView *tableView;
 
 @end
 
 @implementation MGYMiChatViewController
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MGYMiChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatTableView Cell" forIndexPath:indexPath];
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+    
+    picker.peoplePickerDelegate = self;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
@@ -34,13 +68,6 @@
 {
     [super viewDidLoad];
     
-    
-    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-    
-    [picker setPeoplePickerDelegate:self];
-    
-    [self presentViewController:picker animated:YES completion:NULL];
-    
 //    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
 //    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
 //        if (granted) {
@@ -61,6 +88,18 @@
 //        }
 //    });
     // Do any additional setup after loading the view.
+    UITableView *tableView = [UITableView new];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [tableView registerClass:[MGYMiChatTableViewCell class] forCellReuseIdentifier:@"ChatTableView Cell"];
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    
 }
 
 
