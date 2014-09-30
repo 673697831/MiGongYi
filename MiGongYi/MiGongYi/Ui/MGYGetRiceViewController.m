@@ -20,8 +20,6 @@
 @property(nonatomic, weak) UIButton *knowView;
 @property(nonatomic, weak) UIButton *shoeView;
 @property(nonatomic, weak) UIButton *phoneView;
-@property(nonatomic, assign) BOOL isClicked;
-@property(nonatomic, assign) NSInteger num;
 
 @end
 
@@ -85,10 +83,18 @@
 
 - (void)clickEventOnImage:(id)sender
 {
+    self.view.userInteractionEnabled = NO;
+    [self pauseAllAnimation];
+    //[NSThread sleepForTimeInterval:1.0f];
     
-    if (self.isClicked) {
-        return;
-    }
+    double delayInSeconds = 2.0;
+    
+    // 创建延期的时间 2S，因为dispatch_time使用的时间是纳秒，尼玛，比毫秒还小，太夸张了！！！
+    dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    // 得到全局队列
+    //dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t concurrentQueue = dispatch_get_main_queue();
+    // 延期执行
     
     switch ([sender tag]) {
         case 1:
@@ -103,49 +109,28 @@
         {
             self.knowView.hidden = YES;
             self.knowledgeImageView.hidden = NO;
-//            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
-//                                             target:self
-//                                           selector:@selector(startTimer:)
-//                                           userInfo:nil];
-            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                                              target:self
-                                                            selector:@selector(pushView)
-                                                            userInfo:nil
-                                                             repeats:YES];
-            self.num = 0;
-            [timer setFireDate:[NSDate distantPast]];
+            dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+                NSLog(@"Output GCD !");
+                MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
+                [self.navigationController pushViewController:miZhiView animated:NO];
+            });
         }
             break;
         case 4:
         {
             self.phoneView.hidden = YES;
             [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
-            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                                              target:self
-                                                            selector:@selector(pushView)
-                                                            userInfo:nil
-                                                             repeats:YES];
-            self.num = 0;
-            [timer setFireDate:[NSDate distantPast]];
+            dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+                NSLog(@"Output GCD !");
+                MGYMiChatViewController *chatView = [MGYMiChatViewController new];
+                [self.navigationController pushViewController:chatView animated:NO];
+            });
         }
             break;
         default:
             break;
     }
-    self.isClicked = YES;
-    [self pauseAllAnimation];
     
-}
-
-- (void)pushView
-{
-    if (self.num == 1) {
-        MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
-        [self.navigationController pushViewController:miZhiView animated:NO];
-        //MGYMiChatViewController *miChatView = [MGYMiChatViewController new];
-        //[self.navigationController pushViewController:miChatView animated:NO];
-    }
-    self.num ++;
 }
 
 - (void)viewDidLoad
@@ -189,6 +174,12 @@
     [self setup];
     [self setSelectedIndex:1];
     
+//    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1
+//                                                    target:self
+//                                                  selector:@selector(pushView)
+//                                                  userInfo:nil
+//                                                   repeats:YES];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -200,7 +191,6 @@
     if (layer1) {
         [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
-        self.isClicked = YES;
         return;
     }
     
@@ -208,7 +198,6 @@
     if (layer2) {
         [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
-        self.isClicked = YES;
         return;
     }
     
@@ -216,7 +205,6 @@
     if (layer3) {
         [self pauseAllAnimation];
         self.knowledgeImageView.hidden = NO;
-        self.isClicked = YES;
         return;
     }
     
@@ -224,7 +212,6 @@
     if (layer4) {
         [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
-        self.isClicked = YES;
         return;
     }
     
@@ -476,7 +463,7 @@
     [self removeAllAnimation];
     [self resumeAllAnimation];
     [self animationBegin];
-    self.isClicked = NO;
+    self.view.userInteractionEnabled = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
