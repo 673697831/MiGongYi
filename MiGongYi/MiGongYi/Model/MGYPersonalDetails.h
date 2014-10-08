@@ -10,9 +10,9 @@
 #import <Mantle.h>
 
 typedef NS_ENUM(NSInteger, MGYSexType) {
-    MGYUnknow = 0,
-    MGYMale = 1,
-    MGYFemale = 2,
+    MGYSexTypeUnknow = 0,
+    MGYSexTypeMale = 1,
+    MGYSexTypeFemale = 2,
 };
 
 @interface MGYPersonalDetails : MTLModel <MTLJSONSerializing>

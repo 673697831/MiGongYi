@@ -10,8 +10,8 @@
 #import <Mantle.h>
 
 typedef NS_ENUM(NSInteger, MGYProjectType) {
-    MGYItemType = 1,
-    MGYChildrenType = 2,
+    MGYProjectTypeItem = 1,
+    MGYProjectTypeChildren = 2,
 };
 @interface MGYProject : MTLModel <MTLJSONSerializing>
 @property(nonatomic, assign) MGYProjectType type;

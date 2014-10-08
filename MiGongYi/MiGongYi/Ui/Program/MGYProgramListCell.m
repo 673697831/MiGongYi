@@ -102,14 +102,7 @@
         make.left.equalTo(self.peopleNum.mas_left);
     }];
     
-//    [self.finishText mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.photoView.mas_centerX);
-//        make.centerY.equalTo(self.photoView.mas_centerY);
-//    }];
-    
     [self.finishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        //make.centerX.equalTo(self.finishText.mas_centerX);
-        //make.centerY.equalTo(self.finishText.mas_centerY);
         make.centerX.equalTo(self.photoView.mas_centerX);
         make.centerY.equalTo(self.photoView.mas_centerY);
         make.width.equalTo(self.photoView.mas_width);
@@ -134,14 +127,6 @@
     UIImageView *photoView = [UIImageView new];
     self.photoView = photoView;
     [self.contentView addSubview:self.photoView];
-    
-    
-    
-//    UILabel *finishText = [UILabel new];
-//    self.finishText = finishText;
-//    [self.photoView addSubview:self.finishText];
-//    self.finishText.text = @"捐赠已完成";
-//    self.finishText.textColor = [UIColor whiteColor];
 
     UILabel *finishLabel = [UILabel new];
     self.finishLabel = finishLabel;
@@ -211,10 +196,6 @@
     [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
     [self.contentView addSubview:self.miliView];
     
-    //MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
-    //progressLabel.backgroundColor = [UIColor orangeColor];
-    //progressLabel.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-   // progressLabel.layer.cornerRadius = 1;
     MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
     self.progressLabel = progressLabel;
     progressLabel.backgroundColor = [UIColor clearColor];

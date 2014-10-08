@@ -110,7 +110,6 @@
             self.knowView.hidden = YES;
             self.knowledgeImageView.hidden = NO;
             dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
-                NSLog(@"Output GCD !");
                 MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
                 [self.navigationController pushViewController:miZhiView animated:NO];
             });
@@ -121,7 +120,6 @@
             self.phoneView.hidden = YES;
             [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
             dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
-                NSLog(@"Output GCD !");
                 MGYMiChatViewController *chatView = [MGYMiChatViewController new];
                 [self.navigationController pushViewController:chatView animated:NO];
             });

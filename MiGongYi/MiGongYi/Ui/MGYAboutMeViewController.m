@@ -119,7 +119,7 @@
     [tableView registerClass:[MGYAboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
     self.tableView = tableView;
     
-    //[self refreshData:0];
+    [self refreshData:0];
     // Do any additional setup after loading the view.
 }
 
@@ -129,7 +129,7 @@
     
     [self setSelectedIndex:3];
     
-    [self refreshData:0];
+    //[self refreshData:0];
     
 }
 

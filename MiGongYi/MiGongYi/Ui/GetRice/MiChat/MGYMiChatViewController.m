@@ -7,20 +7,59 @@
 //
 
 #import "MGYMiChatViewController.h"
-#import "MGYMiChatTableViewCell.h"
 #import "Masonry.h"
+#import "MGYMiChatPickerView.h"
+#import "MGYMiChatDetailsViewController.h"
 
 @interface MGYMiChatViewController ()
+{
+    NSMutableArray *_cellArray;
+}
 
 @property(nonatomic, weak) UITableView *tableView;
+@property(nonatomic, weak) MGYMiChatTableViewCell *selectCell;
+@property(nonatomic, weak) MGYMiChatPickerView *pickView;
 
 @end
 
 @implementation MGYMiChatViewController
 
+- (void)openABPeoplePicker:(ABPeoplePickerNavigationController *)picker
+{
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)closeABPeoplePicker
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    self.pickView.hidden = NO;
+}
+
+- (void)resetOtherCellPosition:(id)selectCell
+{
+    for (MGYMiChatTableViewCell *cell in _cellArray) {
+        if (selectCell != cell) {
+            [cell resetPosition];
+        }
+        
+    }
+}
+
+- (void)clickHeadView
+{
+    //self.pickView.hidden = NO;
+    MGYMiChatDetailsViewController *detailsViewController = [MGYMiChatDetailsViewController new];
+    [self.navigationController pushViewController:detailsViewController animated:YES];
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MGYMiChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatTableView Cell" forIndexPath:indexPath];
+    if (!cell.cellDelegate) {
+        cell.cellDelegate = self;
+        [_cellArray addObject:cell];
+    }
     return cell;
 }
 
@@ -31,37 +70,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 6;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-    
-    picker.peoplePickerDelegate = self;
-    
-    [self presentViewController:picker animated:YES completion:NULL];
-}
-
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    return NO;
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
-{
-    return NO;
+    return 44 * 2;
 }
 
 - (void)viewDidLoad
@@ -88,6 +102,7 @@
 //        }
 //    });
     // Do any additional setup after loading the view.
+    _cellArray = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -99,9 +114,16 @@
         make.edges.equalTo(self.view);
     }];
     
+    MGYMiChatPickerView *pickView = [[MGYMiChatPickerView alloc] initWithArray:@[@(1),@(2), @(3)]];
+    pickView.hidden = YES;
+    [self.view addSubview:pickView];
+    self.pickView = pickView;
+    
+    [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
 }
-
 
 /*
 #pragma mark - Navigation

@@ -24,15 +24,6 @@
 
 @implementation MGYMiZhiViewController
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MGYMiZhiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MiZhiTableView Cell" forIndexPath:indexPath];
@@ -79,25 +70,6 @@
         make.edges.equalTo(self.view);
     }];
     
-    
-    
-    
-//    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1
-//                                                    target:self
-//                                                  selector:@selector(startTimer:)
-//                                                  userInfo:nil
-//                                                   repeats:YES];
-//    
-//    UILabel *timerLabel = [UILabel new];
-//    timerLabel.textAlignment  = NSTextAlignmentCenter;
-//    timerLabel.backgroundColor = [UIColor grayColor];
-//    timerLabel.alpha = 0.5;
-//    
-//    [self.view addSubview:timerLabel];
-//    self.timerLabel = timerLabel;
-    
-    //[self setup];
-    
     [[DataManager shareInstance] requestForMiZhi:^(MGYMiZhi *miZhi) {
         //NSLog(@"mizhi~~~~~~ %@", miZhi);
         self.miZhi = miZhi;
@@ -134,7 +106,6 @@
         hour = hour - 1;
         minute = minute + 60;
     }
-    
     
     NSString *st1 = [NSString stringWithFormat:@"%d", hour];
     NSString *st2 = @"时";
@@ -204,21 +175,8 @@
                 range:NSMakeRange(start, limit)];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    //[self.myTimer setFireDate:[NSDate distantPast]];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    //[self.myTimer setFireDate:[NSDate distantFuture]];
-}
-
 - (void)updateWebViewHeight:(CGFloat)height
 {
-    NSLog(@"height ===== %f", height);
     self.webViewHeight = height;
     self.myTableView.scrollEnabled = YES;
     [self.myTableView reloadData];

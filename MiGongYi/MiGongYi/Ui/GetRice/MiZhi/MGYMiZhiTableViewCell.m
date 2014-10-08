@@ -47,12 +47,8 @@
         
         UIWebView *contentLable = [UIWebView new];
         contentLable.tintColor = [UIColor blueColor];
-        
-        //        contentLable.numberOfLines = 0;
-        //        contentLable.textColor = [UIColor blackColor];
         contentLable.hidden = YES;
         contentLable.delegate = self;
-        //        contentLable.font = [UIFont systemFontOfSize:14];
         [contentLable setScalesPageToFit:NO];
         contentLable.scrollView.bounces = NO;
         contentLable.scrollView.scrollEnabled = NO;
@@ -103,7 +99,6 @@
 
 - (void)clickButton:(id)sender
 {
-    NSLog(@"oii %f %f", self.bounds.size.height, self.contentLable.bounds.origin.y);
     [self.clickDelegate updateWebViewHeight:self.contentLable.bounds.size.height + 40 + self.bounds.size.width * 0.7 - self.bounds.size.height + self.shareButton.bounds.size.height];
     [self hideContent:NO];
 }
@@ -167,7 +162,6 @@
         hour = hour - 1;
         minute = minute + 60;
     }
-    
     
     NSString *st1 = [NSString stringWithFormat:@"%d", hour];
     NSString *st2 = @"时";
@@ -245,46 +239,7 @@
     CGRect frame = webView.frame;
     frame.size.height = height;
     webView.frame = frame;
-    NSLog(@"height: %@", [webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"]);
-//    if(self.isLoadingFinished)
-//    {
-//        [self.contentLable setHidden:NO];
-//        return;
-//    }
-//    
-//    //js获取body宽度
-//    NSString *bodyWidth= [webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollWidth "];
-//    
-//    int widthOfBody = [bodyWidth intValue];
-//    
-//    //获取实际要显示的html
-//    NSString *html = [self htmlAdjustWithPageWidth:widthOfBody
-//                                              html:self.miZhi.content
-//                                           webView:webView];
-//    
-//    //设置为已经加载完成
-//    self.isLoadingFinished = YES;
-//    //加载实际要现实的html
-//    [webView loadHTMLString:html baseURL:nil];
 
-    
-}
-
-//获取宽度已经适配于webView的html。这里的原始html也可以通过js从webView里获取
-- (NSString *)htmlAdjustWithPageWidth:(CGFloat )pageWidth
-                                 html:(NSString *)html
-                              webView:(UIWebView *)webView
-{
-    NSMutableString *str = [NSMutableString stringWithString:html];
-    //计算要缩放的比例
-    CGFloat initialScale = webView.frame.size.width/pageWidth;
-    //将</head>替换为meta+head
-    NSString *stringForReplace = [NSString stringWithFormat:@"<meta name=\"viewport\" content=\" initial-scale=%f, minimum-scale=0.1, maximum-scale=2.0, user-scalable=yes\"></head>",initialScale];
-    
-    NSRange range =  NSMakeRange(0, str.length);
-    //替换
-    [str replaceOccurrencesOfString:@"</head>" withString:stringForReplace options:NSLiteralSearch range:range];
-    return str;
 }
 
 - (void)reset:(MGYMiZhi *)miZhi
@@ -293,9 +248,6 @@
     [self.dailyImgView sd_setImageWithURL:[NSURL URLWithString:miZhi.dailyImg]];
     self.titleLabel.text = miZhi.dailyTitle;
     [self.contentLable loadHTMLString:miZhi.content baseURL:nil];
-//    NSString *height_str= [self.contentLable stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"];
-//    int height = [height_str intValue];
-//    NSLog(@"iiiiii %d", height);
     
 }
 

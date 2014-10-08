@@ -140,10 +140,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.barView.hidden = YES;
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:self action:@selector(click)];
-    //UIButton *button;
-    backItem.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = backItem;
     
     _developmentList = [NSMutableArray array];
     UITableView *tableView = [UITableView new];

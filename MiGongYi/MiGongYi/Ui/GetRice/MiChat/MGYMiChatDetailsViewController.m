@@ -1,31 +1,22 @@
 //
-//  MGYSubViewController.m
+//  MGYMiChatDetailsViewController.m
 //  MiGongYi
 //
-//  Created by megil on 9/30/14.
+//  Created by megil on 10/7/14.
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "MGYSubViewController.h"
+#import "MGYMiChatDetailsViewController.h"
 
-@interface MGYSubViewController ()
+@interface MGYMiChatDetailsViewController ()
 
 @end
 
-@implementation MGYSubViewController
+@implementation MGYMiChatDetailsViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.barView.hidden = YES;
-    
-    // 自定义返回
-    //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:self action:@selector(click)];
-    //    //UIButton *button;
-    //    backItem.tintColor = [UIColor whiteColor];
-    //    self.navigationItem.leftBarButtonItem = backItem;
-    
-    
     // Do any additional setup after loading the view.
 }
 

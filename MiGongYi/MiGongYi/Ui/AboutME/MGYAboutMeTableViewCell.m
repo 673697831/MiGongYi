@@ -215,8 +215,6 @@
 }
 
 - (void)resetNum:(NSInteger)number
-//    friendNumber:(NSInteger)friendNumber
-//       favNumber:(NSInteger)favNumber
 {
     self.countLabel.text = [NSString stringWithFormat:@"%d", number];
 }

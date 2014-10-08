@@ -10,8 +10,8 @@
 #import <Mantle.h>
 
 typedef NS_ENUM(NSInteger, MGYProjectRecentType) {
-    MGYProjectRecentNormal = 10,
-    MGYProjectRecentFinished = 11,
+    MGYProjectRecentTypeNormal = 10,
+    MGYProjectRecentTypeFinished = 11,
 };
 
 @interface MGYProjectRecent : MTLModel <MTLJSONSerializing>

@@ -80,10 +80,10 @@
 - (void)setProjects:(NSArray *)list type:(MGYProjectType)type reset:(BOOL)reset
 {
     if (reset) {
-        if (type == MGYItemType) {
+        if (type == MGYProjectTypeItem) {
             [_itemList removeAllObjects];
         }
-        if (type == MGYChildrenType) {
+        if (type == MGYProjectTypeChildren) {
             [_childList removeAllObjects];
         }
     }
@@ -106,7 +106,7 @@
         }
         
         [self setProjects:responseObject[@"data"] type:type reset:reset];
-        success(type == MGYChildrenType ? self.childList : self.itemList);
+        success(type == MGYProjectTypeChildren ? self.childList : self.itemList);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];

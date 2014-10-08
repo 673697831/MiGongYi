@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/Ui/AboutME/MGYAboutMeTableViewCell.m"
-            timestampString = "433409741.249542"
+            timestampString = "434426691.276957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "-resetNum:"
             landmarkType = "5">
          </BreakpointContent>
