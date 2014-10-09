@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import "MGYMiChatRecord.h"
 
 @protocol MGYMiChatTableViewCellDelegate <NSObject>
 
 - (void)openABPeoplePicker:(ABPeoplePickerNavigationController *) picker;
-- (void)closeABPeoplePicker;
+- (void)closeABPeoplePicker:(void (^)(NSInteger totalTimes))finishCallback;
+- (void)finishCallback;
 - (void)resetOtherCellPosition:(id)cell;
 - (void)clickHeadView;
 
@@ -27,6 +29,7 @@ typedef NS_ENUM(NSInteger, MGYMiChatCellState) {
 @interface MGYMiChatTableViewCell : UITableViewCell<UIScrollViewDelegate, ABPeoplePickerNavigationControllerDelegate>
 
 @property(nonatomic, weak) id<MGYMiChatTableViewCellDelegate> cellDelegate;
+@property(nonatomic, strong) MGYMiChatRecord *miChatRecord;
 
 - (void)scrollEnabled:(BOOL)enabled;
 - (void)resetPosition;

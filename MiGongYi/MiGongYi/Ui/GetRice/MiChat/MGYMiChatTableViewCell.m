@@ -15,7 +15,6 @@
 @property(nonatomic, weak) UIScrollView *cellScrollView;
 @property(nonatomic, weak) MGYMiChatLabelView *lableView;
 @property(nonatomic, assign) MGYMiChatCellState cellState;
-@property(nonatomic, assign) ABRecordRef person;
 @property(nonatomic, weak) UIWebView *callWebview;
 
 @end
@@ -86,7 +85,7 @@
 }
 
 - (void)scrollViewPressed:(id)sender {
-    if (!self.person) {
+    if (!self.miChatRecord) {
         ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
         [self.cellDelegate openABPeoplePicker:picker];
@@ -96,7 +95,7 @@
     CGPoint point = [sender locationInView:self];
     MGYMiChatPos chatPos = [self.lableView getTouchView:point
                                                        state:self.cellState];
-    NSLog(@"kkkkkkk %d", chatPos);
+    
     if (chatPos != MGYMiChatPosNextImageView && self.cellState == MGYMiChatStateCellLeft) {
         NSURL *telURL =[NSURL URLWithString:@"tel:10086"];
         [self.callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
@@ -122,7 +121,8 @@
     if (chatPos == MGYMiChatPossubView3) {
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"你点击了删除" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alter show];
-        self.person = nil;
+        self.miChatRecord = nil;
+        self.miChatRecord = nil;
         [self.lableView reset:@"名字"];
         self.cellScrollView.scrollEnabled = NO;
         [self.cellScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -162,7 +162,7 @@
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
     //[self dismissViewControllerAnimated:YES completion:NULL];
-    [self.cellDelegate closeABPeoplePicker];
+    [self.cellDelegate closeABPeoplePicker:nil];
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
@@ -173,7 +173,6 @@
         //NSString *phoneNumber = [phoneNumberArray objectAtIndex:index];
         //NSLog(@"%@", phoneNumber);
     }
-    self.person = person;
     NSString *firstName = CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
     NSString *lastName = CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
     NSString *name = @"";
@@ -184,11 +183,19 @@
         name = [name stringByAppendingString:firstName];
     }
     if (name) {
-       [self.lableView reset:name];
-        self.cellScrollView.scrollEnabled = YES;
+
     }
     
-    [self.cellDelegate closeABPeoplePicker];
+    [self.cellDelegate closeABPeoplePicker:^(NSInteger totalTimes) {
+            //NSLog(@"qqqqqqqq %@ %d", self.person, totalTimes);
+        if (totalTimes && person && phoneNumberArray &&name && totalTimes > 0) {
+            self.miChatRecord = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:@{@"personName":name,@"totalTimes":@(totalTimes), @"currentTimes":@0, @"phoneList":phoneNumberArray} error:nil];
+            [self.cellDelegate finishCallback];
+            
+            [self.lableView reset:name];
+            self.cellScrollView.scrollEnabled = YES;
+        }
+    }];
     //[self dismissViewControllerAnimated:YES completion:NULL];
     return NO;
 }

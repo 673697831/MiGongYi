@@ -64,7 +64,6 @@
                 break;
             case 2:
                 num = self.favList? self.favList.count : 0;
-                NSLog(@"iiiiii%@", self.favList);
                 break;
             default:
                 break;

@@ -18,6 +18,7 @@
 @property(nonatomic, weak) UILabel *label2;
 @property(nonatomic, weak) UILabel *label3;
 @property(nonatomic, strong) NSArray *array;
+@property(nonatomic, assign) NSInteger selectedTimes;
 
 @end
 
@@ -68,6 +69,7 @@
         
         UIButton *buttonCansel = [UIButton new];
         [buttonCansel addTarget:self action:@selector(clickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        buttonCansel.tag = 0;
         [buttonCansel setTitle:@"Cansel" forState:UIControlStateNormal];
         [buttonCansel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:buttonCansel];
@@ -82,6 +84,7 @@
         
         UIButton *buttonDone = [UIButton new];
         [buttonDone addTarget:self action:@selector(clickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        buttonDone.tag = 1;
         [buttonDone setTitle:@"Done" forState:UIControlStateNormal];
         [buttonDone setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:buttonDone];
@@ -108,14 +111,15 @@
         }];
         
         self.array = array;
-        
+        self.selectedTimes = 1;
     }
     return self;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-
+    //[self.picherViewDelegate totalTimes:[[self.array objectAtIndex:row] integerValue]];
+    self.selectedTimes = [[self.array objectAtIndex:row] integerValue];
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -139,6 +143,10 @@
 - (void)clickEvent:(id)sender
 {
     self.hidden = YES;
+    if (self.finishCallback && [sender tag] != 0) {
+        self.finishCallback(self.selectedTimes);
+    }
+    self.finishCallback = nil;
 }
 
 /*

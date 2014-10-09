@@ -10,6 +10,8 @@
 #import "Masonry.h"
 #import "MGYMiChatPickerView.h"
 #import "MGYMiChatDetailsViewController.h"
+#import "MGYMiChatRecord.h"
+#import "MGYMiChatMonsterTableViewCell.h"
 
 @interface MGYMiChatViewController ()
 {
@@ -17,7 +19,6 @@
 }
 
 @property(nonatomic, weak) UITableView *tableView;
-@property(nonatomic, weak) MGYMiChatTableViewCell *selectCell;
 @property(nonatomic, weak) MGYMiChatPickerView *pickView;
 
 @end
@@ -29,10 +30,14 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
-- (void)closeABPeoplePicker
+- (void)closeABPeoplePicker:(void (^)(NSInteger))finishCallback
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
-    self.pickView.hidden = NO;
+    self.pickView.finishCallback = finishCallback;
+    if (finishCallback) {
+        self.pickView.hidden = NO;
+    }
+    
 }
 
 - (void)resetOtherCellPosition:(id)selectCell
@@ -42,6 +47,33 @@
             [cell resetPosition];
         }
         
+    }
+}
+
+- (void)finishCallback
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 0; i < _cellArray.count; i ++) {
+        MGYMiChatTableViewCell *cell = _cellArray[i];
+        NSData *udObject;
+        if (cell.miChatRecord) {
+            udObject = [NSKeyedArchiver archivedDataWithRootObject:cell.miChatRecord];
+        }
+        else
+        {
+            //MGYMiChatRecord *emptyRecord = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:nil error:nil];
+            NSNull *emptyRecord = [NSNull null];
+            udObject = [NSKeyedArchiver archivedDataWithRootObject:emptyRecord];
+
+        }
+        [array addObject:udObject];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"MiChatRecords"];
+    NSArray *readArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"MiChatRecords"];
+    //NSLog(@"readArray ===== %@", readArray);
+    for (int i = 0; i < readArray.count; i ++) {
+        //MGYMiChatRecord *record = [NSKeyedUnarchiver unarchiveObjectWithData:readArray[i]];
     }
 }
 
@@ -55,27 +87,51 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MGYMiChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatTableView Cell" forIndexPath:indexPath];
-    if (!cell.cellDelegate) {
-        cell.cellDelegate = self;
-        [_cellArray addObject:cell];
+    
+    if (indexPath.section == 0) {
+        MGYMiChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatTableView Cell" forIndexPath:indexPath];
+        if (!cell.cellDelegate) {
+            cell.cellDelegate = self;
+            [_cellArray addObject:cell];
+        }
+        return cell;
     }
-    return cell;
+    else
+    {
+        MGYMiChatMonsterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonsterTableView Cell" forIndexPath:indexPath];
+        [cell resetMonsterState:@[@(0), @(1), @(0), @(1), @(0), @(1), @(0)]];
+        return cell;
+    }
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    NSInteger num;
+    if (section == 0) {
+        num = 6;
+    }else
+    {
+        num = 1;
+    }
+    return num;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 59;
+    CGFloat heihgt;
+    if (indexPath.section == 0) {
+        heihgt = 59;
+    }else
+    {
+        heihgt = 180;
+    }
+    return heihgt;
 }
 
 - (void)viewDidLoad
@@ -107,6 +163,8 @@
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerClass:[MGYMiChatTableViewCell class] forCellReuseIdentifier:@"ChatTableView Cell"];
+    [tableView registerClass:[MGYMiChatMonsterTableViewCell class]
+      forCellReuseIdentifier:@"MonsterTableView Cell"];
     [self.view addSubview:tableView];
     self.tableView = tableView;
     

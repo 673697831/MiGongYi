@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		201EFE1D19E3B9B700B14853 /* MGYMiChatDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE1C19E3B9B700B14853 /* MGYMiChatDetailsViewController.m */; };
 		201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE1F19E5268600B14853 /* MGYMiChatProgressView.m */; };
+		201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2219E6257600B14853 /* MGYMiChatRecord.m */; };
+		201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */; };
 		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
 		202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8C19D910D9000E072B /* MGYMiZhi.m */; };
 		202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9019D934EE000E072B /* MGYMiChatViewController.m */; };
@@ -76,6 +78,10 @@
 		201EFE1C19E3B9B700B14853 /* MGYMiChatDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatDetailsViewController.m; sourceTree = "<group>"; };
 		201EFE1E19E5268600B14853 /* MGYMiChatProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatProgressView.h; sourceTree = "<group>"; };
 		201EFE1F19E5268600B14853 /* MGYMiChatProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatProgressView.m; sourceTree = "<group>"; };
+		201EFE2119E6257600B14853 /* MGYMiChatRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatRecord.h; sourceTree = "<group>"; };
+		201EFE2219E6257600B14853 /* MGYMiChatRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatRecord.m; sourceTree = "<group>"; };
+		201EFE2419E66DE100B14853 /* MGYMiChatMonsterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatMonsterTableViewCell.h; sourceTree = "<group>"; };
+		201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatMonsterTableViewCell.m; sourceTree = "<group>"; };
 		202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhiViewController.h; sourceTree = "<group>"; };
 		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiViewController.m; sourceTree = "<group>"; };
 		202E2A8B19D910D9000E072B /* MGYMiZhi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhi.h; sourceTree = "<group>"; };
@@ -227,6 +233,10 @@
 				201EFE1C19E3B9B700B14853 /* MGYMiChatDetailsViewController.m */,
 				201EFE1E19E5268600B14853 /* MGYMiChatProgressView.h */,
 				201EFE1F19E5268600B14853 /* MGYMiChatProgressView.m */,
+				201EFE2119E6257600B14853 /* MGYMiChatRecord.h */,
+				201EFE2219E6257600B14853 /* MGYMiChatRecord.m */,
+				201EFE2419E66DE100B14853 /* MGYMiChatMonsterTableViewCell.h */,
+				201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */,
 			);
 			path = MiChat;
 			sourceTree = "<group>";
@@ -575,9 +585,11 @@
 				202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */,
 				20D0BE5A19CD2D630051BFD2 /* MGYAboutMeTableViewCell.m in Sources */,
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
+				201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
 				2087138B19D17D0B0035B21B /* MGYProjectRecent.m in Sources */,
 				20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */,
+				201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */,
 				20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */,
 				202E2AA619E2E4D4000E072B /* MGYMiChatPickerView.m in Sources */,
 				20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */,

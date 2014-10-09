@@ -10,6 +10,9 @@
 
 @interface MGYMiChatPickerView : UIView<UIPickerViewDelegate, UIPickerViewDataSource>
 
+typedef void (^FinishCallback)(NSInteger);
+@property(nonatomic, copy) FinishCallback finishCallback;
+
 - (instancetype)initWithArray:(NSArray *)array;
 
 @end
