@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, MGYProjectRecentType) {
 
 @interface MGYProjectRecent : MTLModel <MTLJSONSerializing>
 
+@property(nonatomic, assign) NSInteger parentId;
 @property(nonatomic, assign) NSInteger projectId;
 @property(nonatomic, copy) NSString *summary;
 @property(nonatomic, copy) NSString *coverImg;

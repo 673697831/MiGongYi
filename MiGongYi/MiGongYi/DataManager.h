@@ -20,6 +20,7 @@
     NSMutableArray *_childList;
     NSMutableArray *_itemList;
     NSMutableArray *_projectDetailsList;
+    NSMutableArray *_projectRecentList;
 }
 
 @property(nonatomic, readonly) NSArray* childList;
@@ -33,7 +34,8 @@ typedef void (^MGYFailure)(NSError *);
 
 + (DataManager *)shareInstance;
 
-- (MGYProjectDetails *)getProjectDetailsById:(NSInteger)projectId;
+- (MGYProjectDetails *)getProjectDetailsById:(NSInteger)parentId;
+- (NSArray *)getProjectRectById:(NSInteger)projectId;
 - (AFHTTPRequestOperation *)requestForList:(MGYProjectType)type
                 start:(NSInteger)start
                 limit:(NSInteger)limit
@@ -51,11 +53,11 @@ typedef void (^MGYFailure)(NSError *);
 - (AFHTTPRequestOperation *)requestForCancelFav:(NSInteger)projectId
                                         success:(MGYSuccess)success
                                         failure:(MGYFailure)failure;
-
-- (void)requestForProjectRecent:(NSInteger)projectId
+- (AFHTTPRequestOperation *)requestForProjectRecent:(NSInteger)projectId
                           start:(NSInteger)start
                           limit:(NSInteger)limit
-                        success:(void (^)(NSArray *array))success;
+                        success:(MGYSuccess)success
+                        failure:(MGYFailure)failure;
 - (void)requestForRiceFlow:(NSInteger)start
                      limit:(NSInteger)limit
                    success:(void (^)(MGYRiceFlow *riceFlow))success

@@ -9,6 +9,7 @@
 #import "DataManager.h"
 #import "MGYTabBarController.h"
 #import "MGYProjectDetails.h"
+#import "MGYProjectRecent.h"
 #define fuck 1
 
 #define BaseURL @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public"
@@ -42,6 +43,7 @@
         _itemList = [NSMutableArray new];
         _childList = [NSMutableArray new];
         _projectDetailsList = [NSMutableArray array];
+        _projectRecentList = [NSMutableArray array];
         //测试专用
 #if fuck
 #warning 记得删除
@@ -97,12 +99,14 @@
     //[[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
 }
 
-- (void)setProjectsDetails:(MGYProjectDetails *)details
+- (void)setProjectDetails:(MGYProjectDetails *)details
 {
     NSInteger projectId = details.projectId;
     for (MGYProjectDetails* oldDetails in _projectDetailsList) {
         if (oldDetails.projectId == projectId) {
-            [_projectDetailsList removeObject:oldDetails];
+            NSInteger index = [_projectDetailsList indexOfObject:oldDetails];
+            [_projectDetailsList replaceObjectAtIndex:index withObject:details];
+            return;
         }
     }
     [_projectDetailsList addObject:details];
@@ -117,6 +121,40 @@
     }
     return nil;
 }
+
+- (void)setProjectRecent:(NSArray *)recentArray
+                parentId:(NSInteger)parentId
+{
+    for (NSDictionary *recent in recentArray) {
+        MGYProjectRecent *projectRecent = [MTLJSONAdapter modelOfClass:[MGYProjectRecent class]        fromJSONDictionary:recent error:nil];
+        projectRecent.parentId = parentId;
+        BOOL isExit = false;
+        for (MGYProjectRecent *oldProjectRecent in _projectRecentList) {
+            if (oldProjectRecent.projectId == projectRecent.projectId) {
+                NSInteger index = [_projectRecentList indexOfObject:oldProjectRecent];
+                [_projectRecentList replaceObjectAtIndex:index withObject:projectRecent];
+                isExit = true;
+                break;
+            }
+        }
+        if (!isExit) {
+            [_projectRecentList addObject:projectRecent];
+        }
+        
+    }
+}
+
+- (NSArray *)getProjectRectById:(NSInteger)parentId
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (MGYProjectRecent *projectRecent in _projectRecentList) {
+        if (projectRecent.parentId == parentId) {
+            [array addObject:projectRecent];
+        }
+    }
+    return array;
+}
+
 - (AFHTTPRequestOperation *)requestForList:(MGYProjectType)type
                                      start:(NSInteger)start
                                      limit:(NSInteger)limit
@@ -156,7 +194,7 @@
              parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     MGYProjectDetails *projectDetails = [MTLJSONAdapter modelOfClass:[MGYProjectDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
-                    [self setProjectsDetails:projectDetails];
+                    [self setProjectDetails:projectDetails];
                     success();
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -165,25 +203,31 @@
                 }];
 }
 
-- (void)requestForProjectRecent:(NSInteger)projectId
+- (AFHTTPRequestOperation *)requestForProjectRecent:(NSInteger)projectId
                           start:(NSInteger)start
                           limit:(NSInteger)limit
-                        success:(void (^)(NSArray *))success
+                        success:(MGYSuccess)success
+                        failure:(MGYFailure)failure
 {
-    NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=recentsituation"];
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=recentsituation"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"project_id":@(projectId), @"start":@(start), @"limit":@(limit)};
-    [manager GET:url
-      parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        
-        if ([responseObject[@"data"] count] == 0) {
-            return ;
-        }
-        
-        success(responseObject[@"data"]);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+    return [manager GET:url
+             parameters:parameters
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    if ([responseObject[@"data"] count] == 0) {
+                        failure(nil);
+                        return ;
+                    }else
+                    {
+                        [self setProjectRecent:responseObject[@"data"]parentId:projectId];
+                        success();
+                    }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
 }
 
 - (AFHTTPRequestOperation *)requestForAddfav:(NSInteger)projectId
@@ -219,22 +263,6 @@
                     failure(error);
                 }];
 }
-
-//- (void)setProjectFav:(NSInteger)projectId
-//                  fav:(BOOL)fav
-//{
-//    for (NSMutableDictionary *dic in _projectFavList) {
-//        if (projectId == [dic[@"projectId"] integerValue]) {
-//            dic[@"fav"] = @(fav);
-//            return;
-//        }
-//    }
-//    
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    dic[@"projectId"] = @(projectId);
-//    dic[@"fav"] = @(fav);
-//    [_projectFavList addObject:dic];
-//}
 
 #pragma mark - 首次登陆
 - (AFHTTPRequestOperation *)requestForEnterUID

@@ -16,11 +16,7 @@
 @interface MGYDetailsViewCell ()
 @property(nonatomic, weak) UIImageView *photoView;
 @property(nonatomic, weak) UILabel *title;
-//@property(nonatomic, weak) ProgressLabel *progressLabel;
 @property(nonatomic, weak) MGYProgressView *progressLabel;
-//@property(nonatomic, weak) MGYDetailsIcon *detailsIconLeft;
-//@property(nonatomic, weak) MGYDetailsIcon *detailsIconMiddle;
-//@property(nonatomic, weak) MGYDetailsIcon *detailsIconRight;
 @property(nonatomic, weak) MGYDetailsIconListView *iconListView;
 @property(nonatomic, weak) UILabel *line1;
 @property(nonatomic, weak) UILabel *line2;

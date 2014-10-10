@@ -49,13 +49,19 @@
 - (void)requestForProjectRecent:(NSInteger)start
 {
     self.isLoading = YES;
-    [[DataManager shareInstance] requestForProjectRecent:self.details.projectId
+    [[DataManager shareInstance] requestForProjectRecent:self.projectId
                                                    start:start
                                                    limit:1
-                                                 success:^(NSArray *array) {
+                                                 success:^{
                                                      self.isLoading = NO;
+                                                     NSArray *array = [[DataManager shareInstance]getProjectRectById:self.projectId];
+                                                     //NSLog(@"%@", array);
+                                                     [_developmentList removeAllObjects];
                                                      [_developmentList addObjectsFromArray:array];
                                                      [self.tableView reloadData];
+                                                 }
+                                                 failure:^(NSError *error) {
+                                                     
                                                  }];
 }
 
@@ -81,9 +87,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"developmentsTableView Cell"
                                                forIndexPath:indexPath];
         if (self.developmentList[indexPath.row - 1]) {
-            MGYProjectRecent *projectRecent = [MTLJSONAdapter modelOfClass:[MGYProjectRecent class]
-                                                        fromJSONDictionary:self.developmentList[indexPath.row - 1]
-                                                                     error:nil];
+            MGYProjectRecent *projectRecent = self.developmentList[indexPath.row - 1];
             [cell reset:projectRecent];
         }
         
@@ -122,9 +126,7 @@
         height = height + [MGYProjectDevelopmentsTableViewCell minHeight];
         
         if (self.developmentList[indexPath.row - 1]) {
-            MGYProjectRecent *projectRecent = [MTLJSONAdapter modelOfClass:[MGYProjectRecent class]
-                                                        fromJSONDictionary:self.developmentList[indexPath.row - 1]
-                                                                     error:nil];
+            MGYProjectRecent *projectRecent = self.developmentList[indexPath.row - 1];
             height = height + [self labelHeightWithString:projectRecent.summary];
         }
     }
