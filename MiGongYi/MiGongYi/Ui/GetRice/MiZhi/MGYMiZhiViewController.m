@@ -70,11 +70,13 @@
         make.edges.equalTo(self.view);
     }];
     
-    [[DataManager shareInstance] requestForMiZhi:^(MGYMiZhi *miZhi) {
-        //NSLog(@"mizhi~~~~~~ %@", miZhi);
-        self.miZhi = miZhi;
+    [[DataManager shareInstance] requestForMiZhi:^{
+        self.miZhi = [DataManager shareInstance].miZhi;
         [myTableView reloadData];
-    }];
+        }
+                                         failure:^(NSError *error) {
+        
+                                         }];
     
     
     

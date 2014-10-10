@@ -16,18 +16,15 @@
 #import "MGYMiZhi.h"
 
 @interface DataManager : NSObject
-{
-    NSMutableArray *_childList;
-    NSMutableArray *_itemList;
-    NSMutableArray *_projectDetailsList;
-    NSMutableArray *_projectRecentList;
-}
 
 @property(nonatomic, readonly) NSArray* childList;
 @property(nonatomic, readonly) NSArray* itemList;
 @property(nonatomic, readonly) NSArray* projectDetailsList;
 @property(nonatomic, strong) MGYPersonalDetails *personalDetails;
+@property(nonatomic, readonly) MGYMiZhi* miZhi;
 @property(nonatomic, assign) NSInteger uid;
+@property(nonatomic, readonly) MGYRiceFlow *myRiceFlow;
+@property(nonatomic, readonly) MGYMyFavList *myFavList;
 
 typedef void (^MGYSuccess)();
 typedef void (^MGYFailure)(NSError *);
@@ -58,15 +55,16 @@ typedef void (^MGYFailure)(NSError *);
                           limit:(NSInteger)limit
                         success:(MGYSuccess)success
                         failure:(MGYFailure)failure;
-- (void)requestForRiceFlow:(NSInteger)start
+- (AFHTTPRequestOperation *)requestForRiceFlow:(NSInteger)start
                      limit:(NSInteger)limit
-                   success:(void (^)(MGYRiceFlow *riceFlow))success
-                   failure:(void (^)(MGYRiceFlow *riceFlow))failure;
-- (void)requestForMyFavlist:(NSInteger)start
+                   success:(MGYSuccess)success
+                   failure:(MGYFailure)failure;
+- (AFHTTPRequestOperation *)requestForMyFavlist:(NSInteger)start
                       limit:(NSInteger)limit
-                    success:(void (^)(MGYMyFavList *favList))success
-                    failure:(void (^)(MGYMyFavList *favList))failure;
-- (void)requestForMiZhi:(void (^)(MGYMiZhi *miZhi))success;
+                    success:(MGYSuccess)success
+                    failure:(MGYFailure)failure;
+- (AFHTTPRequestOperation *)requestForMiZhi:(MGYSuccess)success
+                                    failure:(MGYFailure)failure;
 
 
 @end

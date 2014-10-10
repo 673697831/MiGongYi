@@ -139,12 +139,12 @@
         case 0:
         {
             if (!self.riceFlow) {
-                [[DataManager shareInstance] requestForRiceFlow:0 limit:10 success:^(MGYRiceFlow *riceFlow) {
-                    self.riceFlow = riceFlow;
+                [[DataManager shareInstance] requestForRiceFlow:0 limit:10 success:^() {
+                    self.riceFlow = [DataManager shareInstance].myRiceFlow;
                     [self.tableView reloadData];
                     
-                } failure:^(MGYRiceFlow *riceFlow) {
-                    self.riceFlow = riceFlow;
+                } failure:^(NSError *error) {
+                    self.riceFlow = [DataManager shareInstance].myRiceFlow;
                     [self.tableView reloadData];
                 }];
             }else
@@ -160,11 +160,11 @@
         case 2:
         {
             if (!self.favList) {
-                [[DataManager shareInstance] requestForMyFavlist:0 limit:10 success:^(MGYMyFavList *favList) {
-                    self.favList = favList;
+                [[DataManager shareInstance] requestForMyFavlist:0 limit:10 success:^() {
+                    self.favList = [DataManager shareInstance].myFavList;
                     [self.tableView reloadData];
-                } failure:^(MGYMyFavList *favList) {
-                    self.favList = favList;
+                } failure:^(NSError *error) {
+                    self.favList = [DataManager shareInstance].myFavList;
                     [self.tableView reloadData];
                 }];
             }else

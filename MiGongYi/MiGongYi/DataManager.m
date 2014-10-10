@@ -15,10 +15,12 @@
 #define BaseURL @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public"
 
 @interface DataManager ()
-
-@property(nonatomic, strong) MGYRiceFlow *myRiceFlow;
-@property(nonatomic, strong) MGYMyFavList *myFavList;
-
+{
+    NSMutableArray *_childList;
+    NSMutableArray *_itemList;
+    NSMutableArray *_projectDetailsList;
+    NSMutableArray *_projectRecentList;
+}
 @end
 
 
@@ -55,10 +57,10 @@
             [self requestForEnterUID];
         }
         NSData *riceFlowObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"riceFlow"];
-        self.myRiceFlow = [NSKeyedUnarchiver unarchiveObjectWithData:riceFlowObject];
+        _myRiceFlow = [NSKeyedUnarchiver unarchiveObjectWithData:riceFlowObject];
         
         NSData *myFavListObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"favList"];
-        self.myFavList = [NSKeyedUnarchiver unarchiveObjectWithData:myFavListObject];
+        _myFavList = [NSKeyedUnarchiver unarchiveObjectWithData:myFavListObject];
         
     }
     return self;
@@ -296,56 +298,63 @@
                 }];
 }
 
-- (void)requestForRiceFlow:(NSInteger)start
+- (AFHTTPRequestOperation *)requestForRiceFlow:(NSInteger)start
                      limit:(NSInteger)limit
-                   success:(void (^)(MGYRiceFlow *))success
-                   failure:(void (^)(MGYRiceFlow *))failure
+                   success:(MGYSuccess)success
+                   failure:(MGYFailure)failure
 {
-    NSString *url = [BaseURL stringByAppendingString:@"/user.php?type=riceflow"];
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=riceflow"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"uid":@(self.uid), @"start":@(start), @"limit":@(limit)};
-    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:responseObject[@"data"] error:nil];
-        NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:riceFlow];
-        [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"riceFlow"];
-        self.myRiceFlow = riceFlow;
-        success(riceFlow);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        failure(self.myRiceFlow);
-    }];
+    return [manager GET:url
+             parameters:parameters
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:responseObject[@"data"] error:nil];
+                    NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:riceFlow];
+                    [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"riceFlow"];
+                    _myRiceFlow = riceFlow;
+                    success();
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
     
 }
 
-- (void)requestForMyFavlist:(NSInteger)start
+- (AFHTTPRequestOperation *)requestForMyFavlist:(NSInteger)start
                       limit:(NSInteger)limit
-                    success:(void (^)(MGYMyFavList *))success
-                    failure:(void (^)(MGYMyFavList *))failure
+                    success:(MGYSuccess)success
+                    failure:(MGYFailure)failure
 {
-    NSString *url = [BaseURL stringByAppendingString:@"/user.php?type=favlist"];
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=favlist"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"uid":@(self.uid), @"start":@(start), @"limit":@(limit)};
-    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        MGYMyFavList *favList = [MTLJSONAdapter modelOfClass:[MGYMyFavList class] fromJSONDictionary:responseObject[@"data"] error:nil];
-        NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:favList];
-        [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"favList"];
-        self.myFavList = favList;
-        success(self.myFavList);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        failure(self.myFavList);
-    }];
+    return [manager GET:url
+             parameters:parameters
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    MGYMyFavList *favList = [MTLJSONAdapter modelOfClass:[MGYMyFavList class] fromJSONDictionary:responseObject[@"data"] error:nil];
+                    NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:favList];
+                    [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"favList"];
+                    _myFavList = favList;
+                    success();
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
 }
 
 #pragma mark - 获得大米
-- (void)requestForMiZhi:(void (^)(MGYMiZhi *))success
+- (AFHTTPRequestOperation *)requestForMiZhi:(MGYSuccess)success
+                                    failure:(MGYFailure)failure
 {
-    NSString *url = [BaseURL stringByAppendingString:@"/daily.php?type=main"];
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/daily.php?type=main"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+    return [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
         //NSLog(@"%@", responseObject);
-        MGYMiZhi *miZhi = [MTLJSONAdapter modelOfClass:[MGYMiZhi class] fromJSONDictionary:responseObject[@"data"] error:nil];
-        success(miZhi);
+        _miZhi = [MTLJSONAdapter modelOfClass:[MGYMiZhi class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
