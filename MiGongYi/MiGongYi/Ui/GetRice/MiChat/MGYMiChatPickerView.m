@@ -142,7 +142,6 @@
 
 - (void)clickEvent:(id)sender
 {
-    self.hidden = YES;
     if (self.finishCallback && [sender tag] != 0) {
         self.finishCallback(self.selectedTimes);
     }

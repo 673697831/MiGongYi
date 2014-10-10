@@ -47,9 +47,17 @@
     [cell reset:__array[indexPath.row]];
     if (!self.isLoading && __array.count - indexPath.row == 1 ) {
         self.isLoading = YES;
-        [[DataManager shareInstance] requestForList:1 start:__array.count limit:1 reset:NO success:^(NSArray *array) {
-            [self resetData:array reset:YES];
-        }];
+        [[DataManager shareInstance] requestForList:1
+                                              start:__array.count
+                                              limit:1
+                                              reset:NO
+                                            success:^{
+                                                NSArray *array = [DataManager shareInstance].itemList;
+                                                [self resetData:array reset:YES];
+                                            }
+                                            failure:^(NSError *error) {
+            
+                                            }];
     }
     //NSLog(@"cellforrowatindexpath");
     
@@ -75,15 +83,17 @@
 
 -(void) refreshView:(UIRefreshControl *)refreshControl
 {
-    
-//    NSLog(@"iiiiiiiiiiii");
-//    if (self.isLoading) {
-//        return;
-//    }
     self.isLoading = YES;
-    [[DataManager shareInstance] requestForList:1 start:0 limit:3 reset:YES success:^(NSArray *array) {
-        [self resetData:array reset:YES];
-    }];
+    [[DataManager shareInstance] requestForList:1
+                                          start:0
+                                          limit:3
+                                          reset:YES
+                                        success:^{
+                                            NSArray *array = [DataManager shareInstance].itemList;
+                                            [self resetData:array reset:YES];
+                                        }
+                                        failure:^(NSError *error) {
+                                        }];
     [refreshControl endRefreshing];
 }
 
@@ -117,9 +127,17 @@
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
     
-    [[DataManager shareInstance] requestForList:1 start:0 limit:1 reset:YES success:^(NSArray *array) {
-        [self resetData:array reset:YES];
-    }];
+    [[DataManager shareInstance] requestForList:1
+                                          start:0
+                                          limit:1
+                                          reset:YES
+                                        success:^{
+                                            NSArray *array = [DataManager shareInstance].itemList;
+                                            [self resetData:array reset:YES];
+                                        }
+                                        failure:^(NSError *error) {
+        
+                                        }];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     // Do any additional setup after loading the view.

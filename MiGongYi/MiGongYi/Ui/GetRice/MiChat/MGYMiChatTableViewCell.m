@@ -122,7 +122,6 @@
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"你点击了删除" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alter show];
         self.miChatRecord = nil;
-        self.miChatRecord = nil;
         [self.lableView reset:@"名字"];
         self.cellScrollView.scrollEnabled = NO;
         [self.cellScrollView setContentOffset:CGPointMake(0, 0) animated:YES];

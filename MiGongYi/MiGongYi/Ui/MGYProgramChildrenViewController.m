@@ -64,13 +64,18 @@
 
 -(void) refreshView:(UIRefreshControl *)refreshControl
 {
-//    if (self.isLoading) {
-//        return;
-//    }
     self.isLoading = YES;
-    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES success:^(NSArray *array) {
-        [self resetData:array reset:YES];
-    }];
+    [[DataManager shareInstance] requestForList:2
+                                          start:0
+                                          limit:10
+                                          reset:YES
+                                        success:^{
+                                            NSArray *array = [DataManager shareInstance].childList;
+                                            [self resetData:array reset:YES];
+                                        }
+                                        failure:^(NSError *error) {
+        
+                                        }];
     //[refreshControl endRefreshing];
 }
 
@@ -108,9 +113,17 @@
     [self.childrenCollectionView addSubview:refreshControl];
     self.refreshControl = refreshControl;
     
-    [[DataManager shareInstance] requestForList:2 start:0 limit:10 reset:YES success:^(NSArray *array) {
-        [self resetData:array reset:YES];
-    }];
+    [[DataManager shareInstance] requestForList:2
+                                          start:0
+                                          limit:10
+                                          reset:YES
+                                        success:^{
+                                            NSArray *array = [DataManager shareInstance].childList;
+                                            [self resetData:array reset:YES];
+                                        }
+                                        failure:^(NSError *error) {
+        
+                                        }];
     self.automaticallyAdjustsScrollViewInsets = YES;
     
     // Do any additional setup after loading the view.

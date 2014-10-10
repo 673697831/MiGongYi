@@ -36,6 +36,7 @@
     self.pickView.finishCallback = finishCallback;
     if (finishCallback) {
         self.pickView.hidden = NO;
+        //[self.view bringSubviewToFront:self.pickView];
     }
     
 }
@@ -75,6 +76,8 @@
     for (int i = 0; i < readArray.count; i ++) {
         //MGYMiChatRecord *record = [NSKeyedUnarchiver unarchiveObjectWithData:readArray[i]];
     }
+    self.pickView.hidden = YES;
+    //[self.view bringSubviewToFront:self.tableView];
 }
 
 - (void)clickHeadView
@@ -168,18 +171,21 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
     
     MGYMiChatPickerView *pickView = [[MGYMiChatPickerView alloc] initWithArray:@[@(1),@(2), @(3)]];
     pickView.hidden = YES;
     [self.view addSubview:pickView];
     self.pickView = pickView;
-    
-    [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    //UIPanGestureRecognizer 拖动
+    
+    
+//    [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
     
 }
 

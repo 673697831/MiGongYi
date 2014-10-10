@@ -7,9 +7,9 @@
 //
 
 #import "DataManager.h"
-#import "AFNetworking.h"
 #import "MGYTabBarController.h"
 #import "MGYProjectDetails.h"
+#define fuck 1
 
 #define BaseURL @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public"
 
@@ -35,16 +35,18 @@
     return instance;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
         _itemList = [NSMutableArray new];
         _childList = [NSMutableArray new];
-
+        _projectDetailsList = [NSMutableArray array];
         //测试专用
+#if fuck
+#warning 记得删除
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"uid"];
-        
+#endif
         self.uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
         
         if (!self.uid) {
@@ -60,7 +62,9 @@
     return self;
 }
 
-- (void)addProjects:(NSArray *)list type:(MGYProjectType)type
+#pragma mark - 公益项目
+- (void)addProjects:(NSArray *)list
+               type:(MGYProjectType)type
 {
     for (NSDictionary *dic in list) {
         MGYProject *newProject = [MTLJSONAdapter modelOfClass:[MGYProject class] fromJSONDictionary:dic error:nil];
@@ -77,7 +81,9 @@
     }
 }
 
-- (void)setProjects:(NSArray *)list type:(MGYProjectType)type reset:(BOOL)reset
+- (void)setProjects:(NSArray *)list
+               type:(MGYProjectType)type
+              reset:(BOOL)reset
 {
     if (reset) {
         if (type == MGYProjectTypeItem) {
@@ -91,85 +97,72 @@
     //[[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
 }
 
-- (void)requestForList:(MGYProjectType)type start:(NSInteger)start limit:(NSInteger)limit reset:(BOOL)reset success:(void (^)(NSArray *array))success
+- (void)setProjectsDetails:(MGYProjectDetails *)details
 {
-    NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=list";
+    NSInteger projectId = details.projectId;
+    for (MGYProjectDetails* oldDetails in _projectDetailsList) {
+        if (oldDetails.projectId == projectId) {
+            [_projectDetailsList removeObject:oldDetails];
+        }
+    }
+    [_projectDetailsList addObject:details];
+}
+
+- (MGYProjectDetails *)getProjectDetailsById:(NSInteger)projectId
+{
+    for (MGYProjectDetails *details in _projectDetailsList) {
+        if (details.projectId == projectId) {
+            return details;
+        }
+    }
+    return nil;
+}
+- (AFHTTPRequestOperation *)requestForList:(MGYProjectType)type
+                                     start:(NSInteger)start
+                                     limit:(NSInteger)limit
+                                     reset:(BOOL)reset
+                                   success:(MGYSuccess)success
+                                   failure:(MGYFailure)failure
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=list"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"start":[NSNumber numberWithInteger:start], @"limit":[NSNumber numberWithInteger:limit], @"project_type":[NSNumber numberWithInteger:type]};
-    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        if ([responseObject[@"data"] isKindOfClass:[NSArray class]]) {
-            //NSLog(@"%@", responseObject[@"data"]);
-        }
-        if ([responseObject[@"data"] count] == 0) {
-            return;
-        }
-        
-        [self setProjects:responseObject[@"data"] type:type reset:reset];
-        success(type == MGYProjectTypeChildren ? self.childList : self.itemList);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+    NSDictionary *parameters = @{@"start":@(start),
+                                 @"limit":@(limit),
+                                 @"project_type":@(type)};
+    return [manager GET:url
+             parameters:parameters
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                        if ([responseObject[@"data"] count] == 0) {
+                            failure(nil);
+                        }else{
+                            [self setProjects:responseObject[@"data"] type:type reset:reset];
+                            success();
+                        }
+                    }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                    }];
 }
 
-- (void)requestForEnterUID
+- (AFHTTPRequestOperation *)requestForProjectDetails:(NSInteger)projectId
+                                             success:(MGYSuccess)success
+                                             failure:(MGYFailure)failure
 {
-    NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/user.php?type=reg&reg_type=startup";
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=detail"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        self.uid = [responseObject[@"data"][@"uid"] integerValue];
-        [[NSUserDefaults standardUserDefaults] setInteger:self.uid forKey:@"uid"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
-
-- (void)requestForPersonalDetails
-{
-    NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/user.php?type=detail";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:@{@"uid": @(self.uid)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        MGYPersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[MGYPersonalDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
-        self.personalDetails = newPersonalDetails;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-}
-
-- (void)requestForProjectDetails:(NSInteger)projectId
-                         success:(void (^)(MGYProjectDetails *))success
-{
-    NSString *url = @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public/project.php?type=detail";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        MGYProjectDetails *projectDetails = [MTLJSONAdapter modelOfClass:[MGYProjectDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
-        success(projectDetails);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
-
-- (void)requestForAddfav:(NSInteger)projectId success:(void (^)(NSInteger))success
-{
-    NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=addfav"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        success([responseObject[@"error"] integerValue]);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
-
-- (void)requestForCancelFav:(NSInteger)projectId success:(void (^)(NSInteger))success
-{
-    NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=cancelfav"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)} success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        success([responseObject[@"error"] integerValue]);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+    return [manager GET:url
+             parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    MGYProjectDetails *projectDetails = [MTLJSONAdapter modelOfClass:[MGYProjectDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
+                    [self setProjectsDetails:projectDetails];
+                    success();
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
 }
 
 - (void)requestForProjectRecent:(NSInteger)projectId
@@ -180,7 +173,8 @@
     NSString *url = [BaseURL stringByAppendingString:@"/project.php?type=recentsituation"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"project_id":@(projectId), @"start":@(start), @"limit":@(limit)};
-    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+    [manager GET:url
+      parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
         
         if ([responseObject[@"data"] count] == 0) {
             return ;
@@ -190,6 +184,88 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (AFHTTPRequestOperation *)requestForAddfav:(NSInteger)projectId
+                                     success:(MGYSuccess)success
+                                     failure:(MGYFailure)failure
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=addfav"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    return [manager GET:url
+             parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    success();
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
+}
+
+- (AFHTTPRequestOperation *)requestForCancelFav:(NSInteger)projectId
+                                        success:(MGYSuccess)success
+                                        failure:(MGYFailure)failure
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=cancelfav"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    return [manager GET:url
+             parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    success();
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
+}
+
+//- (void)setProjectFav:(NSInteger)projectId
+//                  fav:(BOOL)fav
+//{
+//    for (NSMutableDictionary *dic in _projectFavList) {
+//        if (projectId == [dic[@"projectId"] integerValue]) {
+//            dic[@"fav"] = @(fav);
+//            return;
+//        }
+//    }
+//    
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    dic[@"projectId"] = @(projectId);
+//    dic[@"fav"] = @(fav);
+//    [_projectFavList addObject:dic];
+//}
+
+#pragma mark - 首次登陆
+- (AFHTTPRequestOperation *)requestForEnterUID
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=reg&reg_type=startup"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    return [manager GET:url
+             parameters:nil
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    self.uid = [responseObject[@"data"][@"uid"] integerValue];
+                    [[NSUserDefaults standardUserDefaults] setInteger:self.uid forKey:@"uid"];
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                }];
+}
+
+#pragma mark - 个人信息
+- (AFHTTPRequestOperation *)requestForPersonalDetails
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=detail"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    return [manager GET:url
+             parameters:@{@"uid": @(self.uid)}
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    MGYPersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[MGYPersonalDetails class]fromJSONDictionary:responseObject[@"data"] error:nil];
+                    self.personalDetails = newPersonalDetails;
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                }];
 }
 
 - (void)requestForRiceFlow:(NSInteger)start
@@ -233,6 +309,7 @@
     }];
 }
 
+#pragma mark - 获得大米
 - (void)requestForMiZhi:(void (^)(MGYMiZhi *))success
 {
     NSString *url = [BaseURL stringByAppendingString:@"/daily.php?type=main"];
@@ -247,7 +324,7 @@
 
 }
 
-+ (NSString *)baseUrl
+- (NSString *)baseUrl
 {
     return @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public";
 }

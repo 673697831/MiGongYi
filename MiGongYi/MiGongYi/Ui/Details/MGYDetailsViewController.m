@@ -46,6 +46,19 @@
     return self;
 }
 
+- (void)requestForProjectRecent:(NSInteger)start
+{
+    self.isLoading = YES;
+    [[DataManager shareInstance] requestForProjectRecent:self.details.projectId
+                                                   start:start
+                                                   limit:1
+                                                 success:^(NSArray *array) {
+                                                     self.isLoading = NO;
+                                                     [_developmentList addObjectsFromArray:array];
+                                                     [self.tableView reloadData];
+                                                 }];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -58,15 +71,7 @@
         }
         
         if (self.developmentList.count == 0 && !self.isLoading && self.details) {
-            self.isLoading = YES;
-            [[DataManager shareInstance] requestForProjectRecent:self.details.projectId
-                                                           start:0
-                                                           limit:1
-                                                         success:^(NSArray *array) {
-                                                             self.isLoading = NO;
-                                                             [_developmentList addObjectsFromArray:array];
-                                                             [self.tableView reloadData];
-                                                         }];
+            [self requestForProjectRecent:0];
         }
         return cell;
         
@@ -83,16 +88,7 @@
         }
         
         if (self.developmentList.count == indexPath.row && !self.isLoading) {
-            self.isLoading = YES;
-            [[DataManager shareInstance] requestForProjectRecent:self.details.projectId
-                                                           start:indexPath.row
-                                                           limit:1
-                                                         success:^(NSArray *array) {
-                                                             self.isLoading = NO;
-                                                             [_developmentList addObjectsFromArray:array];
-                                                             [self.tableView reloadData];
-                                                         }];
-        
+            [self requestForProjectRecent:indexPath.row];
         }
         return cell;
     }
@@ -194,18 +190,20 @@
     
     [self setup];
     [[DataManager shareInstance] requestForProjectDetails:self.projectId
-                                                  success:^(MGYProjectDetails *details) {
-                                                      //NSLog(@"ooooooo %@", details);
+                                                  success:^{
+                                                      MGYProjectDetails *details = [[DataManager shareInstance] getProjectDetailsById:self.projectId];
+                                                      if (!details) {
+                                                        #warning 未处理
+                                                          return;
+                                                      }
                                                       self.details = details;
                                                       self.title = details.title;
                                                       [self.tableView reloadData];
                                                       [self resetButtonStatus];
+                                                  }
+                                                  failure:^(NSError *error) {
+                                                      
                                                   }];
-}
-
-- (void)click
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setup
@@ -252,31 +250,26 @@
 
 - (void)selectButton:(id)sender
 {
-    switch ([sender tag]) {
-        case 1:
-            if (self.details.fav == 0) {
-                [[DataManager shareInstance] requestForAddfav:self.details.projectId
-                                                      success:^(NSInteger error) {
-                                                          if (error == 0) {
-                                                              self.details.fav = 1;
-                                                              self.favButton.selected = YES;
-                                                          }
-                                                      }];
-            }else
-            {
-                [[DataManager shareInstance] requestForCancelFav:self.details.projectId
-                                                         success:^(NSInteger error) {
-                                                             if (error == 0) {
-                                                                 self.details.fav = 0;
-                                                                 self.favButton.selected = NO;
-                                                             }
-                                                         }];
-            }
-            break;
-        case 2:
-            break;
-        default:
-            break;
+    if (sender == self.favButton) {
+        if (self.details.fav == 0) {
+            [[DataManager shareInstance] requestForAddfav:self.projectId
+                                                  success:^{
+                                                      self.details.fav = 1;
+                                                      self.favButton.selected = YES;
+                                                  } failure:^(NSError *error) {
+                                                      
+                                                  }];
+        }else
+        {
+            [[DataManager shareInstance] requestForCancelFav:self.projectId
+                                                     success:^{
+                                                         self.details.fav = 0;
+                                                         self.favButton.selected = NO;
+                                                     } failure:^(NSError *error) {
+                                                         
+                                                     }];
+        }
+
     }
 }
 

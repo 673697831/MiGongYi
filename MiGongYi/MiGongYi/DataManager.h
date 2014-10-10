@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFNetworking.h"
 #import "MGYProject.h"
 #import "MGYPersonalDetails.h"
 #import "MGYProjectDetails.h"
@@ -18,36 +19,39 @@
 {
     NSMutableArray *_childList;
     NSMutableArray *_itemList;
-    //PersonalDetails *__personalDetails;
+    NSMutableArray *_projectDetailsList;
 }
 
 @property(nonatomic, readonly) NSArray* childList;
 @property(nonatomic, readonly) NSArray* itemList;
-@property(nonatomic, weak) MGYPersonalDetails *personalDetails;
+@property(nonatomic, readonly) NSArray* projectDetailsList;
+@property(nonatomic, strong) MGYPersonalDetails *personalDetails;
 @property(nonatomic, assign) NSInteger uid;
+
+typedef void (^MGYSuccess)();
+typedef void (^MGYFailure)(NSError *);
 
 + (DataManager *)shareInstance;
 
-+ (NSString *)baseUrl;
-
-- (void)addProjects:(NSArray *)list
-              type:(MGYProjectType)type;
-- (void)setProjects:(NSArray *)list
-              type:(MGYProjectType)type
-             reset:(BOOL)reset;
-- (void)requestForList:(MGYProjectType)type
+- (MGYProjectDetails *)getProjectDetailsById:(NSInteger)projectId;
+- (AFHTTPRequestOperation *)requestForList:(MGYProjectType)type
                 start:(NSInteger)start
                 limit:(NSInteger)limit
                 reset:(BOOL)reset
-               success:(void (^)(NSArray *array))success;
-- (void)requestForEnterUID;
-- (void)requestForPersonalDetails;
-- (void)requestForProjectDetails:(NSInteger) projectId
-                         success:(void (^)(MGYProjectDetails *details))success;
-- (void)requestForAddfav:(NSInteger)projectId
-                 success:(void (^)(NSInteger error))success;
-- (void)requestForCancelFav:(NSInteger)projectId
-                    success:(void (^)(NSInteger error))success;
+              success:(MGYSuccess)success
+              failure:(MGYFailure)failure;
+- (AFHTTPRequestOperation *)requestForEnterUID;
+- (AFHTTPRequestOperation *)requestForPersonalDetails;
+- (AFHTTPRequestOperation *)requestForProjectDetails:(NSInteger) projectId
+                                             success:(MGYSuccess)success
+                                             failure:(MGYFailure)failure;
+- (AFHTTPRequestOperation *)requestForAddfav:(NSInteger)projectId
+                                     success:(MGYSuccess)success
+                                     failure:(MGYFailure)failure;
+- (AFHTTPRequestOperation *)requestForCancelFav:(NSInteger)projectId
+                                        success:(MGYSuccess)success
+                                        failure:(MGYFailure)failure;
+
 - (void)requestForProjectRecent:(NSInteger)projectId
                           start:(NSInteger)start
                           limit:(NSInteger)limit
