@@ -22,9 +22,7 @@
 		202E2AA619E2E4D4000E072B /* MGYMiChatPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2AA519E2E4D4000E072B /* MGYMiChatPickerView.m */; };
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
-		202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */; };
 		203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D636619CAC7E800116ECA /* MGYDetailsViewController.m */; };
-		203D636A19CAD68000116ECA /* MGYAboutMeItemGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D636919CAD68000116ECA /* MGYAboutMeItemGroup.m */; };
 		203D637019CB027D00116ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636C19CB027D00116ECA /* InfoPlist.strings */; };
 		203D637119CB027D00116ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636E19CB027D00116ECA /* Localizable.strings */; };
 		2085C85619B6280C00E9FA3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85519B6280C00E9FA3B /* Foundation.framework */; };
@@ -105,12 +103,8 @@
 		202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPersonalDetails.m; sourceTree = "<group>"; };
 		202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYGetRiceViewController.h; path = Ui/MGYGetRiceViewController.h; sourceTree = "<group>"; };
 		202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYGetRiceViewController.m; path = Ui/MGYGetRiceViewController.m; sourceTree = "<group>"; };
-		202E3FA319C869A100E58B4E /* MGYAboutMeItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYAboutMeItemView.h; sourceTree = "<group>"; };
-		202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYAboutMeItemView.m; sourceTree = "<group>"; };
 		203D636519CAC7E800116ECA /* MGYDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYDetailsViewController.h; path = Ui/Details/MGYDetailsViewController.h; sourceTree = "<group>"; };
 		203D636619CAC7E800116ECA /* MGYDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYDetailsViewController.m; path = Ui/Details/MGYDetailsViewController.m; sourceTree = "<group>"; };
-		203D636819CAD68000116ECA /* MGYAboutMeItemGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYAboutMeItemGroup.h; sourceTree = "<group>"; };
-		203D636919CAD68000116ECA /* MGYAboutMeItemGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYAboutMeItemGroup.m; sourceTree = "<group>"; };
 		203D636D19CB027D00116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		203D636F19CB027D00116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		2085C85219B6280C00E9FA3B /* MiGongYi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiGongYi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,10 +260,6 @@
 		202E3FA219C8698400E58B4E /* AboutMe */ = {
 			isa = PBXGroup;
 			children = (
-				202E3FA319C869A100E58B4E /* MGYAboutMeItemView.h */,
-				202E3FA419C869A100E58B4E /* MGYAboutMeItemView.m */,
-				203D636819CAD68000116ECA /* MGYAboutMeItemGroup.h */,
-				203D636919CAD68000116ECA /* MGYAboutMeItemGroup.m */,
 				20D0BE5819CD2D630051BFD2 /* MGYAboutMeTableViewCell.h */,
 				20D0BE5919CD2D630051BFD2 /* MGYAboutMeTableViewCell.m */,
 			);
@@ -607,7 +597,6 @@
 				202E2AA619E2E4D4000E072B /* MGYMiChatPickerView.m in Sources */,
 				20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */,
 				20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */,
-				202E3FA519C869A100E58B4E /* MGYAboutMeItemView.m in Sources */,
 				201EFE2A19E9098100B14853 /* MGYMiZhiShare.m in Sources */,
 				2087137919CEA5200035B21B /* MGYProjectDetails.m in Sources */,
 				20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */,
@@ -624,7 +613,6 @@
 				201EFE1D19E3B9B700B14853 /* MGYMiChatDetailsViewController.m in Sources */,
 				2087138819D15D170035B21B /* MGYProjectDevelopmentsTableViewCell.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
-				203D636A19CAD68000116ECA /* MGYAboutMeItemGroup.m in Sources */,
 				202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */,
 				202E2AA019DA86F2000E072B /* MGYMiChatTableViewCell.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,

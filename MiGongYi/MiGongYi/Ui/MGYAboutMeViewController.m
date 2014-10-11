@@ -11,8 +11,6 @@
 #import "Masonry.h"
 #import "MGYPersonalDetails.h"
 #import "DataManager.h"
-#import "MGYAboutMeItemView.h"
-#import "MGYAboutMeItemGroup.h"
 #import "UIColor+Expanded.h"
 #import "DataManager.h"
 #import "MGYRiceFlow.h"
@@ -29,10 +27,6 @@
 @property(nonatomic, weak) UILabel *backLabel;
 @property(nonatomic, weak) UILabel *titleTextLabel;
 @property(nonatomic, weak) UITableView *tableView;
-@property(nonatomic, weak) MGYAboutMeItemView *riceItemView;
-@property(nonatomic, weak) MGYAboutMeItemView *friendItemView;
-@property(nonatomic, weak) MGYAboutMeItemView *favItemView;
-@property(nonatomic, strong) MGYAboutMeItemGroup *itemGroup;
 
 @end
 
