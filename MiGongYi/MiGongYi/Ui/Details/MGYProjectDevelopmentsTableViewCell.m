@@ -133,16 +133,17 @@
 {
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:projectRecent.coverImg]];
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:projectRecent.showTime];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-    comps = [calendar components:unitFlags fromDate:confromTimesp];
-    self.timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日", [comps year], [comps month], [comps day]];
-    self.summaryLabel.text = projectRecent.summary;
-//    CGSize labelSize = [projectRecent.summary boundingRectWithSize:CGSizeMake(512/2, 5000) options:(NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
-//    self.summaryLabel.frame = CGRectMake(self.summaryLabel.frame.origin.x, self.summaryLabel.frame.origin.y, self.summaryLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
-    
+//    NSDateComponents *comps = [[NSDateComponents alloc] init];
+//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
+//    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+//    comps = [calendar components:unitFlags fromDate:confromTimesp];
+    //self.timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日", [comps year], [comps month], [comps day]];
+    NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
+    fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    fmt.dateFormat = @"yyyy年MM月dd日";
+    self.timeLabel.text = [fmt stringFromDate:confromTimesp];
+    self.summaryLabel.text = projectRecent.summary;    
 }
 
 + (CGFloat)minHeight
