@@ -16,8 +16,12 @@
              @"dailyTitle" : @"daily_title",
              @"dailyImg" : @"daily_img",
              @"content" : @"content",
-             @"shareUrl" : @"share_url",
+             @"miZhiShare" : @"share",
              };
+}
+
++ (NSValueTransformer *)miZhiShareJSONTransformer{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYMiZhiShare class]];
 }
 
 @end

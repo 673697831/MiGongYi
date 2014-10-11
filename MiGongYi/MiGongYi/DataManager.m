@@ -65,7 +65,7 @@
 
 - (NSString *)filePath
 {
-    return [[self libraryPath] stringByAppendingString:[NSString stringWithFormat:@"/%d/", self.uid]];
+    return [[self libraryPath] stringByAppendingString:[NSString stringWithFormat:@"/%d", self.uid]];
 }
 
 - (NSString *)baseUrl
@@ -86,7 +86,7 @@
     }
 }
 
-#pragma mark - 读写用户信息
+#pragma mark - 读写公有信息
 - (void)setupAccount
 {
     if (!self.uid) {
@@ -104,12 +104,34 @@
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
         self.uid = [data[0] integerValue];
+        //NSLog(@"cccccccccccc %@",fileName);
     }
 }
 
+- (void)saveMiZhi
+{
+    if (_miZhi) {
+        NSDictionary *dicMiZhi = [MTLJSONAdapter JSONDictionaryFromModel:_miZhi];
+        NSString* fileName = [[self libraryPath] stringByAppendingString:@"/miZhi.plist"];
+        NSMutableArray *data = [NSMutableArray array];
+        [data addObject:dicMiZhi];
+        [data writeToFile:fileName atomically:YES];
+    }
+}
+
+- (void)loadMiZhi
+{
+    NSString* fileName = [[self libraryPath] stringByAppendingString:@"/miZhi.plist"];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+    }
+}
+
+#pragma mark - 读写用户信息
+
 - (void)saveUserInfo
 {
-    NSString* fileName = [[self filePath] stringByAppendingString:@"userInfo.plist"];
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/userInfo.plist"];
     NSMutableArray *data = [NSMutableArray array];
     if (!_uid) {
         return;
@@ -130,7 +152,7 @@
 
 - (void)loadUserInfo
 {
-    NSString* fileName = [[self filePath] stringByAppendingString:@"userInfo.plist"];
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/userInfo.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
     }
@@ -140,7 +162,7 @@
 {
     if (_myRiceFlow) {
         NSDictionary *dicRiceFlow = [MTLJSONAdapter JSONDictionaryFromModel:_myRiceFlow];
-        NSString* fileName = [[self filePath] stringByAppendingString:@"riceFlow.plist"];
+        NSString* fileName = [[self filePath] stringByAppendingString:@"/riceFlow.plist"];
         NSArray *data = @[dicRiceFlow];
         [data writeToFile:fileName atomically:YES];
     }
@@ -148,7 +170,7 @@
 
 - (void)loadMyRiceFlow
 {
-    NSString* fileName = [[self filePath] stringByAppendingString:@"riceFlow.plist"];
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/riceFlow.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
     }
@@ -158,7 +180,7 @@
 {
     if (_myFavList) {
         NSDictionary *dicFavList = [MTLJSONAdapter JSONDictionaryFromModel:_myFavList];
-        NSString* fileName = [[self filePath] stringByAppendingString:@"favList.plist"];
+        NSString* fileName = [[self filePath] stringByAppendingString:@"/favList.plist"];
         NSArray *data = @[dicFavList];
         [data writeToFile:fileName atomically:YES];
     }
@@ -166,7 +188,7 @@
 
 - (void)loadMyFavlist
 {
-    NSString* fileName = [[self filePath] stringByAppendingString:@"favList.plist"];
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/favList.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
     }
@@ -180,11 +202,11 @@
         MGYProject *newProject = [MTLJSONAdapter modelOfClass:[MGYProject class] fromJSONDictionary:dic error:nil];
         newProject.type = type;
         
-        if (type == 1) {
+        if (type == MGYProjectTypeItem) {
             [_itemList addObject:newProject];
         }
         
-        if (type == 2) {
+        if (type == MGYProjectTypeChildren) {
             [_childList addObject:newProject];
         }
         
@@ -462,8 +484,8 @@
     NSString *url = [[self baseUrl] stringByAppendingString:@"/daily.php?type=main"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-        //NSLog(@"%@", responseObject);
         _miZhi = [MTLJSONAdapter modelOfClass:[MGYMiZhi class] fromJSONDictionary:responseObject[@"data"] error:nil];
+        [self saveMiZhi];
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

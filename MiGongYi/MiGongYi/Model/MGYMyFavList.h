@@ -15,3 +15,12 @@
 @property(nonatomic, strong) NSArray *rs;
 
 @end
+
+@interface MGYMyFav : MTLModel <MTLJSONSerializing>
+
+@property(nonatomic, assign) NSInteger time;
+@property(nonatomic, copy) NSString *title;
+@property(nonatomic, assign) NSInteger projectId;
+@property(nonatomic, copy) NSString *projectThumb;
+
+@end

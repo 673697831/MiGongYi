@@ -142,7 +142,7 @@
     [self.progressLabel resetProgress:args.progress];
     [self.iconListView reset:args.riceDonate joinNum:args.joinMemberNum favNum:args.favNum];
     
-    if (args.status == 0) {
+    if (args.status == MGYProjectStatusFinished) {
         self.finishLabel.hidden = NO;
     }else
     {

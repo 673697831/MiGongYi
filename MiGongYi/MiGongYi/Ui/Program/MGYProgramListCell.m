@@ -217,7 +217,7 @@
     self.nameLabel.text = args.title;
     self.miliNum.text = [NSString stringWithFormat:@"%d", args.riceDonate];
     self.peopleNum.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
-    if (args.status == 0) {
+    if (args.status == MGYProjectStatusFinished) {
         self.finishLabel.hidden = NO;
         //self.finishText.hidden = NO;
     }else

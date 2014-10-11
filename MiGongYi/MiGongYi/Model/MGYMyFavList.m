@@ -17,4 +17,21 @@
              };
 }
 
++ (NSValueTransformer *)rsJSONTransformer{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MGYMyFav class]];
+}
+
+@end
+
+@implementation MGYMyFav
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"time": @"time",
+             @"title": @"title",
+             @"projectId": @"project_id",
+             @"projectThumb": @"project_thumb",
+             };
+}
+
 @end

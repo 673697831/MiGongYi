@@ -13,6 +13,12 @@ typedef NS_ENUM(NSInteger, MGYProjectType) {
     MGYProjectTypeItem = 1,
     MGYProjectTypeChildren = 2,
 };
+
+typedef NS_ENUM(NSInteger, MGYProjectStatus) {
+    MGYProjectStatusFinished = 0,
+    MGYProjectStatusNormal = 1,
+};
+
 @interface MGYProject : MTLModel <MTLJSONSerializing>
 @property(nonatomic, assign) MGYProjectType type;
 @property(nonatomic, assign) NSInteger projectId;
@@ -22,5 +28,5 @@ typedef NS_ENUM(NSInteger, MGYProjectType) {
 @property(nonatomic, assign) NSInteger progress;
 @property(nonatomic, assign) NSInteger favNum;
 @property(nonatomic, assign) NSInteger joinMemberNum;
-@property(nonatomic, assign) NSInteger status;
+@property(nonatomic, assign) MGYProjectStatus status;
 @end
