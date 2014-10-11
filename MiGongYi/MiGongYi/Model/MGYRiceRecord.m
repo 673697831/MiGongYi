@@ -12,11 +12,16 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-             @"description": @"description",
-             @"incOrDec": @"incOrDec",
-             @"riceNum" : @"riceNum",
+             @"des": @"description",
+             @"incOrDec": @"inc_or_dec",
+             @"riceNum" : @"rice_num",
              @"time" : @"time",
              };
+}
+
++ (NSValueTransformer *)incOrDecJSONTransformer {
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:
+  @{@(1):@(MGYRiceRecordModeInc), @(2):@(MGYRiceRecordModeDec)}];
 }
 
 @end

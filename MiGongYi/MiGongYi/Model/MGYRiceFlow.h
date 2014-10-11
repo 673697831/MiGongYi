@@ -12,6 +12,6 @@
 @interface MGYRiceFlow : MTLModel <MTLJSONSerializing>
 
 @property(nonatomic, assign) NSInteger riceRemain;
-@property(nonatomic, strong) NSArray *rs;
+@property(nonatomic, copy) NSArray *rs;
 
 @end

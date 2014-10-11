@@ -69,13 +69,6 @@
         }
         [array addObject:udObject];
     }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"MiChatRecords"];
-    NSArray *readArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"MiChatRecords"];
-    //NSLog(@"readArray ===== %@", readArray);
-    for (int i = 0; i < readArray.count; i ++) {
-        //MGYMiChatRecord *record = [NSKeyedUnarchiver unarchiveObjectWithData:readArray[i]];
-    }
     self.pickView.hidden = YES;
     //[self.view bringSubviewToFront:self.tableView];
 }

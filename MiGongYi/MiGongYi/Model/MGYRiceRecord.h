@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, MGYRiceRecordMode) {
 @interface MGYRiceRecord : MTLModel <MTLJSONSerializing>
 
 @property(nonatomic, copy) NSString *des;
-@property(nonatomic, assign) MGYRiceRecordMode *incOrDec;
+@property(nonatomic, assign) MGYRiceRecordMode incOrDec;
 @property(nonatomic, assign) NSInteger riceNum;
 @property(nonatomic, assign) NSInteger time;
 

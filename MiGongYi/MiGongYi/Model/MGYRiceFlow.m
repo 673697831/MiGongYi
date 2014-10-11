@@ -7,6 +7,7 @@
 //
 
 #import "MGYRiceFlow.h"
+#import "MGYRiceRecord.h"
 
 @implementation MGYRiceFlow
 
@@ -17,8 +18,8 @@
              };
 }
 
-//+ (NSValueTransformer *)rsJSONTransformer {
-//    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:MGYRiceRecord.class];
-//}
++ (NSValueTransformer *)rsJSONTransformer{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MGYRiceRecord class]];
+}
 
 @end

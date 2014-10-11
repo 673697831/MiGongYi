@@ -12,8 +12,6 @@
 #import "MGYProjectRecent.h"
 #define fuck 1
 
-#define BaseURL @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public"
-
 @interface DataManager ()
 {
     NSMutableArray *_childList;
@@ -47,23 +45,131 @@
         _projectDetailsList = [NSMutableArray array];
         _projectRecentList = [NSMutableArray array];
         //测试专用
-#if fuck
-#warning 记得删除
-        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"uid"];
-#endif
-        self.uid = [[NSUserDefaults standardUserDefaults] integerForKey:@"uid"];
-        
+        [self loadSetup];
         if (!self.uid) {
             [self requestForEnterUID];
+        }else
+        {
+            [self checkAccountDirectory];
         }
-        NSData *riceFlowObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"riceFlow"];
-        _myRiceFlow = [NSKeyedUnarchiver unarchiveObjectWithData:riceFlowObject];
-        
-        NSData *myFavListObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"favList"];
-        _myFavList = [NSKeyedUnarchiver unarchiveObjectWithData:myFavListObject];
-        
     }
     return self;
+}
+
+#pragma mark - 私有定义
+
+- (NSString *)libraryPath
+{
+    return NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
+}
+
+- (NSString *)filePath
+{
+    return [[self libraryPath] stringByAppendingString:[NSString stringWithFormat:@"/%d/", self.uid]];
+}
+
+- (NSString *)baseUrl
+{
+    return @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public";
+}
+
+- (void)checkAccountDirectory
+{
+    BOOL isDic = YES;
+    BOOL existed = [[NSFileManager defaultManager] fileExistsAtPath:[self filePath]
+                                                        isDirectory:&isDic];
+    if (!existed) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[self filePath]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
+    }
+}
+
+#pragma mark - 读写用户信息
+- (void)setupAccount
+{
+    if (!self.uid) {
+        return;
+    }
+    
+    NSString *fileName = [[self libraryPath] stringByAppendingString:@"/defaultUid.plist"];
+    NSArray *array = @[@(self.uid)];
+    [array writeToFile:fileName atomically:YES];
+}
+
+- (void)loadSetup
+{
+    NSString* fileName = [[self libraryPath] stringByAppendingString:@"/defaultUid.plist"];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        self.uid = [data[0] integerValue];
+    }
+}
+
+- (void)saveUserInfo
+{
+    NSString* fileName = [[self filePath] stringByAppendingString:@"userInfo.plist"];
+    NSMutableArray *data = [NSMutableArray array];
+    if (!_uid) {
+        return;
+    }
+    NSDictionary *dicRiceFlow;
+    NSDictionary *dicFavList;
+    if (_myFavList) {
+        dicFavList = [MTLJSONAdapter JSONDictionaryFromModel:_myFavList];
+    }
+    if (_myRiceFlow) {
+        dicRiceFlow = [MTLJSONAdapter JSONDictionaryFromModel:_myRiceFlow];
+    }
+    [data addObject:@(_uid)];
+    [data addObject:dicRiceFlow];
+    [data addObject:dicFavList];
+    [data writeToFile:fileName atomically:YES];
+}
+
+- (void)loadUserInfo
+{
+    NSString* fileName = [[self filePath] stringByAppendingString:@"userInfo.plist"];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+    }
+}
+
+- (void)saveMyRiceFlow
+{
+    if (_myRiceFlow) {
+        NSDictionary *dicRiceFlow = [MTLJSONAdapter JSONDictionaryFromModel:_myRiceFlow];
+        NSString* fileName = [[self filePath] stringByAppendingString:@"riceFlow.plist"];
+        NSArray *data = @[dicRiceFlow];
+        [data writeToFile:fileName atomically:YES];
+    }
+}
+
+- (void)loadMyRiceFlow
+{
+    NSString* fileName = [[self filePath] stringByAppendingString:@"riceFlow.plist"];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+    }
+}
+
+- (void)saveMyFavlist
+{
+    if (_myFavList) {
+        NSDictionary *dicFavList = [MTLJSONAdapter JSONDictionaryFromModel:_myFavList];
+        NSString* fileName = [[self filePath] stringByAppendingString:@"favList.plist"];
+        NSArray *data = @[dicFavList];
+        [data writeToFile:fileName atomically:YES];
+    }
+}
+
+- (void)loadMyFavlist
+{
+    NSString* fileName = [[self filePath] stringByAppendingString:@"favList.plist"];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+    }
 }
 
 #pragma mark - 公益项目
@@ -275,7 +381,13 @@
              parameters:nil
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     self.uid = [responseObject[@"data"][@"uid"] integerValue];
-                    [[NSUserDefaults standardUserDefaults] setInteger:self.uid forKey:@"uid"];
+#if fuck
+#warning 仅测试用     
+                    self.uid = 1;
+#endif
+                    
+                    [self setupAccount];
+                    [self checkAccountDirectory];
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"Error: %@", error);
@@ -310,9 +422,8 @@
              parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:responseObject[@"data"] error:nil];
-                    NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:riceFlow];
-                    [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"riceFlow"];
                     _myRiceFlow = riceFlow;
+                    [self saveMyRiceFlow];
                     success();
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -334,9 +445,8 @@
              parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     MGYMyFavList *favList = [MTLJSONAdapter modelOfClass:[MGYMyFavList class] fromJSONDictionary:responseObject[@"data"] error:nil];
-                    NSData *udObject = [NSKeyedArchiver archivedDataWithRootObject:favList];
-                    [[NSUserDefaults standardUserDefaults]setObject:udObject forKey:@"favList"];
                     _myFavList = favList;
+                    [self saveMyFavlist];
                     success();
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -359,11 +469,6 @@
         NSLog(@"Error: %@", error);
     }];
 
-}
-
-- (NSString *)baseUrl
-{
-    return @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public";
 }
 
 @end
