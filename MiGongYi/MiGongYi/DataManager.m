@@ -172,7 +172,9 @@
 {
     NSString* fileName = [[self filePath] stringByAppendingString:@"/riceFlow.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
-        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:data[0] error:nil];
+        NSLog(@"%@", riceFlow);
     }
 }
 
@@ -446,6 +448,7 @@
                     MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:responseObject[@"data"] error:nil];
                     _myRiceFlow = riceFlow;
                     [self saveMyRiceFlow];
+                    //[self loadMyRiceFlow];
                     success();
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {

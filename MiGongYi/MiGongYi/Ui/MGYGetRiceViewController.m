@@ -83,9 +83,8 @@
 
 - (void)clickEventOnImage:(id)sender
 {
-    self.view.userInteractionEnabled = NO;
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [self pauseAllAnimation];
-    //[NSThread sleepForTimeInterval:1.0f];
     
     double delayInSeconds = 2.0;
     
@@ -100,16 +99,19 @@
         case 1:
             [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
             self.boxingView.hidden = YES;
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             break;
         case 2:
             [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
             self.shoeView.hidden = YES;
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             break;
         case 3:
         {
             self.knowView.hidden = YES;
             self.knowledgeImageView.hidden = NO;
             dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
                 [self.navigationController pushViewController:miZhiView animated:NO];
             });
@@ -120,6 +122,7 @@
             self.phoneView.hidden = YES;
             [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
             dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 MGYMiChatViewController *chatView = [MGYMiChatViewController new];
                 [self.navigationController pushViewController:chatView animated:NO];
             });
@@ -461,7 +464,6 @@
     [self removeAllAnimation];
     [self resumeAllAnimation];
     [self animationBegin];
-    self.view.userInteractionEnabled = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated

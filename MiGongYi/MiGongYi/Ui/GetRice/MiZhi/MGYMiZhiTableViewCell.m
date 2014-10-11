@@ -80,7 +80,7 @@
                                                         selector:@selector(startTimer:)
                                                         userInfo:nil
                                                         repeats:YES];
-        [self.myTimer setFireDate:[NSDate distantPast]];
+        //[self.myTimer setFireDate:[NSDate distantPast]];
         [self setUp];
         
         self.backgroundColor = [UIColor clearColor];

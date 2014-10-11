@@ -164,7 +164,6 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    
     MGYMiChatPickerView *pickView = [[MGYMiChatPickerView alloc] initWithArray:@[@(1),@(2), @(3)]];
     pickView.hidden = YES;
     [self.view addSubview:pickView];
@@ -176,9 +175,9 @@
     //UIPanGestureRecognizer 拖动
     
     
-//    [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
-//    }];
+    [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
 }
 
