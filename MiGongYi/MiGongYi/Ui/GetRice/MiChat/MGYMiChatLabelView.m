@@ -8,8 +8,8 @@
 
 #import "MGYMiChatLabelView.h"
 #import "Masonry.h"
-#import "MGYMiChatProgressView.h"
 #import "UIColor+Expanded.h"
+#import "DataManager.h"
 
 @interface MGYMiChatLabelView ()
 
@@ -20,8 +20,8 @@
 @property(nonatomic, weak) UIImageView *backImageView;
 @property(nonatomic, weak) UILabel *timeLabel;
 @property(nonatomic, weak) UILabel *deleteLabel;
-@property(nonatomic ,weak) UILabel *whiteLabel1;
-@property(nonatomic, weak) UILabel *whiteLabel2;
+@property(nonatomic ,weak) UIView *whiteView1;
+@property(nonatomic, weak) UIView *whiteView2;
 @property(nonatomic, weak) MGYMiChatProgressView *miChatProgressView;
 @property(nonatomic, weak) UIView *leftView;
 @property(nonatomic, weak) UIImageView *rightView;
@@ -33,40 +33,11 @@
 
 @implementation MGYMiChatLabelView
 
-- (void)resetProgress:(CGFloat)progress
-{
-    [self.miChatProgressView resetProgress:progress];
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
-//        UILabel *label1 = [UILabel new];
-//        //label1.backgroundColor = [UIColor grayColor];
-//        label1.layer.cornerRadius = 10;
-//        label1.layer.backgroundColor = [UIColor grayColor].CGColor;
-//        [self addSubview:label1];
-//        self.label1 = label1;
-//        
-//        UILabel *label2 = [UILabel new];
-//        //label1.backgroundColor = [UIColor grayColor];
-//        label2.layer.cornerRadius = 10;
-//        label2.layer.backgroundColor = [UIColor orangeColor].CGColor;
-//        [self addSubview:label2];
-//        self.label2 = label2;
-//        
-//        UIImageView *imageView1 = [UIImageView new];
-//        [imageView1 setImage:[UIImage imageNamed:@"michatlittlemonster1-gray"]];
-//        [self addSubview:imageView1];
-//        self.imageView1 = imageView1;
-//        
-//        UIImageView *imageView2 = [UIImageView new];
-//        [imageView2 setImage:[UIImage imageNamed:@"michatlittlemonster1"]];
-//        [self addSubview:imageView2];
-//        self.imageView2 = imageView2;
         
         UIView *leftView = [UIView new];
         [self addSubview:leftView];
@@ -90,7 +61,7 @@
         [self addSubview:subView3];
         self.subView3 = subView3;
         
-        MGYMiChatProgressView *miChatProgressView = [[MGYMiChatProgressView alloc] initWithImage:@"michatlittlemonster1-gray" progressImageName:@"michatlittlemonster1"];
+        MGYMiChatProgressView *miChatProgressView = [MGYMiChatProgressView new];
         [self addSubview:miChatProgressView];
         self.miChatProgressView = miChatProgressView;
         
@@ -105,6 +76,7 @@
         self.nextImageView = nextImageView;
         
         UIImageView *warningImageView = [UIImageView new];
+        warningImageView.hidden = YES;
         [warningImageView setImage:[UIImage imageNamed:@"michatwarning"]];
         [self addSubview:warningImageView];
         self.warningImageView = warningImageView;
@@ -122,7 +94,7 @@
         self.backImageView = backImageView;
         
         UILabel *timeLabel = [UILabel new];
-        timeLabel.textColor = [UIColor whiteColor];
+        timeLabel.textColor = [UIColor blackColor];
         timeLabel.font = [UIFont systemFontOfSize:18];
         [self addSubview:timeLabel];
         self.timeLabel = timeLabel;
@@ -134,15 +106,15 @@
         [self addSubview:deleteLabel];
         self.deleteLabel = deleteLabel;
         
-        UILabel *whiteLabel1 = [UILabel new];
-        whiteLabel1.backgroundColor = [UIColor whiteColor];
-        [self addSubview:whiteLabel1];
-        self.whiteLabel1 = whiteLabel1;
+        UIView *whiteView1 = [UIView new];
+        whiteView1.backgroundColor = [UIColor whiteColor];
+        [self addSubview:whiteView1];
+        self.whiteView1 = whiteView1;
         
-        UILabel *whiteLabel2 = [UILabel new];
-        whiteLabel2.backgroundColor = [UIColor whiteColor];
-        [self addSubview:whiteLabel2];
-        self.whiteLabel2 = whiteLabel2;
+        UIView *whiteView2 = [UIView new];
+        whiteView2.backgroundColor = [UIColor whiteColor];
+        [self addSubview:whiteView2];
+        self.whiteView2 = whiteView2;
         
         
         [self setup];
@@ -187,26 +159,6 @@
         make.right.equalTo(self.rightView);
     }];
     
-//    [self.label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(46);
-//        make.height.mas_equalTo(46);
-//        make.centerY.equalTo(self);
-//        make.left.equalTo(self).with.offset(10);
-//    }];
-//    
-//    [self.label2 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.label1);
-//    }];
-//    
-//    [self.imageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.label1);
-//        make.centerY.equalTo(self.label1);
-//    }];
-//    
-//    [self.imageView2 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.label1);
-//        make.centerY.equalTo(self.label1);
-//    }];
     [self.miChatProgressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(46);
         make.height.mas_equalTo(46);
@@ -249,15 +201,15 @@
         make.centerX.equalTo(self.subView3);
     }];
     
-    [self.whiteLabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(1);
+    [self.whiteView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.height.mas_equalTo(41);
         make.centerY.equalTo(self);
         make.left.equalTo(self.subView1.mas_right);
     }];
     
-    [self.whiteLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(1);
+    [self.whiteView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.height.mas_equalTo(41);
         make.centerY.equalTo(self);
         make.right.equalTo(self.subView3.mas_left);
@@ -265,17 +217,28 @@
     
 }
 
-- (void)reset:(NSString *)peopleName
+- (void)reset:(MGYMiChatRecord *)miChatRecord
+         type:(MGYMiChatProgressViewType)type
 {
-    self.nameLabel.text = peopleName;
+    self.nameLabel.text = miChatRecord.personName;
+    self.warningImageView.hidden = ![DataManager shareInstance].canGainRiceFromMiChat || miChatRecord.completed || (miChatRecord.currentTimes < miChatRecord.totalTimes || miChatRecord.totalTimes == 0);
+    
+    if (miChatRecord.totalTimes > 0) {
+        [self.miChatProgressView resetProgress:
+         1.0 * miChatRecord.currentTimes / miChatRecord.totalTimes
+                                          type:type];
+        self.timeLabel.text = [self timeTips:miChatRecord.totalTimes];
+        self.nextImageView.hidden = NO;
+    }else
+    {
+        [self.miChatProgressView resetProgress:0 type:type];
+        [self.miChatProgressView clearImage];
+        self.nextImageView.hidden = YES;
+    }
 }
 
-- (MGYMiChatPos)getTouchView:(CGPoint)point state:(MGYMiChatCellState)state
+- (MGYMiChatPos)getTouchView:(CGPoint)point
 {
-    if (state == MGYMiChatStateCellRight) {
-        point.x = point.x + CGRectGetWidth(self.bounds) / 2.0;
-    }
-    
     NSArray *viewArray = @[self.miChatProgressView, self.addImageView, self.nameLabel, self.warningImageView, self.nextImageView, self.subView1, self.subView3,];
     for (int i = 0; i < viewArray.count; i ++) {
         if ([[((UIView *)viewArray[i]).layer presentationLayer] hitTest:point]) {
@@ -284,6 +247,18 @@
     }
     
     return 0;
+}
+
+- (NSString *)timeTips:(NSInteger)times
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    dic[@1] = @"一周一次";
+    dic[@2] = @"一周两次";
+    dic[@3] = @"一周三次";
+    dic[@4] = @"一周四次";
+    dic[@5] = @"一周五次";
+    dic[@6] = @"一周六次";
+    return dic[@(times)];
 }
 
 /*

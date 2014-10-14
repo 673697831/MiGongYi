@@ -12,6 +12,7 @@
 		201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2219E6257600B14853 /* MGYMiChatRecord.m */; };
 		201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */; };
 		201EFE2A19E9098100B14853 /* MGYMiZhiShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2919E9098100B14853 /* MGYMiZhiShare.m */; };
+		201EFE2E19EC35DB00B14853 /* MGYMiChatMonsterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */; };
 		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
 		202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8C19D910D9000E072B /* MGYMiZhi.m */; };
 		202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9019D934EE000E072B /* MGYMiChatViewController.m */; };
@@ -83,6 +84,9 @@
 		201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatMonsterTableViewCell.m; sourceTree = "<group>"; };
 		201EFE2819E9098100B14853 /* MGYMiZhiShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhiShare.h; sourceTree = "<group>"; };
 		201EFE2919E9098100B14853 /* MGYMiZhiShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiShare.m; sourceTree = "<group>"; };
+		201EFE2B19EC07FE00B14853 /* MGYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYError.h; sourceTree = "<group>"; };
+		201EFE2C19EC35DB00B14853 /* MGYMiChatMonsterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatMonsterView.h; sourceTree = "<group>"; };
+		201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatMonsterView.m; sourceTree = "<group>"; };
 		202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYMiZhiViewController.h; path = Ui/GetRice/MiZhi/MGYMiZhiViewController.h; sourceTree = "<group>"; };
 		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYMiZhiViewController.m; path = Ui/GetRice/MiZhi/MGYMiZhiViewController.m; sourceTree = "<group>"; };
 		202E2A8B19D910D9000E072B /* MGYMiZhi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhi.h; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 				201EFE2219E6257600B14853 /* MGYMiChatRecord.m */,
 				201EFE2419E66DE100B14853 /* MGYMiChatMonsterTableViewCell.h */,
 				201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */,
+				201EFE2C19EC35DB00B14853 /* MGYMiChatMonsterView.h */,
+				201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */,
 			);
 			path = MiChat;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 				20E445A819B63030007B2900 /* BlackMagic.m */,
 				20A2D29819BAAFC0004C7697 /* DataManager.h */,
 				20A2D29919BAAFC0004C7697 /* DataManager.m */,
+				201EFE2B19EC07FE00B14853 /* MGYError.h */,
 			);
 			path = MiGongYi;
 			sourceTree = "<group>";
@@ -591,6 +598,7 @@
 				201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
 				2087138B19D17D0B0035B21B /* MGYProjectRecent.m in Sources */,
+				201EFE2E19EC35DB00B14853 /* MGYMiChatMonsterView.m in Sources */,
 				20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */,
 				201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */,
 				20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */,

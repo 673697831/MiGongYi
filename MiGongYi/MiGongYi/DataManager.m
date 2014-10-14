@@ -10,7 +10,10 @@
 #import "MGYTabBarController.h"
 #import "MGYProjectDetails.h"
 #import "MGYProjectRecent.h"
+#import "MGYMiChatRecord.h"
+#import "MGYError.h"
 #define fuck 1
+#define CustomErrorDomain @"MGYError"
 
 @interface DataManager ()
 {
@@ -18,6 +21,7 @@
     NSMutableArray *_itemList;
     NSMutableArray *_projectDetailsList;
     NSMutableArray *_projectRecentList;
+    NSMutableArray *_miChatRecordList;
 }
 @end
 
@@ -44,6 +48,8 @@
         _childList = [NSMutableArray new];
         _projectDetailsList = [NSMutableArray array];
         _projectRecentList = [NSMutableArray array];
+        _miChatRecordList = [NSMutableArray array];
+        self.canGainRiceFromMiChat = YES;
         //测试专用
         [self loadSetup];
         if (!self.uid) {
@@ -52,6 +58,11 @@
         {
             [self checkAccountDirectory];
         }
+//        MGYMiChatRecord *record1 = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:@{@"personName": @"abcde", @"totalTimes":@(3), @"currentTimes":@(1), @"phoneList":@[@(11111111111)]} error:nil];
+//        MGYMiChatRecord *record2 = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:@{@"personName": @"", @"totalTimes":@(0), @"currentTimes":@(0), @"phoneList":@[]} error:nil];
+//        NSArray *array = @[record1, record2];
+        //[self saveMiChatRecord:array];
+        [self loadMiChatRecord:nil failure:nil];
     }
     return self;
 }
@@ -123,7 +134,9 @@
 {
     NSString* fileName = [[self libraryPath] stringByAppendingString:@"/miZhi.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
-        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        _miZhi = [MTLJSONAdapter modelOfClass:[MGYMiZhi class]
+                               fromJSONDictionary:data[0]                                            error:nil];
     }
 }
 
@@ -174,7 +187,7 @@
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
         MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:data[0] error:nil];
-        NSLog(@"%@", riceFlow);
+        _myRiceFlow = riceFlow;
     }
 }
 
@@ -192,8 +205,44 @@
 {
     NSString* fileName = [[self filePath] stringByAppendingString:@"/favList.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
-        //NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
+        _myFavList = [MTLJSONAdapter modelOfClass:[MGYMyFavList class] fromJSONDictionary:data[0] error:nil];
     }
+}
+
+- (void)saveMiChatRecord:(NSArray *)miChatRecordList
+{
+    _miChatRecordList = [NSMutableArray arrayWithArray:miChatRecordList];
+    NSArray *array = [MTLJSONAdapter JSONArrayFromModels:miChatRecordList];
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/miChatRecordList.plist"];
+    [array writeToFile:fileName atomically:YES];
+}
+
+- (void)loadMiChatRecord:(MGYSuccess)success
+                 failure:(MGYFailure)failure
+{
+    NSArray *array;
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/miChatRecordList.plist"];
+    //[[NSFileManager defaultManager] removeItemAtPath:fileName error:nil];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        array = [MTLJSONAdapter modelsOfClass:[MGYMiChatRecord class]
+                                         fromJSONArray:[NSArray arrayWithContentsOfFile:fileName]
+                                                 error:nil];
+        if (success) {
+            success();
+        }
+    }
+    else
+    {
+        NSDictionary *dic = @{@"personName": @"", @"totalTimes":@(0), @"currentTimes":@(0), @"phoneList":@[], @"hasWarning": @NO};
+        array = [MTLJSONAdapter modelsOfClass:[MGYMiChatRecord class]
+                                fromJSONArray:@[dic,dic,dic,dic,dic,dic]
+                                        error:nil];
+        if (failure) {
+            failure(nil);
+        }
+    }
+    _miChatRecordList = [NSMutableArray arrayWithArray:array];
 }
 
 #pragma mark - 公益项目
@@ -494,6 +543,34 @@
         NSLog(@"Error: %@", error);
     }];
 
+}
+
+- (AFHTTPRequestOperation *)gainRiceFromMiChat:(MGYGainRiceSuccess)success
+                                       failure:(MGYFailure)failure
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/gain.php?type=chat"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    return [manager GET:url parameters:@{@"uid": @(self.uid)}
+                success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+                    NSInteger errorCode = [responseObject[@"error"] integerValue];
+                    if (errorCode == 0) {
+                        success([responseObject[@"data"][@"rice"] integerValue]);
+                    }else{
+                        NSError *mgyError = [NSError errorWithDomain:CustomErrorDomain
+                                                                code:errorCode
+                                                            userInfo:nil];
+                        failure(mgyError);
+                        if (errorCode == MGYMiChatErrorGainFull) {
+                            self.canGainRiceFromMiChat = NO;
+                        }
+
+                    }
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    failure(error);
+                }];
 }
 
 @end

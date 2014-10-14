@@ -12,6 +12,6 @@
 #import "MGYSubViewController.h"
 #import "MGYMiChatTableViewCell.h"
 
-@interface MGYMiChatViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource, MGYMiChatTableViewCellDelegate>
+@interface MGYMiChatViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate,MGYMiChatTableViewCellDelegate>
 
 @end

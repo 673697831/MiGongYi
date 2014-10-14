@@ -10,14 +10,15 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "MGYMiChatRecord.h"
+#import "MGYMiChatLabelView.h"
 
 @protocol MGYMiChatTableViewCellDelegate <NSObject>
 
-- (void)openABPeoplePicker:(ABPeoplePickerNavigationController *) picker;
+- (void)openABPeoplePicker:(NSIndexPath *)indexPath;
 - (void)closeABPeoplePicker:(void (^)(NSInteger totalTimes))finishCallback;
-- (void)finishCallback;
-- (void)resetOtherCellPosition:(id)cell;
-- (void)clickHeadView;
+- (void)deletePeople:(NSIndexPath *)indexPath;
+- (void)callPeople:(NSIndexPath *)indexPath;
+- (void)resetOtherCellPosition:(NSIndexPath *)indexPath;
 
 @end
 
@@ -26,12 +27,14 @@ typedef NS_ENUM(NSInteger, MGYMiChatCellState) {
     MGYMiChatStateCellRight,
 };
 
-@interface MGYMiChatTableViewCell : UITableViewCell<UIScrollViewDelegate, ABPeoplePickerNavigationControllerDelegate>
+@interface MGYMiChatTableViewCell : UITableViewCell<UIScrollViewDelegate>
 
 @property(nonatomic, weak) id<MGYMiChatTableViewCellDelegate> cellDelegate;
-@property(nonatomic, strong) MGYMiChatRecord *miChatRecord;
+@property(nonatomic, strong) NSIndexPath *indexPath;
 
 - (void)scrollEnabled:(BOOL)enabled;
 - (void)resetPosition;
+- (void)reset:(NSIndexPath *)indexPath
+       record:(MGYMiChatRecord *)record;
 
 @end

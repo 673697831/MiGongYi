@@ -25,14 +25,20 @@
 @property(nonatomic, assign) NSInteger uid;
 @property(nonatomic, readonly) MGYRiceFlow *myRiceFlow;
 @property(nonatomic, readonly) MGYMyFavList *myFavList;
+@property(nonatomic, readonly) NSArray* miChatRecordList;
+@property(nonatomic, assign) BOOL canGainRiceFromMiChat;
 
 typedef void (^MGYSuccess)();
+typedef void (^MGYGainRiceSuccess)(NSInteger);
 typedef void (^MGYFailure)(NSError *);
 
 + (DataManager *)shareInstance;
 
 - (MGYProjectDetails *)getProjectDetailsById:(NSInteger)parentId;
 - (NSArray *)getProjectRectById:(NSInteger)projectId;
+- (void)saveMiChatRecord:(NSArray *)miChatRecordList;
+- (void)loadMiChatRecord:(MGYSuccess)success
+                 failure:(MGYFailure)failure;
 - (AFHTTPRequestOperation *)requestForList:(MGYProjectType)type
                 start:(NSInteger)start
                 limit:(NSInteger)limit
@@ -64,6 +70,9 @@ typedef void (^MGYFailure)(NSError *);
                     success:(MGYSuccess)success
                     failure:(MGYFailure)failure;
 - (AFHTTPRequestOperation *)requestForMiZhi:(MGYSuccess)success
+                                    failure:(MGYFailure)failure;
+
+- (AFHTTPRequestOperation *)gainRiceFromMiChat:(MGYGainRiceSuccess)success
                                     failure:(MGYFailure)failure;
 
 

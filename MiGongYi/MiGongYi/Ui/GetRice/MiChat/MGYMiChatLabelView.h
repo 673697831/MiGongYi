@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGYMiChatTableViewCell.h"
-
-@class MGYMiZhiTableViewCell;
+#import "MGYMiChatProgressView.h"
+#import "MGYMiChatRecord.h"
+//#import "MGYMiChatTableViewCell.h"
+//
+//@class MGYMiZhiTableViewCell;
 
 typedef NS_ENUM(NSInteger, MGYMiChatPos) {
     MGYMiChatPosUnknow,
@@ -24,9 +26,8 @@ typedef NS_ENUM(NSInteger, MGYMiChatPos) {
 
 @interface MGYMiChatLabelView : UIView
 
-- (void)reset:(NSString *)peopleName;
-- (void)resetProgress:(CGFloat)progress;
-- (MGYMiChatPos)getTouchView:(CGPoint)point
-                       state:(MGYMiChatCellState)state;
+- (void)reset:(MGYMiChatRecord *)miChatRecord
+         type:(MGYMiChatProgressViewType)type;
+- (MGYMiChatPos)getTouchView:(CGPoint)point;
 
 @end

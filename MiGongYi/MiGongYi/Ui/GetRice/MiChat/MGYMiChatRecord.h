@@ -12,10 +12,10 @@
 
 @interface MGYMiChatRecord : MTLModel <MTLJSONSerializing>
 
-//@property(nonatomic, assign) ABRecordRef person;
 @property(nonatomic, copy) NSString *personName;
 @property(nonatomic, assign) NSInteger totalTimes;
 @property(nonatomic, assign) NSInteger currentTimes;
 @property(nonatomic, strong) NSArray *phoneList;
+@property(nonatomic, assign) BOOL completed;
 
 @end

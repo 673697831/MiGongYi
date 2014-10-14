@@ -43,7 +43,6 @@
 {
     // Configure the cell...
     MGYDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item Cell" forIndexPath:indexPath];
- 
     [cell reset:__array[indexPath.row]];
     if (!self.isLoading && __array.count - indexPath.row == 1 ) {
         self.isLoading = YES;

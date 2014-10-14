@@ -11,12 +11,12 @@
 
 @interface MGYMiChatPickerView ()
 
-@property(nonatomic, weak) UILabel *label1;
+@property(nonatomic, weak) UIView *view1;
 @property(nonatomic, weak) UIButton *buttonCansel;
 @property(nonatomic, weak) UIButton *buttonDone;
 @property(nonatomic, weak) UIPickerView *picker;
-@property(nonatomic, weak) UILabel *label2;
-@property(nonatomic, weak) UILabel *label3;
+@property(nonatomic, weak) UIView *view2;
+@property(nonatomic, weak) UIView *view3;
 @property(nonatomic, strong) NSArray *array;
 @property(nonatomic, assign) NSInteger selectedTimes;
 
@@ -29,18 +29,17 @@
     self = [super init];
     if (self) {
         
-        UILabel *label2 = [UILabel new];
-        label2.backgroundColor = [UIColor whiteColor];
-        [self addSubview:label2];
-        self.label2 = label2;
+        UIView *view2 = [UIView new];
+        view2.backgroundColor = [UIColor whiteColor];
+        [self addSubview:view2];
+        self.view2 = view2;
         
-        [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        [view2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self);
             make.left.equalTo(self);
             make.right.equalTo(self);
             make.height.mas_equalTo(200);
         }];
-        
         
         UIPickerView *picker = [UIPickerView new];
         picker.delegate = self;
@@ -55,12 +54,12 @@
             make.height.mas_equalTo(200);
         }];
         
-        UILabel *label1 = [UILabel new];
-        label1.backgroundColor = [UIColor blackColor];
-        [self addSubview:label1];
-        self.label1 = label1;
+        UIView *view1 = [UIView new];
+        view1.backgroundColor = [UIColor blackColor];
+        [self addSubview:view1];
+        self.view1 = view1;
         
-        [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        [view1 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.picker.mas_top);
             make.left.equalTo(self);
             make.right.equalTo(self);
@@ -76,10 +75,10 @@
         self.buttonCansel = buttonCansel;
         
         [buttonCansel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(label1);
+            make.height.equalTo(view1);
             make.width.mas_equalTo(80);
-            make.bottom.equalTo(label1);
-            make.left.equalTo(label1);
+            make.bottom.equalTo(view1);
+            make.left.equalTo(view1);
         }];
         
         UIButton *buttonDone = [UIButton new];
@@ -91,20 +90,20 @@
         self.buttonDone = buttonDone;
         
         [buttonDone mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(label1);
+            make.height.equalTo(view1);
             make.width.mas_equalTo(80);
-            make.bottom.equalTo(label1);
-            make.right.equalTo(label1);
+            make.bottom.equalTo(view1);
+            make.right.equalTo(view1);
         }];
         
-        UILabel *label3 = [UILabel new];
-        [self addSubview:label3];
-        label3.backgroundColor = [UIColor whiteColor];
-        label3.alpha = 0.8;
-        self.label3 = label3;
+        UIView *view3 = [UIView new];
+        [self addSubview:view3];
+        view3.backgroundColor = [UIColor whiteColor];
+        view3.alpha = 0.8;
+        self.view3 = view3;
         
-        [label3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.label1.mas_top);
+        [view3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view1.mas_top);
             make.top.equalTo(self);
             make.left.equalTo(self);
             make.right.equalTo(self);
@@ -116,36 +115,38 @@
     return self;
 }
 
+- (void)clickEvent:(id)sender
+{
+    if (self.finishCallback && self.buttonDone == sender) {
+        self.finishCallback(self.selectedTimes);
+    }
+    else
+    {
+        self.finishCallback(0);
+    }
+    
+    self.finishCallback = nil;
+}
+
+#pragma mark - pickerView delegate
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    //[self.picherViewDelegate totalTimes:[[self.array objectAtIndex:row] integerValue]];
     self.selectedTimes = [[self.array objectAtIndex:row] integerValue];
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return self.array.count;
-    //return 3;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    //return @([self.array objectAtIndex:row]);
     return [NSString stringWithFormat:@"%@", [self.array objectAtIndex:row]];
-    //return @"1";
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
-}
-
-- (void)clickEvent:(id)sender
-{
-    if (self.finishCallback && [sender tag] != 0) {
-        self.finishCallback(self.selectedTimes);
-    }
-    self.finishCallback = nil;
 }
 
 /*

@@ -24,7 +24,6 @@
 @property(nonatomic, assign) NSInteger selectedTableSourceIndex;
 @property(nonatomic, weak) UIView *statusBackgroundView;
 @property(nonatomic, weak) UIView *titleBackgroundView;
-@property(nonatomic, weak) UILabel *backLabel;
 @property(nonatomic, weak) UILabel *titleTextLabel;
 @property(nonatomic, weak) UITableView *tableView;
 

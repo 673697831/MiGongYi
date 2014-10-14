@@ -24,22 +24,11 @@
 
 @implementation MGYMiChatProgressView
 
-- (void)resetProgress:(CGFloat)progress
-{
-    self.progress = progress;
-    self.progressImageView.layer.mask = [self createMask];
-    self.progressLabel.layer.mask = [self createMask];
-}
-
-- (instancetype)initWithImage:(NSString *)backgroundImageName
-            progressImageName:(NSString *)progressImageName
+- (instancetype)init
 {
     self = [super init];
     if (self) {
         self.progress = 0;
-        //self.backgroundImageName = backgroundImageName;
-        //self.progressImageName = progressImageName;
-        
         UILabel *backgroundLabel = [UILabel new];
         backgroundLabel.layer.cornerRadius = 10;
         backgroundLabel.layer.backgroundColor = [UIColor colorWithHexString:@"dddddd"].CGColor;
@@ -53,17 +42,13 @@
         self.progressLabel = progressLabel;
         
         UIImageView *backgroundImageView = [UIImageView new];
-        [backgroundImageView setImage:[UIImage imageNamed:backgroundImageName]];
         [self addSubview:backgroundImageView];
         self.backgroundImageView = backgroundImageView;
         
         UIImageView *progressImageView = [UIImageView new];
-        [progressImageView setImage:[UIImage imageNamed:progressImageName]];
         [self addSubview:progressImageView];
         self.progressImageView = progressImageView;
-        
-        
-        
+         
         [backgroundLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
@@ -100,6 +85,36 @@
     CAShapeLayer* shape = [CAShapeLayer layer];
     shape.path = aPath.CGPath;
     return shape;
+}
+
+- (void)resetProgress:(CGFloat)progress
+                 type:(MGYMiChatProgressViewType)type
+{
+    [self layoutIfNeeded];
+    self.progress = progress;
+    [self.backgroundImageView setImage:[UIImage imageNamed:[self imageNameByType:type][0]]];
+    [self.progressImageView setImage:[UIImage imageNamed:[self imageNameByType:type][1]]];
+    self.progressImageView.layer.mask = [self createMask];
+    self.progressLabel.layer.mask = [self createMask];
+}
+
+- (void)clearImage
+{
+    [self.backgroundImageView setImage:nil];
+    [self.progressImageView setImage:nil];
+}
+
+#pragma mark - 样式表
+- (NSArray *)imageNameByType:(MGYMiChatProgressViewType)type
+{
+    NSArray *array = @[@[@"michatlittlemonster1-gray", @"michatlittlemonster1"],
+                       @[@"michatlittlemonster2-gray", @"michatlittlemonster2"],
+                       @[@"michatlittlemonster3-gray", @"michatlittlemonster3"],
+                       @[@"michatlittlemonster4-gray", @"michatlittlemonster4"],
+                       @[@"michatlittlemonster5-gray", @"michatlittlemonster5"],
+                       @[@"michatlittlemonster6-gray", @"michatlittlemonster6"],
+                       ];
+    return array[type];
 }
 
 /*

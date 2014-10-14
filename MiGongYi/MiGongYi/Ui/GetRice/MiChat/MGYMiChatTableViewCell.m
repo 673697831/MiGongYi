@@ -7,7 +7,6 @@
 //
 
 #import "MGYMiChatTableViewCell.h"
-#import "MGYMiChatLabelView.h"
 #import "Masonry.h"
 
 @interface MGYMiChatTableViewCell ()
@@ -15,7 +14,6 @@
 @property(nonatomic, weak) UIScrollView *cellScrollView;
 @property(nonatomic, weak) MGYMiChatLabelView *lableView;
 @property(nonatomic, assign) MGYMiChatCellState cellState;
-@property(nonatomic, weak) UIWebView *callWebview;
 
 @end
 
@@ -26,7 +24,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        
         [self initializer];
     }
     return self;
@@ -34,13 +31,6 @@
 
 - (void)initializer
 {
-    //UIScrollView *cellScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), _height)];
-    
-//    MGYMiChatButtonView *rightButtonView = [MGYMiChatButtonView new];
-//    rightButtonView.backgroundColor = [UIColor yellowColor];
-//    [self addSubview:rightButtonView];
-//    self.rightButtonView = rightButtonView;
-    
     MGYMiChatLabelView *lableView = [MGYMiChatLabelView new];
     [self addSubview:lableView];
     self.lableView = lableView;
@@ -59,12 +49,6 @@
     [cellScrollView addGestureRecognizer:tapGestureRecognizer];
     self.cellScrollView = cellScrollView;
     
-    
-    
-    UIWebView *callWebview = [UIWebView new];
-    [self addSubview:callWebview];
-    self.callWebview = callWebview;
-    
     self.cellState = MGYMiChatStateCellLeft;
     
     [self setup];
@@ -77,28 +61,28 @@
     }];
     
     [self.lableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.cellScrollView);
-        make.centerY.equalTo(self.cellScrollView);
-        make.height.equalTo(self.cellScrollView);
+        make.left.equalTo(self);
+        make.centerY.equalTo(self);
+        make.height.equalTo(self);
         make.width.equalTo(self).with.multipliedBy(2.0);
     }];
 }
 
 - (void)scrollViewPressed:(id)sender {
-    if (!self.miChatRecord) {
-        ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-        picker.peoplePickerDelegate = self;
-        [self.cellDelegate openABPeoplePicker:picker];
+    if (!self.cellScrollView.scrollEnabled) {
+        [self.cellDelegate openABPeoplePicker:self.indexPath];
         return;
     }
     
+    
     CGPoint point = [sender locationInView:self];
-    MGYMiChatPos chatPos = [self.lableView getTouchView:point
-                                                       state:self.cellState];
+    if (self.cellState == MGYMiChatStateCellRight) {
+        point.x = point.x + CGRectGetWidth(self.bounds);
+    }
+    MGYMiChatPos chatPos = [self.lableView getTouchView:point];
     
     if (chatPos != MGYMiChatPosNextImageView && self.cellState == MGYMiChatStateCellLeft) {
-        NSURL *telURL =[NSURL URLWithString:@"tel:10086"];
-        [self.callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+        [self.cellDelegate callPeople:self.indexPath];
         return;
     }
     
@@ -121,23 +105,23 @@
     if (chatPos == MGYMiChatPossubView3) {
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"你点击了删除" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alter show];
-        self.miChatRecord = nil;
-        [self.lableView reset:@"名字"];
         self.cellScrollView.scrollEnabled = NO;
         [self.cellScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         self.cellState = MGYMiChatStateCellLeft;
+        [self.cellDelegate deletePeople:self.indexPath];
         return;
     }
     
 }
 
+#pragma mark - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGRect frame = self.lableView.frame;
     frame.origin.x =  -scrollView.contentOffset.x;
     self.lableView.frame = frame;
 
     if (self.cellState == MGYMiChatStateCellRight) {
-        [self.cellDelegate resetOtherCellPosition:self];
+        [self.cellDelegate resetOtherCellPosition:self.indexPath];
     }
     
 }
@@ -145,7 +129,7 @@
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     if (targetContentOffset -> x == self.bounds.size.width) {
-        //[self.cellDelegate resetOtherCellPosition:self];
+        [self.cellDelegate resetOtherCellPosition:self.indexPath];
         self.cellState = MGYMiChatStateCellRight;
     }else if(targetContentOffset -> x == 0)
     {
@@ -153,61 +137,24 @@
     }
 }
 
+#pragma mark - 显示数据
 - (void)scrollEnabled:(BOOL)enabled
 {
     self.cellScrollView.scrollEnabled = enabled;
-}
-
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
-{
-    //[self dismissViewControllerAnimated:YES completion:NULL];
-    [self.cellDelegate closeABPeoplePicker:nil];
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
-{
-    ABMultiValueRef phoneNumberProperty = ABRecordCopyValue(person, kABPersonPhoneProperty);
-    NSArray* phoneNumberArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(phoneNumberProperty));
-    for(int index = 0; index< [phoneNumberArray count]; index++){
-        //NSString *phoneNumber = [phoneNumberArray objectAtIndex:index];
-        //NSLog(@"%@", phoneNumber);
-    }
-    NSString *firstName = CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
-    NSString *lastName = CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
-    NSString *name = @"";
-    if (lastName) {
-        name = [name stringByAppendingString:lastName];
-    }
-    if (firstName) {
-        name = [name stringByAppendingString:firstName];
-    }
-    if (name) {
-
-    }
-    
-    [self.cellDelegate closeABPeoplePicker:^(NSInteger totalTimes) {
-            //NSLog(@"qqqqqqqq %@ %d", self.person, totalTimes);
-        if (totalTimes && person && phoneNumberArray &&name && totalTimes > 0) {
-            self.miChatRecord = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:@{@"personName":name,@"totalTimes":@(totalTimes), @"currentTimes":@0, @"phoneList":phoneNumberArray} error:nil];
-            [self.cellDelegate finishCallback];
-            
-            [self.lableView reset:name];
-            self.cellScrollView.scrollEnabled = YES;
-        }
-    }];
-    //[self dismissViewControllerAnimated:YES completion:NULL];
-    return NO;
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
-{
-    return NO;
 }
 
 - (void)resetPosition
 {
     [self.cellScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     self.cellState = MGYMiChatStateCellLeft;
+}
+
+- (void)reset:(NSIndexPath *)indexPath
+       record:(MGYMiChatRecord *)record
+{
+    self.indexPath = indexPath;
+    [self.lableView reset:record type:indexPath.row];
+    self.cellScrollView.scrollEnabled = record.totalTimes > 0 ? YES:NO;
 }
 
 
