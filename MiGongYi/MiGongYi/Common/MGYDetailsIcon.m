@@ -31,32 +31,6 @@
     }];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        UILabel *numLabel = [UILabel new];
-        self.numLabel = numLabel;
-        [self addSubview:self.numLabel];
-        self.numLabel.textColor = [UIColor colorWithHexString:@"464646"];
-        self.numLabel.font = [UIFont systemFontOfSize:16];
-        
-        UIImageView *imageView = [UIImageView new];
-        self.imageView = imageView;
-        [self addSubview:self.imageView];
-        
-        UILabel *itemLabel = [UILabel new];
-        self.itemLabel = itemLabel;
-        [self addSubview:self.itemLabel];
-        self.itemLabel.textColor = [UIColor colorWithHexString:@"bababa"];
-        self.itemLabel.font = [UIFont systemFontOfSize:10];
-        
-        [self setup];
-    }
-    return self;
-}
-
 - (instancetype)initWithType:(MGYDetailsIconFontColorType)type
 {
     self = [super init];
@@ -92,7 +66,6 @@
     if (text) {
         self.itemLabel.text = text;
     }
-    [self layoutIfNeeded];
 }
 
 #pragma mark - 字体颜色样式

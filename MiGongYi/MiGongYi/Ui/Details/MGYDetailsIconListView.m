@@ -113,7 +113,6 @@
     [self.riceIconView resetDetails:[NSString stringWithFormat:@"%d", riceNum] path:nil text:nil];
     [self.joinIconView resetDetails:[NSString stringWithFormat:@"%d", joinNum] path:nil text:nil];
     [self.favIconView resetDetails:[NSString stringWithFormat:@"%d", favNum] path:nil text:nil];
-    [self layoutIfNeeded];
 }
 
 /*

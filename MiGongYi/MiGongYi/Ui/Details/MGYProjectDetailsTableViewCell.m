@@ -146,7 +146,7 @@
         [self addSubview:titleLabel];
         self.titleLabel = titleLabel;
         
-        MGYDetailsRelationshipView *relationshipView = [MGYDetailsRelationshipView new];
+        MGYDetailsRelationshipView *relationshipView = [[MGYDetailsRelationshipView alloc] initWithFrame:CGRectZero];
         [self addSubview:relationshipView];
         self.relationshipView = relationshipView;
         

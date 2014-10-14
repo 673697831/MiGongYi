@@ -131,7 +131,6 @@
     {
         self.finishLabel.hidden = YES;
     }
-    [self layoutIfNeeded];
 }
 
 
