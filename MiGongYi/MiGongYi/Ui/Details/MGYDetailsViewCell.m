@@ -82,7 +82,7 @@
         UILabel *finishLabel = [UILabel new];
         self.finishLabel = finishLabel;
         [self.photoView addSubview:self.finishLabel];
-        self.finishLabel.text = @"捐赠已完成";
+        self.finishLabel.text = NSLocalizedString(@"捐赠已完成", @"捐赠已完成");
         self.finishLabel.textColor = [UIColor whiteColor];
         self.finishLabel.backgroundColor = [UIColor grayColor];
         self.finishLabel.alpha = 0.5;
@@ -93,7 +93,7 @@
         UILabel *title = [UILabel new];
         self.title = title;
         [self.contentView addSubview:self.title];
-        self.title.text = @"一碗粮, 关爱一个流浪的生命";
+        //self.title.text = @"一碗粮, 关爱一个流浪的生命";
         self.title.textColor = [UIColor colorWithHexString:@"464646"];
         self.title.font = [UIFont systemFontOfSize:13];
         

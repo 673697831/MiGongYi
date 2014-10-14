@@ -13,6 +13,8 @@
 		201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */; };
 		201EFE2A19E9098100B14853 /* MGYMiZhiShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2919E9098100B14853 /* MGYMiZhiShare.m */; };
 		201EFE2E19EC35DB00B14853 /* MGYMiChatMonsterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */; };
+		201EFE3A19ED55AA00B14853 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 201EFE3619ED55AA00B14853 /* InfoPlist.strings */; };
+		201EFE3B19ED55AA00B14853 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 201EFE3819ED55AA00B14853 /* Localizable.strings */; };
 		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
 		202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8C19D910D9000E072B /* MGYMiZhi.m */; };
 		202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9019D934EE000E072B /* MGYMiChatViewController.m */; };
@@ -87,6 +89,8 @@
 		201EFE2B19EC07FE00B14853 /* MGYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYError.h; sourceTree = "<group>"; };
 		201EFE2C19EC35DB00B14853 /* MGYMiChatMonsterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatMonsterView.h; sourceTree = "<group>"; };
 		201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatMonsterView.m; sourceTree = "<group>"; };
+		201EFE3719ED55AA00B14853 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		201EFE3919ED55AA00B14853 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYMiZhiViewController.h; path = Ui/GetRice/MiZhi/MGYMiZhiViewController.h; sourceTree = "<group>"; };
 		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYMiZhiViewController.m; path = Ui/GetRice/MiZhi/MGYMiZhiViewController.m; sourceTree = "<group>"; };
 		202E2A8B19D910D9000E072B /* MGYMiZhi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhi.h; sourceTree = "<group>"; };
@@ -224,6 +228,15 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		201EFE3519ED55AA00B14853 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				201EFE3619ED55AA00B14853 /* InfoPlist.strings */,
+				201EFE3819ED55AA00B14853 /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
 		202E2A8619D8F929000E072B /* GetRice */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +330,7 @@
 		2085C85B19B6280C00E9FA3B /* MiGongYi */ = {
 			isa = PBXGroup;
 			children = (
+				201EFE3519ED55AA00B14853 /* en.lproj */,
 				203D636B19CB027D00116ECA /* zh-Hans.lproj */,
 				20A2D29E19BE97C6004C7697 /* Model */,
 				20A2D27C19B9DB89004C7697 /* Common */,
@@ -530,7 +544,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				201EFE3B19ED55AA00B14853 /* Localizable.strings in Resources */,
 				2085C86819B6280C00E9FA3B /* Images.xcassets in Resources */,
+				201EFE3A19ED55AA00B14853 /* InfoPlist.strings in Resources */,
 				203D637119CB027D00116ECA /* Localizable.strings in Resources */,
 				203D637019CB027D00116ECA /* InfoPlist.strings in Resources */,
 			);
@@ -647,6 +663,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		201EFE3619ED55AA00B14853 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				201EFE3719ED55AA00B14853 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		201EFE3819ED55AA00B14853 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				201EFE3919ED55AA00B14853 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		203D636C19CB027D00116ECA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

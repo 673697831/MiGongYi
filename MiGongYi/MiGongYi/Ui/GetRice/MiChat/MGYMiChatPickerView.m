@@ -69,7 +69,8 @@
         UIButton *buttonCansel = [UIButton new];
         [buttonCansel addTarget:self action:@selector(clickEvent:) forControlEvents:UIControlEventTouchUpInside];
         buttonCansel.tag = 0;
-        [buttonCansel setTitle:@"Cansel" forState:UIControlStateNormal];
+        [buttonCansel setTitle:NSLocalizedString(@"Cansel", @"Cansel")
+                      forState:UIControlStateNormal];
         [buttonCansel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:buttonCansel];
         self.buttonCansel = buttonCansel;
@@ -84,7 +85,8 @@
         UIButton *buttonDone = [UIButton new];
         [buttonDone addTarget:self action:@selector(clickEvent:) forControlEvents:UIControlEventTouchUpInside];
         buttonDone.tag = 1;
-        [buttonDone setTitle:@"Done" forState:UIControlStateNormal];
+        [buttonDone setTitle:NSLocalizedString(@"Done", @"Done")
+                    forState:UIControlStateNormal];
         [buttonDone setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:buttonDone];
         self.buttonDone = buttonDone;

@@ -102,7 +102,7 @@
         UILabel *deleteLabel = [UILabel new];
         deleteLabel.textColor = [UIColor whiteColor];
         deleteLabel.font = [UIFont systemFontOfSize:18];
-        deleteLabel.text = @"删除";
+        deleteLabel.text = NSLocalizedString(@"删除", @"删除");
         [self addSubview:deleteLabel];
         self.deleteLabel = deleteLabel;
         
@@ -252,12 +252,12 @@
 - (NSString *)timeTips:(NSInteger)times
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    dic[@1] = @"一周一次";
-    dic[@2] = @"一周两次";
-    dic[@3] = @"一周三次";
-    dic[@4] = @"一周四次";
-    dic[@5] = @"一周五次";
-    dic[@6] = @"一周六次";
+    dic[@1] = NSLocalizedString(@"一周一次", @"一周一次");
+    dic[@2] = NSLocalizedString(@"一周两次", @"一周两次");
+    dic[@3] = NSLocalizedString(@"一周三次", @"一周三次");
+    dic[@4] = NSLocalizedString(@"一周四次", @"一周四次");
+    dic[@5] = NSLocalizedString(@"一周五次", @"一周五次");
+    dic[@6] = NSLocalizedString(@"一周六次", @"一周六次");
     return dic[@(times)];
 }
 

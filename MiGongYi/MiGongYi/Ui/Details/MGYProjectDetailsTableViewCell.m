@@ -161,7 +161,7 @@
         [self addSubview:readmoreButton];
         readmoreButton.layer.borderWidth = 1;
         readmoreButton.layer.borderColor = [UIColor colorWithHexString:@"f16400"].CGColor;
-        [readmoreButton setTitle:@"阅读更多"
+        [readmoreButton setTitle:NSLocalizedString(@"阅读更多", @"阅读更多")
                         forState:UIControlStateNormal];
         readmoreButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [readmoreButton setTitleColor:[UIColor colorWithHexString:@"f16400"]
@@ -198,7 +198,7 @@
         [self addSubview:self.lineLabel3];
         
         UILabel *updateLabel = [UILabel new];
-        updateLabel.text = @"近况更新";
+        updateLabel.text = NSLocalizedString(@"近况更新", @"近况更新");
         updateLabel.font = [UIFont systemFontOfSize:14];
         updateLabel.textColor = [UIColor colorWithHexString:@"838383"];
         [self addSubview:updateLabel];
@@ -230,9 +230,9 @@
     
     [self.progressView resetProgress:details.progress];
     
-    NSString *st1 = @"目前为止已经有";
+    NSString *st1 = NSLocalizedString(@"目前为止已经有", @"目前为止已经有");
     NSString *st2 = [NSString stringWithFormat:@"%d", details.helpMemberNum];
-    NSString *st3 = @"帮助过我";
+    NSString *st3 = NSLocalizedString(@"帮助过我", @"帮助过我");
     //NSLog(@"%d %d %d", st1.length, st2.length, st3.length);
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", st1, st2, st3]];
     [str addAttribute:NSForegroundColorAttributeName

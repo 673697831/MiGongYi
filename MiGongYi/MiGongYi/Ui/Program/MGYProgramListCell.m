@@ -123,7 +123,7 @@
     [self.contentView addSubview:self.finishLabel];
     self.finishLabel.backgroundColor = [UIColor grayColor];
     self.finishLabel.alpha = 0.5;
-    finishLabel.text = @"捐赠已完成";
+    finishLabel.text = NSLocalizedString(@"捐赠已完成", @"捐赠已完成");
     finishLabel.textAlignment = NSTextAlignmentCenter;
     finishLabel.textColor = [UIColor whiteColor];
     self.finishLabel.hidden = YES;
@@ -159,7 +159,7 @@
     self.miliLabel = miliLabel;
     [self.contentView addSubview:self.miliLabel];
     self.miliLabel.textColor = [UIColor colorWithHexString:@"bababa"];
-    self.miliLabel.text = @"捐赠米粒(粒)";
+    self.miliLabel.text = NSLocalizedString(@"捐赠米粒(粒)", @"捐赠米粒(粒)");
     self.miliLabel.font = [UIFont systemFontOfSize:6];
     
     UIImageView *peopleView = [UIImageView new];
@@ -178,7 +178,7 @@
     self.poppleLable = peopleLabel;
     [self.contentView addSubview:self.poppleLable];
     self.poppleLable.textColor = [UIColor colorWithHexString:@"bababa"];
-    self.poppleLable.text = @"参与人数(人)";
+    self.poppleLable.text = NSLocalizedString(@"参与人数(人)", @"参与人数(人)");
     self.poppleLable.font = [UIFont systemFontOfSize:6];
     
     UIImageView *miliView = [UIImageView new];
@@ -186,7 +186,7 @@
     [self.miliView setImage:[UIImage imageNamed:@"page_Rice_normal"]];
     [self.contentView addSubview:self.miliView];
     
-    MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 274/2, 6)];
+    MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectZero];
     self.progressLabel = progressLabel;
     progressLabel.backgroundColor = [UIColor clearColor];
     //progressLabel.layer.cornerRadius = 3;
@@ -209,11 +209,9 @@
     self.peopleNum.text = [NSString stringWithFormat:@"%d", args.joinMemberNum];
     if (args.status == MGYProjectStatusFinished) {
         self.finishLabel.hidden = NO;
-        //self.finishText.hidden = NO;
     }else
     {
         self.finishLabel.hidden = YES;
-        //self.finishText.hidden = YES;
     }
 }
 

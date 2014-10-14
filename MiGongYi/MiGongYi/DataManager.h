@@ -75,5 +75,8 @@ typedef void (^MGYFailure)(NSError *);
 - (AFHTTPRequestOperation *)gainRiceFromMiChat:(MGYGainRiceSuccess)success
                                     failure:(MGYFailure)failure;
 
+//- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
+//                                    failure:(MGYFailure)failure;
+
 
 @end

@@ -86,7 +86,7 @@
     self.exchangeButtonView = exchangeButtonView;
     
     UILabel *exchangeLabel = [UILabel new];
-    exchangeLabel.text = @"立即兑换";
+    exchangeLabel.text = NSLocalizedString(@"立即兑换", @"立即兑换");
     exchangeLabel.font = [UIFont systemFontOfSize:16];
     exchangeLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:exchangeLabel];
@@ -193,7 +193,7 @@
     self.favButton.selected = self.details.fav == 1 ? YES : NO;
     self.messageButton.selected = self.details.commentExist == 1 ? YES : NO;
     if (self.details.status == 0) {
-        self.exchangeLabel.text = @"项目已结束";
+        self.exchangeLabel.text = NSLocalizedString(@"项目已结束", @"项目已结束");
     }
     
 }

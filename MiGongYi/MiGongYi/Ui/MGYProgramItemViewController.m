@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"公益项目";
+    self.title = NSLocalizedString(@"公益项目", @"公益项目");
     __array = [NSMutableArray array];
     
     UITableView *tableView = [UITableView new];

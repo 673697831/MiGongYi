@@ -22,6 +22,7 @@
     NSMutableArray *_projectDetailsList;
     NSMutableArray *_projectRecentList;
     NSMutableArray *_miChatRecordList;
+    NSMutableArray *_weibo;
 }
 @end
 
@@ -572,5 +573,26 @@
                     failure(error);
                 }];
 }
+
+//- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
+//                                    failure:(MGYFailure)failure
+//{
+//    NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSDictionary *parameters = @{@"access_token":self.token, @"count":@(200)};
+//    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
+//        NSArray *array = responseObject[@"statuses"];
+//        for (NSDictionary *dic in array) {
+//            NSDictionary *user = dic[@"user"];
+//            [_array addObject:user[@"profile_image_url"]];
+//        }
+//        
+//        
+//        [self.tableView reloadData];
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
+//}
 
 @end

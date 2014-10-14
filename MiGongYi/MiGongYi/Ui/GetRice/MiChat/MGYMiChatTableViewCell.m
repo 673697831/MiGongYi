@@ -103,7 +103,11 @@
     }
     
     if (chatPos == MGYMiChatPossubView3) {
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"你点击了删除" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"你点击了删除", @"你点击了删除")
+                                                        message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
         [alter show];
         self.cellScrollView.scrollEnabled = NO;
         [self.cellScrollView setContentOffset:CGPointMake(0, 0) animated:YES];

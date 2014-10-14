@@ -46,13 +46,17 @@
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     
-    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[[UIImage imageNamed:@"tabbar_Child_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Child_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem1", @"留守儿童")
+                                                              image:[[UIImage imageNamed:@"tabbar_Child_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Child_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     tab1BarItem.tag = 0;
-    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[[UIImage imageNamed:@"tabbar_Get rice_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_get rice_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem2", @"获得大米")
+                                                              image:[[UIImage imageNamed:@"tabbar_Get rice_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_get rice_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     tab2BarItem.tag = 1;
-    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[[UIImage imageNamed:@"tabbar_Commonweal_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Commonweal_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab3BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem3", @"公益项目")
+                                                              image:[[UIImage imageNamed:@"tabbar_Commonweal_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Commonweal_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     tab3BarItem.tag = 2;
-    UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[[UIImage imageNamed:@"tabbar_Me_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Me_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tab4BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem4", @"我")
+                                                              image:[[UIImage imageNamed:@"tabbar_Me_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Me_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     tab4BarItem.tag = 3;
     UITabBar *tabbar = [UITabBar new];
     //tabbar.frame = self.tabBarController.tabBar.frame;

@@ -148,7 +148,7 @@
     UILabel *itemlabel1 = [self labelFactory];
     self.itemlabel1 = itemlabel1;
     [self addSubview:self.itemlabel1];
-    self.itemlabel1.text = @"捐赠方";
+    self.itemlabel1.text = NSLocalizedString(@"捐赠方", @"捐赠方");
     
     UIImageView *donorImageView = [UIImageView new];
     [self addSubview:donorImageView];
@@ -166,7 +166,7 @@
     UILabel *itemlabel2 = [self labelFactory];
     self.itemlabel2 = itemlabel2;
     [self addSubview:self.itemlabel2];
-    self.itemlabel2.text = @"接受方";
+    self.itemlabel2.text = NSLocalizedString(@"接受方", @"接受方");
     
     UIImageView *recipientImageView = [UIImageView new];
     [self addSubview:recipientImageView];
@@ -184,7 +184,7 @@
     UILabel *itemlabel3 = [self labelFactory];
     self.itemlabel3 = itemlabel3;
     [self addSubview:self.itemlabel3];
-    self.itemlabel3.text = @"捐赠量";
+    self.itemlabel3.text = NSLocalizedString(@"捐赠量", @"捐赠量");
     
     UILabel *numLabel = [self labelFactory];
     self.numLabel = numLabel;

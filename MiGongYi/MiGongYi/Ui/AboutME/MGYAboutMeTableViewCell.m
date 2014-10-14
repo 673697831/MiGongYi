@@ -152,21 +152,21 @@
         [self addSubview:countLabel];
         self.countLabel = countLabel;
         
-        UIButton *riceButton = [self buttonFactory:@"拥有米粒"
+        UIButton *riceButton = [self buttonFactory:NSLocalizedString(@"拥有米粒", @"拥有米粒")
                                        normalImage:@"tab_rice_normal"
                                      selectedImage:@"tab_rice_selected"
                                                tag:MGYAboutMeSourceTypeRiceFlow];
         self.riceButton = riceButton;
         [self addSubview:self.riceButton];
         
-        UIButton *friendButton = [self buttonFactory:@"好友列表"
+        UIButton *friendButton = [self buttonFactory:NSLocalizedString(@"好友列表", @"好友列表")
                                          normalImage:@"tab_friends_normal"
                                        selectedImage:@"tab_friends_selected"
                                                  tag:MGYAboutMeSourceTypeFriendList];
         self.friendButton = friendButton;
         [self addSubview:self.friendButton];
         
-        UIButton *favButton = [self buttonFactory:@"收藏项目"
+        UIButton *favButton = [self buttonFactory:NSLocalizedString(@"收藏项目", @"收藏项目")
                                       normalImage:@"tabbar_ fav_normal"
                                     selectedImage:@"tabbar_ fav_selected"
                                               tag:MGYAboutMeSourceTypeFavList];

@@ -164,11 +164,11 @@
     }
     
     NSString *st1 = [NSString stringWithFormat:@"%d", hour];
-    NSString *st2 = @"时";
+    NSString *st2 = NSLocalizedString(@"时", @"米知时间显示");
     NSString *st3 = [NSString stringWithFormat:@"%d", minute];
-    NSString *st4 = @"分";
+    NSString *st4 = NSLocalizedString(@"分", @"米知时间显示");
     NSString *st5 = [NSString stringWithFormat:@"%d", second];
-    NSString *st6 = @"秒";
+    NSString *st6 = NSLocalizedString(@"秒", @"米知时间显示");
     //NSLog(@"%d %d %d", st1.length, st2.length, st3.length);
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@%@%@", st1, st2, st3, st4, st5, st6]];
     NSInteger lengthCount = 0;
