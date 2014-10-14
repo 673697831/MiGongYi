@@ -12,13 +12,11 @@
 
 @interface MGYMiChatProgressView ()
 
-@property(nonatomic, weak) UILabel *backgroundLabel;
-@property(nonatomic, weak) UILabel *progressLabel;
+@property(nonatomic, weak) UIView *backgroundView;
+@property(nonatomic, weak) UIView *progressView;
 @property(nonatomic, weak) UIImageView *backgroundImageView;
 @property(nonatomic, weak) UIImageView *progressImageView;
 @property(nonatomic, assign) CGFloat progress;
-//@property(nonatomic, copy) NSString *backgroundImageName;
-//@property(nonatomic, copy) NSString *progressImageName;
 
 @end
 
@@ -29,17 +27,17 @@
     self = [super init];
     if (self) {
         self.progress = 0;
-        UILabel *backgroundLabel = [UILabel new];
-        backgroundLabel.layer.cornerRadius = 10;
-        backgroundLabel.layer.backgroundColor = [UIColor colorWithHexString:@"dddddd"].CGColor;
-        [self addSubview:backgroundLabel];
-        self.backgroundLabel = backgroundLabel;
+        UIView *backgroundView = [UIView new];
+        backgroundView.layer.cornerRadius = 10;
+        backgroundView.layer.backgroundColor = [UIColor colorWithHexString:@"dddddd"].CGColor;
+        [self addSubview:backgroundView];
+        self.backgroundView = backgroundView;
         
-        UILabel *progressLabel = [UILabel new];
-        progressLabel.layer.cornerRadius = 10;
-        progressLabel.layer.backgroundColor = [UIColor colorWithHexString:@"fd9025"].CGColor;
-        [self addSubview:progressLabel];
-        self.progressLabel = progressLabel;
+        UIView *progressView = [UIView new];
+        progressView.layer.cornerRadius = 10;
+        progressView.layer.backgroundColor = [UIColor colorWithHexString:@"fd9025"].CGColor;
+        [self addSubview:progressView];
+        self.progressView = progressView;
         
         UIImageView *backgroundImageView = [UIImageView new];
         [self addSubview:backgroundImageView];
@@ -49,11 +47,11 @@
         [self addSubview:progressImageView];
         self.progressImageView = progressImageView;
          
-        [backgroundLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         
-        [progressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         
@@ -66,7 +64,7 @@
         }];
         
         progressImageView.layer.mask = [self createMask];
-        progressLabel.layer.mask = [self createMask];
+        progressView.layer.mask = [self createMask];
     }
     
     return self;
@@ -95,7 +93,7 @@
     [self.backgroundImageView setImage:[UIImage imageNamed:[self imageNameByType:type][0]]];
     [self.progressImageView setImage:[UIImage imageNamed:[self imageNameByType:type][1]]];
     self.progressImageView.layer.mask = [self createMask];
-    self.progressLabel.layer.mask = [self createMask];
+    self.progressView.layer.mask = [self createMask];
 }
 
 - (void)clearImage

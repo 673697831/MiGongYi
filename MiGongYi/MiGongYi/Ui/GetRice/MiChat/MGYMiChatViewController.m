@@ -156,6 +156,9 @@
         [self.tableView reloadData];
     }
     
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath]
+//                          withRowAnimation:UITableViewRowAnimationBottom];
+    
 }
 
 - (void)resetOtherCellPosition:(NSIndexPath *)indexPath
