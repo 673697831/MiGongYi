@@ -28,6 +28,7 @@
 - (void)resetProgress:(NSInteger)percent
 {
     self.progress = percent;
+    [self layoutIfNeeded];
     [self setNeedsDisplay];
 }
 

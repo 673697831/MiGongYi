@@ -18,9 +18,7 @@
 @property(nonatomic, weak) UILabel *title;
 @property(nonatomic, weak) MGYProgressView *progressLabel;
 @property(nonatomic, weak) MGYDetailsIconListView *iconListView;
-@property(nonatomic, weak) UILabel *line1;
-@property(nonatomic, weak) UILabel *line2;
-@property(nonatomic, weak) UILabel *buttomLabel;
+@property(nonatomic, weak) UIView *buttomView;
 @property(nonatomic, weak) UILabel *finishLabel;
 @end
 
@@ -49,13 +47,12 @@
     
     [self.iconListView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.progressLabel.mas_bottom).with.offset(4);
-        //make.left.equalTo(self.progressLabel.mas_left);
         make.centerX.equalTo(self);
         make.width.mas_equalTo(552/2);
         make.height.mas_equalTo(48);
     }];
     
-    [self.buttomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.buttomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom);
         make.left.equalTo(self.contentView.mas_left);
         make.right.equalTo(self.contentView.mas_right);
@@ -98,35 +95,21 @@
         [self.contentView addSubview:self.title];
         self.title.text = @"一碗粮, 关爱一个流浪的生命";
         self.title.textColor = [UIColor colorWithHexString:@"464646"];
-        self.title.font = [UIFont fontWithName:@"Helvetica"
-                                          size:13];
+        self.title.font = [UIFont systemFontOfSize:13];
         
-        MGYProgressView *progressLabel = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
+        MGYProgressView *progressLabel = [MGYProgressView new];
         self.progressLabel = progressLabel;
         progressLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.progressLabel];
         
-        
-        MGYDetailsIconListView *iconListView = [[MGYDetailsIconListView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 104/2)];
-        //iconListView.backgroundColor = [UIColor orangeColor];
+        MGYDetailsIconListView *iconListView = [MGYDetailsIconListView new];
         [self addSubview:iconListView];
         self.iconListView = iconListView;
         
-        UILabel *line1 = [UILabel new];
-        self.line1 = line1;
-        [self.contentView addSubview:self.line1];
-        self.line1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
-        
-        UILabel *line2 = [UILabel new];
-        self.line2 = line2;
-        [self.contentView addSubview:self.line2];
-        self.line2.backgroundColor = [UIColor colorWithHexString:@"bababa"];
-        
-        UILabel *buttomLabel = [UILabel new];
-        self.buttomLabel = buttomLabel;
-        [self.contentView addSubview:self.buttomLabel];
-        self.buttomLabel.backgroundColor = [UIColor colorWithHexString:@"ebebeb"];
-        //tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"page_Fav_normal2"] tag:0];
+        UIView *buttomView = [UIView new];
+        self.buttomView = buttomView;
+        [self.contentView addSubview:self.buttomView];
+        self.buttomView.backgroundColor = [UIColor colorWithHexString:@"ebebeb"];
         
         [self setup];
         
@@ -148,13 +131,8 @@
     {
         self.finishLabel.hidden = YES;
     }
+    [self layoutIfNeeded];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

@@ -20,8 +20,8 @@
 
 @property(nonatomic, weak) UIImageView* photoView;
 @property(nonatomic, weak) UILabel *nameLabel;
-@property(nonatomic, weak) UILabel *lineLabel1;
-@property(nonatomic, weak) UILabel *lineLabel2;
+@property(nonatomic, weak) UIView *lineView1;
+@property(nonatomic, weak) UIView *lineView2;
 @property(nonatomic, weak) MGYProgressView *progressLabel;
 @property(nonatomic, weak) UIImageView *miliView;
 @property(nonatomic, weak) UILabel *miliNum;
@@ -50,15 +50,15 @@
         make.centerX.equalTo(self.contentView.mas_centerX);
     }];
     
-    [self.lineLabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLabel.mas_bottom).with.offset(1);
         make.centerX.equalTo(self.mas_centerX);
         make.width.mas_equalTo(45);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(1/[UIScreen mainScreen].scale);
     }];
     
     [self.progressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lineLabel1.mas_bottom).with.offset(2);
+        make.top.equalTo(self.lineView1.mas_bottom).with.offset(2);
         make.centerX.equalTo(self.contentView.mas_centerX);
         make.width.mas_equalTo(274/2);
         make.height.mas_equalTo(6);
@@ -70,9 +70,9 @@
         
     }];
     
-    [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(17);
-        make.width.mas_equalTo(1);
+        make.width.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.centerX.equalTo(self.contentView.mas_centerX);
         make.top.equalTo(self.progressLabel.mas_bottom).with.offset(4);
     }];
@@ -89,7 +89,7 @@
     
     [self.peopleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.progressLabel.mas_bottom).with.offset(4);
-        make.left.equalTo(self.lineLabel2.mas_right).with.offset(1);
+        make.left.equalTo(self.lineView2.mas_right).with.offset(1);
     }];
     
     [self.peopleNum mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,16 +109,6 @@
         make.height.mas_equalTo(40);
     }];
 }
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 
 - (void)drwaCell
 {
@@ -145,18 +135,18 @@
     self.nameLabel.font = [UIFont systemFontOfSize:10];
     [self.contentView addSubview:self.nameLabel];
     
-    UILabel *lineLabel1 = [UILabel new];
-    self.lineLabel1 = lineLabel1;
-    self.lineLabel1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
-    [self.contentView addSubview:self.lineLabel1];
+    UIView *lineView1 = [UIView new];
+    self.lineView1 = lineView1;
+    self.lineView1.backgroundColor = [UIColor colorWithHexString:@"bababa"];
+    [self.contentView addSubview:self.lineView1];
     
     
     //[self createProgress:self.progressLabel Tag:0 Width:274/2];
     
-    UILabel *lineLabel2 = [UILabel new];
-    self.lineLabel2 = lineLabel2;
-    [self.contentView addSubview:self.lineLabel2];
-    self.lineLabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    UIView *lineView2 = [UIView new];
+    self.lineView2 = lineView2;
+    [self.contentView addSubview:self.lineView2];
+    self.lineView2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     
     UILabel *miliNum = [UILabel new];
     self.miliNum = miliNum;

@@ -24,66 +24,10 @@
 
 @implementation MGYProgramChildrenViewController
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    MGYProgramListCell *cell = (MGYProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Children Cell" forIndexPath:indexPath];
-    //NSInteger index = indexPath.row + indexPath.section * 2;
-//    if ( index >= __array.count) {
-//        return cell;
-//    }
-    
-    if (indexPath.row >= __array.count) {
-        return cell;
-    }
-    [cell reset:__array[indexPath.row]];
-//    
-//    if (__array.count - index < 2*2) {
-//        if (self.isLoading) {
-//            return cell;
-//        }
-//        self.isLoading = YES;
-//        //[[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
-//    }
-    
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return __array.count ;
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    //return floor(__array.count/2);
-    //return 10;
-    //return __array.count;
-    return 1;
-    
-}
-
--(void) refreshView:(UIRefreshControl *)refreshControl
-{
-    self.isLoading = YES;
-    [[DataManager shareInstance] requestForList:2
-                                          start:0
-                                          limit:10
-                                          reset:YES
-                                        success:^{
-                                            NSArray *array = [DataManager shareInstance].childList;
-                                            [self resetData:array reset:YES];
-                                        }
-                                        failure:^(NSError *error) {
-        
-                                        }];
-    //[refreshControl endRefreshing];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"留守儿童", "留守儿童");
-    NSLocalizedString(@"我日", nil);
     __array = [NSMutableArray array];
     CGFloat width = self.view.bounds.size.width;
     CGFloat height = self.view.bounds.size.height;
@@ -103,7 +47,7 @@
     self.childrenCollectionView.dataSource = self;
     [self.childrenCollectionView registerClass:[MGYProgramListCell class] forCellWithReuseIdentifier:@"Children Cell"];
     [self.view addSubview:self.childrenCollectionView];
-   
+    
     [self.childrenCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -122,12 +66,37 @@
                                             [self resetData:array reset:YES];
                                         }
                                         failure:^(NSError *error) {
-        
+                                            
                                         }];
     self.automaticallyAdjustsScrollViewInsets = YES;
     
     // Do any additional setup after loading the view.
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setSelectedIndex:0];
+    
+}
+
+-(void)refreshView:(UIRefreshControl *)refreshControl
+{
+    self.isLoading = YES;
+    [[DataManager shareInstance] requestForList:2
+                                          start:0
+                                          limit:10
+                                          reset:YES
+                                        success:^{
+                                            NSArray *array = [DataManager shareInstance].childList;
+                                            [self resetData:array reset:YES];
+                                        }
+                                        failure:^(NSError *error) {
+        
+                                        }];
+    //[refreshControl endRefreshing];
+}
+
 
 - (void)resetData:(NSMutableArray *)array reset:(BOOL)reset
 {
@@ -140,6 +109,38 @@
     [self.refreshControl endRefreshing];
 }
 
+#pragma mark - collectionView delegate
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MGYProgramListCell *cell = (MGYProgramListCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Children Cell" forIndexPath:indexPath];
+    if (indexPath.row >= __array.count) {
+        return cell;
+    }
+    [cell reset:__array[indexPath.row]];
+    //
+    //    if (__array.count - index < 2*2) {
+    //        if (self.isLoading) {
+    //            return cell;
+    //        }
+    //        self.isLoading = YES;
+    //        //[[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
+    //    }
+    
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return __array.count ;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+    
+}
+
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MGYProject *project =__array[indexPath.row];
@@ -148,12 +149,6 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self setSelectedIndex:0];
-    
-}
 
 //- (void)viewDidAppear:(BOOL)animated
 //{

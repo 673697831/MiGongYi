@@ -152,15 +152,24 @@
         [self addSubview:countLabel];
         self.countLabel = countLabel;
         
-        UIButton *riceButton = [self buttonFactory:@"拥有米粒" normalImage:@"tab_rice_normal" selectedImage:@"tab_rice_selected" tag:0];
+        UIButton *riceButton = [self buttonFactory:@"拥有米粒"
+                                       normalImage:@"tab_rice_normal"
+                                     selectedImage:@"tab_rice_selected"
+                                               tag:MGYAboutMeSourceTypeRiceFlow];
         self.riceButton = riceButton;
         [self addSubview:self.riceButton];
         
-        UIButton *friendButton = [self buttonFactory:@"好友列表" normalImage:@"tab_friends_normal" selectedImage:@"tab_friends_selected" tag:1];
+        UIButton *friendButton = [self buttonFactory:@"好友列表"
+                                         normalImage:@"tab_friends_normal"
+                                       selectedImage:@"tab_friends_selected"
+                                                 tag:MGYAboutMeSourceTypeFriendList];
         self.friendButton = friendButton;
         [self addSubview:self.friendButton];
         
-        UIButton *favButton = [self buttonFactory:@"收藏项目" normalImage:@"tabbar_ fav_normal" selectedImage:@"tabbar_ fav_selected" tag:2];
+        UIButton *favButton = [self buttonFactory:@"收藏项目"
+                                      normalImage:@"tabbar_ fav_normal"
+                                    selectedImage:@"tabbar_ fav_selected"
+                                              tag:MGYAboutMeSourceTypeFavList];
         self.favButton = favButton;
         [self addSubview:self.favButton];
         [UIImage imageNamed:@"tab_friends_selected"];
@@ -175,7 +184,7 @@
 - (UIButton *)buttonFactory:(NSString *)title
                 normalImage:(NSString *)normalImage
               selectedImage:(NSString *)selectedImage
-                        tag:(NSInteger) tag
+                        tag:(MGYAboutMeSourceType)tag
 {
     UIButton *button = [UIButton new];
     [button setImage :[UIImage imageNamed:normalImage] forState:UIControlStateNormal];
@@ -198,7 +207,7 @@
     [self.clickDelegate click:[sender tag]];
 }
 
-- (void)selectButton:(NSInteger)index
+- (void)selectButton:(MGYAboutMeSourceType)index
 {
     for (UIButton *button in self.listButton) {
         if (index == button.tag) {
@@ -217,13 +226,6 @@
 - (void)resetNum:(NSInteger)number
 {
     self.countLabel.text = [NSString stringWithFormat:@"%d", number];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

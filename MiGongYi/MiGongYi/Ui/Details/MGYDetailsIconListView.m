@@ -15,22 +15,12 @@
 @property(nonatomic, weak) MGYDetailsIcon *riceIconView;
 @property(nonatomic, weak) MGYDetailsIcon *joinIconView;
 @property(nonatomic, weak) MGYDetailsIcon *favIconView;
-@property(nonatomic, weak) UILabel *label1;
-@property(nonatomic, weak) UILabel *label2;
+@property(nonatomic, weak) UIView *view1;
+@property(nonatomic, weak) UIView *view2;
 
 @end
 
 @implementation MGYDetailsIconListView
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        [self initSubView];
-    }
-    return self;
-}
 
 - (instancetype)init
 {
@@ -43,39 +33,36 @@
 
 - (void)initSubView
 {
-    MGYDetailsIcon *riceIconView = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/3/2, 104/2)];
-    [riceIconView resetDetails:@"355580"
+    MGYDetailsIcon *riceIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconFontColorType2];
+    [riceIconView resetDetails:@"0"
                           path:@"page_Rice_normal2"
                           text:@"捐赠米粒"];
-    [riceIconView resetFontColor:@"676767" itemColor:@"838383"];
     [self addSubview:riceIconView];
     self.riceIconView = riceIconView;
     
-    MGYDetailsIcon *joinIconView = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/3/2, 104/2)];
+    MGYDetailsIcon *joinIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconFontColorType2];
     [joinIconView resetDetails:@"355580"
                           path:@"page_People_normal2"
                           text:@"参与人数"];
-    [joinIconView resetFontColor:@"676767" itemColor:@"838383"];
     [self addSubview:joinIconView];
     self.joinIconView = joinIconView;
     
-    MGYDetailsIcon *favIconView = [[MGYDetailsIcon alloc] initWithFrame:CGRectMake(0, 0, 552/3/2, 104/2)];
+    MGYDetailsIcon *favIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconFontColorType2];
     [favIconView resetDetails:@"355580"
                          path:@"page_Fav_normal2"
                          text:@"收藏次数"];
-    [favIconView resetFontColor:@"676767" itemColor:@"838383"];
     [self addSubview:favIconView];
     self.favIconView = favIconView;
     
-    UILabel *label1 = [UILabel new];
-    [self addSubview:label1];
-    label1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-    self.label1 = label1;
+    UIView *view1 = [UIView new];
+    [self addSubview:view1];
+    view1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    self.view1 = view1;
     
-    UILabel *label2 = [UILabel new];
-    [self addSubview:label2];
-    label2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-    self.label2 = label2;
+    UIView *view2 = [UIView new];
+    [self addSubview:view2];
+    view2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    self.view2 = view2;
     
     [self setup];
 }
@@ -86,32 +73,35 @@
         make.centerX.equalTo(self);
         make.centerY.equalTo(self);
         make.height.equalTo(self.mas_height);
-        make.width.mas_equalTo(self.bounds.size.width / 3);
+        make.width.equalTo(self).with.multipliedBy(1.0/3);
+        //make.width.mas_equalTo(self.bounds.size.width / 3);
     }];
     
     [self.riceIconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.mas_height);
-        make.width.mas_equalTo(self.bounds.size.width / 3);
+        make.width.equalTo(self).with.multipliedBy(1.0/3);
+        //make.width.mas_equalTo(self.bounds.size.width / 3);
         make.centerY.equalTo(self);
         make.right.equalTo(self.joinIconView.mas_left);
     }];
     
     [self.favIconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.mas_height);
-        make.width.mas_equalTo(self.bounds.size.width / 3);
+        make.width.equalTo(self).with.multipliedBy(1.0/3);
+        //make.width.mas_equalTo(self.bounds.size.width / 3);
         make.centerY.equalTo(self);
         make.left.equalTo(self.joinIconView.mas_right);
     }];
     
-    [self.label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(1);
+    [self.view1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.height.equalTo(self);
         make.centerY.equalTo(self);
         make.left.equalTo(self.joinIconView);
     }];
     
-    [self.label2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(1);
+    [self.view2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.height.equalTo(self);
         make.centerY.equalTo(self);
         make.right.equalTo(self.joinIconView);
@@ -123,6 +113,7 @@
     [self.riceIconView resetDetails:[NSString stringWithFormat:@"%d", riceNum] path:nil text:nil];
     [self.joinIconView resetDetails:[NSString stringWithFormat:@"%d", joinNum] path:nil text:nil];
     [self.favIconView resetDetails:[NSString stringWithFormat:@"%d", favNum] path:nil text:nil];
+    [self layoutIfNeeded];
 }
 
 /*

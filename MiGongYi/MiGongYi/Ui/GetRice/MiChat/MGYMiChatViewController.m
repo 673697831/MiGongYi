@@ -33,7 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     //    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     //    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
     //        if (granted) {
@@ -57,6 +56,10 @@
     _cellArray = [NSMutableArray array];
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero
                                                           style:UITableViewStyleGrouped];
+    //tableView适配
+    //-35是在tableview中的y值为35
+    //-49是因为navigationBar的高度  !!!!!!被挡住
+    tableView.contentInset = UIEdgeInsetsMake(- 35, 0, -49, 0);
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerClass:[MGYMiChatTableViewCell class] forCellReuseIdentifier:@"ChatTableView Cell"];

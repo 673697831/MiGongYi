@@ -74,6 +74,13 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view bringSubviewToFront:self.titleView];
+    [self.view bringSubviewToFront:self.barView];
+}
+
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
     self.barView.selectedItem = self.barView.items[selectedIndex];
@@ -83,13 +90,6 @@
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
     [self.tabBarController setSelectedIndex:item.tag];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view bringSubviewToFront:self.titleView];
-    [self.view bringSubviewToFront:self.barView];
 }
 
 /*

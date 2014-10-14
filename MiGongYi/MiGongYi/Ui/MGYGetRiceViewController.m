@@ -25,6 +25,68 @@
 
 @implementation MGYGetRiceViewController
 
+- (void)viewDidLoad
+{
+    
+    [super viewDidLoad];
+    self.title = @"获取大米";
+    
+    UIImageView *backgroundImageView = [UIImageView new];
+    [self.view addSubview:backgroundImageView];
+    [backgroundImageView setImage:[UIImage imageNamed:@"page_background_normal"]];
+    self.backgroundImageView = backgroundImageView;
+    
+    UIImageView *knowledgeImageView = [UIImageView new];
+    [self.view addSubview:knowledgeImageView];
+    [knowledgeImageView setImage:[UIImage imageNamed:@"page_knowledge_selected"]];
+    self.knowledgeImageView = knowledgeImageView;
+    
+    UIImageView *manImageView = [UIImageView new];
+    [self.view addSubview:manImageView];
+    [manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
+    manImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.manImageView = manImageView;
+    
+    UIButton *boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
+    self.boxingView = boxingView;
+    [self.view addSubview:self.boxingView];
+    
+    UIButton *shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
+    self.shoeView = shoeView;
+    [self.view addSubview:self.shoeView];
+    
+    UIButton *knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
+    self.knowView = knowView;
+    [self.view addSubview:self.knowView];
+    
+    UIButton *phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
+    self.phoneView = phoneView;
+    [self.view addSubview:self.phoneView];
+    
+    [self setup];
+    [self setSelectedIndex:1];
+    
+    // Do any additional setup after loading the view.
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self removeAllAnimation];
+    [self resumeAllAnimation];
+    [self animationBegin];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.knowledgeImageView.hidden = YES;
+    [self showAllButton];
+    [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
+    [super viewWillAppear:animated];
+    [self setSelectedIndex:1];
+}
+
 - (void)setup
 {
     
@@ -132,56 +194,6 @@
             break;
     }
     
-}
-
-- (void)viewDidLoad
-{
-    
-    [super viewDidLoad];
-    self.title = @"获取大米";
-    
-    UIImageView *backgroundImageView = [UIImageView new];
-    [self.view addSubview:backgroundImageView];
-    [backgroundImageView setImage:[UIImage imageNamed:@"page_background_normal"]];
-    self.backgroundImageView = backgroundImageView;
-    
-    UIImageView *knowledgeImageView = [UIImageView new];
-    [self.view addSubview:knowledgeImageView];
-    [knowledgeImageView setImage:[UIImage imageNamed:@"page_knowledge_selected"]];
-    self.knowledgeImageView = knowledgeImageView;
-    
-    UIImageView *manImageView = [UIImageView new];
-    [self.view addSubview:manImageView];
-    [manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
-    manImageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.manImageView = manImageView;
-
-    UIButton *boxingView = [self creatMoveButton:@"button_boxing_normal" tag:1];
-    self.boxingView = boxingView;
-    [self.view addSubview:self.boxingView];
-    
-    UIButton *shoeView = [self creatMoveButton:@"button_aerobic exercise_normal" tag:2];
-    self.shoeView = shoeView;
-    [self.view addSubview:self.shoeView];
-    
-    UIButton *knowView = [self creatMoveButton:@"button_knowledge_normal" tag:3];
-    self.knowView = knowView;
-    [self.view addSubview:self.knowView];
-    
-    UIButton *phoneView = [self creatMoveButton:@"button_call_normal" tag:4];
-    self.phoneView = phoneView;
-    [self.view addSubview:self.phoneView];
-    
-    [self setup];
-    [self setSelectedIndex:1];
-    
-//    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1
-//                                                    target:self
-//                                                  selector:@selector(pushView)
-//                                                  userInfo:nil
-//                                                   repeats:YES];
-    
-    // Do any additional setup after loading the view.
 }
 
 -(void)touchesPoint:(UITapGestureRecognizer *)gestureRecognizer
@@ -456,23 +468,6 @@
     NSNumber *time2 = [NSNumber numberWithFloat:([time1 floatValue] + 0.5)];
     return @[@0, time1, time2, @1];
    
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self removeAllAnimation];
-    [self resumeAllAnimation];
-    [self animationBegin];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    self.knowledgeImageView.hidden = YES;
-    [self showAllButton];
-    [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
-    [super viewWillAppear:animated];
-    [self setSelectedIndex:1];
 }
 
 - (void)showAllButton

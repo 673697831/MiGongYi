@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MGYAboutMeSourceType) {
+    MGYAboutMeSourceTypeRiceFlow,
+    MGYAboutMeSourceTypeFriendList,
+    MGYAboutMeSourceTypeFavList,
+};
+
 @protocol MGYAboutMeTableViewCellDelegate <NSObject>
 
-- (void)click:(NSInteger)type;
+- (void)click:(MGYAboutMeSourceType)type;
 
 @end
 

@@ -57,10 +57,30 @@
     return self;
 }
 
-- (void)resetFontColor:(NSString *)numberColor itemColor:(NSString *)itemColor
+- (instancetype)initWithType:(MGYDetailsIconFontColorType)type
 {
-    self.numLabel.textColor = [UIColor colorWithHexString:numberColor];
-    self.itemLabel.textColor = [UIColor colorWithHexString:itemColor];
+    self = [super init];
+    if (self) {
+        // Initialization code
+        UILabel *numLabel = [UILabel new];
+        self.numLabel = numLabel;
+        [self addSubview:self.numLabel];
+        self.numLabel.textColor = [UIColor colorWithHexString:[self numberColorByType:type]];
+        self.numLabel.font = [UIFont systemFontOfSize:16];
+        
+        UIImageView *imageView = [UIImageView new];
+        self.imageView = imageView;
+        [self addSubview:self.imageView];
+        
+        UILabel *itemLabel = [UILabel new];
+        self.itemLabel = itemLabel;
+        [self addSubview:self.itemLabel];
+        self.itemLabel.textColor = [UIColor colorWithHexString:[self itemColorByType:type]];
+        self.itemLabel.font = [UIFont systemFontOfSize:10];
+        
+        [self setup];
+    }
+    return self;
 }
 
 - (void)resetDetails:(NSString *)num path:(NSString *)path text:(NSString *)text
@@ -72,7 +92,20 @@
     if (text) {
         self.itemLabel.text = text;
     }
-    
+    [self layoutIfNeeded];
+}
+
+#pragma mark - 字体颜色样式
+- (NSString *)numberColorByType:(MGYDetailsIconFontColorType)type
+{
+    NSArray *array = @[@"464646", @"676767"];
+    return array[type];
+}
+
+- (NSString *)itemColorByType:(MGYDetailsIconFontColorType)type
+{
+    NSArray *array = @[@"bababa", @"838383"];
+    return array[type];
 }
 
 /*

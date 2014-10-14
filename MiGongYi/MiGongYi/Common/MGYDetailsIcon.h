@@ -8,17 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MGYDetailsIconFontColorType) {
+    MGYDetailsIconFontColorType1,
+    MGYDetailsIconFontColorType2,
+};
+
 @interface MGYDetailsIcon : UIView
 
 @property(nonatomic, weak) UILabel *numLabel;
 @property(nonatomic, weak) UIImageView *imageView;
 @property(nonatomic, weak) UILabel *itemLabel;
 
-//- (void)resetArgs:(NSDictionary *)args;
+
+- (instancetype)initWithType:(MGYDetailsIconFontColorType)type;
 - (void)resetDetails:(NSString *)num
                 path:(NSString *)path
                 text:(NSString *)text;
 
-- (void)resetFontColor:(NSString *)numberColor
-             itemColor:(NSString *)itemColor;
 @end

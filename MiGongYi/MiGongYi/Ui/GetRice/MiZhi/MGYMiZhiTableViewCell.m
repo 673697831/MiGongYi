@@ -231,6 +231,16 @@
                 range:NSMakeRange(start, limit)];
 }
 
+- (void)reset:(MGYMiZhi *)miZhi
+{
+    self.miZhi = miZhi;
+    [self.dailyImgView sd_setImageWithURL:[NSURL URLWithString:miZhi.dailyImg]];
+    self.titleLabel.text = miZhi.dailyTitle;
+    [self.contentLable loadHTMLString:miZhi.content baseURL:nil];
+    
+}
+
+#pragma mark - UIWebView delegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     
@@ -239,15 +249,6 @@
     CGRect frame = webView.frame;
     frame.size.height = height;
     webView.frame = frame;
-
-}
-
-- (void)reset:(MGYMiZhi *)miZhi
-{
-    self.miZhi = miZhi;
-    [self.dailyImgView sd_setImageWithURL:[NSURL URLWithString:miZhi.dailyImg]];
-    self.titleLabel.text = miZhi.dailyTitle;
-    [self.contentLable loadHTMLString:miZhi.content baseURL:nil];
     
 }
 

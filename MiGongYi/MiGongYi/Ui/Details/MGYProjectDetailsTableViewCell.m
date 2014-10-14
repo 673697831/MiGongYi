@@ -173,13 +173,12 @@
         self.linelabel1 = linelabel1;
         [self addSubview:self.linelabel1];
         
-        //MGYProgressView *progressView = [[MGYProgressView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 10)];
         MGYProgressView *progressView = [MGYProgressView new];
         [self addSubview:progressView];
         progressView.backgroundColor = [UIColor clearColor];
         self.progressView = progressView;
         
-        MGYDetailsIconListView *iconListView = [[MGYDetailsIconListView alloc] initWithFrame:CGRectMake(0, 0, 552/2, 104/2)];
+        MGYDetailsIconListView *iconListView = [MGYDetailsIconListView new];
         [self addSubview:iconListView];
         self.iconListView = iconListView;
         
@@ -259,13 +258,6 @@
     
     self.helpNumLabel.attributedText = str;
 
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 + (CGFloat)minHeight

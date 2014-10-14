@@ -46,93 +46,6 @@
     return self;
 }
 
-- (void)requestForProjectRecent:(NSInteger)start
-{
-    self.isLoading = YES;
-    [[DataManager shareInstance] requestForProjectRecent:self.projectId
-                                                   start:start
-                                                   limit:1
-                                                 success:^{
-                                                     self.isLoading = NO;
-                                                     NSArray *array = [[DataManager shareInstance]getProjectRectById:self.projectId];
-                                                     //NSLog(@"%@", array);
-                                                     [_developmentList removeAllObjects];
-                                                     [_developmentList addObjectsFromArray:array];
-                                                     [self.tableView reloadData];
-                                                 }
-                                                 failure:^(NSError *error) {
-                                                     
-                                                 }];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (indexPath.row == 0) {
-        MGYProjectDetailsTableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableView Cell"
-                                               forIndexPath:indexPath];
-        if (self.details) {
-            [cell reset:self.details];
-        }
-        
-        if (self.developmentList.count == 0 && !self.isLoading && self.details) {
-            [self requestForProjectRecent:0];
-        }
-        return cell;
-        
-    }else
-    {
-        MGYProjectDevelopmentsTableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"developmentsTableView Cell"
-                                               forIndexPath:indexPath];
-        if (self.developmentList[indexPath.row - 1]) {
-            MGYProjectRecent *projectRecent = self.developmentList[indexPath.row - 1];
-            [cell reset:projectRecent];
-        }
-        
-        if (self.developmentList.count == indexPath.row && !self.isLoading) {
-            [self requestForProjectRecent:indexPath.row];
-        }
-        return cell;
-    }
-    
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.developmentList.count + 1;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat height = 0;
-    height = height + tableView.bounds.size.width * 0.7;
-    
-    if (indexPath.row == 0) {
-        height = height + [MGYProjectDetailsTableViewCell minHeight];
-        
-        if (self.details) {
-            height = height + [self labelHeightWithString:self.details.summary];
-        }
-    }
-    else
-    {
-        height = height + [MGYProjectDevelopmentsTableViewCell minHeight];
-        
-        if (self.developmentList[indexPath.row - 1]) {
-            MGYProjectRecent *projectRecent = self.developmentList[indexPath.row - 1];
-            height = height + [self labelHeightWithString:projectRecent.summary];
-        }
-    }
-    return height;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -289,6 +202,94 @@
 {
     CGSize labelSize = [string boundingRectWithSize:CGSizeMake(552/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
     return labelSize.height;
+}
+
+- (void)requestForProjectRecent:(NSInteger)start
+{
+    self.isLoading = YES;
+    [[DataManager shareInstance] requestForProjectRecent:self.projectId
+                                                   start:start
+                                                   limit:1
+                                                 success:^{
+                                                     self.isLoading = NO;
+                                                     NSArray *array = [[DataManager shareInstance]getProjectRectById:self.projectId];
+                                                     //NSLog(@"%@", array);
+                                                     [_developmentList removeAllObjects];
+                                                     [_developmentList addObjectsFromArray:array];
+                                                     [self.tableView reloadData];
+                                                 }
+                                                 failure:^(NSError *error) {
+                                                     
+                                                 }];
+}
+
+#pragma mark - tableView delegate
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.row == 0) {
+        MGYProjectDetailsTableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableView Cell"
+                                               forIndexPath:indexPath];
+        if (self.details) {
+            [cell reset:self.details];
+        }
+        
+        if (self.developmentList.count == 0 && !self.isLoading && self.details) {
+            [self requestForProjectRecent:0];
+        }
+        return cell;
+        
+    }else
+    {
+        MGYProjectDevelopmentsTableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"developmentsTableView Cell"
+                                               forIndexPath:indexPath];
+        if (self.developmentList[indexPath.row - 1]) {
+            MGYProjectRecent *projectRecent = self.developmentList[indexPath.row - 1];
+            [cell reset:projectRecent];
+        }
+        
+        if (self.developmentList.count == indexPath.row && !self.isLoading) {
+            [self requestForProjectRecent:indexPath.row];
+        }
+        return cell;
+    }
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.developmentList.count + 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 0;
+    height = height + tableView.bounds.size.width * 0.7;
+    
+    if (indexPath.row == 0) {
+        height = height + [MGYProjectDetailsTableViewCell minHeight];
+        
+        if (self.details) {
+            height = height + [self labelHeightWithString:self.details.summary];
+        }
+    }
+    else
+    {
+        height = height + [MGYProjectDevelopmentsTableViewCell minHeight];
+        
+        if (self.developmentList[indexPath.row - 1]) {
+            MGYProjectRecent *projectRecent = self.developmentList[indexPath.row - 1];
+            height = height + [self labelHeightWithString:projectRecent.summary];
+        }
+    }
+    return height;
 }
 
 /*
