@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MGYBaseViewController.h"
 
-@interface MGYProgramItemViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource>
-
-- (void)resetData:(NSArray *)array reset:(BOOL)reset;
+@interface MGYProgramItemViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource, MGYBaseViewControllerProtocol>
 
 @end

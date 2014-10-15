@@ -10,6 +10,6 @@
 #import "MGYBaseViewController.h"
 #import "MGYAboutMeTableViewCell.h"
 
-@interface MGYAboutMeViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource, MGYAboutMeTableViewCellDelegate>
+@interface MGYAboutMeViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource, MGYAboutMeTableViewCellDelegate, MGYBaseViewControllerProtocol>
 
 @end

@@ -14,6 +14,7 @@
 #import "MGYRiceFlow.h"
 #import "MGYMyFavList.h"
 #import "MGYMiZhi.h"
+#import "MGYError.h"
 
 @interface DataManager : NSObject
 

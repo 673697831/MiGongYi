@@ -26,6 +26,7 @@
 @property(nonatomic, weak) UIView *titleBackgroundView;
 @property(nonatomic, weak) UILabel *titleTextLabel;
 @property(nonatomic, weak) UITableView *tableView;
+@property(nonatomic, weak) UIRefreshControl *refreshControl;
 
 @end
 
@@ -47,7 +48,13 @@
     [tableView registerClass:[MGYAboutMeTableViewCell class] forCellReuseIdentifier:@"section0 Cell"];
     self.tableView = tableView;
     
-    [self refreshRiceFlow];
+    //增加刷新控件
+    UIRefreshControl *refreshControl = [UIRefreshControl new];
+    [refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    self.refreshControl = refreshControl;
+    
+    [self refreshRiceFlow:YES];
     // Do any additional setup after loading the view.
 }
 
@@ -59,16 +66,19 @@
     
 }
 
-- (void)refreshRiceFlow
+- (void)refreshRiceFlow:(BOOL)reset
 {
-    if (!self.riceFlow) {
+    if (reset) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[DataManager shareInstance] requestForRiceFlow:0 limit:10 success:^() {
             self.riceFlow = [DataManager shareInstance].myRiceFlow;
             [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             
         } failure:^(NSError *error) {
-            self.riceFlow = [DataManager shareInstance].myRiceFlow;
+            //self.riceFlow = [DataManager shareInstance].myRiceFlow;
             [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
     }else
     {
@@ -76,40 +86,62 @@
     }
 }
 
-- (void)refreshFriendList
+- (void)refreshFriendList:(BOOL)reset
 {
     [self.tableView reloadData];
 }
 
-- (void)refreshFavList
+- (void)refreshFavList:(BOOL)reset
 {
-    if (!self.favList) {
+    if (reset) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[DataManager shareInstance] requestForMyFavlist:0 limit:10 success:^() {
             self.favList = [DataManager shareInstance].myFavList;
             [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         } failure:^(NSError *error) {
-            self.favList = [DataManager shareInstance].myFavList;
+            //self.favList = [DataManager shareInstance].myFavList;
             [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
     }else
     {
         [self.tableView reloadData];
     }
 
+}
+
+#pragma mark - MGYBaseViewControllerProtocol
+- (void)refreshView:(UIRefreshControl *)refreshControl
+{
+    MGYAboutMeSourceType type = self.selectedTableSourceType;
+    if (type == MGYAboutMeSourceTypeRiceFlow) {
+        [self refreshRiceFlow:YES];
+    }else if (type == MGYAboutMeSourceTypeFriendList)
+    {
+        [self refreshFriendList:YES];
+    }else
+    {
+        [self refreshFavList:YES];
+    }
+    [refreshControl endRefreshing];
 }
 
 #pragma mark - MGYMiChatTableViewCellDelegate
 - (void)click:(MGYAboutMeSourceType)type
 {
     self.selectedTableSourceType = type;
+    BOOL reset;
     if (type == MGYAboutMeSourceTypeRiceFlow) {
-        [self refreshRiceFlow];
+        reset = self.riceFlow ? NO: YES;
+        [self refreshRiceFlow:reset];
     }else if (type == MGYAboutMeSourceTypeFriendList)
         {
-            [self refreshFriendList];
+            [self refreshFriendList:YES];
         }else
         {
-            [self refreshFavList];
+            reset = self.favList ? NO: YES;
+            [self refreshFavList:reset];
         }
 }
 

@@ -11,5 +11,7 @@
 #import "MGYProject.h"
 
 @interface MGYDetailsViewCell : UITableViewCell
--(void)reset:(MGYProject *)args;
+
+- (void)reset:(MGYProject *)args;
+
 @end

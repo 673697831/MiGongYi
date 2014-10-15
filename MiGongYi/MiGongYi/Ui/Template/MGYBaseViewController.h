@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYBaseProgressView.h"
+#import "MBProgressHUD.h"
+
+@protocol MGYBaseViewControllerProtocol <NSObject>
+
+- (void)refreshView:(UIRefreshControl *)refreshControl;
+
+@end
 
 @interface MGYBaseViewController : UIViewController<UITabBarDelegate>
 

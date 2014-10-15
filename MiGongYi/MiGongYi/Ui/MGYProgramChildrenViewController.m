@@ -17,7 +17,7 @@
 {
     NSMutableArray *__array;
 }
-@property(nonatomic, assign) BOOL isLoading;
+@property(nonatomic, assign) BOOL isEnd;//已显示全部
 @property(nonatomic, weak) UICollectionView *childrenCollectionView;
 @property(nonatomic, weak) UIRefreshControl *refreshControl;
 @end
@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.isEnd = false;
     self.title = NSLocalizedString(@"留守儿童", "留守儿童");
     __array = [NSMutableArray array];
     CGFloat width = self.view.bounds.size.width;
@@ -57,18 +58,8 @@
     [self.childrenCollectionView addSubview:refreshControl];
     self.refreshControl = refreshControl;
     
-    [[DataManager shareInstance] requestForList:2
-                                          start:0
-                                          limit:10
-                                          reset:YES
-                                        success:^{
-                                            NSArray *array = [DataManager shareInstance].childList;
-                                            [self resetData:array reset:YES];
-                                        }
-                                        failure:^(NSError *error) {
-                                            
-                                        }];
     self.automaticallyAdjustsScrollViewInsets = YES;
+    [self refresh:0 limit:10 reset:YES];
     
     // Do any additional setup after loading the view.
 }
@@ -80,33 +71,42 @@
     
 }
 
--(void)refreshView:(UIRefreshControl *)refreshControl
+- (void)refresh:(NSInteger)start
+          limit:(NSInteger)limit
+          reset:(BOOL)reset
 {
-    self.isLoading = YES;
-    [[DataManager shareInstance] requestForList:2
-                                          start:0
-                                          limit:10
-                                          reset:YES
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[DataManager shareInstance] requestForList:MGYProjectTypeChildren
+                                          start:start
+                                          limit:limit
+                                          reset:reset
                                         success:^{
-                                            NSArray *array = [DataManager shareInstance].childList;
-                                            [self resetData:array reset:YES];
+                                            __array = [NSMutableArray arrayWithArray:[DataManager shareInstance].childList];
+                                            [self.childrenCollectionView reloadData];
+                                            [MBProgressHUD hideHUDForView:self.view animated:YES];
                                         }
                                         failure:^(NSError *error) {
-        
+                                            [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                            if ([error.domain  isEqual: CustomErrorDomain]) {
+                                                if (error.code == MGYMiListErrorEmpty) {
+                                                   self.isEnd = YES;
+                                                }
+                                            }
                                         }];
-    //[refreshControl endRefreshing];
 }
 
-
-- (void)resetData:(NSMutableArray *)array reset:(BOOL)reset
+- (void)resetData
 {
-    if (reset) {
-        [__array removeAllObjects];
-    }
-    [__array addObjectsFromArray:array];
+    __array = [NSMutableArray arrayWithArray:[DataManager shareInstance].childList];
     [self.childrenCollectionView reloadData];
-    self.isLoading = NO;
-    [self.refreshControl endRefreshing];
+}
+
+#pragma mark - MGYBaseViewControllerProtocol
+- (void)refreshView:(UIRefreshControl *)refreshControl
+{
+    self.isEnd = false;
+    [self refresh:0 limit:10 reset:YES];
+    [refreshControl endRefreshing];
 }
 
 #pragma mark - collectionView delegate
@@ -117,14 +117,9 @@
         return cell;
     }
     [cell reset:__array[indexPath.row]];
-    //
-    //    if (__array.count - index < 2*2) {
-    //        if (self.isLoading) {
-    //            return cell;
-    //        }
-    //        self.isLoading = YES;
-    //        //[[DataManager shareInstance] RequestForList:2 Start:self.array.count Limit:10 Reset:NO];
-    //    }
+    if (!self.isEnd && __array.count == indexPath.row + 1) {
+        [self refresh:__array.count + 1 limit:10 reset:NO];
+    }
     
     return cell;
 }
@@ -148,22 +143,5 @@
     [self.navigationController pushViewController:view animated:YES];
     
 }
-
-
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    NSLog(@"%f %f", self.titleView.bounds.size.height, self.barView.bounds.size.height);
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

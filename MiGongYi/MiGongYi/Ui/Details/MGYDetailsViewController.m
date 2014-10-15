@@ -22,7 +22,7 @@
 }
 
 @property(nonatomic, strong) NSArray *developmentList;
-@property(nonatomic, assign) BOOL isLoading;
+@property(nonatomic, assign) BOOL isEnd;
 @property(nonatomic, strong) MGYProjectDetails *details;
 @property(nonatomic, assign) NSInteger projectId;
 @property(nonatomic, weak) UITableView *tableView;
@@ -51,7 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.barView.hidden = YES;
-    
+    self.isEnd = NO;
     _developmentList = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     tableView.dataSource = self;
@@ -104,11 +104,13 @@
     self.messageButton = messageButton;
     
     [self setup];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[DataManager shareInstance] requestForProjectDetails:self.projectId
                                                   success:^{
+                                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                       MGYProjectDetails *details = [[DataManager shareInstance] getProjectDetailsById:self.projectId];
                                                       if (!details) {
-                                                        #warning 未处理
                                                           return;
                                                       }
                                                       self.details = details;
@@ -117,7 +119,7 @@
                                                       [self resetButtonStatus];
                                                   }
                                                   failure:^(NSError *error) {
-                                                      
+                                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                   }];
 }
 
@@ -206,20 +208,24 @@
 
 - (void)requestForProjectRecent:(NSInteger)start
 {
-    self.isLoading = YES;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[DataManager shareInstance] requestForProjectRecent:self.projectId
                                                    start:start
                                                    limit:1
                                                  success:^{
-                                                     self.isLoading = NO;
                                                      NSArray *array = [[DataManager shareInstance]getProjectRectById:self.projectId];
                                                      //NSLog(@"%@", array);
-                                                     [_developmentList removeAllObjects];
-                                                     [_developmentList addObjectsFromArray:array];
+                                                     _developmentList = [NSMutableArray arrayWithArray:array];
                                                      [self.tableView reloadData];
+                                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                  }
                                                  failure:^(NSError *error) {
-                                                     
+                                                     if ([error.domain  isEqual: CustomErrorDomain]) {
+                                                         if (error.code == MGYMiListErrorEmpty) {
+                                                             self.isEnd = YES;
+                                                         }
+                                                     }
+                                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                  }];
 }
 
@@ -235,7 +241,7 @@
             [cell reset:self.details];
         }
         
-        if (self.developmentList.count == 0 && !self.isLoading && self.details) {
+        if (self.developmentList.count == 0 && !self.isEnd && self.details) {
             [self requestForProjectRecent:0];
         }
         return cell;
@@ -250,7 +256,7 @@
             [cell reset:projectRecent];
         }
         
-        if (self.developmentList.count == indexPath.row && !self.isLoading) {
+        if (self.developmentList.count == indexPath.row && !self.isEnd) {
             [self requestForProjectRecent:indexPath.row];
         }
         return cell;

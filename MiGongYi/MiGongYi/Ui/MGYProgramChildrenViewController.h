@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MGYBaseViewController.h"
 
-@interface MGYProgramChildrenViewController : MGYBaseViewController<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MGYProgramChildrenViewController : MGYBaseViewController<UICollectionViewDataSource, UICollectionViewDelegate, MGYBaseViewControllerProtocol>
 
--(void)resetData:(NSArray *)array reset:(BOOL)reset;
 @end

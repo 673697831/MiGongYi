@@ -11,9 +11,7 @@
 #import "MGYProjectDetails.h"
 #import "MGYProjectRecent.h"
 #import "MGYMiChatRecord.h"
-#import "MGYError.h"
 #define fuck 1
-#define CustomErrorDomain @"MGYError"
 
 @interface DataManager ()
 {
@@ -353,18 +351,21 @@
     return [manager GET:url
              parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-                        if ([responseObject[@"data"] count] == 0) {
-                            failure(nil);
-                        }else{
-                            [self setProjects:responseObject[@"data"] type:type reset:reset];
-                            success();
-                        }
+                    if ([responseObject[@"data"] count] == 0) {
+                        NSError *mgyError = [NSError errorWithDomain:CustomErrorDomain
+                                                                code:MGYMiListErrorEmpty
+                                                            userInfo:nil];
+                        failure(mgyError);
+                    }else{
+                        [self setProjects:responseObject[@"data"] type:type reset:reset];
+                        success();
                     }
+                }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"Error: %@", error);
                     failure(error);
                     }];
-}
+                }
 
 - (AFHTTPRequestOperation *)requestForProjectDetails:(NSInteger)projectId
                                              success:(MGYSuccess)success
@@ -398,8 +399,10 @@
              parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     if ([responseObject[@"data"] count] == 0) {
-                        failure(nil);
-                        return ;
+                        NSError *mgyError = [NSError errorWithDomain:CustomErrorDomain
+                                                                code:MGYMiListErrorEmpty
+                                                            userInfo:nil];
+                        failure(mgyError);
                     }else
                     {
                         [self setProjectRecent:responseObject[@"data"]parentId:projectId];

@@ -21,6 +21,7 @@
 @property(nonatomic, weak) UITableView *tableView;
 @property(nonatomic, weak) UIRefreshControl *refreshControl;
 @property(nonatomic, assign) BOOL isLoading;
+@property(nonatomic, assign) BOOL isEnd;
 
 @end
 
@@ -29,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.isEnd = false;
     self.title = NSLocalizedString(@"公益项目", @"公益项目");
     __array = [NSMutableArray array];
     
@@ -46,26 +47,13 @@
         make.edges.equalTo(self.view);
     }];
     
-    
     //增加刷新控件
     UIRefreshControl *refreshControl = [UIRefreshControl new];
     [refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
-    
-    [[DataManager shareInstance] requestForList:1
-                                          start:0
-                                          limit:1
-                                          reset:YES
-                                        success:^{
-                                            NSArray *array = [DataManager shareInstance].itemList;
-                                            [self resetData:array reset:YES];
-                                        }
-                                        failure:^(NSError *error) {
-                                            
-                                        }];
-    
     self.automaticallyAdjustsScrollViewInsets = YES;
+    [self refresh:0 limit:1 reset:YES];
     // Do any additional setup after loading the view.
 }
 
@@ -75,38 +63,41 @@
     [self setSelectedIndex:2];
 }
 
-- (void)resetData:(NSArray *)array reset:(BOOL)reset
+- (void)refresh:(NSInteger)start
+          limit:(NSInteger)limit
+          reset:(BOOL)reset
 {
-    if (reset) {
-        [__array removeAllObjects];
-    }
-    [__array addObjectsFromArray:array];
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
-    self.isLoading = NO;
-}
-
--(void)refreshView:(UIRefreshControl *)refreshControl
-{
-    self.isLoading = YES;
-    [[DataManager shareInstance] requestForList:1
-                                          start:0
-                                          limit:3
-                                          reset:YES
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[DataManager shareInstance] requestForList:MGYProjectTypeItem
+                                          start:start
+                                          limit:limit
+                                          reset:reset
                                         success:^{
-                                            NSArray *array = [DataManager shareInstance].itemList;
-                                            [self resetData:array reset:YES];
+                                            __array = [NSMutableArray arrayWithArray:[DataManager shareInstance].itemList];
+                                            [self.tableView reloadData];
+                                            [MBProgressHUD hideHUDForView:self.view animated:YES];
                                         }
                                         failure:^(NSError *error) {
+                                            [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                            if ([error.domain  isEqual: CustomErrorDomain]) {
+                                                if (error.code == MGYMiListErrorEmpty) {
+                                                    self.isEnd = YES;
+                                                }
+                                            }
                                         }];
+}
+
+#pragma mark - MGYBaseViewControllerProtocol
+- (void)refreshView:(UIRefreshControl *)refreshControl
+{
+    self.isEnd = NO;
+    [self refresh:0 limit:1 reset:YES];
     [refreshControl endRefreshing];
 }
 
 #pragma mark - tableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    // NSLog(@"%d uuuu", self.array.count);
     return 1;
 }
 
@@ -121,23 +112,10 @@
     // Configure the cell...
     MGYDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item Cell" forIndexPath:indexPath];
     [cell reset:__array[indexPath.row]];
-    if (!self.isLoading && __array.count - indexPath.row == 1) {
-        self.isLoading = YES;
-        [[DataManager shareInstance] requestForList:1
-                                              start:__array.count
-                                              limit:1
-                                              reset:NO
-                                            success:^{
-                                                NSArray *array = [DataManager shareInstance].itemList;
-                                                [self resetData:array reset:YES];
-                                            }
-                                            failure:^(NSError *error) {
-            
-                                            }];
+    if (!self.isEnd && __array.count - indexPath.row == 1) {
+        [self refresh:__array.count + 1 limit:1 reset:NO];
     }
-    //NSLog(@"cellforrowatindexpath");
-    
-    
+
     return cell;
 }
 

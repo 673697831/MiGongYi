@@ -23,6 +23,7 @@
 @end
 
 @implementation MGYDetailsViewCell
+
 - (void)setup
 {
     [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
