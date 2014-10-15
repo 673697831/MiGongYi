@@ -10,6 +10,21 @@
 #import <Mantle.h>
 
 #import "MGYProject.h"
+#import "MGYShare.h"
+
+@interface MGYProjectDetailsDonorOrRecipient : MTLModel <MTLJSONSerializing>
+
+@property(nonatomic, copy) NSString *showImg;
+@property(nonatomic, copy) NSString *title;
+
+@end
+
+@interface MGYProjectDetailsResource : MTLModel <MTLJSONSerializing>
+
+@property(nonatomic, copy) NSString *resourceName;
+@property(nonatomic, assign) NSInteger resourceNum;
+
+@end
 
 @interface MGYProjectDetails : MTLModel <MTLJSONSerializing>
 
@@ -24,12 +39,15 @@
 @property(nonatomic, assign) NSInteger favNum;
 @property(nonatomic, assign) NSInteger joinMemberNum;
 @property(nonatomic, assign) NSInteger helpMemberNum;
-@property(nonatomic, copy) NSDictionary *donor;
-@property(nonatomic, copy) NSDictionary *recipient;
-@property(nonatomic, copy) NSDictionary *resource;
+@property(nonatomic, strong) MGYProjectDetailsDonorOrRecipient *donor;
+@property(nonatomic, strong) MGYProjectDetailsDonorOrRecipient *recipient;
+@property(nonatomic, strong) MGYProjectDetailsResource *resource;
 @property(nonatomic, assign) NSInteger status;
 @property(nonatomic, copy) NSString *readmoreUrl;
 @property(nonatomic, assign) NSInteger fav;
 @property(nonatomic, assign) NSInteger commentExist;
+@property(nonatomic, strong) MGYShare *share;
 
 @end
+
+

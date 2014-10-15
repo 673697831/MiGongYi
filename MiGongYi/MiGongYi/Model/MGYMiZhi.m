@@ -21,7 +21,7 @@
 }
 
 + (NSValueTransformer *)miZhiShareJSONTransformer{
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYMiZhiShare class]];
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYShare class]];
 }
 
 @end

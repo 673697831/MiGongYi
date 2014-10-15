@@ -13,6 +13,12 @@ typedef NS_ENUM(NSInteger, MGYDetailsIconFontColorType) {
     MGYDetailsIconFontColorType2,
 };
 
+typedef NS_ENUM(NSInteger, MGYDetailsIconType) {
+    MGYDetailsIconTypeRice,
+    MGYDetailsIconTypePeople,
+    MGYDetailsIconTypeFav,
+};
+
 @interface MGYDetailsIcon : UIView
 
 @property(nonatomic, weak) UILabel *numLabel;
@@ -20,9 +26,8 @@ typedef NS_ENUM(NSInteger, MGYDetailsIconFontColorType) {
 @property(nonatomic, weak) UILabel *itemLabel;
 
 
-- (instancetype)initWithType:(MGYDetailsIconFontColorType)type;
-- (void)resetDetails:(NSString *)num
-                path:(NSString *)path
-                text:(NSString *)text;
+- (instancetype)initWithType:(MGYDetailsIconType)type
+                   colorType:(MGYDetailsIconFontColorType)colorType;
+- (void)reset:(NSString *)num;
 
 @end

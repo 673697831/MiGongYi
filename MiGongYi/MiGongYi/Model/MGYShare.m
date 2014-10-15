@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "MGYMiZhiShare.h"
+#import "MGYShare.h"
 
-@implementation MGYMiZhiShare
+@implementation MGYShare
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{

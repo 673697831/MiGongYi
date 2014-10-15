@@ -11,7 +11,7 @@
 		201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE1F19E5268600B14853 /* MGYMiChatProgressView.m */; };
 		201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2219E6257600B14853 /* MGYMiChatRecord.m */; };
 		201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */; };
-		201EFE2A19E9098100B14853 /* MGYMiZhiShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2919E9098100B14853 /* MGYMiZhiShare.m */; };
+		201EFE2A19E9098100B14853 /* MGYShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2919E9098100B14853 /* MGYShare.m */; };
 		201EFE2E19EC35DB00B14853 /* MGYMiChatMonsterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */; };
 		201EFE3A19ED55AA00B14853 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 201EFE3619ED55AA00B14853 /* InfoPlist.strings */; };
 		201EFE3B19ED55AA00B14853 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 201EFE3819ED55AA00B14853 /* Localizable.strings */; };
@@ -84,8 +84,8 @@
 		201EFE2219E6257600B14853 /* MGYMiChatRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatRecord.m; sourceTree = "<group>"; };
 		201EFE2419E66DE100B14853 /* MGYMiChatMonsterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatMonsterTableViewCell.h; sourceTree = "<group>"; };
 		201EFE2519E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatMonsterTableViewCell.m; sourceTree = "<group>"; };
-		201EFE2819E9098100B14853 /* MGYMiZhiShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhiShare.h; sourceTree = "<group>"; };
-		201EFE2919E9098100B14853 /* MGYMiZhiShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiZhiShare.m; sourceTree = "<group>"; };
+		201EFE2819E9098100B14853 /* MGYShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYShare.h; sourceTree = "<group>"; };
+		201EFE2919E9098100B14853 /* MGYShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYShare.m; sourceTree = "<group>"; };
 		201EFE2B19EC07FE00B14853 /* MGYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYError.h; sourceTree = "<group>"; };
 		201EFE2C19EC35DB00B14853 /* MGYMiChatMonsterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatMonsterView.h; sourceTree = "<group>"; };
 		201EFE2D19EC35DB00B14853 /* MGYMiChatMonsterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYMiChatMonsterView.m; sourceTree = "<group>"; };
@@ -442,8 +442,8 @@
 				20C86B4819D5547E0028E405 /* MGYMyFavList.m */,
 				202E2A8B19D910D9000E072B /* MGYMiZhi.h */,
 				202E2A8C19D910D9000E072B /* MGYMiZhi.m */,
-				201EFE2819E9098100B14853 /* MGYMiZhiShare.h */,
-				201EFE2919E9098100B14853 /* MGYMiZhiShare.m */,
+				201EFE2819E9098100B14853 /* MGYShare.h */,
+				201EFE2919E9098100B14853 /* MGYShare.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -621,7 +621,7 @@
 				202E2AA619E2E4D4000E072B /* MGYMiChatPickerView.m in Sources */,
 				20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */,
 				20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */,
-				201EFE2A19E9098100B14853 /* MGYMiZhiShare.m in Sources */,
+				201EFE2A19E9098100B14853 /* MGYShare.m in Sources */,
 				2087137919CEA5200035B21B /* MGYProjectDetails.m in Sources */,
 				20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */,
 				2085C86619B6280C00E9FA3B /* AppDelegate.m in Sources */,

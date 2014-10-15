@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
 
-@interface MGYMiZhiShare : MTLModel <MTLJSONSerializing>
+@interface MGYShare : MTLModel <MTLJSONSerializing>
 
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSString *summary;

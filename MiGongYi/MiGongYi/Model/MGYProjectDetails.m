@@ -30,6 +30,47 @@
              @"fav":@"fav",
              @"helpMemberNum":@"help_member_num",
              @"commentExist":@"comment_exist",
+             @"share":@"share",
+             };
+}
+
++ (NSValueTransformer *)donorJSONTransformer{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYProjectDetailsDonorOrRecipient class]];
+}
+
++ (NSValueTransformer *)recipientJSONTransformer{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYProjectDetailsDonorOrRecipient class]];
+}
+
++ (NSValueTransformer *)resourceJSONTransformer{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYProjectDetailsResource class]];
+}
+
++ (NSValueTransformer *)shareJSONTransformer{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYShare class]];
+}
+
+@end
+
+@implementation MGYProjectDetailsDonorOrRecipient
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{
+             @"showImg": @"show_img",
+             @"title": @"title",
+             };
+}
+
+@end
+
+@implementation MGYProjectDetailsResource
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{
+             @"resourceName": @"resource_name",
+             @"resourceNum": @"resource_num",
              };
 }
 

@@ -37,12 +37,12 @@
 @property(nonatomic, weak) MGYDetailsRelationshipView *relationshipView;
 @property(nonatomic, weak) UILabel *summaryLabel;
 @property(nonatomic, weak) UIButton *readmoreButton;
-@property(nonatomic, weak) UILabel *linelabel1;
+@property(nonatomic, weak) UIView *lineView1;
 @property(nonatomic, weak) MGYProgressView *progressView;
 @property(nonatomic, weak) MGYDetailsIconListView *iconListView;
-@property(nonatomic, weak) UILabel *lineLabel2;
+@property(nonatomic, weak) UIView *lineView2;
 @property(nonatomic, weak) UILabel *helpNumLabel;
-@property(nonatomic, weak) UILabel *lineLabel3;
+@property(nonatomic, weak) UIView *lineView3;
 @property(nonatomic, weak) UILabel *updateLabel;
 
 @end
@@ -83,9 +83,9 @@
         make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(OFFSET_Y_4);
     }];
     
-    [self.linelabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(552/2);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.top.equalTo(self.readmoreButton.mas_bottom).with.offset(OFFSET_Y_5);
         make.centerX.equalTo(self);
     }];
@@ -93,7 +93,7 @@
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(VIEW_H_4);
         make.width.mas_equalTo(552/2);
-        make.top.equalTo(self.linelabel1.mas_bottom).with.offset(OFFSET_Y_6);
+        make.top.equalTo(self.lineView1.mas_bottom).with.offset(OFFSET_Y_6);
         make.centerX.equalTo(self);
     }];
     
@@ -104,29 +104,29 @@
         make.top.equalTo(self.progressView.mas_bottom).with.offset(OFFSET_Y_7);
     }];
     
-    [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(552/2);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.centerX.equalTo(self);
         make.top.equalTo(self.iconListView.mas_bottom).with.offset(OFFSET_Y_8);
     }];
     
     [self.helpNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(VIEW_H_6);
-        make.top.equalTo(self.lineLabel2.mas_bottom);
+        make.top.equalTo(self.lineView2.mas_bottom);
         make.centerX.equalTo(self);
     }];
     
-    [self.lineLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineView3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(552/2);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(1/[UIScreen mainScreen].scale);
         make.centerX.equalTo(self);
         make.top.equalTo(self.helpNumLabel.mas_bottom);
     }];
     
     [self.updateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.lineLabel3.mas_bottom);
+        make.top.equalTo(self.lineView3.mas_bottom);
         make.height.mas_equalTo(VIEW_H_7);
     }];
 }
@@ -168,10 +168,10 @@
                              forState:UIControlStateNormal];
         self.readmoreButton = readmoreButton;
         
-        UILabel *linelabel1 = [self lineLabelFactory];
-        linelabel1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-        self.linelabel1 = linelabel1;
-        [self addSubview:self.linelabel1];
+        UIView *lineView1 = [self lineViewFactory];
+        lineView1.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.lineView1 = lineView1;
+        [self addSubview:self.lineView1];
         
         MGYProgressView *progressView = [MGYProgressView new];
         [self addSubview:progressView];
@@ -182,20 +182,20 @@
         [self addSubview:iconListView];
         self.iconListView = iconListView;
         
-        UILabel *linelabel2 = [self lineLabelFactory];
-        linelabel2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-        self.lineLabel2 = linelabel2;
-        [self addSubview:self.lineLabel2];
+        UIView *lineView2 = [self lineViewFactory];
+        lineView2.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.lineView2 = lineView2;
+        [self addSubview:self.lineView2];
         
         UILabel *helpNumLabel = [UILabel new];
         //helpNumLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:helpNumLabel];
         self.helpNumLabel = helpNumLabel;
         
-        UILabel *linelabel3 = [self lineLabelFactory];;
-        linelabel3.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-        self.lineLabel3 = linelabel3;
-        [self addSubview:self.lineLabel3];
+        UIView *lineView3 = [self lineViewFactory];;
+        lineView3.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+        self.lineView3 = lineView3;
+        [self addSubview:self.lineView3];
         
         UILabel *updateLabel = [UILabel new];
         updateLabel.text = NSLocalizedString(@"近况更新", @"近况更新");
@@ -210,11 +210,11 @@
     return self;
 }
 
-- (UILabel *)lineLabelFactory
+- (UIView *)lineViewFactory
 {
-    UILabel *label = [UILabel new];
-    label.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-    return label;
+    UIView *view= [UIView new];
+    view.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    return view;
 }
 
 - (void)reset:(MGYProjectDetails *)details
@@ -231,7 +231,7 @@
     [self.progressView resetProgress:details.progress];
     
     NSString *st1 = NSLocalizedString(@"目前为止已经有", @"目前为止已经有");
-    NSString *st2 = [NSString stringWithFormat:@"%d", details.helpMemberNum];
+    NSString *st2 = [NSString stringWithFormat:@"%ld", (long)details.helpMemberNum];
     NSString *st3 = NSLocalizedString(@"帮助过我", @"帮助过我");
     //NSLog(@"%d %d %d", st1.length, st2.length, st3.length);
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", st1, st2, st3]];

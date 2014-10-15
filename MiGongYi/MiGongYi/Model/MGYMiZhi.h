@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
-#import "MGYMiZhiShare.h"
+#import "MGYShare.h"
 
 @interface MGYMiZhi : MTLModel <MTLJSONSerializing>
 
@@ -16,6 +16,6 @@
 @property(nonatomic, copy) NSString *dailyTitle;
 @property(nonatomic, copy) NSString *dailyImg;
 @property(nonatomic, copy) NSString *content;
-@property(nonatomic, strong) MGYMiZhiShare *miZhiShare;
+@property(nonatomic, strong) MGYShare *miZhiShare;
 
 @end

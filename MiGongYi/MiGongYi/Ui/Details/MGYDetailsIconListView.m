@@ -33,24 +33,27 @@
 
 - (void)initSubView
 {
-    MGYDetailsIcon *riceIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconFontColorType2];
-    [riceIconView resetDetails:@"0"
-                          path:@"page_Rice_normal2"
-                          text:@"捐赠米粒"];
+    MGYDetailsIcon *riceIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconTypeRice
+                                                              colorType:MGYDetailsIconFontColorType2];
+//    [riceIconView resetDetails:@"0"
+//                          path:@"page_Rice_normal2"
+//                          text:@"捐赠米粒"];
     [self addSubview:riceIconView];
     self.riceIconView = riceIconView;
     
-    MGYDetailsIcon *joinIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconFontColorType2];
-    [joinIconView resetDetails:@"355580"
-                          path:@"page_People_normal2"
-                          text:@"参与人数"];
+    MGYDetailsIcon *joinIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconTypePeople
+                                                              colorType:MGYDetailsIconFontColorType2];
+//    [joinIconView resetDetails:@"355580"
+//                          path:@"page_People_normal2"
+//                          text:@"参与人数"];
     [self addSubview:joinIconView];
     self.joinIconView = joinIconView;
     
-    MGYDetailsIcon *favIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconFontColorType2];
-    [favIconView resetDetails:@"355580"
-                         path:@"page_Fav_normal2"
-                         text:@"收藏次数"];
+    MGYDetailsIcon *favIconView = [[MGYDetailsIcon alloc] initWithType:MGYDetailsIconTypeFav
+                                                             colorType:MGYDetailsIconFontColorType2];
+//    [favIconView resetDetails:@"355580"
+//                         path:@"page_Fav_normal2"
+//                         text:@"收藏次数"];
     [self addSubview:favIconView];
     self.favIconView = favIconView;
     
@@ -110,9 +113,9 @@
 
 - (void)reset:(NSInteger)riceNum joinNum:(NSInteger)joinNum favNum:(NSInteger)favNum
 {
-    [self.riceIconView resetDetails:[NSString stringWithFormat:@"%d", riceNum] path:nil text:nil];
-    [self.joinIconView resetDetails:[NSString stringWithFormat:@"%d", joinNum] path:nil text:nil];
-    [self.favIconView resetDetails:[NSString stringWithFormat:@"%d", favNum] path:nil text:nil];
+    [self.riceIconView reset:[NSString stringWithFormat:@"%ld", (long)riceNum]];
+    [self.joinIconView reset:[NSString stringWithFormat:@"%ld", (long)joinNum]];
+    [self.favIconView reset:[NSString stringWithFormat:@"%ld", (long)favNum]];
 }
 
 /*
