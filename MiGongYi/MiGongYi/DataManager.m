@@ -276,7 +276,6 @@
             [_childList removeAllObjects];
         }
     }
-    
     [self addProjects:list type:type];
     //[[MGYTabBarController shareInstance] refreshProgramListView:type reset:reset];
 }
