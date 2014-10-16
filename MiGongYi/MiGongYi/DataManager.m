@@ -24,10 +24,7 @@
 }
 @end
 
-
 @implementation DataManager
-
-//@synthesize personalDetails = __personalDetails;
 
 + (DataManager *)shareInstance
 {
@@ -50,17 +47,21 @@
         _miChatRecordList = [NSMutableArray array];
         self.canGainRiceFromMiChat = YES;
         //测试专用
+        
+#if fuck
+#warning 仅测试用
+        self.uid = 1;
+        [self setupAccount];
+#endif
+        
         [self loadSetup];
+        
         if (!self.uid) {
             [self requestForEnterUID];
         }else
         {
             [self checkAccountDirectory];
         }
-//        MGYMiChatRecord *record1 = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:@{@"personName": @"abcde", @"totalTimes":@(3), @"currentTimes":@(1), @"phoneList":@[@(11111111111)]} error:nil];
-//        MGYMiChatRecord *record2 = [MTLJSONAdapter modelOfClass:[MGYMiChatRecord class] fromJSONDictionary:@{@"personName": @"", @"totalTimes":@(0), @"currentTimes":@(0), @"phoneList":@[]} error:nil];
-//        NSArray *array = @[record1, record2];
-        //[self saveMiChatRecord:array];
         [self loadMiChatRecord:nil failure:nil];
     }
     return self;

@@ -11,7 +11,8 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "MGYSubViewController.h"
 #import "MGYMiChatTableViewCell.h"
+#import "MGYMiChatPhoneListView.h"
 
-@interface MGYMiChatViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate,MGYMiChatTableViewCellDelegate>
+@interface MGYMiChatViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate,MGYMiChatTableViewCellDelegate, MGYMiChatPhoneListViewDelegate>
 
 @end

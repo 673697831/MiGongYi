@@ -11,6 +11,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "MGYMiChatRecord.h"
 #import "MGYMiChatLabelView.h"
+#import "MGYMiChatPhoneListView.h"
 
 @protocol MGYMiChatTableViewCellDelegate <NSObject>
 
@@ -31,6 +32,7 @@ typedef NS_ENUM(NSInteger, MGYMiChatCellState) {
 
 @property(nonatomic, weak) id<MGYMiChatTableViewCellDelegate> cellDelegate;
 @property(nonatomic, strong) NSIndexPath *indexPath;
+@property(nonatomic, weak) MGYMiChatPhoneListView *phoneView;
 
 - (void)scrollEnabled:(BOOL)enabled;
 - (void)resetPosition;

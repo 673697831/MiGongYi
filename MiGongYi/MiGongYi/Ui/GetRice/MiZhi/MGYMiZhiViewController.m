@@ -37,7 +37,6 @@
     [myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[DataManager shareInstance] requestForMiZhi:^{
         self.miZhi = [DataManager shareInstance].miZhi;
@@ -45,7 +44,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
                                          failure:^(NSError *error) {
-                                             [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                             
                                          }];
     
     

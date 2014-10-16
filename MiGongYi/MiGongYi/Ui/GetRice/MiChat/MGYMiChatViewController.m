@@ -15,6 +15,7 @@
 #import "DataManager.h"
 #import "MGYError.h"
 #import "MGYMiChatMonsterView.h"
+#define fuck 1
 
 @interface MGYMiChatViewController ()
 {
@@ -25,6 +26,8 @@
 @property(nonatomic, weak) UITableView *tableView;
 @property(nonatomic, weak) MGYMiChatPickerView *pickView;
 @property(nonatomic, weak) UIWebView *callWebview;
+@property(nonatomic, assign) BOOL isExtend;
+@property(nonatomic, assign) NSInteger extendIndex;
 
 @end
 
@@ -53,6 +56,7 @@
     //        }
     //    });
     // Do any additional setup after loading the view.
+    self.extendIndex = -1;
     _cellArray = [NSMutableArray array];
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero
                                                           style:UITableViewStyleGrouped];
@@ -93,6 +97,45 @@
     
 }
 
+#pragma mark - MGYMiChatPhoneListViewDelegate
+- (void)selectNumber:(NSString *)number
+{
+    NSURL *telURL =[NSURL URLWithString:@"tel:10086"];
+    [self.callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+    
+    MGYMiChatRecord *miChatRecord = _miChatRecordList[self.extendIndex];
+    miChatRecord.currentTimes ++;
+    if (![DataManager shareInstance].canGainRiceFromMiChat) {
+        miChatRecord.completed = YES;
+    }
+    if ([DataManager shareInstance].canGainRiceFromMiChat && miChatRecord.totalTimes <= miChatRecord.currentTimes && !miChatRecord.completed) {
+        [[DataManager shareInstance] gainRiceFromMiChat:^(NSInteger rice) {
+            NSString *str= [NSString stringWithFormat:@"你获得了%d大米", rice];
+            UIAlertView *alter = [[UIAlertView alloc] initWithTitle:str
+                                                            message:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alter show];
+            miChatRecord.completed = YES;
+            [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
+            [self.tableView reloadData];
+        }
+                                                failure:^(NSError *error) {
+                                                    if (error.code == MGYMiChatErrorGainFull) {
+                                                        miChatRecord.completed = YES;
+                                                    }
+                                                    [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
+                                                    [self.tableView reloadData];
+                                                }];
+    }else
+    {
+        [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
+        [self.tableView reloadData];
+    }
+
+}
+
 #pragma mark - MGYMiChatTableViewCellDelegate
 - (void)openABPeoplePicker:(NSIndexPath *)indexPath
 {
@@ -121,46 +164,33 @@
     miChatRecord.currentTimes = 0;
     miChatRecord.totalTimes = 0;
     [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
+    self.isExtend = NO;
     [self.tableView reloadData];
 }
 
 - (void)callPeople:(NSIndexPath *)indexPath
 {
-    NSURL *telURL =[NSURL URLWithString:@"tel:10086"];
-    [self.callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
-    MGYMiChatRecord *miChatRecord = _miChatRecordList[indexPath.row];
-    miChatRecord.currentTimes ++;
-    if (![DataManager shareInstance].canGainRiceFromMiChat) {
-        miChatRecord.completed = YES;
-    }
-    if ([DataManager shareInstance].canGainRiceFromMiChat && miChatRecord.totalTimes <= miChatRecord.currentTimes && !miChatRecord.completed) {
-        [[DataManager shareInstance] gainRiceFromMiChat:^(NSInteger rice) {
-            NSString *str= [NSString stringWithFormat:@"你获得了%d大米", rice];
-            UIAlertView *alter = [[UIAlertView alloc] initWithTitle:str
-                                                            message:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alter show];
-            miChatRecord.completed = YES;
-            [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
-            [self.tableView reloadData];
-                                        }
-                                               failure:^(NSError *error) {
-                                                   if (error.code == MGYMiChatErrorGainFull) {
-                                                       miChatRecord.completed = YES;
-                                                   }
-                                                   [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
-                                                   [self.tableView reloadData];
-                                               }];
+    
+    if (fuck) {
+#warning 测试
+        
+        if (self.extendIndex == indexPath.row) {
+            self.isExtend = !self.isExtend;
+        }else
+        {
+            self.isExtend = YES;
+        }
+        self.extendIndex = indexPath.row;
+        [self.tableView reloadData];
     }else
     {
-        [[DataManager shareInstance] saveMiChatRecord:_miChatRecordList];
-        [self.tableView reloadData];
+        NSURL *telURL =[NSURL URLWithString:@"tel:10086"];
+        [self.callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
     }
     
 //    [self.tableView insertRowsAtIndexPaths:@[indexPath]
 //                          withRowAnimation:UITableViewRowAnimationBottom];
+    
     
 }
 
@@ -172,30 +202,6 @@
         }
         
     }
-}
-
-- (NSArray *)monsterState
-{
-    NSInteger completedNum = 0;
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0; i < _miChatRecordList.count; i ++) {
-        MGYMiChatRecord *record = _miChatRecordList[i];
-        if (record.currentTimes >= record.totalTimes && record.totalTimes != 0) {
-            completedNum ++;
-            [array addObject:@(MGYMiChatMonsterStateHighlight)];
-        }
-        else
-        {
-            [array addObject:@(MGYMiChatMonsterStateGray)];
-        }
-    }
-    if (completedNum == _miChatRecordList.count) {
-        [array addObject:@(MGYMiChatMonsterStateHighlight)];
-    }else
-    {
-        [array addObject:@(MGYMiChatMonsterStateGray)];
-    }
-    return array;
 }
 
 #pragma mark - peoplePicker delegate
@@ -246,7 +252,7 @@
 #pragma mark - tableView delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    //NSLog(@"........ %d", self.tableView.indexPathForSelectedRow.row);
     if (indexPath.section == 0) {
         MGYMiChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatTableView Cell" forIndexPath:indexPath];
         if (!cell.cellDelegate) {
@@ -256,6 +262,9 @@
         MGYMiChatRecord *miChatRecord = _miChatRecordList[indexPath.row];
         [cell reset:indexPath
              record:miChatRecord];
+        if (self.extendIndex == indexPath.row && self.isExtend) {
+            [self extendCell:cell];
+        }
         return cell;
     }
     else
@@ -287,11 +296,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat heihgt;
-    if (indexPath.section == 0) {
-        heihgt = 59;
+    if (indexPath.section == 0 && self.isExtend && self.extendIndex == indexPath.row) {
+        MGYMiChatRecord *record = _miChatRecordList[indexPath.row];
+        NSInteger count = record.phoneList.count + 1;
+        heihgt = 59 * count;
     }else
     {
-        heihgt = 180;
+        heihgt = 59;
     }
     return heihgt;
 }
@@ -307,6 +318,49 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 180;
+}
+
+- (void)extendCell:(MGYMiChatTableViewCell *)cell
+{
+    NSInteger row = cell.indexPath.row;
+    MGYMiChatRecord *record = _miChatRecordList[row];
+    MGYMiChatPhoneListView *phoneView = [[MGYMiChatPhoneListView alloc] initPhoneList:record.phoneList];
+    phoneView.myDelegate = self;
+    //self.phoneView = phoneView;
+    cell.phoneView = phoneView;
+    [cell addSubview:phoneView];
+    
+    CGFloat height = record.phoneList.count * 59;
+    [phoneView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(height);
+        make.width.equalTo(cell);
+        make.bottom.equalTo(cell);
+        make.left.equalTo(cell);
+    }];
+}
+
+- (NSArray *)monsterState
+{
+    NSInteger completedNum = 0;
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 0; i < _miChatRecordList.count; i ++) {
+        MGYMiChatRecord *record = _miChatRecordList[i];
+        if (record.currentTimes >= record.totalTimes && record.totalTimes != 0) {
+            completedNum ++;
+            [array addObject:@(MGYMiChatMonsterStateHighlight)];
+        }
+        else
+        {
+            [array addObject:@(MGYMiChatMonsterStateGray)];
+        }
+    }
+    if (completedNum == _miChatRecordList.count) {
+        [array addObject:@(MGYMiChatMonsterStateHighlight)];
+    }else
+    {
+        [array addObject:@(MGYMiChatMonsterStateGray)];
+    }
+    return array;
 }
 
 /*

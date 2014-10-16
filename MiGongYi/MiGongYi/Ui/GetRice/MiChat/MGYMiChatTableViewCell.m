@@ -13,6 +13,7 @@
 
 @property(nonatomic, weak) UIScrollView *cellScrollView;
 @property(nonatomic, weak) MGYMiChatLabelView *lableView;
+//@property(nonatomic, weak) UIView *phoneView;
 @property(nonatomic, assign) MGYMiChatCellState cellState;
 
 @end
@@ -51,21 +52,28 @@
     
     self.cellState = MGYMiChatStateCellLeft;
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self setup];
 }
 
 - (void)setup
 {
     [self.cellScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        //make.edges.equalTo(self);
+        make.height.mas_equalTo(59);
+        make.left.equalTo(self);
+        make.top.equalTo(self);
+        make.width.equalTo(self);
     }];
     
     [self.lableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
-        make.centerY.equalTo(self);
-        make.height.equalTo(self);
+        make.top.equalTo(self);
+        //make.height.equalTo(self);
+        make.height.mas_equalTo(59);
         make.width.equalTo(self).with.multipliedBy(2.0);
     }];
+
 }
 
 - (void)scrollViewPressed:(id)sender {
@@ -159,6 +167,10 @@
     self.indexPath = indexPath;
     [self.lableView reset:record type:indexPath.row];
     self.cellScrollView.scrollEnabled = record.totalTimes > 0 ? YES:NO;
+    if (self.phoneView) {
+        [self.phoneView removeFromSuperview];
+        self.phoneView = nil;
+    }
 }
 
 
