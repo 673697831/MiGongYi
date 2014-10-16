@@ -502,7 +502,6 @@
                     MGYRiceFlow *riceFlow = [MTLJSONAdapter modelOfClass:[MGYRiceFlow class] fromJSONDictionary:responseObject[@"data"] error:nil];
                     _myRiceFlow = riceFlow;
                     [self saveMyRiceFlow];
-                    //[self loadMyRiceFlow];
                     success();
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
