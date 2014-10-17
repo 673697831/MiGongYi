@@ -19,7 +19,6 @@
 @property(nonatomic, weak) UIImageView *ball4ImageView;
 @property(nonatomic, weak) UIImageView *ball5ImageView;
 @property(nonatomic, weak) UIImageView *ball6ImageView;
-@property(nonatomic, strong) NSArray *ballList;
 
 @end
 
@@ -29,29 +28,12 @@
 {
     self = [super init];
     if (self) {
-        UIImageView *ball1ImageView = [UIImageView new];
-        [self addSubview:ball1ImageView];
-        self.ball1ImageView = ball1ImageView;
-        
-        UIImageView *ball2ImageView = [UIImageView new];
-        [self addSubview:ball2ImageView];
-        self.ball2ImageView = ball2ImageView;
-        
-        UIImageView *ball3ImageView = [UIImageView new];
-        [self addSubview:ball3ImageView];
-        self.ball3ImageView = ball3ImageView;
-        
-        UIImageView *ball4ImageView = [UIImageView new];
-        [self addSubview:ball4ImageView];
-        self.ball4ImageView = ball4ImageView;
-        
-        UIImageView *ball5ImageView = [UIImageView new];
-        [self addSubview:ball5ImageView];
-        self.ball5ImageView = ball5ImageView;
-        
-        UIImageView *ball6ImageView = [UIImageView new];
-        [self addSubview:ball6ImageView];
-        self.ball6ImageView =ball6ImageView;
+        for (int i=1; i<7; i++) {
+            UIImageView* imageView = [UIImageView new];
+            [self addSubview:imageView];
+            [self setValue:imageView
+                    forKey:[NSString stringWithFormat:@"ball%dImageView", i]];
+        }
         
         UIImageView *monsterImageView = [UIImageView new];
         [self addSubview:monsterImageView];
@@ -63,37 +45,36 @@
             make.bottom.equalTo(self).with.offset(-62/2);
         }];
         
-        [ball1ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_ball1ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).with.offset(18);
             make.bottom.equalTo(self).with.offset(-78/2);
         }];
         
-        [ball2ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(ball1ImageView.mas_right).with.offset(10);
-            make.bottom.equalTo(ball1ImageView);
+        [_ball2ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_ball1ImageView.mas_right).with.offset(10);
+            make.bottom.equalTo(_ball1ImageView);
         }];
         
-        [ball3ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(ball2ImageView.mas_right).with.offset(10);
-            make.bottom.equalTo(ball2ImageView);
+        [_ball3ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_ball2ImageView.mas_right).with.offset(10);
+            make.bottom.equalTo(_ball2ImageView);
         }];
         
-        [ball4ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_ball4ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.monsterImageView.mas_right).with.offset(-10);
-            make.bottom.equalTo(ball1ImageView);
+            make.bottom.equalTo(_ball1ImageView);
         }];
         
-        [ball5ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(ball4ImageView.mas_right).with.offset(10);
-            make.bottom.equalTo(ball4ImageView);
+        [_ball5ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_ball4ImageView.mas_right).with.offset(10);
+            make.bottom.equalTo(_ball4ImageView);
         }];
         
-        [ball6ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(ball5ImageView.mas_right).with.offset(10);
-            make.bottom.equalTo(ball5ImageView);
+        [_ball6ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_ball5ImageView.mas_right).with.offset(10);
+            make.bottom.equalTo(_ball5ImageView);
         }];
         
-        self.ballList = @[ball1ImageView, ball2ImageView, ball3ImageView, ball4ImageView, ball5ImageView, ball6ImageView];
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;
@@ -108,8 +89,8 @@
         [self.monsterImageView setImage:[UIImage imageNamed:@"michatmonster"]];
     }
     
-    for (int i = 0; i < 3; i ++) {
-        UIImageView *imageView = self.ballList[i];
+    for (int i = 1; i < 4; i ++) {
+        UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"ball%dImageView", i]];
         if ([array[i] integerValue] == MGYMiChatMonsterStateGray) {
             [imageView setImage:[UIImage imageNamed:@"michatorange-gray-left"]];
         }else
@@ -118,8 +99,8 @@
         }
     }
     
-    for (int i = 3; i < array.count - 1; i ++) {
-        UIImageView *imageView = self.ballList[i];
+    for (int i = 4; i < array.count; i ++) {
+        UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"ball%dImageView", i]];
         if ([array[i] integerValue] == MGYMiChatMonsterStateGray) {
             [imageView setImage:[UIImage imageNamed:@"michatorange-gray-right"]];
         }else
@@ -132,8 +113,8 @@
 - (void)resetMonSterStateById:(NSInteger)index
                        statue:(MGYMiChatMonsterState)state
 {
-    UIImageView *imageView = self.ballList[index];
-    if (index < 3) {
+    UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"ball%dImageView", index]];
+    if (index < 4) {
         if (state == MGYMiChatMonsterStateGray) {
             [imageView setImage:[UIImage imageNamed:@"michatorange-gray-left"]];
         }else

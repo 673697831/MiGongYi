@@ -338,7 +338,6 @@
 				201EFE3519ED55AA00B14853 /* en.lproj */,
 				203D636B19CB027D00116ECA /* zh-Hans.lproj */,
 				20A2D29E19BE97C6004C7697 /* Model */,
-				20A2D27C19B9DB89004C7697 /* Common */,
 				201EFE2719E7739500B14853 /* Controller */,
 				20A2D28019B9DCDC004C7697 /* Ui */,
 				2085C86419B6280C00E9FA3B /* AppDelegate.h */,
@@ -379,13 +378,6 @@
 				2085C87619B6280D00E9FA3B /* MiGongYiTests-Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		20A2D27C19B9DB89004C7697 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		20A2D28019B9DCDC004C7697 /* Ui */ = {
