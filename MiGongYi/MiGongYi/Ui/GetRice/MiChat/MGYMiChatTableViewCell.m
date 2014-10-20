@@ -150,10 +150,10 @@
 }
 
 #pragma mark - 显示数据
-- (void)scrollEnabled:(BOOL)enabled
-{
-    self.cellScrollView.scrollEnabled = enabled;
-}
+//- (void)scrollEnabled:(BOOL)enabled
+//{
+//    self.cellScrollView.scrollEnabled = enabled;
+//}
 
 - (void)resetPosition
 {

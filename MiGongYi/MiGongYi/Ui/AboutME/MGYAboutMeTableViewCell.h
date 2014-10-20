@@ -25,7 +25,5 @@ typedef NS_ENUM(NSInteger, MGYAboutMeSourceType) {
 @property(nonatomic, strong) id<MGYAboutMeTableViewCellDelegate> clickDelegate;
 
 - (void)resetNum:(NSInteger) riceNumber;
-//    friendNumber:(NSInteger) friendNumber
-//       favNumber:(NSInteger) favNumber;
 
 @end

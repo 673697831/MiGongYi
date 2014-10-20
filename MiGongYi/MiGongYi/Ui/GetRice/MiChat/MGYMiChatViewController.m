@@ -88,7 +88,6 @@
     
     //UIPanGestureRecognizer 拖动
     
-    
     [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -326,7 +325,6 @@
     MGYMiChatRecord *record = _miChatRecordList[row];
     MGYMiChatPhoneListView *phoneView = [[MGYMiChatPhoneListView alloc] initPhoneList:record.phoneList];
     phoneView.myDelegate = self;
-    //self.phoneView = phoneView;
     cell.phoneView = phoneView;
     [cell addSubview:phoneView];
     

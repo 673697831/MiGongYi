@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "MGYMiZhiViewController.h"
 #import "MGYMiChatViewController.h"
+#import "SDViewController.h"
 #define DIS 60
 
 @interface MGYGetRiceViewController ()
@@ -20,6 +21,7 @@
 @property(nonatomic, weak) UIButton *knowView;
 @property(nonatomic, weak) UIButton *shoeView;
 @property(nonatomic, weak) UIButton *phoneView;
+@property(nonatomic, strong) NSDictionary *dic;
 
 @end
 
@@ -66,6 +68,64 @@
     [self setup];
     [self setSelectedIndex:1];
     
+    // 得到全局队列
+    //dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t concurrentQueue = dispatch_get_main_queue();
+    
+    void (^block1)() = ^{
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [self pauseAllAnimation];
+        [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
+        self.boxingView.hidden = YES;
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    };
+    
+    void (^block2)() = ^{
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [self pauseAllAnimation];
+        [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
+        self.shoeView.hidden = YES;
+        double delayInSeconds = 0.0;
+        dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            SDViewController *sdView = [SDViewController new];
+            [self.navigationController pushViewController:sdView animated:NO];
+        });
+    };
+    
+    void (^block3)() = ^{
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [self pauseAllAnimation];
+        double delayInSeconds = 2.0;
+        dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        self.knowView.hidden = YES;
+        self.knowledgeImageView.hidden = NO;
+        dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
+            [self.navigationController pushViewController:miZhiView animated:NO];
+        });
+    };
+    
+    void (^block4)() = ^{
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [self pauseAllAnimation];
+        double delayInSeconds = 2.0;
+        dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        self.phoneView.hidden = YES;
+        [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
+        dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            MGYMiChatViewController *chatView = [MGYMiChatViewController new];
+            [self.navigationController pushViewController:chatView animated:NO];
+        });
+    };
+    _dic = @{@"boxingView" : block1,
+             @"shoeView" : block2,
+             @"knowView" : block3,
+             @"phoneView" : block4,
+             };
     // Do any additional setup after loading the view.
 }
 
@@ -145,55 +205,13 @@
 
 - (void)clickEventOnImage:(id)sender
 {
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [self pauseAllAnimation];
-    
-    double delayInSeconds = 2.0;
-    
-    // 创建延期的时间 2S，因为dispatch_time使用的时间是纳秒，尼玛，比毫秒还小，太夸张了！！！
-    dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    // 得到全局队列
-    //dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_queue_t concurrentQueue = dispatch_get_main_queue();
-    // 延期执行
-    
-    switch ([sender tag]) {
-        case 1:
-            [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
-            self.boxingView.hidden = YES;
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    for (NSString *key in _dic) {
+        if (sender == [self valueForKey:key]) {
+            void (^block)() = _dic[key];
+            block();
             break;
-        case 2:
-            [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
-            self.shoeView.hidden = YES;
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            break;
-        case 3:
-        {
-            self.knowView.hidden = YES;
-            self.knowledgeImageView.hidden = NO;
-            dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
-                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
-                [self.navigationController pushViewController:miZhiView animated:NO];
-            });
         }
-            break;
-        case 4:
-        {
-            self.phoneView.hidden = YES;
-            [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
-            dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
-                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                MGYMiChatViewController *chatView = [MGYMiChatViewController new];
-                [self.navigationController pushViewController:chatView animated:NO];
-            });
-        }
-            break;
-        default:
-            break;
     }
-    
 }
 
 -(void)touchesPoint:(UITapGestureRecognizer *)gestureRecognizer

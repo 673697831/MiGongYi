@@ -66,7 +66,6 @@
 - (void)buttonClick:(id)sender
 {
     UIButton *button = sender;
-    NSLog(@"fuck~~~~~~ %@", button.currentTitle);
     [self.myDelegate selectNumber:button.currentTitle];
 }
 

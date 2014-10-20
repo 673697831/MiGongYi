@@ -9,11 +9,17 @@
 #import "AppDelegate.h"
 #import "BlackMagic.h"
 #import "MGYTabBarController.h"
+#import "UIImageView+WebCache.h"
+
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#warning 测试用记得删除
+    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -21,7 +27,6 @@
     [BlackMagic blackMagicAFJSONResponseSerializer];
     MGYTabBarController *bar = [[MGYTabBarController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = bar;
-    //application.statusBarStyle = UIStatusBarStyleLightContent;
     [application setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }

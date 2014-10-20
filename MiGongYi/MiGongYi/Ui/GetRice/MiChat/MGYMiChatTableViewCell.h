@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, MGYMiChatCellState) {
 @property(nonatomic, strong) NSIndexPath *indexPath;
 @property(nonatomic, weak) MGYMiChatPhoneListView *phoneView;
 
-- (void)scrollEnabled:(BOOL)enabled;
+//- (void)scrollEnabled:(BOOL)enabled;
 - (void)resetPosition;
 - (void)reset:(NSIndexPath *)indexPath
        record:(MGYMiChatRecord *)record;
