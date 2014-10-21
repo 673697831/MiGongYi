@@ -11,11 +11,13 @@
 #import "Masonry.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
+#import "MGYNetManager.h"
 
 @interface SDViewController ()
 {
     NSMutableArray *_array;
 }
+
 
 @property(nonatomic, weak) UITableView *tableView;
 @property(nonatomic, copy) NSString *token;
@@ -38,7 +40,7 @@
         make.edges.equalTo(self.view);
     }];
     [tableView registerClass:[SDTableViewCell class] forCellReuseIdentifier:@"normal Cell"];
-    [self requestForWeibo];
+    [self requestForWeibo2];
     // Do any additional setup after loading the view.
 }
 
@@ -65,6 +67,28 @@
         NSLog(@"Error: %@", error);
     }];
 
+}
+
+- (void)requestForWeibo2
+{
+    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
+    
+    NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
+    MGYNetManager *manager = [MGYNetManager manager];
+    NSDictionary *parameters = @{@"access_token":self.token, @"count":@(200)};
+    [manager GET:url parameters:parameters success:^(MGYNetOperation *operation, NSDictionary * responseObject) {
+        NSArray *array = responseObject[@"statuses"];
+        for (NSDictionary *dic in array) {
+            NSDictionary *user = dic[@"user"];
+            [_array addObject:user[@"profile_image_url"]];
+        }
+        
+        
+        [self.tableView reloadData];
+    } failure:^(MGYNetOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 #pragma mark - tableView delegate
