@@ -41,6 +41,7 @@
     }];
     [tableView registerClass:[SDTableViewCell class] forCellReuseIdentifier:@"normal Cell"];
     [self requestForWeibo2];
+    [self sendWeibo];
     // Do any additional setup after loading the view.
 }
 
@@ -89,6 +90,20 @@
     } failure:^(MGYNetOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (void)sendWeibo
+{
+    MGYNetManager *manager = [MGYNetManager manager];
+    NSString *text = @"无聊";
+    NSDictionary *parameters = @{@"access_token":self.token, @"status":text};
+    NSString *url = @"https://api.weibo.com/2/statuses/update.json";
+    [manager POST:url parameters:parameters success:^(MGYNetOperation *operation, NSDictionary * responseObject) {
+        //NSLog(@"yyyyy  %@", responseObject);
+    } failure:^(MGYNetOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
 }
 
 #pragma mark - tableView delegate

@@ -13,7 +13,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-//        self.stringEncoding = NSUTF8StringEncoding;
+        self.stringEncoding = NSUTF8StringEncoding;
 //        self.allowsCellularAccess = YES;
 //        self.cachePolicy = NSURLRequestUseProtocolCachePolicy;
 //        self.HTTPShouldHandleCookies = YES;
@@ -53,7 +53,7 @@
 //        }
 //        
 //        // HTTP Method Definitions; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
-//        self.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
+        self.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
     }
     
     return self;
@@ -92,8 +92,19 @@
     NSParameterAssert(request);
     
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
-    //NSLog(@"jjjjjjjj %@", [self parametersToString:parameters]);
-    mutableRequest.URL = [NSURL URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query ? @"&%@" : @"?%@", [self parametersToString:parameters]]];
+    NSString *query = [self parametersToString:parameters];
+    if (parameters) {
+        if ([self.HTTPMethodsEncodingParametersInURI containsObject:[[request HTTPMethod] uppercaseString]]) {
+            mutableRequest.URL = [NSURL URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query ? @"&%@" : @"?%@", query]];
+        } else {
+            if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
+                NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.stringEncoding));
+                [mutableRequest setValue:[NSString stringWithFormat:@"application/x-www-form-urlencoded; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
+            }
+            [mutableRequest setHTTPBody:[query dataUsingEncoding:self.stringEncoding]];
+        }
+    }
+    //mutableRequest.URL = [NSURL URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query ? @"&%@" : @"?%@", [self parametersToString:parameters]]];
 //    [self.HTTPRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL * __unused stop) {
 //        if (![request valueForHTTPHeaderField:field]) {
 //            [mutableRequest setValue:value forHTTPHeaderField:field];

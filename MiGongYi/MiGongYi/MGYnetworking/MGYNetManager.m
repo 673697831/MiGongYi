@@ -39,6 +39,20 @@
     return operation;
 }
 
+- (MGYNetOperation *)POST:(NSString *)URLString
+               parameters:(id)parameters
+                  success:(MGYNetSuccess)success
+                  failure:(MGYNetFailure)failure
+{
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST"
+                                                                   URLString:[[NSURL URLWithString:URLString] absoluteString]
+                                                                  parameters:parameters];
+    NSLog(@"hhhhh %@", request.URL);
+    MGYNetOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+    //[self.operationQueue addOperation:operation];
+    return operation;
+}
+
 - (MGYNetOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request
                                                     success:(void (^)(MGYNetOperation *operation, id responseObject))success
                                                     failure:(void (^)(MGYNetOperation *operation, NSError *error))failure

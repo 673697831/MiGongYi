@@ -16,6 +16,10 @@
                  success:(MGYNetSuccess)success
                  failure:(MGYNetFailure)failure;
 
+- (MGYNetOperation *)POST:(NSString *)URLString
+               parameters:(id)parameters
+                  success:(MGYNetSuccess)success
+                  failure:(MGYNetFailure)failure;
 
 + (instancetype)manager;
 
