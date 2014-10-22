@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "MGYNetManager.h"
+#import "MGYURLSessionManager.h"
 
 @interface SDViewController ()
 {
@@ -41,7 +42,8 @@
     }];
     [tableView registerClass:[SDTableViewCell class] forCellReuseIdentifier:@"normal Cell"];
     [self requestForWeibo2];
-    [self sendWeibo];
+    //[self sendWeibo];
+    [self downloadTest];
     // Do any additional setup after loading the view.
 }
 
@@ -104,6 +106,27 @@
         NSLog(@"Error: %@", error);
     }];
 
+}
+
+- (void)downloadTest
+{
+    //NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    //AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    MGYURLSessionManager *manager = [MGYURLSessionManager manager];
+    
+    NSURL *URL = [NSURL URLWithString:@"https://github.com/Volcore/waaaghtv/archive/master.zip"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath);
+        if (error) {
+            NSLog(@"yyyyyyyy %@", error);
+        }
+    }];
+    [downloadTask resume];
 }
 
 #pragma mark - tableView delegate
