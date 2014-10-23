@@ -11,8 +11,7 @@
 #import "Masonry.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-#import "MGYNetManager.h"
-#import "MGYURLSessionManager.h"
+#import "MGYNetworking.h"
 
 @interface SDViewController ()
 {
@@ -30,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.token = @"2.00hWmuuB7EELHEbb4349f6c00kQwR8";
+    self.token = @"2.00hWmuuB7EELHE95bd1a742cU4ZTuC";
     _array = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
@@ -76,7 +75,7 @@
 {
     [[[SDWebImageManager sharedManager] imageCache] clearDisk];
     [[[SDWebImageManager sharedManager] imageCache] clearMemory];
-    
+    [[MGYWebImageManager shareInstance] clearDisk];
     NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
     MGYNetManager *manager = [MGYNetManager manager];
     NSDictionary *parameters = @{@"access_token":self.token, @"count":@(200)};
@@ -110,9 +109,9 @@
 
 - (void)downloadTest
 {
-    //NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    //AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    MGYURLSessionManager *manager = [MGYURLSessionManager manager];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    //MGYURLSessionManager *manager = [MGYURLSessionManager manager];
     
     NSURL *URL = [NSURL URLWithString:@"https://github.com/Volcore/waaaghtv/archive/master.zip"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];

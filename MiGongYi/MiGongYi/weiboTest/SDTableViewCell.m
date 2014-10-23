@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
 #import "UIImageView+WebCache.h"
+#import "MGYNetworking.h"
 
 @interface SDTableViewCell ()
 
@@ -45,7 +46,8 @@
 //        
 //    }];
     //[self.imageView sd_setImageWithURL:[NSURL URLWithString:url]];
-    [self.myimageView sd_setImageWithURL:[NSURL URLWithString:url]];
+    //[self.myimageView sd_setImageWithURL:[NSURL URLWithString:url]];
+    [self.myimageView mgy_setImageWithURL:[NSURL URLWithString:url]];
 }
 
 @end
