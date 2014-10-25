@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MGYWebImageManager.h"
 
 @interface UIImageView (MGYNetworking)
 
 - (void)mgy_setImageWithURL:(NSURL *)url;
-
-+ (NSString *)CachesDic;
 
 @end

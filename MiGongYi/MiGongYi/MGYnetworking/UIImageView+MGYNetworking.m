@@ -12,14 +12,11 @@
 
 @interface UIImageView (_MGYNetworking)
 
-//@property (readwrite, nonatomic, strong, setter = mgy_setImageRequestOperation:) AFHTTPRequestOperation *af_imageRequestOperation;
-
 @property(readwrite, nonatomic, strong, setter = mgy_setDownloadTask:) NSURLSessionDownloadTask *mgy_downloadTask;
 
 @end
 
 @implementation UIImageView (_MGYNetworking)
-//@dynamic downloadTask;
 
 - (NSURLSessionDownloadTask *)mgy_downloadTask {
     return (NSURLSessionDownloadTask *)objc_getAssociatedObject(self, @selector(mgy_downloadTask));
@@ -36,36 +33,29 @@
 
 - (void)mgy_setImageWithURL:(NSURL *)url
 {
-    
     if (self.mgy_downloadTask) {
         [self.mgy_downloadTask cancel];
     }
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    //MGYURLSessionManager *manager = [MGYURLSessionManager manager];
     
-    //NSURL *URL = [NSURL URLWithString:@"https://github.com/Volcore/waaaghtv/archive/master.zip"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    self.mgy_downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *documentsDirectoryURL = [NSURL fileURLWithPath:[self CachesDic]];
-        NSURL *docURL = [documentsDirectoryURL URLByAppendingPathComponent:[self randomString]];
-        //return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-        return docURL;
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        //NSLog(@"File downloaded to: %@", filePath);
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:filePath]];
-        [self setImage:image];
-        if (error) {
-            NSLog(@"yyyyyyyy %@", error);
+    UIImage *image = [[MGYWebImageManager shareInstance] cachedImageExistsForURL:url] ?:[[MGYWebImageManager shareInstance] diskImageExistsForURL:url];
+    if (image) {
+        if ([[MGYWebImageManager shareInstance] cachedImageExistsForURL:url]) {
+            NSLog(@"哈哈哈哈哈哈哈找到了");
         }
-    }];
-    [self.mgy_downloadTask resume];
-}
+        
+        [self setImage:image];
+    }else
+    {
+        self.mgy_downloadTask = [[MGYWebImageManager shareInstance] downloadImageWithURL:url completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:filePath]];
+                [self setImage:image];
+                if (error) {
+                    NSLog(@"yyyyyyyy %@", error);
+                }
 
-- (NSString *)CachesDic
-{
-    return [UIImageView CachesDic];
+        }];
+        [self.mgy_downloadTask resume];
+    }
 }
 
 - (NSString *)randomString
@@ -79,22 +69,5 @@
     NSString *dataPoint = [[NSString alloc] initWithBytes:data length:NUMBER_OF_CHARS encoding:NSUTF8StringEncoding];
     return dataPoint;
 }
-
-+ (NSString *)CachesDic
-{
-    BOOL isDic = YES;
-    NSString *libPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-    NSString *filePath = [NSString stringWithFormat:@"%@/Caches/MGYWebImageCache", libPath];
-    BOOL existed = [[NSFileManager defaultManager] fileExistsAtPath:filePath
-                                                        isDirectory:&isDic];
-    if (!existed) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:filePath
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:nil];
-    }
-    return filePath;
-}
-
 
 @end

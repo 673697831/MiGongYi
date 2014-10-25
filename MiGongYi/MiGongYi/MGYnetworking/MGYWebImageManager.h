@@ -7,12 +7,30 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIImageView+MGYNetworking.h"
 
 @interface MGYWebImageManager : NSObject
 
 - (void)clearDisk;
 
+- (NSURLSessionDownloadTask *)downloadImageWithURL:(NSURL *)url
+           completionHandler:(void (^)(NSURLResponse *response, NSURL *filePath, NSError *error))completionHandler;
+
+- (UIImage *)cachedImageExistsForURL:(NSURL *)url;
+
+- (void)setCachedImage:(NSURL *)url
+                 image:(UIImage *)image;
+
+- (UIImage *)diskImageExistsForURL:(NSURL *)url;
+
+- (void)setDiskImage:(NSURL *)url
+               Image:(UIImage *)Image;
+
+- (NSURL *)docURL:(NSURL *)url;
+
+- (NSString *)cacheKeyForURL:(NSURL *)url;
+
 + (MGYWebImageManager *)shareInstance;
+
++ (NSString *)CachesDic;
 
 @end

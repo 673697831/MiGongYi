@@ -13,6 +13,6 @@
 
     #import "MGYNetManager.h"
     #import "MGYURLSessionManager.h"
-    #import "MGYWebImageManager.h"
+    #import "UIImageView+MGYNetworking.h"
 
 #endif

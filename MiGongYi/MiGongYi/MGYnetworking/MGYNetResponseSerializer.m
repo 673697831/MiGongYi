@@ -23,7 +23,7 @@
                    error:(NSError * __autoreleasing *)error
 {
     BOOL responseIsValid = YES;
-    NSError *validationError = nil;
+    //NSError *validationError = nil;
     
 //    if (response && [response isKindOfClass:[NSHTTPURLResponse class]]) {
 //        if (self.acceptableContentTypes && ![self.acceptableContentTypes containsObject:[response MIMEType]]) {

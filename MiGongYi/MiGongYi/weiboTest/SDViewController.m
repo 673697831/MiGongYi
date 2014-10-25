@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.token = @"2.00hWmuuB7EELHE95bd1a742cU4ZTuC";
+    self.token = @"2.00hWmuuB7EELHEdde0c7a9a8pUARcB";
     _array = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
@@ -42,7 +42,7 @@
     [tableView registerClass:[SDTableViewCell class] forCellReuseIdentifier:@"normal Cell"];
     [self requestForWeibo2];
     //[self sendWeibo];
-    [self downloadTest];
+    //[self downloadTest];
     // Do any additional setup after loading the view.
 }
 
@@ -86,7 +86,6 @@
             [_array addObject:user[@"profile_image_url"]];
         }
         
-        
         [self.tableView reloadData];
     } failure:^(MGYNetOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -109,9 +108,9 @@
 
 - (void)downloadTest
 {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    //MGYURLSessionManager *manager = [MGYURLSessionManager manager];
+    //NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    //AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    MGYURLSessionManager *manager = [MGYURLSessionManager manager];
     
     NSURL *URL = [NSURL URLWithString:@"https://github.com/Volcore/waaaghtv/archive/master.zip"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
