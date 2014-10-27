@@ -18,7 +18,6 @@
     NSMutableArray *_array;
 }
 
-
 @property(nonatomic, weak) UITableView *tableView;
 @property(nonatomic, copy) NSString *token;
 
@@ -29,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.token = @"2.00hWmuuB7EELHEdde0c7a9a8pUARcB";
+    self.token = @"2.00hWmuuB7EELHE88c34bb6dfwQLyTD";
     _array = [NSMutableArray array];
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
@@ -75,7 +74,7 @@
 {
     [[[SDWebImageManager sharedManager] imageCache] clearDisk];
     [[[SDWebImageManager sharedManager] imageCache] clearMemory];
-    [[MGYWebImageManager shareInstance] clearDisk];
+    //[[MGYWebImageManager shareInstance] clearDisk];
     NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
     MGYNetManager *manager = [MGYNetManager manager];
     NSDictionary *parameters = @{@"access_token":self.token, @"count":@(200)};
@@ -108,9 +107,9 @@
 
 - (void)downloadTest
 {
-    //NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    //AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    MGYURLSessionManager *manager = [MGYURLSessionManager manager];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:@"com.example.apple-samplecode.SimpleBackgroundTransfer.BackgroundSessio"];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    //MGYURLSessionManager *manager = [MGYURLSessionManager manager];
     
     NSURL *URL = [NSURL URLWithString:@"https://github.com/Volcore/waaaghtv/archive/master.zip"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];

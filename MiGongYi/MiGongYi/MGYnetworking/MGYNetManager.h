@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MGYNetOperation.h"
 
-@interface MGYNetManager : NSObject
+@interface MGYNetManager : NSObject 
 
 - (MGYNetOperation *)GET:(NSString *)URLString
               parameters:(id)parameters

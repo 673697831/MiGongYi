@@ -92,7 +92,7 @@
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
-    //NSLog(@"%f", (double)totalBytesWritten / (double)totalBytesExpectedToWrite);
+    NSLog(@"%f", (double)totalBytesWritten / (double)totalBytesExpectedToWrite);
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "MGYProjectRecent.h"
 #import "MGYMiChatRecord.h"
 #define fuck 1
+#define test 1
 
 @interface DataManager ()
 {
@@ -81,7 +82,12 @@
 
 - (NSString *)baseUrl
 {
+#if fuck
+#warning 测试服务器
+    return @"http://106.185.43.198/ricedonate/htdocs/ricedonate/public";
+#else
     return @"http://api.ricedonate.com/ricedonate/htdocs/ricedonate/public";
+#endif
 }
 
 - (void)checkAccountDirectory

@@ -39,10 +39,6 @@
     
     UIImage *image = [[MGYWebImageManager shareInstance] cachedImageExistsForURL:url] ?:[[MGYWebImageManager shareInstance] diskImageExistsForURL:url];
     if (image) {
-        if ([[MGYWebImageManager shareInstance] cachedImageExistsForURL:url]) {
-            NSLog(@"哈哈哈哈哈哈哈找到了");
-        }
-        
         [self setImage:image];
     }else
     {

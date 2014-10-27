@@ -8,6 +8,7 @@
 
 #import "MGYNetOperation.h"
 #import "MGYNetResponseSerializer.h"
+
 @interface MGYNetOperation ()
 
 @property (nonatomic, strong) NSURLRequest *request;
@@ -15,11 +16,33 @@
 @property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, strong) NSOutputStream *outputStream;
 @property (nonatomic, strong) NSData *responseData;
+@property (nonatomic, strong) NSSet *runLoopModes;
 @property (nonatomic, strong) MGYNetResponseSerializer *responseSerializer;
 
 @end
 
 @implementation MGYNetOperation
+
++ (void)networkRequestThreadEntryPoint:(id)__unused object {
+    @autoreleasepool {
+        [[NSThread currentThread] setName:@"MGYNetworking"];
+        
+        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+        [runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];
+        [runLoop run];
+    }
+}
+
++ (NSThread *)networkRequestThread {
+    static NSThread *_networkRequestThread = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _networkRequestThread = [[NSThread alloc] initWithTarget:self selector:@selector(networkRequestThreadEntryPoint:) object:nil];
+        [_networkRequestThread start];
+    });
+    
+    return _networkRequestThread;
+}
 
 - (instancetype)initWithRequest:(NSURLRequest *)urlRequest
 {
@@ -29,6 +52,7 @@
     if (self) {
 		self.request = urlRequest;
         self.responseSerializer = [MGYNetResponseSerializer serializer];
+        self.runLoopModes = [NSSet setWithObject:NSRunLoopCommonModes];
     }
     return self;
 }
@@ -42,9 +66,49 @@
 
 - (void)start
 {
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
+//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
+//    
+//    [connection start];
     
-    [connection start];
+    if ([self isCancelled]) {
+        [self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
+    } else if ([self isReady]) {
+        
+        [self performSelector:@selector(operationDidStart) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
+    }
+}
+
+- (void)operationDidStart {
+    if (![self isCancelled]) {
+        self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
+        
+        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+        for (NSString *runLoopMode in self.runLoopModes) {
+            [self.connection scheduleInRunLoop:runLoop forMode:runLoopMode];
+            [self.outputStream scheduleInRunLoop:runLoop forMode:runLoopMode];
+        }
+        
+        [self.connection start];
+    }
+}
+
+- (void)cancelConnection {
+    NSDictionary *userInfo = nil;
+    if ([self.request URL]) {
+        userInfo = [NSDictionary dictionaryWithObject:[self.request URL] forKey:NSURLErrorFailingURLErrorKey];
+    }
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:userInfo];
+    
+    if (![self isFinished]) {
+        if (self.connection) {
+            [self.connection cancel];
+            [self performSelector:@selector(connection:didFailWithError:) withObject:self.connection withObject:error];
+        } else {
+            // Accomodate race condition where `self.connection` has not yet been set before cancellation
+            //self.error = error;
+            //[self finish];
+        }
+    }
 }
 
 - (NSOutputStream *)outputStream {
@@ -84,13 +148,7 @@
             return;
         }
     }
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        self.totalBytesRead += (long long)length;
-//        
-//        if (self.downloadProgress) {
-//            self.downloadProgress(length, self.totalBytesRead, self.response.expectedContentLength);
-//        }
-//    });
+
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -118,7 +176,6 @@
         self.success(self, [NSJSONSerialization JSONObjectWithData:self.responseData options:0 error:&error]);
     }
     
-    //[self finish];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response

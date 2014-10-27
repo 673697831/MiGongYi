@@ -12,6 +12,7 @@
 @interface MGYNetManager ()
 
 @property(nonatomic, strong) MGYNetRequestSerializer *requestSerializer;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 @end
 
@@ -22,6 +23,7 @@
     self = [super init];
     if (self) {
         self.requestSerializer = [MGYNetRequestSerializer serializer];
+        self.operationQueue = [[NSOperationQueue alloc] init];
     }
     return self;
 }
@@ -47,7 +49,6 @@
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST"
                                                                    URLString:[[NSURL URLWithString:URLString] absoluteString]
                                                                   parameters:parameters];
-    NSLog(@"hhhhh %@", request.URL);
     MGYNetOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
     //[self.operationQueue addOperation:operation];
     return operation;
@@ -60,15 +61,9 @@
     MGYNetOperation *operation = [[MGYNetOperation alloc] initWithRequest:request];
     operation.success = success;
     operation.failure = failure;
-//    operation.responseSerializer = self.responseSerializer;
-//    operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
-//    operation.credential = self.credential;
-//    operation.securityPolicy = self.securityPolicy;
-//    
-//    [operation setCompletionBlockWithSuccess:success failure:failure];
-//    operation.completionQueue = self.completionQueue;
-//    operation.completionGroup = self.completionGroup;
-    [operation start];
+    //[operation start];
+    
+    [self.operationQueue addOperation:operation];
     return operation;
 }
 
