@@ -45,8 +45,7 @@
 //                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //        
 //    }];
-    //[self.imageView sd_setImageWithURL:[NSURL URLWithString:url]];
-    //[self.myimageView sd_setImageWithURL:[NSURL URLWithString:url]];
+    //[self.myimageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
     [self.myimageView mgy_setImageWithURL:[NSURL URLWithString:url]];
 }
 

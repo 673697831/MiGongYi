@@ -13,4 +13,7 @@
 
 - (void)mgy_setImageWithURL:(NSURL *)url;
 
+- (void)mgy_setImageWithURL:(NSURL *)url
+           placeholderImage:(UIImage *)placeholderImage;
+
 @end

@@ -11,7 +11,7 @@
 
 @interface MGYNetManager ()
 
-@property(nonatomic, strong) MGYNetRequestSerializer *requestSerializer;
+@property (nonatomic, strong) MGYNetRequestSerializer *requestSerializer;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 @end

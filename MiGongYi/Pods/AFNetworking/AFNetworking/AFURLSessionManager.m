@@ -231,7 +231,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
     self.progress.totalUnitCount = totalBytesExpectedToWrite;
     self.progress.completedUnitCount = totalBytesWritten;
-    NSLog(@"%f", (double)totalBytesWritten / (double)totalBytesExpectedToWrite );
 }
 
 - (void)URLSession:(__unused NSURLSession *)session

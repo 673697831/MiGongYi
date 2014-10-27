@@ -8,6 +8,7 @@
 
 #import "MGYWebImageManager.h"
 #import "AFNetworking.h"
+#import "MGYURLSessionManager.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @interface MGYImageCache : NSCache
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) NSCache *imageCache;
 //@property (nonatomic ,strong) NSMutableDictionary *imageCache;
 @property (nonatomic, strong) AFURLSessionManager *afURLSessionManager;
+@property (nonatomic, strong) MGYURLSessionManager *mgyURLSessionManager;
 
 @end
 
@@ -35,6 +37,7 @@
         //self.imageCache = [NSMutableDictionary dictionary];
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.afURLSessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        self.mgyURLSessionManager = [MGYURLSessionManager manager];
     }
     return self;
 }
@@ -44,9 +47,13 @@
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    NSURLSessionDownloadTask *downloadTask = [self.afURLSessionManager downloadTaskWithRequest:request
+    MGYURLSessionManager *manager = [MGYURLSessionManager manager];
+    //AFURLSessionManager *manager = self.afURLSessionManager;
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
                                                                      progress:nil
                                                                   destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                      NSLog(@"%@", [url absoluteString]);
         return [self docURL:url];
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         //NSLog(@"File downloaded to: %@", filePath);

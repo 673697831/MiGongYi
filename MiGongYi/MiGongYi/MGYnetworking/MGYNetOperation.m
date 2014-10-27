@@ -7,7 +7,6 @@
 //
 
 #import "MGYNetOperation.h"
-#import "MGYNetResponseSerializer.h"
 
 @interface MGYNetOperation ()
 
@@ -17,7 +16,6 @@
 @property (nonatomic, strong) NSOutputStream *outputStream;
 @property (nonatomic, strong) NSData *responseData;
 @property (nonatomic, strong) NSSet *runLoopModes;
-@property (nonatomic, strong) MGYNetResponseSerializer *responseSerializer;
 
 @end
 
@@ -51,7 +49,6 @@
     self = [super init];
     if (self) {
 		self.request = urlRequest;
-        self.responseSerializer = [MGYNetResponseSerializer serializer];
         self.runLoopModes = [NSSet setWithObject:NSRunLoopCommonModes];
     }
     return self;

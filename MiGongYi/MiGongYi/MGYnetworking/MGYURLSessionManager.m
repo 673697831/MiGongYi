@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 @property (nonatomic, copy) NSURL *downloadFileURL;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 @end
 
@@ -30,9 +31,13 @@
         if (!configuration) {
             configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         }
+        
+        self.operationQueue = [[NSOperationQueue alloc] init];
+        self.operationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+        
         self.session = [NSURLSession sessionWithConfiguration:configuration
                                                      delegate:self
-                                                delegateQueue:nil];
+                                                delegateQueue:self.operationQueue];
         
     }
     return self;
@@ -92,7 +97,7 @@
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
-    NSLog(@"%f", (double)totalBytesWritten / (double)totalBytesExpectedToWrite);
+    //NSLog(@"%f", (float)totalBytesWritten / (float)totalBytesExpectedToWrite);
 }
 
 @end

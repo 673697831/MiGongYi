@@ -55,7 +55,6 @@
 		20AB149A19F6030C0088106A /* MGYNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB149919F6030C0088106A /* MGYNetManager.m */; };
 		20AB149D19F604C60088106A /* MGYNetOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB149C19F604C60088106A /* MGYNetOperation.m */; };
 		20AB14A019F60CA20088106A /* MGYNetRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB149F19F60CA20088106A /* MGYNetRequestSerializer.m */; };
-		20AB14A319F65EC70088106A /* MGYNetResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14A219F65EC70088106A /* MGYNetResponseSerializer.m */; };
 		20AB14A619F75F740088106A /* MGYURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14A519F75F740088106A /* MGYURLSessionManager.m */; };
 		20AB14A919F7B2DE0088106A /* UIImageView+MGYNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14A819F7B2DE0088106A /* UIImageView+MGYNetworking.m */; };
 		20AB14AD19F8A38E0088106A /* MGYWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14AC19F8A38E0088106A /* MGYWebImageManager.m */; };
@@ -173,8 +172,6 @@
 		20AB149C19F604C60088106A /* MGYNetOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYNetOperation.m; sourceTree = "<group>"; };
 		20AB149E19F60CA20088106A /* MGYNetRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYNetRequestSerializer.h; sourceTree = "<group>"; };
 		20AB149F19F60CA20088106A /* MGYNetRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYNetRequestSerializer.m; sourceTree = "<group>"; };
-		20AB14A119F65EC70088106A /* MGYNetResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYNetResponseSerializer.h; sourceTree = "<group>"; };
-		20AB14A219F65EC70088106A /* MGYNetResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYNetResponseSerializer.m; sourceTree = "<group>"; };
 		20AB14A419F75F740088106A /* MGYURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYURLSessionManager.h; sourceTree = "<group>"; };
 		20AB14A519F75F740088106A /* MGYURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYURLSessionManager.m; sourceTree = "<group>"; };
 		20AB14A719F7B2DE0088106A /* UIImageView+MGYNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MGYNetworking.h"; sourceTree = "<group>"; };
@@ -495,8 +492,6 @@
 				20AB149C19F604C60088106A /* MGYNetOperation.m */,
 				20AB149E19F60CA20088106A /* MGYNetRequestSerializer.h */,
 				20AB149F19F60CA20088106A /* MGYNetRequestSerializer.m */,
-				20AB14A119F65EC70088106A /* MGYNetResponseSerializer.h */,
-				20AB14A219F65EC70088106A /* MGYNetResponseSerializer.m */,
 				20AB14A419F75F740088106A /* MGYURLSessionManager.h */,
 				20AB14A519F75F740088106A /* MGYURLSessionManager.m */,
 				20AB14A719F7B2DE0088106A /* UIImageView+MGYNetworking.h */,
@@ -683,7 +678,6 @@
 				20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */,
 				201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */,
 				20AB14A019F60CA20088106A /* MGYNetRequestSerializer.m in Sources */,
-				20AB14A319F65EC70088106A /* MGYNetResponseSerializer.m in Sources */,
 				20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */,
 				202E2AA619E2E4D4000E072B /* MGYMiChatPickerView.m in Sources */,
 				20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */,
