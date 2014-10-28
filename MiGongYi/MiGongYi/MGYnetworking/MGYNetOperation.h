@@ -8,16 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MGYNetOperation : NSOperation <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface MGYNetOperation : NSOperation
 
-typedef void (^MGYNetSuccess)(MGYNetOperation *, id);
-typedef void (^MGYNetFailure)(MGYNetOperation *, NSError *);
+typedef void (^MGYNetOperationSuccess)(MGYNetOperation *, id);
+typedef void (^MGYNetOperationFailure)(MGYNetOperation *, NSError *);
 
-@property (nonatomic, copy) MGYNetSuccess success;
-@property (nonatomic, copy) MGYNetFailure failure;
-
-- (instancetype)initWithRequest:(NSURLRequest *)urlRequest;
-
-- (void)start;
+- (instancetype)initWithRequest:(NSURLRequest *)urlRequest
+                        success:(MGYNetOperationSuccess)success
+                        failure:(MGYNetOperationFailure)failure;
 
 @end

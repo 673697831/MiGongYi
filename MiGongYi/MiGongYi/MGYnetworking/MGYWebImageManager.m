@@ -25,6 +25,18 @@
 @property (nonatomic, strong) AFURLSessionManager *afURLSessionManager;
 @property (nonatomic, strong) MGYURLSessionManager *mgyURLSessionManager;
 
+- (void)setCachedImage:(NSURL *)url
+                 image:(UIImage *)image;
+
+- (void)setDiskImage:(NSURL *)url
+               Image:(UIImage *)Image;
+
+- (NSURL *)docURL:(NSURL *)url;
+
+- (NSString *)cacheKeyForURL:(NSURL *)url;
+
++ (NSString *)CachesDic;
+
 @end
 
 @implementation MGYWebImageManager
@@ -42,18 +54,42 @@
     return self;
 }
 
+#pragma mark -
+
+- (void)clearDisk
+{
+    
+    //    NSString *extension = @"m4r";
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:[self.class CachesDic] error:NULL];
+    NSEnumerator *e = [contents objectEnumerator];
+    NSString *filename;
+    while ((filename = [e nextObject])) {
+        
+        //if ([[filename pathExtension] isEqualToString:extension]) {
+        
+        [fileManager removeItemAtPath:[[self.class CachesDic] stringByAppendingPathComponent:filename] error:NULL];
+        //}
+    }
+}
+
 - (NSURLSessionDownloadTask *)downloadImageWithURL:(NSURL *)url
            completionHandler:(void (^)(NSURLResponse *, NSURL *, NSError *))completionHandler
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    MGYURLSessionManager *manager = [MGYURLSessionManager manager];
+    MGYURLSessionManager *manager = self.mgyURLSessionManager;
     //AFURLSessionManager *manager = self.afURLSessionManager;
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
                                                                      progress:nil
                                                                   destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                                                                      NSLog(@"%@", [url absoluteString]);
+//                                                                      NSLog(@"%d", downloadTask.taskIdentifier);
+                                                                      
+                                    
         return [self docURL:url];
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         //NSLog(@"File downloaded to: %@", filePath);
@@ -71,14 +107,15 @@
     return [self.imageCache objectForKey:[self cacheKeyForURL:url]];
 }
 
-- (void)setCachedImage:(NSURL *)url image:(UIImage *)image
-{
-    [self.imageCache setObject:image forKey:[self cacheKeyForURL:url]];
-}
-
 - (UIImage *)diskImageExistsForURL:(NSURL *)url
 {
     return [UIImage imageWithData:[NSData dataWithContentsOfURL:[self docURL:url]]];
+}
+
+#pragma mark -
+- (void)setCachedImage:(NSURL *)url image:(UIImage *)image
+{
+    [self.imageCache setObject:image forKey:[self cacheKeyForURL:url]];
 }
 
 - (void)setDiskImage:(NSURL *)url Image:(UIImage *)Image
@@ -107,36 +144,6 @@
     return filename;
 }
 
-- (void)clearDisk
-{
-    
-//    NSString *extension = @"m4r";
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSArray *contents = [fileManager contentsOfDirectoryAtPath:[self.class CachesDic] error:NULL];
-    NSEnumerator *e = [contents objectEnumerator];
-    NSString *filename;
-    while ((filename = [e nextObject])) {
-        
-        //if ([[filename pathExtension] isEqualToString:extension]) {
-            
-            [fileManager removeItemAtPath:[[self.class CachesDic] stringByAppendingPathComponent:filename] error:NULL];
-        //}
-    }
-}
-
-+ (MGYWebImageManager *)shareInstance
-{
-    static MGYWebImageManager *instance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[MGYWebImageManager alloc] init];
-    });
-    return instance;
-}
-
 + (NSString *)CachesDic
 {
     BOOL isDic = YES;
@@ -151,6 +158,17 @@
                                                         error:nil];
     }
     return filePath;
+}
+
+#pragma mark -
++ (MGYWebImageManager *)shareInstance
+{
+    static MGYWebImageManager *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[MGYWebImageManager alloc] init];
+    });
+    return instance;
 }
 
 @end

@@ -13,8 +13,7 @@
 typedef void (^MGYURLSessionTaskCompletionHandler)(NSURLResponse *response, id responseObject, NSError *error);
 typedef NSURL * (^MGYURLSessionDownloadTaskDidFinishDownloadingBlock)(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, NSURL *location);
 
-@property (nonatomic, copy) MGYURLSessionTaskCompletionHandler completionHandler;
-@property (nonatomic, copy) MGYURLSessionDownloadTaskDidFinishDownloadingBlock downloadTaskDidFinishDownloadingBlock;
+@property (nonatomic, strong) dispatch_group_t completionGroup;
 
 - (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration;
 

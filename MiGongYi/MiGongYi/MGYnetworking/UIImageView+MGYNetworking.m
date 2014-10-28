@@ -50,8 +50,15 @@
     {
         [self setImage:placeholderImage];
         self.mgy_downloadTask = [[MGYWebImageManager shareInstance] downloadImageWithURL:url completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:filePath]];
-            [self setImage:image];
+            
+            __block UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:filePath]];
+            //[self setImage:image];
+            __weak typeof(self)weakSelf = self;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf setImage:image];
+            });
+            
             if (error) {
                 NSLog(@"yyyyyyyy %@", error);
             }

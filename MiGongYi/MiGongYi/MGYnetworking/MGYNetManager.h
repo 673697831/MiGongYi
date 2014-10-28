@@ -13,13 +13,13 @@
 
 - (MGYNetOperation *)GET:(NSString *)URLString
               parameters:(id)parameters
-                 success:(MGYNetSuccess)success
-                 failure:(MGYNetFailure)failure;
+                 success:(MGYNetOperationSuccess)success
+                 failure:(MGYNetOperationFailure)failure;
 
 - (MGYNetOperation *)POST:(NSString *)URLString
                parameters:(id)parameters
-                  success:(MGYNetSuccess)success
-                  failure:(MGYNetFailure)failure;
+                  success:(MGYNetOperationSuccess)success
+                  failure:(MGYNetOperationFailure)failure;
 
 + (instancetype)manager;
 

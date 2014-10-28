@@ -8,6 +8,18 @@
 
 #import "MGYNetRequestSerializer.h"
 
+@interface MGYNetRequestSerializer ()
+
+@property (nonatomic, assign) NSStringEncoding stringEncoding;
+@property (nonatomic, strong) NSSet *HTTPMethodsEncodingParametersInURI;
+
+- (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
+                               withParameters:(id)parameters
+                                        error:(NSError * __autoreleasing *)error;
+- (NSString *)parametersToString:(NSDictionary *)parameters;
+
+@end
+
 @implementation MGYNetRequestSerializer
 
 - (instancetype)init {
@@ -20,6 +32,7 @@
     return self;
 }
 
+#pragma mark -
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method
                                  URLString:(NSString *)URLString
                                 parameters:(id)parameters
@@ -39,6 +52,7 @@
 	return mutableRequest;
 }
 
+#pragma mark -
 - (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
                                withParameters:(id)parameters
                                         error:(NSError * __autoreleasing *)error
@@ -64,15 +78,30 @@
 
 - (NSString *)parametersToString:(NSDictionary *)parameters
 {
-    NSMutableArray *mutablePairs = [NSMutableArray array];
+    NSMutableString *string = [NSMutableString string];
+    BOOL isFirstKey = YES;
     for (NSString *key in parameters) {
-        NSString *str = [NSString stringWithFormat:@"%@=%@", key, [parameters objectForKey:key]];
-        [mutablePairs addObject:str];
+        if(isFirstKey)
+        {
+            isFirstKey = NO;
+        }else
+        {
+            [string appendString:@"&"];
+        }
+        [string appendFormat:@"%@=%@", key, [parameters objectForKey:key]];
     }
     
-    return [mutablePairs componentsJoinedByString:@"&"];
+//    NSMutableArray *mutablePairs = [NSMutableArray array];
+//    for (NSString *key in parameters) {
+//        NSString *str = [NSString stringWithFormat:@"%@=%@", key, [parameters objectForKey:key]];
+//        [mutablePairs addObject:str];
+//    }
+//    
+//    return [mutablePairs componentsJoinedByString:@"&"];
+    return string;
 }
 
+#pragma mark -
 + (instancetype)serializer
 {
     return [MGYNetRequestSerializer new];

@@ -146,7 +146,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1000;
+    return 200;
 }
 /*
 #pragma mark - Navigation

@@ -14,6 +14,10 @@
 @property (nonatomic, strong) MGYNetRequestSerializer *requestSerializer;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
+- (MGYNetOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request
+                                             success:(void (^)(MGYNetOperation *operation, id responseObject))success
+                                             failure:(void (^)(MGYNetOperation *operation, NSError *error))failure;
+
 @end
 
 @implementation MGYNetManager
@@ -28,10 +32,11 @@
     return self;
 }
 
+#pragma mark -
 - (MGYNetOperation *)GET:(NSString *)URLString
               parameters:(id)parameters
-                 success:(MGYNetSuccess)success
-                 failure:(MGYNetFailure)failure
+                 success:(MGYNetOperationSuccess)success
+                 failure:(MGYNetOperationFailure)failure
 {
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET"
                                                                    URLString:[[NSURL URLWithString:URLString] absoluteString]
@@ -43,8 +48,8 @@
 
 - (MGYNetOperation *)POST:(NSString *)URLString
                parameters:(id)parameters
-                  success:(MGYNetSuccess)success
-                  failure:(MGYNetFailure)failure
+                  success:(MGYNetOperationSuccess)success
+                  failure:(MGYNetOperationFailure)failure
 {
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST"
                                                                    URLString:[[NSURL URLWithString:URLString] absoluteString]
@@ -54,22 +59,28 @@
     return operation;
 }
 
+#pragma mark -
 - (MGYNetOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request
                                                     success:(void (^)(MGYNetOperation *operation, id responseObject))success
                                                     failure:(void (^)(MGYNetOperation *operation, NSError *error))failure
 {
-    MGYNetOperation *operation = [[MGYNetOperation alloc] initWithRequest:request];
-    operation.success = success;
-    operation.failure = failure;
-    //[operation start];
+    MGYNetOperation *operation = [[MGYNetOperation alloc] initWithRequest:request
+                                                                  success:success
+                                                                  failure:failure];
     
     [self.operationQueue addOperation:operation];
     return operation;
 }
 
+#pragma mark -
 + (instancetype)manager
 {
-    return [MGYNetManager new];
+    static MGYNetManager *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [MGYNetManager new];
+    });
+    return instance;
 }
 
 @end

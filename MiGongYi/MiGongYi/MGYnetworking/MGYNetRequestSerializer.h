@@ -10,9 +10,6 @@
 
 @interface MGYNetRequestSerializer : NSObject
 
-@property (nonatomic, assign) NSStringEncoding stringEncoding;
-@property (nonatomic, strong) NSSet *HTTPMethodsEncodingParametersInURI;
-
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method
                                  URLString:(NSString *)URLString
                                 parameters:(id)parameters;
