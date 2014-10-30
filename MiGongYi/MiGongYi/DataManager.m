@@ -11,6 +11,8 @@
 #import "MGYProjectDetails.h"
 #import "MGYProjectRecent.h"
 #import "MGYMiChatRecord.h"
+#import "MGYStoryNode.h"
+#import "MGYStoryPlayer.h"
 #define fuck 1
 #define test 1
 

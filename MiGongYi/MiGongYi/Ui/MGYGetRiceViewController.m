@@ -11,6 +11,7 @@
 #import "MGYMiZhiViewController.h"
 #import "MGYMiChatViewController.h"
 #import "SDViewController.h"
+#import "MGYRiceMoveViewController.h"
 #define DIS 60
 
 @interface MGYGetRiceViewController ()
@@ -89,8 +90,10 @@
         dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            SDViewController *sdView = [SDViewController new];
-            [self.navigationController pushViewController:sdView animated:NO];
+            //SDViewController *sdView = [SDViewController new];
+            //[self.navigationController pushViewController:sdView animated:NO];
+            MGYRiceMoveViewController *riceMove = [MGYRiceMoveViewController new];
+            [self.navigationController pushViewController:riceMove animated:NO];
         });
     };
     

@@ -58,6 +58,7 @@
 		20AB14A619F75F740088106A /* MGYURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14A519F75F740088106A /* MGYURLSessionManager.m */; };
 		20AB14A919F7B2DE0088106A /* UIImageView+MGYNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14A819F7B2DE0088106A /* UIImageView+MGYNetworking.m */; };
 		20AB14AD19F8A38E0088106A /* MGYWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AB14AC19F8A38E0088106A /* MGYWebImageManager.m */; };
+		20AC9F961A0110260038A206 /* MGYStoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AC9F951A0110260038A206 /* MGYStoryManager.m */; };
 		20C86B4319D508BC0028E405 /* MGYRiceFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4219D508BC0028E405 /* MGYRiceFlow.m */; };
 		20C86B4619D513E60028E405 /* MGYRiceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4519D513E60028E405 /* MGYRiceRecord.m */; };
 		20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C86B4819D5547E0028E405 /* MGYMyFavList.m */; };
@@ -68,6 +69,13 @@
 		20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CC641019C3EDA8007230A1 /* MGYProgramItemViewController.m */; };
 		20D0BE5719CC36510051BFD2 /* MGYAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D0BE5619CC36510051BFD2 /* MGYAboutMeViewController.m */; };
 		20D0BE5A19CD2D630051BFD2 /* MGYAboutMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D0BE5919CD2D630051BFD2 /* MGYAboutMeTableViewCell.m */; };
+		20DE257019FFDC8E00F8EF7D /* MGYStoryPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DE256F19FFDC8E00F8EF7D /* MGYStoryPlayer.m */; };
+		20DE257319FFDD5600F8EF7D /* MGYStoryNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DE257219FFDD5600F8EF7D /* MGYStoryNode.m */; };
+		20DE25791A00D3F000F8EF7D /* MGYRiceMoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DE25781A00D3F000F8EF7D /* MGYRiceMoveViewController.m */; };
+		20DE25841A00E33C00F8EF7D /* story1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20DE25811A00E33C00F8EF7D /* story1.plist */; };
+		20DE25851A00E33C00F8EF7D /* story2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20DE25821A00E33C00F8EF7D /* story2.plist */; };
+		20DE25861A00E33C00F8EF7D /* story3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20DE25831A00E33C00F8EF7D /* story3.plist */; };
+		20DE25881A00EA2A00F8EF7D /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20DE25871A00EA2A00F8EF7D /* Config.plist */; };
 		20E445A919B63030007B2900 /* BlackMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445A819B63030007B2900 /* BlackMagic.m */; };
 		20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445AB19B637EA007B2900 /* MGYTabBarController.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
@@ -179,6 +187,8 @@
 		20AB14AA19F7B3B60088106A /* MGYNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGYNetworking.h; sourceTree = "<group>"; };
 		20AB14AB19F8A38E0088106A /* MGYWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYWebImageManager.h; sourceTree = "<group>"; };
 		20AB14AC19F8A38E0088106A /* MGYWebImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYWebImageManager.m; sourceTree = "<group>"; };
+		20AC9F941A0110260038A206 /* MGYStoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYStoryManager.h; sourceTree = "<group>"; };
+		20AC9F951A0110260038A206 /* MGYStoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYStoryManager.m; sourceTree = "<group>"; };
 		20C86B4119D508BC0028E405 /* MGYRiceFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceFlow.h; sourceTree = "<group>"; };
 		20C86B4219D508BC0028E405 /* MGYRiceFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceFlow.m; sourceTree = "<group>"; };
 		20C86B4419D513E60028E405 /* MGYRiceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceRecord.h; sourceTree = "<group>"; };
@@ -199,6 +209,16 @@
 		20D0BE5619CC36510051BFD2 /* MGYAboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYAboutMeViewController.m; path = MiGongYi/Ui/MGYAboutMeViewController.m; sourceTree = SOURCE_ROOT; };
 		20D0BE5819CD2D630051BFD2 /* MGYAboutMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYAboutMeTableViewCell.h; sourceTree = "<group>"; };
 		20D0BE5919CD2D630051BFD2 /* MGYAboutMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYAboutMeTableViewCell.m; sourceTree = "<group>"; };
+		20DE256E19FFDC8E00F8EF7D /* MGYStoryPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYStoryPlayer.h; sourceTree = "<group>"; };
+		20DE256F19FFDC8E00F8EF7D /* MGYStoryPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYStoryPlayer.m; sourceTree = "<group>"; };
+		20DE257119FFDD5600F8EF7D /* MGYStoryNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYStoryNode.h; sourceTree = "<group>"; };
+		20DE257219FFDD5600F8EF7D /* MGYStoryNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYStoryNode.m; sourceTree = "<group>"; };
+		20DE25771A00D3F000F8EF7D /* MGYRiceMoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYRiceMoveViewController.h; path = MGYController/MGYRiceMoveViewController.h; sourceTree = "<group>"; };
+		20DE25781A00D3F000F8EF7D /* MGYRiceMoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYRiceMoveViewController.m; path = MGYController/MGYRiceMoveViewController.m; sourceTree = "<group>"; };
+		20DE25811A00E33C00F8EF7D /* story1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story1.plist; sourceTree = "<group>"; };
+		20DE25821A00E33C00F8EF7D /* story2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story2.plist; sourceTree = "<group>"; };
+		20DE25831A00E33C00F8EF7D /* story3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story3.plist; sourceTree = "<group>"; };
+		20DE25871A00EA2A00F8EF7D /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		20E445A719B63030007B2900 /* BlackMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackMagic.h; sourceTree = "<group>"; };
 		20E445A819B63030007B2900 /* BlackMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackMagic.m; sourceTree = "<group>"; };
 		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYTabBarController.h; sourceTree = "<group>"; };
@@ -252,6 +272,8 @@
 				20D0BE5619CC36510051BFD2 /* MGYAboutMeViewController.m */,
 				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
 				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
+				20DE25771A00D3F000F8EF7D /* MGYRiceMoveViewController.h */,
+				20DE25781A00D3F000F8EF7D /* MGYRiceMoveViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -279,6 +301,7 @@
 		202E2A8619D8F929000E072B /* GetRice */ = {
 			isa = PBXGroup;
 			children = (
+				20DE256D19FFDC5500F8EF7D /* RiceMove */,
 				202E2A8E19D934AD000E072B /* MiChat */,
 				202E2A8719D8F929000E072B /* MiZhi */,
 			);
@@ -371,6 +394,7 @@
 		2085C85B19B6280C00E9FA3B /* MiGongYi */ = {
 			isa = PBXGroup;
 			children = (
+				20DE25801A00E33C00F8EF7D /* Config */,
 				20AB149719F6026F0088106A /* MGYnetworking */,
 				201EFE4D19F2247800B14853 /* weiboTest */,
 				201EFE3519ED55AA00B14853 /* en.lproj */,
@@ -486,6 +510,7 @@
 		20AB149719F6026F0088106A /* MGYnetworking */ = {
 			isa = PBXGroup;
 			children = (
+				20AB14AA19F7B3B60088106A /* MGYNetworking.h */,
 				20AB149819F6030C0088106A /* MGYNetManager.h */,
 				20AB149919F6030C0088106A /* MGYNetManager.m */,
 				20AB149B19F604C60088106A /* MGYNetOperation.h */,
@@ -496,7 +521,6 @@
 				20AB14A519F75F740088106A /* MGYURLSessionManager.m */,
 				20AB14A719F7B2DE0088106A /* UIImageView+MGYNetworking.h */,
 				20AB14A819F7B2DE0088106A /* UIImageView+MGYNetworking.m */,
-				20AB14AA19F7B3B60088106A /* MGYNetworking.h */,
 				20AB14AB19F8A38E0088106A /* MGYWebImageManager.h */,
 				20AB14AC19F8A38E0088106A /* MGYWebImageManager.m */,
 			);
@@ -516,6 +540,30 @@
 				202E2A9C19DA84A5000E072B /* MGYSubViewController.m */,
 			);
 			path = Template;
+			sourceTree = "<group>";
+		};
+		20DE256D19FFDC5500F8EF7D /* RiceMove */ = {
+			isa = PBXGroup;
+			children = (
+				20DE256E19FFDC8E00F8EF7D /* MGYStoryPlayer.h */,
+				20DE256F19FFDC8E00F8EF7D /* MGYStoryPlayer.m */,
+				20DE257119FFDD5600F8EF7D /* MGYStoryNode.h */,
+				20DE257219FFDD5600F8EF7D /* MGYStoryNode.m */,
+				20AC9F941A0110260038A206 /* MGYStoryManager.h */,
+				20AC9F951A0110260038A206 /* MGYStoryManager.m */,
+			);
+			path = RiceMove;
+			sourceTree = "<group>";
+		};
+		20DE25801A00E33C00F8EF7D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				20DE25811A00E33C00F8EF7D /* story1.plist */,
+				20DE25821A00E33C00F8EF7D /* story2.plist */,
+				20DE25831A00E33C00F8EF7D /* story3.plist */,
+				20DE25871A00EA2A00F8EF7D /* Config.plist */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -604,6 +652,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DE25881A00EA2A00F8EF7D /* Config.plist in Resources */,
+				20DE25841A00E33C00F8EF7D /* story1.plist in Resources */,
+				20DE25851A00E33C00F8EF7D /* story2.plist in Resources */,
+				20DE25861A00E33C00F8EF7D /* story3.plist in Resources */,
 				201EFE3B19ED55AA00B14853 /* Localizable.strings in Resources */,
 				2085C86819B6280C00E9FA3B /* Images.xcassets in Resources */,
 				201EFE3A19ED55AA00B14853 /* InfoPlist.strings in Resources */,
@@ -662,6 +714,7 @@
 				202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */,
 				2087137C19CFD38B0035B21B /* MGYProjectDetailsTableViewCell.m in Sources */,
 				20A2D29A19BAAFC0004C7697 /* DataManager.m in Sources */,
+				20DE257319FFDD5600F8EF7D /* MGYStoryNode.m in Sources */,
 				202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */,
 				202E2AA319DA9E01000E072B /* MGYMiChatLabelView.m in Sources */,
 				202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */,
@@ -673,6 +726,7 @@
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
 				201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
+				20DE257019FFDC8E00F8EF7D /* MGYStoryPlayer.m in Sources */,
 				2087138B19D17D0B0035B21B /* MGYProjectRecent.m in Sources */,
 				201EFE2E19EC35DB00B14853 /* MGYMiChatMonsterView.m in Sources */,
 				20C86B4919D5547E0028E405 /* MGYMyFavList.m in Sources */,
@@ -701,12 +755,14 @@
 				201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */,
 				202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */,
 				202E2A9D19DA84A5000E072B /* MGYSubViewController.m in Sources */,
+				20DE25791A00D3F000F8EF7D /* MGYRiceMoveViewController.m in Sources */,
 				20AB14A619F75F740088106A /* MGYURLSessionManager.m in Sources */,
 				201EFE1D19E3B9B700B14853 /* MGYMiChatDetailsViewController.m in Sources */,
 				20AB14A919F7B2DE0088106A /* UIImageView+MGYNetworking.m in Sources */,
 				2087138819D15D170035B21B /* MGYProjectDevelopmentsTableViewCell.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
 				202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */,
+				20AC9F961A0110260038A206 /* MGYStoryManager.m in Sources */,
 				202E2AA019DA86F2000E072B /* MGYMiChatTableViewCell.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,

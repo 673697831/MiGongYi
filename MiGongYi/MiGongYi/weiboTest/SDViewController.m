@@ -72,8 +72,6 @@
 
 - (void)requestForWeibo2
 {
-    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
-    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
     //[[MGYWebImageManager shareInstance] clearDisk];
     NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
     MGYNetManager *manager = [MGYNetManager manager];
