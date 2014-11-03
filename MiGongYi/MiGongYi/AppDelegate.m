@@ -19,7 +19,6 @@
 #warning 测试用记得删除
     [[[SDWebImageManager sharedManager] imageCache] clearDisk];
     [[[SDWebImageManager sharedManager] imageCache] clearMemory];
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

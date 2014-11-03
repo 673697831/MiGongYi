@@ -44,6 +44,11 @@ typedef UIBackgroundTaskIdentifier AFBackgroundTaskIdentifier;
 typedef id AFBackgroundTaskIdentifier;
 #endif
 
+/**
+ *  使用单例创建group 对应url_request_operation_completion_queue方法中创建的的队列
+ *
+ *  @return return value description
+ */
 static dispatch_group_t url_request_operation_completion_group() {
     static dispatch_group_t af_url_request_operation_completion_group;
     static dispatch_once_t onceToken;
@@ -53,7 +58,11 @@ static dispatch_group_t url_request_operation_completion_group() {
 
     return af_url_request_operation_completion_group;
 }
-
+/**
+ *  使用单例创建队列 用于dispatch_group_notify,专门用来清空CompletionBlock
+ *
+ *  @return return value description
+ */
 static dispatch_queue_t url_request_operation_completion_queue() {
     static dispatch_queue_t af_url_request_operation_completion_queue;
     static dispatch_once_t onceToken;
@@ -65,15 +74,29 @@ static dispatch_queue_t url_request_operation_completion_queue() {
 }
 
 static NSString * const kAFNetworkingLockName = @"com.alamofire.networking.operation.lock";
-
+/**
+ * AFNetworkingOperationDidStartNotification,AFNetworkingOperationDidFinishNotification都是全局变量
+ */
 NSString * const AFNetworkingOperationDidStartNotification = @"com.alamofire.networking.operation.start";
 NSString * const AFNetworkingOperationDidFinishNotification = @"com.alamofire.networking.operation.finish";
-
+/**
+ *  自定义各种block
+ *
+ *  @param bytes              bytes description
+ *  @param totalBytes         totalBytes description
+ *  @param totalBytesExpected totalBytesExpected description
+ */
 typedef void (^AFURLConnectionOperationProgressBlock)(NSUInteger bytes, long long totalBytes, long long totalBytesExpected);
 typedef void (^AFURLConnectionOperationAuthenticationChallengeBlock)(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge);
 typedef NSCachedURLResponse * (^AFURLConnectionOperationCacheResponseBlock)(NSURLConnection *connection, NSCachedURLResponse *cachedResponse);
 typedef NSURLRequest * (^AFURLConnectionOperationRedirectResponseBlock)(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse);
-
+/**
+ *  内联函数,相当于宏替换,有函数的结构,但不具有函数的性质,消除函数调用产生的开销
+ *
+ *  @param state state 状态,整形
+ *
+ *  @return return value 状态代表的字符串 @@@@@维护KVO依从
+ */
 static inline NSString * AFKeyPathFromOperationState(AFOperationState state) {
     switch (state) {
         case AFOperationReadyState:
@@ -92,7 +115,15 @@ static inline NSString * AFKeyPathFromOperationState(AFOperationState state) {
         }
     }
 }
-
+/**
+ *  能否从一个状态到另外一个状态
+ *
+ *  @param fromState   fromState description
+ *  @param toState     toState description
+ *  @param isCancelled isCancelled description
+ *
+ *  @return return value description
+ */
 static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperationState toState, BOOL isCancelled) {
     switch (fromState) {
         case AFOperationReadyState:
@@ -136,6 +167,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 
 @interface AFURLConnectionOperation ()
 @property (readwrite, nonatomic, assign) AFOperationState state;
+/**
+ *  递归锁
+ */
 @property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
 @property (readwrite, nonatomic, strong) NSURLConnection *connection;
 @property (readwrite, nonatomic, strong) NSURLRequest *request;
@@ -160,6 +194,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 @implementation AFURLConnectionOperation
 @synthesize outputStream = _outputStream;
 
+/**
+ *  创建线程并添加输入源运行当前的runLoop
+ *
+ *  @param __unused __unused description
+ */
 + (void)networkRequestThreadEntryPoint:(id)__unused object {
     @autoreleasepool {
         [[NSThread currentThread] setName:@"AFNetworking"];
@@ -170,6 +209,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     }
 }
 
+/**
+ *  创建新线程 单例 区别主线程默认没开启runLoop
+ *
+ *  @return return value description
+ */
 + (NSThread *)networkRequestThread {
     static NSThread *_networkRequestThread = nil;
     static dispatch_once_t oncePredicate;
@@ -181,6 +225,13 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     return _networkRequestThread;
 }
 
+/**
+ * 设置runLoopModes为NSRunLoopCommonModes  那么UI操作和回调的执行都将是非阻塞的 否则无法响应NSURLConnnection回调
+ *
+ *  @param urlRequest urlRequest description
+ *
+ *  @return return value description
+ */
 - (instancetype)initWithRequest:(NSURLRequest *)urlRequest {
     NSParameterAssert(urlRequest);
 
@@ -288,7 +339,15 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     }
     [self.lock unlock];
 }
-
+/**
+ *  Description
+ *
+ *  @param __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_OS_VERSION_MIN_REQUIRED description
+ *
+ *  @return return value description
+ *  
+ *  进入后台后处理
+ */
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && !defined(AF_APP_EXTENSIONS)
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler {
     [self.lock lock];
@@ -315,7 +374,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 #endif
 
 #pragma mark -
-
+/**
+ *  手动改变状态 必须通知KVO observers 解决并发中的依赖问题
+ *
+ *  @param state state description
+ */
 - (void)setState:(AFOperationState)state {
     if (!AFStateTransitionIsValid(self.state, state, [self isCancelled])) {
         return;
@@ -377,19 +440,35 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 }
 
 #pragma mark -
-
+/**
+ *  自定义上传函数 处理上传进度相关
+ *
+ *  @param block block description
+ */
 - (void)setUploadProgressBlock:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))block {
     self.uploadProgress = block;
 }
-
+/**
+ *  处理下载进度相关
+ *
+ *  @param block block description
+ */
 - (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead))block {
     self.downloadProgress = block;
 }
-
+/**
+ *  自定义发送验证挑战
+ *
+ *  @param block block description
+ */
 - (void)setWillSendRequestForAuthenticationChallengeBlock:(void (^)(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge))block {
     self.authenticationChallenge = block;
 }
-
+/**
+ *  自定义connection:willCacheResponse代理处理
+ *
+ *  @param block block description
+ */
 - (void)setCacheResponseBlock:(NSCachedURLResponse * (^)(NSURLConnection *connection, NSCachedURLResponse *cachedResponse))block {
     self.cacheResponse = block;
 }
@@ -397,7 +476,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (void)setRedirectResponseBlock:(NSURLRequest * (^)(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse))block {
     self.redirectResponse = block;
 }
-
+/**
+ *  重写继承于NSOperation的方法,使回调全部完成后,执行清空CompletionBlock的操作
+ *
+ *  @return return value description
+ */
 #pragma mark - NSOperation
 
 - (void)setCompletionBlock:(void (^)(void))block {
@@ -442,19 +525,24 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (BOOL)isConcurrent {
     return YES;
 }
-
+/**
+ *  operation类一定要实现的start方法
+    默认不是主线程[NSRunLoop currentRunLoop]没运行,必须调用run和添加输入源MACH PORT
+ */
 - (void)start {
     [self.lock lock];
     if ([self isCancelled]) {
         [self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
     } else if ([self isReady]) {
         self.state = AFOperationExecutingState;
-        
         [self performSelector:@selector(operationDidStart) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
     }
     [self.lock unlock];
 }
-
+/**
+ *  使用 runLoopMode = NSRunLoopCommonModes 那么UI操作和回调的执行都将是非阻塞的
+ 异步connection 必须scheduleInRunLoop 否则回调不成功
+ */
 - (void)operationDidStart {
     [self.lock lock];
     if (![self isCancelled]) {
@@ -582,7 +670,13 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 }
 
 #pragma mark - NSURLConnectionDelegate
-
+/**
+ *  Tells the delegate that the connection will send a request for an authentication challenge.
+    在发认证挑战之前调用,你可以在connectionShouldUseCredentialStorage:connection返回NO,这里直接用自定义的发送challenge挑战
+ *
+ *  @param connection connection description
+ *  @param challenge  challenge description
+ */
 - (void)connection:(NSURLConnection *)connection
 willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
@@ -610,7 +704,14 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         }
     }
 }
-
+/**
+ *  验证策略 默认为YES consult the credential storage automatically
+    如果为NO,可以在connection:didReceiveAuthenticationChallenge:处理
+ *
+ *  @param connection connection description
+ *
+ *  @return return value description
+ */
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection __unused *)connection {
     return self.shouldUseCredentialStorage;
 }

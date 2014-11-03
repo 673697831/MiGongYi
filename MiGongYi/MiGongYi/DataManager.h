@@ -15,6 +15,7 @@
 #import "MGYMyFavList.h"
 #import "MGYMiZhi.h"
 #import "MGYError.h"
+#import "MGYTotalWalk.h"
 
 @interface DataManager : NSObject
 
@@ -28,6 +29,9 @@
 @property(nonatomic, readonly) MGYMyFavList *myFavList;
 @property(nonatomic, readonly) NSArray* miChatRecordList;
 @property(nonatomic, assign) BOOL canGainRiceFromMiChat;
+@property(nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property(nonatomic, strong, readonly) NSDictionary *walkAmount;
+@property(nonatomic, strong) MGYTotalWalk *totalWalk;
 
 typedef void (^MGYSuccess)();
 typedef void (^MGYGainRiceSuccess)(NSInteger);
@@ -75,6 +79,8 @@ typedef void (^MGYFailure)(NSError *);
 
 - (AFHTTPRequestOperation *)gainRiceFromMiChat:(MGYGainRiceSuccess)success
                                     failure:(MGYFailure)failure;
+
+- (void)saveRiceWalk:(MGYTotalWalk *)totalWalk;
 
 //- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
 //                                    failure:(MGYFailure)failure;

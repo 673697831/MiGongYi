@@ -49,6 +49,7 @@
         _projectRecentList = [NSMutableArray array];
         _miChatRecordList = [NSMutableArray array];
         self.canGainRiceFromMiChat = YES;
+        self.manager = [AFHTTPRequestOperationManager manager];
         //测试专用
         
 #if fuck
@@ -66,6 +67,7 @@
             [self checkAccountDirectory];
         }
         [self loadMiChatRecord:nil failure:nil];
+        [self requestForConfig];
     }
     return self;
 }
@@ -586,25 +588,27 @@
                 }];
 }
 
-//- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
-//                                    failure:(MGYFailure)failure
-//{
-//    NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSDictionary *parameters = @{@"access_token":self.token, @"count":@(200)};
-//    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-//        NSArray *array = responseObject[@"statuses"];
-//        for (NSDictionary *dic in array) {
-//            NSDictionary *user = dic[@"user"];
-//            [_array addObject:user[@"profile_image_url"]];
-//        }
-//        
-//        
-//        [self.tableView reloadData];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
-//}
+#pragma mark - 服务端配置
+
+- (AFHTTPRequestOperation *)requestForConfig
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/config.php?type=get"];
+    return [self.manager GET:url
+                  parameters:nil
+                     success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+                         _walkAmount = responseObject[@"data"][@"walk_amount"];
+                         NSLog(@"%@", _walkAmount);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         
+                     }];
+}
+
+#pragma mark - 
+
+- (void)saveRiceWalk:(MGYTotalWalk *)totalWalk
+{
+    
+}
 
 @end

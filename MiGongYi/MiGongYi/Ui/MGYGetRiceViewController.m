@@ -231,7 +231,7 @@
     CALayer *layer2=[[self.shoeView.layer presentationLayer] hitTest:locationInView];
     if (layer2) {
         [self pauseAllAnimation];
-        [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
+        [self.manImageView setImage:[UIImage imageNamed:@"manImage1"]];
         return;
     }
     

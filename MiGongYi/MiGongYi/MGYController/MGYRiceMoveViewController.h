@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYStoryPlayer.h"
+#import "MGYSubViewController.h"
+#import "MGYRiceMoveDetailsViewController.h"
 
-@interface MGYRiceMoveViewController : UIViewController
+typedef NS_ENUM(NSInteger, MGYRiceMoveTipsViewStatusType) {
+    MGYRiceMoveTipsViewStatusTypeLeft,
+    MGYRiceMoveTipsViewStatusTypeRight,
+};
+
+@interface MGYRiceMoveViewController : MGYSubViewController
 
 @end
