@@ -17,6 +17,8 @@
 @property (nonatomic, assign) NSInteger storyIndex;
 @property (nonatomic, copy) NSString *storyName;
 @property (nonatomic, assign) NSInteger progress;
-@property (nonatomic, copy) NSMutableArray *nodeArray;
+@property (nonatomic, assign) NSInteger playnodeIndex;
+@property (nonatomic, strong) NSMutableDictionary *mutableDicBuff;
+//@property (nonatomic, copy) NSMutableArray *nodeArray;
 
 @end

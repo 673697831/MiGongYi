@@ -596,8 +596,7 @@
     return [self.manager GET:url
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-                         _walkAmount = responseObject[@"data"][@"walk_amount"];
-                         NSLog(@"%@", _walkAmount);
+                         //_walkAmount = responseObject[@"data"][@"walk_amount"];
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          

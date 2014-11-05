@@ -3,6 +3,13 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>nextLevel</key>
+		<dict>
+			<key>nodeIndex</key>
+			<integer>1</integer>
+			<key>mapIndex</key>
+			<integer>2</integer>
+		</dict>
 		<key>identifier</key>
 		<integer>0</integer>
 		<key>nodeType</key>
@@ -31,6 +38,13 @@
 		</array>
 	</dict>
 	<dict>
+		<key>nextLevel</key>
+		<dict>
+			<key>nodeIndex</key>
+			<integer>2</integer>
+			<key>mapIndex</key>
+			<integer>2</integer>
+		</dict>
 		<key>riceNum</key>
 		<integer>800</integer>
 		<key>identifier</key>
@@ -52,6 +66,13 @@
 		</array>
 	</dict>
 	<dict>
+		<key>nextLevel</key>
+		<dict>
+			<key>nodeIndex</key>
+			<integer>3</integer>
+			<key>mapIndex</key>
+			<integer>2</integer>
+		</dict>
 		<key>riceNum</key>
 		<integer>800</integer>
 		<key>identifier</key>
@@ -84,6 +105,13 @@
 		</array>
 	</dict>
 	<dict>
+		<key>nextLevel</key>
+		<dict>
+			<key>nodeIndex</key>
+			<integer>4</integer>
+			<key>mapIndex</key>
+			<integer>2</integer>
+		</dict>
 		<key>riceNum</key>
 		<integer>400</integer>
 		<key>identifier</key>
@@ -106,6 +134,13 @@
 		</array>
 	</dict>
 	<dict>
+		<key>nextLevel</key>
+		<dict>
+			<key>nodeIndex</key>
+			<integer>0</integer>
+			<key>mapIndex</key>
+			<integer>3</integer>
+		</dict>
 		<key>riceNum</key>
 		<integer>400</integer>
 		<key>identifier</key>
@@ -132,7 +167,7 @@
 				<key>mapName</key>
 				<string>story4</string>
 				<key>identifier</key>
-				<integer>0</integer>
+				<integer>4</integer>
 				<key>title</key>
 				<string>留下</string>
 				<key>content</key>

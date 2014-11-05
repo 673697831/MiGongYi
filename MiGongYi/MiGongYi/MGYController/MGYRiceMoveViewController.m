@@ -8,14 +8,15 @@
 
 #import <CoreMotion/CoreMotion.h>
 #import "MGYRiceMoveViewController.h"
+#import "MGYRiceMoveContentViewController.h"
 #import "Masonry.h"
 #import "MGYRiceMoveProgressView.h"
 #import "MGYTotalWalk.h"
 
 @interface MGYRiceMoveViewController ()
 
-@property (nonatomic, strong) MGYStoryPlayer *player;
-@property (nonatomic, strong) CMMotionManager *manager;
+//@property (nonatomic, strong) MGYStoryPlayer *player;
+//@property (nonatomic, strong) CMMotionManager *manager;
 
 @property (nonatomic, weak) UIImageView *backgroundImageView;
 @property (nonatomic, weak) UIImageView *manImageView;
@@ -31,6 +32,7 @@
 @property (nonatomic ,weak) UIButton *leftButton;
 @property (nonatomic ,weak) UIButton *rightButton;
 @property (nonatomic, weak) UILabel *walkAmountLabel;
+@property (nonatomic, copy) MGYStoryAddPowerCallback addPowerCallback;
 
 @end
 
@@ -52,35 +54,6 @@
         make.centerX.equalTo(self.view);
         make.centerY.equalTo(self.view);
     }];
-    
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
-    NSArray *fileNameArray = [NSArray arrayWithContentsOfFile:plistPath];
-    
-    for (NSString *fileName in fileNameArray) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-        NSArray *nodeArray = [NSArray arrayWithContentsOfFile:filePath];
-        NSMutableArray *nodes = [NSMutableArray array];
-        for (NSDictionary *dic in nodeArray) {
-            MGYStoryNode *node = [MTLJSONAdapter modelOfClass:[MGYStoryNode class] fromJSONDictionary:dic error:nil];
-            [nodes addObject:node];
-        }
-        self.player = [MGYStoryPlayer defaultPlayer];
-        [self.player play:^{
-            
-        }];
-        
-        
-        break;
-    }
-    
-    self.manager = [CMMotionManager new];
-    self.manager.accelerometerUpdateInterval = 1./60;
-    [self.manager startAccelerometerUpdates];
-    [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
-                                     target:self
-                                   selector:@selector(timerAction)
-                                   userInfo:nil
-                                    repeats:YES];
     
     UIImageView *backgroundImageView = [UIImageView new];
     [self.view addSubview:backgroundImageView];
@@ -176,11 +149,54 @@
     walkAmountLabel.textColor = [UIColor whiteColor];
     self.walkAmountLabel = walkAmountLabel;
     [self setup];
-    
-#warning 米有氧测试
-    [self.backgroundImageView setImage:[UIImage imageNamed:@"story1"]];
+
     [self.manImageView setImage:[UIImage imageNamed:@"manImage1"]];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    MGYStoryAddPowerCallback addPowerCallback = ^() {
+        MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
+        _powerAccount.text = [NSString stringWithFormat:@"%d", (int)totalWalk.power];
+        
+        if (_leftButton.isHidden) {
+            _dateTimeLabel.text = @"今日";
+            _stepAccount.text = [NSString stringWithFormat:@"%lld", totalWalk.curStep];
+        }else
+        {
+            _dateTimeLabel.text = @"总共";
+            _stepAccount.text = [NSString stringWithFormat:@"%lld", totalWalk.totalStep];
+        }
+    };
+    _addPowerCallback = addPowerCallback;
+    [MGYStoryPlayer defaultPlayer].addPowerCallback = _addPowerCallback;
     
+    [[MGYStoryPlayer defaultPlayer] play:^{
+        MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
+        NSArray *progressArray = [MGYStoryPlayer defaultPlayer].progressArray;
+        
+        
+        //剧情相关
+        if (progressArray) {
+            [_progressView resetProgress:progressArray];
+        }
+        
+        //步数相关
+        if (totalWalk) {
+            _powerAccount.text = [NSString stringWithFormat:@"%d", (int)totalWalk.power];
+            _stepAccount.text = [NSString stringWithFormat:@"%lld", totalWalk.curStep];
+        }
+        [self.backgroundImageView setImage:[UIImage imageNamed:[[MGYStoryPlayer defaultPlayer] getCurStoryName]]];
+        
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.addPowerCallback = nil;
 }
 
 - (void)setup
@@ -262,12 +278,25 @@
 - (void)click:(id)sender
 {
     if (self.goButton == sender) {
-        //[self.player addPower:14440];
-        [self.player goAhead:^(MGYStorySelectCallback selectCallback, NSArray *array, MGYTotalWalk *totalWalk) {
-            if (selectCallback) {
-                selectCallback(1);
+        [[MGYStoryPlayer defaultPlayer] goAhead:^(MGYStoryNode *node, MGYStorySelectCallback selectCallback) {
+            if (selectCallback && node) {
+                MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithNode:node
+                                                                                                           selectCallback:selectCallback];
+                [self.navigationController pushViewController:viewController animated:YES];
             }
-            [self.progressView resetProgress:array];
+            else if(node)
+            {
+                MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithNode:node
+                                                            selectCallback:nil];
+                [self.navigationController pushViewController:viewController animated:YES];
+            }
+            MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
+            NSArray *progressArray = [MGYStoryPlayer defaultPlayer].progressArray;
+            
+            if (progressArray) {
+                [_progressView resetProgress:progressArray];
+            }
+            
             if (totalWalk) {
                 _powerAccount.text = [NSString stringWithFormat:@"%d", (int)totalWalk.power];
             }
@@ -287,41 +316,11 @@
     }
     
     if (self.detailsButton == sender) {
-        MGYRiceMoveDetailsViewController *viewController = [[MGYRiceMoveDetailsViewController alloc] initWithMap:0];
+        MGYRiceMoveDetailsViewController *viewController = [[MGYRiceMoveDetailsViewController alloc] initWithMapName:[[MGYStoryPlayer defaultPlayer] getCurStoryName]];
         
         [self.navigationController pushViewController:viewController animated:YES];
         
     }
-}
-
-- (void)timerAction
-{
-    //NSLog(@"%f %f %f", self.manager.accelerometerData.acceleration.x, self.manager.accelerometerData.acceleration.y, self.manager.accelerometerData.acceleration.z);
-    CGFloat x = self.manager.accelerometerData.acceleration.x;
-    CGFloat y = self.manager.accelerometerData.acceleration.y;
-    CGFloat z = self.manager.accelerometerData.acceleration.z;
-    
-    __block typeof(_leftButton)leftButton = _leftButton;
-    //__block typeof(_rightButton)rightButton = _rightButton;
-    __block typeof(_powerAccount)powerAccount = _powerAccount;
-    __block typeof(_dateTimeLabel)dateTimeLabel = _dateTimeLabel;
-    __block typeof(_stepAccount)stepAccount = _stepAccount;
-    
-    if (sqrt(x*x+y*y+z*z) >2) {
-        [_player addPower:1110 callback:^(MGYTotalWalk *totalWalk) {
-            powerAccount.text = [NSString stringWithFormat:@"%d", (int)totalWalk.power];
-            if (leftButton.isHidden) {
-                dateTimeLabel.text = @"今日";
-                stepAccount.text = [NSString stringWithFormat:@"%lld", totalWalk.curStep];
-            }else
-            {
-                dateTimeLabel.text = @"总共";
-                stepAccount.text = [NSString stringWithFormat:@"%lld", totalWalk.totalStep];
-            }
-        }];
-        //self.player.progress = self.player.progress + 500;
-    }
-    //self.player.progress = self.player.progress + 1;
 }
 /*
 #pragma mark - Navigation

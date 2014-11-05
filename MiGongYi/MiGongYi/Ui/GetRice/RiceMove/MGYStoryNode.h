@@ -29,6 +29,15 @@ typedef NS_ENUM(NSInteger, MGYStoryBuffStateType) {
     MGYStoryBuffStateTypeClose = 0,
     MGYStoryBuffStateTypeOpen = 1,
 };
+/**
+ *  关卡 1-3 1-2 1-1
+ */
+@interface MGYStoryLevel :MTLModel <MTLJSONSerializing>
+
+@property (nonatomic, assign) NSInteger mapIndex;
+@property (nonatomic, assign) NSInteger nodeIndex;
+
+@end
 
 @interface MGYStoryBranch : MTLModel <MTLJSONSerializing>
 /**
@@ -61,5 +70,6 @@ typedef NS_ENUM(NSInteger, MGYStoryBuffStateType) {
 @property (nonatomic, assign) NSInteger progress;
 @property (nonatomic, strong) NSArray *arrayBuff;
 @property (nonatomic, assign) NSInteger riceNum;
+@property (nonatomic, strong) MGYStoryLevel *nextLevel;
 
 @end

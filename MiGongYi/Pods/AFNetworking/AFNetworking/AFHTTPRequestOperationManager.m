@@ -77,13 +77,21 @@
 
 #ifdef _SYSTEMCONFIGURATION_H
 #endif
-
+/**
+ *  设置请求的序列化类
+ *
+ *  @param requestSerializer requestSerializer description
+ */
 - (void)setRequestSerializer:(AFHTTPRequestSerializer <AFURLRequestSerialization> *)requestSerializer {
     NSParameterAssert(requestSerializer);
 
     _requestSerializer = requestSerializer;
 }
-
+/**
+ *  设置response序列化类
+ *
+ *  @param responseSerializer responseSerializer description
+ */
 - (void)setResponseSerializer:(AFHTTPResponseSerializer <AFURLResponseSerialization> *)responseSerializer {
     NSParameterAssert(responseSerializer);
 
@@ -91,7 +99,15 @@
 }
 
 #pragma mark -
-
+/**
+ *  返回一个AFHTTPRequestOperation
+ *
+ *  @param request request description
+ *  @param success success description
+ *  @param failure failure description
+ *
+ *  @return return value description
+ */
 - (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request
                                                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
@@ -110,7 +126,16 @@
 }
 
 #pragma mark -
-
+/**
+ *  get请求
+ *
+ *  @param URLString  URLString description
+ *  @param parameters parameters description
+ *  @param success    success description
+ *  @param failure    failure description
+ *
+ *  @return return value description
+ */
 - (AFHTTPRequestOperation *)GET:(NSString *)URLString
                      parameters:(id)parameters
                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
@@ -123,7 +148,16 @@
 
     return operation;
 }
-
+/**
+ *  类似于GET, 但是不返回body信息，用于检查对象是否存在，以及得到对象的元数据
+ *
+ *  @param URLString  <#URLString description#>
+ *  @param parameters <#parameters description#>
+ *  @param success    <#success description#>
+ *  @param failure    <#failure description#>
+ *
+ *  @return <#return value description#>
+ */
 - (AFHTTPRequestOperation *)HEAD:(NSString *)URLString
                       parameters:(id)parameters
                          success:(void (^)(AFHTTPRequestOperation *operation))success
@@ -140,7 +174,16 @@
 
     return operation;
 }
-
+/**
+ *  普通POST请求
+ *
+ *  @param URLString  <#URLString description#>
+ *  @param parameters <#parameters description#>
+ *  @param success    <#success description#>
+ *  @param failure    <#failure description#>
+ *
+ *  @return <#return value description#>
+ */
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString
                       parameters:(id)parameters
                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
@@ -153,7 +196,17 @@
 
     return operation;
 }
-
+/**
+ *  POST附带上传文件
+ *
+ *  @param URLString  <#URLString description#>
+ *  @param parameters <#parameters description#>
+ *  @param block      <#block description#>
+ *  @param success    <#success description#>
+ *  @param failure    <#failure description#>
+ *
+ *  @return <#return value description#>
+ */
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString
                       parameters:(id)parameters
        constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
@@ -180,7 +233,16 @@
 
     return operation;
 }
-
+/**
+ *  部分文档更新
+ *
+ *  @param URLString  <#URLString description#>
+ *  @param parameters <#parameters description#>
+ *  @param success    <#success description#>
+ *  @param failure    <#failure description#>
+ *
+ *  @return <#return value description#>
+ */
 - (AFHTTPRequestOperation *)PATCH:(NSString *)URLString
                        parameters:(id)parameters
                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
@@ -193,7 +255,16 @@
 
     return operation;
 }
-
+/**
+ *  删除服务器资源
+ *
+ *  @param URLString  <#URLString description#>
+ *  @param parameters <#parameters description#>
+ *  @param success    <#success description#>
+ *  @param failure    <#failure description#>
+ *
+ *  @return <#return value description#>
+ */
 - (AFHTTPRequestOperation *)DELETE:(NSString *)URLString
                         parameters:(id)parameters
                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

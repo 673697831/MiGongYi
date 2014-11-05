@@ -255,7 +255,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 
     return self;
 }
-
+/**
+ *  流必须要关闭
+ */
 - (void)dealloc {
     if (_outputStream) {
         [_outputStream close];
@@ -281,7 +283,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     }
     [self.lock unlock];
 }
-
+/**
+ *  返回data的字符串形式,如果没有,把responseData转化成为responseString
+ *
+ *  @return return value description
+ */
 - (NSString *)responseString {
     [self.lock lock];
     if (!_responseString && self.response && self.responseData) {
@@ -291,7 +297,13 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 
     return _responseString;
 }
-
+/**
+ *  返回字符串编码类型
+ 默认NSUTF8StringEncoding,如果有自定义textEncodingName,则用CFStringConvertIANACharSetNameToEncoding
+ 和CFStringConvertEncodingToNSStringEncoding转化
+ *
+ *  @return return value description
+ */
 - (NSStringEncoding)responseStringEncoding {
     [self.lock lock];
     if (!_responseStringEncoding && self.response) {
@@ -309,17 +321,29 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 
     return _responseStringEncoding;
 }
-
+/**
+ *  请求流
+ *
+ *  @return return value description
+ */
 - (NSInputStream *)inputStream {
     return self.request.HTTPBodyStream;
 }
-
+/**
+ *  深复制并传引用
+ *
+ *  @param inputStream inputStream description
+ */
 - (void)setInputStream:(NSInputStream *)inputStream {
     NSMutableURLRequest *mutableRequest = [self.request mutableCopy];
     mutableRequest.HTTPBodyStream = inputStream;
     self.request = mutableRequest;
 }
-
+/**
+ *  输出流,没有则初始化
+ *
+ *  @return return value description
+ */
 - (NSOutputStream *)outputStream {
     if (!_outputStream) {
         self.outputStream = [NSOutputStream outputStreamToMemory];
@@ -340,13 +364,13 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     [self.lock unlock];
 }
 /**
- *  Description
+ *  用弱引用记录当前的self,进入后台的时候检查该弱引用是否存在
  *
  *  @param __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_OS_VERSION_MIN_REQUIRED description
  *
  *  @return return value description
  *  
- *  进入后台后处理
+ *
  */
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && !defined(AF_APP_EXTENSIONS)
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler {
@@ -395,7 +419,10 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     [self didChangeValueForKey:newStateKey];
     [self.lock unlock];
 }
-
+/**
+ *  暂停操作,判断是否是isExecuting状态并在自己创建的线程执行暂停
+ 在主线程KVO通知
+ */
 - (void)pause {
     if ([self isPaused] || [self isFinished] || [self isCancelled]) {
         return;
@@ -422,11 +449,17 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     [self.connection cancel];
     [self.lock unlock];
 }
-
+/**
+ *  是否暂停
+ *
+ *  @return <#return value description#>
+ */
 - (BOOL)isPaused {
     return self.state == AFOperationPausedState;
 }
-
+/**
+ *  唤醒工作
+ */
 - (void)resume {
     if (![self isPaused]) {
         return;
@@ -472,7 +505,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (void)setCacheResponseBlock:(NSCachedURLResponse * (^)(NSURLConnection *connection, NSCachedURLResponse *cachedResponse))block {
     self.cacheResponse = block;
 }
-
+/**
+ *  自定义重定向
+ *
+ *  @param block block description
+ */
 - (void)setRedirectResponseBlock:(NSURLRequest * (^)(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse))block {
     self.redirectResponse = block;
 }
@@ -562,7 +599,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
     });
 }
-
+/**
+ *  结束并KVO 都在主线程队列那里通知?
+ */
 - (void)finish {
     [self.lock lock];
     self.state = AFOperationFinishedState;
@@ -584,7 +623,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     }
     [self.lock unlock];
 }
-
+/**
+ *  取消连接,并传回带有userInfo的error信息,并在代理方法connection:didFailWithError:执行
+ */
 - (void)cancelConnection {
     NSDictionary *userInfo = nil;
     if ([self.request URL]) {
@@ -605,7 +646,17 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 }
 
 #pragma mark -
-
+/**
+ * 这里额外提供了一个便捷接口，可以传入一组请求，在所有请求完成后回调 complionBlock
+    NSBlockOperation 添加依赖block 所有的依赖block执行完再执行completionBlock
+    并用progressBlock通知外部
+ *
+ *  @param operations      operations description
+ *  @param progressBlock   progressBlock description
+ *  @param completionBlock completionBlock description
+ *
+ *  @return return value description
+ */
 + (NSArray *)batchOfRequestOperations:(NSArray *)operations
                         progressBlock:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressBlock
                       completionBlock:(void (^)(NSArray *operations))completionBlock
@@ -680,6 +731,7 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (void)connection:(NSURLConnection *)connection
 willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
+    NSLog(@"connection:willSendRequestForAuthenticationChallenge:");
     if (self.authenticationChallenge) {
         self.authenticationChallenge(connection, challenge);
         return;
@@ -713,43 +765,73 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
  *  @return return value description
  */
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection __unused *)connection {
+    NSLog(@"connectionShouldUseCredentialStorage:");
     return self.shouldUseCredentialStorage;
 }
-
+/**
+ *
+ *
+ *  @param connection       是否自定义方法
+ *  @param request          request description
+ *  @param redirectResponse redirectResponse description
+ *
+ *  @return return value description
+ */
 - (NSURLRequest *)connection:(NSURLConnection *)connection
              willSendRequest:(NSURLRequest *)request
             redirectResponse:(NSURLResponse *)redirectResponse
 {
+    NSLog(@"connection:willSendRequest:redirectResponse:");
     if (self.redirectResponse) {
         return self.redirectResponse(connection, request, redirectResponse);
     } else {
         return request;
     }
 }
-
+/**
+ *  是否自定义上传
+ *
+ *  @param connection                <#connection description#>
+ *  @param bytesWritten              <#bytesWritten description#>
+ *  @param totalBytesWritten         <#totalBytesWritten description#>
+ *  @param totalBytesExpectedToWrite <#totalBytesExpectedToWrite description#>
+ */
 - (void)connection:(NSURLConnection __unused *)connection
    didSendBodyData:(NSInteger)bytesWritten
  totalBytesWritten:(NSInteger)totalBytesWritten
 totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
+    NSLog(@"connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:");
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.uploadProgress) {
             self.uploadProgress((NSUInteger)bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
         }
     });
 }
-
+/**
+ *  开始接受数据,并打开流
+ *
+ *  @param connection connection description
+ *  @param response   response description
+ */
 - (void)connection:(NSURLConnection __unused *)connection
 didReceiveResponse:(NSURLResponse *)response
 {
+    NSLog(@"connection:didReceiveResponse:");
     self.response = response;
     
     [self.outputStream open];
 }
-
+/**
+ *  用流接收数据
+ *
+ *  @param connection connection description
+ *  @param data       data description
+ */
 - (void)connection:(NSURLConnection __unused *)connection
     didReceiveData:(NSData *)data
 {
+    NSLog(@"connection:didReceiveData:");
     NSUInteger length = [data length];
     while (YES) {
         NSInteger totalNumberOfBytesWritten = 0;
@@ -759,10 +841,10 @@ didReceiveResponse:(NSURLResponse *)response
             NSInteger numberOfBytesWritten = 0;
             while (totalNumberOfBytesWritten < (NSInteger)length) {
                 numberOfBytesWritten = [self.outputStream write:&dataBuffer[(NSUInteger)totalNumberOfBytesWritten] maxLength:(length - (NSUInteger)totalNumberOfBytesWritten)];
+                NSLog(@"numberOfBytesWritten == %d", numberOfBytesWritten);
                 if (numberOfBytesWritten == -1) {
                     break;
                 }
-                
                 totalNumberOfBytesWritten += numberOfBytesWritten;
             }
 
@@ -784,8 +866,13 @@ didReceiveResponse:(NSURLResponse *)response
         }
     });
 }
-
+/**
+ *  接收完成并关闭流, 并把流转换成NSData
+ *
+ *  @param connection connection description
+ */
 - (void)connectionDidFinishLoading:(NSURLConnection __unused *)connection {
+    NSLog(@"connectionDidFinishLoading:");
     self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 
     [self.outputStream close];
@@ -797,10 +884,16 @@ didReceiveResponse:(NSURLResponse *)response
 
     [self finish];
 }
-
+/**
+ *  错误时候会返回
+ *
+ *  @param connection connection description
+ *  @param error      error description
+ */
 - (void)connection:(NSURLConnection __unused *)connection
   didFailWithError:(NSError *)error
 {
+    NSLog(@"connection:didFailWithError:");
     self.error = error;
 
     [self.outputStream close];
@@ -816,6 +909,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse *)cachedResponse
 {
+    NSLog(@"connection:willCacheResponse:");
     if (self.cacheResponse) {
         return self.cacheResponse(connection, cachedResponse);
     } else {
@@ -832,7 +926,13 @@ didReceiveResponse:(NSURLResponse *)response
 + (BOOL)supportsSecureCoding {
     return YES;
 }
-
+/**
+ *  编码和解码
+ *
+ *  @param decoder decoder description
+ *
+ *  @return return value description
+ */
 - (id)initWithCoder:(NSCoder *)decoder {
     NSURLRequest *request = [decoder decodeObjectOfClass:[NSURLRequest class] forKey:NSStringFromSelector(@selector(request))];
     
@@ -872,7 +972,13 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 #pragma mark - NSCopying
-
+/**
+ *   拷贝 实现copyWithZone:方法
+ *
+ *  @param zone zone description
+ *
+ *  @return return value description
+ */
 - (id)copyWithZone:(NSZone *)zone {
     AFURLConnectionOperation *operation = [(AFURLConnectionOperation *)[[self class] allocWithZone:zone] initWithRequest:self.request];
     

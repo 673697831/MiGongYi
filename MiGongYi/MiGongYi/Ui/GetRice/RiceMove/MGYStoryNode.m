@@ -8,6 +8,17 @@
 
 #import "MGYStoryNode.h"
 
+@implementation MGYStoryLevel
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"mapIndex" : @"mapIndex",
+             @"nodeIndex" : @"nodeIndex",
+             };
+}
+
+@end
+
 @implementation MGYStoryBranch
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -51,6 +62,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
+             //@"storyName" : @"storyName",
              @"storyContent" : @"storyContent",
              @"branch" : @"branch",
              @"identifier" : @"identifier",
@@ -58,6 +70,7 @@
              @"progress" : @"progress",
              @"arrayBuff" : @"arrayBuff",
              @"riceNum" : @"riceNum",
+             @"nextLevel" : @"nextLevel",
              };
 }
 
@@ -76,6 +89,10 @@
 
 + (NSValueTransformer *)arrayBuffJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MGYStoryBuff class]];
+}
+
++ (NSValueTransformer *)nextLevelJSONTransformer {
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYStoryLevel class]];
 }
 
 @end

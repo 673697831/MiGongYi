@@ -13,4 +13,6 @@
 
 - (instancetype)initWithMap:(NSInteger)index;
 
+- (instancetype)initWithMapName:(NSString *)mapName;
+
 @end

@@ -14,6 +14,26 @@
 
 #define MAX_MAP 8
 
+static inline NSString *imageKeyFormMapName(NSString *storyName){
+    MGYStoryLockState state = [[MGYStoryPlayer defaultPlayer] getMapLockState:storyName];
+    switch (state) {
+        case MGYStoryLockStateLocked:
+            return @"lock1";
+            break;
+        case MGYStoryLockStateUnLocked:
+            return @"lock3";
+            break;
+        default:
+            break;
+    }
+    return @"lock1";
+}
+
+static inline MGYStoryLockState stateFormMapName(NSString *storyName)
+{
+    return [[MGYStoryPlayer defaultPlayer] getMapLockState:storyName];
+}
+
 @interface MGYRiceMoveDetailsViewController ()
 
 @property (nonatomic, weak) UIButton *leftButton;
@@ -40,13 +60,30 @@
     return  self;
 }
 
+- (instancetype)initWithMapName:(NSString *)mapName
+{
+    self = [self init];
+    if (self) {
+        
+        _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story6", @"story7", @"story8"];
+        for (int i = 0; i < _imageArray.count; i ++) {
+            if ([mapName isEqualToString:_imageArray[i]]) {
+                self.curMapIndex = i;
+                self.storyIndex = i;
+                break;
+            }
+        }
+
+    }
+    
+    return  self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story6", @"story7", @"story8"];
+
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -144,13 +181,21 @@
 - (void)clickLock:(id)sender
 {
     NSLog(@"jjjjjjjjjjjjjjj");
+    if (stateFormMapName(_imageArray[_curMapIndex]) == MGYStoryLockStateUnLocked) {
+        [self.lockButton setImage:[UIImage imageNamed:@"lock2"]
+                         forState:UIControlStateNormal];
+        _storyIndex = _curMapIndex;
+        [[MGYStoryPlayer defaultPlayer] resetStory:_imageArray[_curMapIndex]];
+        [self performSelector:@selector(refrush) withObject:nil afterDelay:2];
+    }
 }
 
 - (void)refrush
 {
     [self.tableView reloadData];
     if (_storyIndex < _curMapIndex) {
-        [self.lockButton setImage:[UIImage imageNamed:@"lock1"]
+        NSString *lockName = imageKeyFormMapName(_imageArray[_curMapIndex]);
+        [self.lockButton setImage:[UIImage imageNamed:lockName]
                          forState:UIControlStateNormal];
         //self.lockButton.hidden = NO;
     }else
@@ -172,10 +217,9 @@
     }else
     {
         MGYRiceMoveContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
-        NSLog(@"%f", cell.bounds.size.width);
-        MGYStoryNode *node = [MGYStoryPlayer defaultPlayer].actionNodeArray[indexPath.row];
-        NSLog(@"string2 ===== %@", node.storyContent);
-        [cell resetContent:node.storyContent];
+        NSString *string = [[MGYStoryPlayer defaultPlayer] getStoryContent:_imageArray[_curMapIndex]
+                                                                     index:indexPath.row];
+        [cell resetContent:string];
         return cell;
     }
     
@@ -189,9 +233,8 @@
         return 1136/2;
     }else
     {
-        MGYStoryNode *node = [MGYStoryPlayer defaultPlayer].actionNodeArray[indexPath.row];
-        NSString *string = node.storyContent;
-        NSLog(@"string ===== %@", string);
+        NSString *string = [[MGYStoryPlayer defaultPlayer] getStoryContent:_imageArray[_curMapIndex]
+                                                                     index:indexPath.row];
         CGSize labelSize = [string boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
         return labelSize.height;
     }
@@ -211,7 +254,11 @@
         return 1;
     }else
     {
-        return [MGYStoryPlayer defaultPlayer].playNode.identifier;
+        if (_curMapIndex < _storyIndex) {
+            return 4;
+        }
+        
+        return [MGYStoryPlayer defaultPlayer].playNode.identifier < 5 ? [MGYStoryPlayer defaultPlayer].playNode.identifier: 4;
     }
     
     return 1;

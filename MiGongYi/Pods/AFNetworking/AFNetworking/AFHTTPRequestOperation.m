@@ -69,7 +69,11 @@ static dispatch_group_t http_request_operation_completion_group() {
 
     return self;
 }
-
+/**
+ *  设置序列化的类
+ *
+ *  @param responseSerializer responseSerializer description
+ */
 - (void)setResponseSerializer:(AFHTTPResponseSerializer <AFURLResponseSerialization> *)responseSerializer {
     NSParameterAssert(responseSerializer);
 
@@ -79,7 +83,11 @@ static dispatch_group_t http_request_operation_completion_group() {
     self.responseSerializationError = nil;
     [self.lock unlock];
 }
-
+/**
+ *  对象序列化
+ *
+ *  @return return value description
+ */
 - (id)responseObject {
     [self.lock lock];
     if (!_responseObject && [self isFinished] && !self.error) {
@@ -103,7 +111,12 @@ static dispatch_group_t http_request_operation_completion_group() {
 }
 
 #pragma mark - AFHTTPRequestOperation
-
+/**
+ *  设置回调函数 回调时候异步处理
+ *
+ *  @param success <#success description#>
+ *  @param failure <#failure description#>
+ */
 - (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
@@ -149,7 +162,14 @@ static dispatch_group_t http_request_operation_completion_group() {
 }
 
 #pragma mark - AFURLRequestOperation
-
+/**
+ *  不会重新开始 利用Range字段继续
+ NSUrlConnection实现断点续传的关键是自定义http request的头部的range域属性。
+ 表示500字节以后的范围：bytes=500-
+ respondsToSelector判断是否有这个方法
+ If-Range表示
+ 如果entity没有发生变化，那么把我缺失的部分发送给我。如果entity发生了变化，那么把整个entity发送给我
+ */
 - (void)pause {
     [super pause];
 
