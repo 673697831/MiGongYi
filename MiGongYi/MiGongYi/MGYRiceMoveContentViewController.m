@@ -19,18 +19,24 @@
 
 @property (nonatomic, strong) MGYStoryNode *node;
 @property (nonatomic, copy) MGYStorySelectCallback selectCallback;
+@property (nonatomic, copy) MGYRiceMoveContentViewSelectCallback viewSelectCallback;
+@property (nonatomic, copy) MGYRiceMoveContentViewTipsCallback tipsCallback;
 
 @end
 
 @implementation MGYRiceMoveContentViewController
 
-- (instancetype)initWithNode:(MGYStoryNode *)node selectCallback:(MGYStorySelectCallback)selectCallback
+- (instancetype)initWithNode:(MGYStoryNode *)node
+              selectCallback:(MGYStorySelectCallback)selectCallback
+          viewSelectCallback:(MGYRiceMoveContentViewSelectCallback)viewSelectCallback
+                tipsCallback:(MGYRiceMoveContentViewTipsCallback)tipsCallback
 {
     self = [self init];
     if (self) {
-        self.node = node;
+        self.node = [MGYStoryPlayer defaultPlayer].playNode;
         self.selectCallback = selectCallback;
-
+        self.viewSelectCallback = viewSelectCallback;
+        self.tipsCallback = tipsCallback;
     }
     
     return self;
@@ -119,6 +125,15 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    if (self.tipsCallback) {
+        self.tipsCallback();
+    }
+}
+
 - (void)click:(id)sender
 {
     if (self.selectCallback && _node.branch.count == 2) {
@@ -126,10 +141,17 @@
         MGYStoryBranch *branch1 = _node.branch[1];
         if (sender == self.leftButton) {
             self.selectCallback(branch0.identifier);
+            if (self.viewSelectCallback) {
+                self.viewSelectCallback(branch0.content);
+            }
         }
         if (sender == self.rightButton) {
             self.selectCallback(branch1.identifier);
+            if (self.viewSelectCallback) {
+                self.viewSelectCallback(branch1.content);
+            }
         }
+        
     }
     
     [self.navigationController popViewControllerAnimated:YES];

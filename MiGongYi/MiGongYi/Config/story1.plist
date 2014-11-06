@@ -113,6 +113,15 @@
 		</array>
 	</dict>
 	<dict>
+		<key>storyTips</key>
+		<dict>
+			<key>tipsType</key>
+			<integer>1</integer>
+			<key>content</key>
+			<string>获得青丝软履，行动力能量翻倍，大郎迫不及待地迈开了脚。</string>
+			<key>imagePath</key>
+			<string>event1</string>
+		</dict>
 		<key>nextLevel</key>
 		<dict>
 			<key>nodeIndex</key>
@@ -146,6 +155,8 @@
 				<integer>0</integer>
 				<key>buffState</key>
 				<integer>1</integer>
+                <key>buffImagePath</key>
+				<string>manImage2</string>
 			</dict>
 		</array>
 	</dict>

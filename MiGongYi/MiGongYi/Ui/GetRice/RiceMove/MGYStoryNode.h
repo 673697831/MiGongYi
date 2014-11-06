@@ -29,6 +29,21 @@ typedef NS_ENUM(NSInteger, MGYStoryBuffStateType) {
     MGYStoryBuffStateTypeClose = 0,
     MGYStoryBuffStateTypeOpen = 1,
 };
+
+/**
+ *  弹出提示
+ */
+typedef NS_ENUM(NSInteger, MGYStoryTipsType)
+{
+    /**
+     *  木有图片的
+     */
+    MGYStoryTipsType1,
+    /**
+     *  有图片的
+     */
+    MGYStoryTipsType2,
+};
 /**
  *  关卡 1-3 1-2 1-1
  */
@@ -53,10 +68,19 @@ typedef NS_ENUM(NSInteger, MGYStoryBuffStateType) {
 
 @end
 
+@interface MGYStoryTips : MTLModel <MTLJSONSerializing>
+
+@property (nonatomic, assign) MGYStoryTipsType tipsType;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *imagePath;
+
+@end
+
 @interface MGYStoryBuff : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, assign) MGYStoryBuffType buffType;
 @property (nonatomic, assign) MGYStoryBuffStateType buffState;
+@property (nonatomic, copy) NSString *buffImagePath;
 
 @end
 
@@ -71,5 +95,6 @@ typedef NS_ENUM(NSInteger, MGYStoryBuffStateType) {
 @property (nonatomic, strong) NSArray *arrayBuff;
 @property (nonatomic, assign) NSInteger riceNum;
 @property (nonatomic, strong) MGYStoryLevel *nextLevel;
+@property (nonatomic, strong) MGYStoryTips *storyTips;
 
 @end

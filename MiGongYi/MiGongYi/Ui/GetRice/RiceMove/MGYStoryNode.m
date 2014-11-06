@@ -32,12 +32,25 @@
 
 @end
 
+@implementation MGYStoryTips
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"tipsType" : @"tipsType",
+             @"content" : @"content",
+             @"imagePath" : @"imagePath",
+             };
+}
+
+@end
+
 @implementation MGYStoryBuff
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
              @"buffType" : @"buffType",
              @"buffState" : @"buffState",
+             @"buffImagePath" : @"buffImagePath",
              };
 }
 
@@ -71,11 +84,16 @@
              @"arrayBuff" : @"arrayBuff",
              @"riceNum" : @"riceNum",
              @"nextLevel" : @"nextLevel",
+             @"storyTips" : @"storyTips",
              };
 }
 
 + (NSValueTransformer *)branchJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MGYStoryBranch class]];
+}
+
++ (NSValueTransformer *)storyTipsJSONTransformer {
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYStoryTips class]];
 }
 
 + (NSValueTransformer *)nodeTypeJSONTransformer {

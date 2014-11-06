@@ -27,6 +27,17 @@
 				<string></string>
 			</dict>
 		</array>
+        <key>arrayBuff</key>
+		<array>
+			<dict>
+				<key>buffType</key>
+				<integer>0</integer>
+				<key>buffState</key>
+				<integer>1</integer>
+                <key>buffImagePath</key>
+				<string>manImage2</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -155,17 +166,22 @@
 		<array>
 			<dict>
 				<key>buffType</key>
-				<integer>0</integer>
-				<key>buffState</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>buffType</key>
 				<integer>1</integer>
 				<key>buffState</key>
 				<integer>1</integer>
+                <key>buffImagePath</key>
+				<string>bear</string>
 			</dict>
 		</array>
+        <key>storyTips</key>
+		<dict>
+			<key>tipsType</key>
+			<integer>1</integer>
+			<key>content</key>
+			<string>白熊是进入灵山必要的伪装，为了不被诺森发现，只能变身白熊，体积巨大需要双倍米动力</string>
+			<key>imagePath</key>
+			<string>event2</string>
+		</dict>
 	</dict>
 </array>
 </plist>

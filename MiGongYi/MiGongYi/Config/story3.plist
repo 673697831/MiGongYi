@@ -29,11 +29,21 @@
 		</array>
 		<key>arrayBuff</key>
 		<array>
+            <dict>
+				<key>buffType</key>
+				<integer>0</integer>
+				<key>buffState</key>
+				<integer>1</integer>
+                <key>buffImagePath</key>
+				<string>manImage2</string>
+			</dict>
 			<dict>
 				<key>buffType</key>
 				<integer>1</integer>
 				<key>buffState</key>
 				<integer>1</integer>
+                <key>buffImagePath</key>
+				<string>bear</string>
 			</dict>
 		</array>
 	</dict>
@@ -83,17 +93,6 @@
 		<string>“站住！”以为四下没熊的大郎终于忍不住直立起来赶路，却被落单的哨兵逮了个正着。随着一声警报响起，武装熊也出现在了山头，大郎想起了树王的忠告，当即伏下表示自己没有恶意，可还没等他解释，就被架着带向了山顶的熊宫。</string>
 		<key>progress</key>
 		<integer>80000</integer>
-		<key>branch</key>
-		<array>
-			<dict>
-				<key>identifier</key>
-				<integer>3</integer>
-				<key>title</key>
-				<string></string>
-				<key>content</key>
-				<string>被白熊哨兵识破，变回人类，双倍米动力效果消失</string>
-			</dict>
-		</array>
 		<key>arrayBuff</key>
 		<array>
 			<dict>
@@ -103,6 +102,15 @@
 				<integer>0</integer>
 			</dict>
 		</array>
+        <key>storyTips</key>
+		<dict>
+			<key>tipsType</key>
+			<integer>1</integer>
+			<key>content</key>
+			<string>被白熊哨兵识破，变回人类，双倍米动力效果消失</string>
+			<key>imagePath</key>
+			<string>event3</string>
+		</dict>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -160,7 +168,7 @@
 				<key>title</key>
 				<string>拿走</string>
 				<key>content</key>
-				<string>“单靠精灵的力量，不能保护所有生命。您是灵山之主，应该为天下苍生计，还是让我带上它去完成我的使命吧！”\n \n诺森沉默片刻，说道：“从前你们人类要是为天下苍生计，就不会把我的祖先逼上绝路。现在你跟我谈使命，是在逗我？我甚至不屑于杀了你，回去吧，别让我再看见你！”随即便把大郎赶下了灵山。
+				<string>“单靠精灵的力量，不能保护所有生命。您是灵山之主，应该为天下苍生计，还是让我带上它去完成我的使命吧！”诺森沉默片刻，说道：“从前你们人类要是为天下苍生计，就不会把我的祖先逼上绝路。现在你跟我谈使命，是在逗我？我甚至不屑于杀了你，回去吧，别让我再看见你！”随即便把大郎赶下了灵山。
 				</string>
 			</dict>
 			<dict>
@@ -171,10 +179,19 @@
 				<key>title</key>
 				<string>留下</string>
 				<key>content</key>
-				<string>“我就是为了挽救生命才踏上旅途的，所以这块碎片，您还是拿回去吧。拯救世界的方法不只有一种，或许我先找到其他碎片，最后再来和您讨要这块‘厄尔斯’吧。”\n \n诺森沉默片刻，说道：“我就是为了考验你才这么问的，白熊一族身强力壮，即便没有了‘厄尔斯’我们也能很好地保护自己的家园。碎片你拿着吧，有我诺森的威名，精灵大陆的其他族群也会支持你的。年轻人，去完成你的使命吧！”
+				<string>“我就是为了挽救生命才踏上旅途的，所以这块碎片，您还是拿回去吧。拯救世界的方法不只有一种，或许我先找到其他碎片，最后再来和您讨要这块‘厄尔斯’吧。”诺森沉默片刻，说道：“我就是为了考验你才这么问的，白熊一族身强力壮，即便没有了‘厄尔斯’我们也能很好地保护自己的家园。碎片你拿着吧，有我诺森的威名，精灵大陆的其他族群也会支持你的。年轻人，去完成你的使命吧！”
 				</string>
 			</dict>
 		</array>
+        <key>storyTips</key>
+		<dict>
+			<key>tipsType</key>
+			<integer>1</integer>
+			<key>content</key>
+			<string>获得“厄尔斯”碎片：拥有精灵之力的七彩水晶碎片</string>
+			<key>imagePath</key>
+			<string>event5</string>
+		</dict>
 	</dict>
 </array>
 </plist>

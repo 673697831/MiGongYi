@@ -9,6 +9,8 @@
 #import <CoreMotion/CoreMotion.h>
 #import "MGYRiceMoveViewController.h"
 #import "MGYRiceMoveContentViewController.h"
+#import "MGYStoryContentView.h"
+#import "MGYRiceMoveEquipView.h"
 #import "Masonry.h"
 #import "MGYRiceMoveProgressView.h"
 #import "MGYTotalWalk.h"
@@ -18,6 +20,8 @@
 //@property (nonatomic, strong) MGYStoryPlayer *player;
 //@property (nonatomic, strong) CMMotionManager *manager;
 
+@property (nonatomic, weak) MGYStoryContentView *storyContentView;
+@property (nonatomic, weak) MGYRiceMoveEquipView *equipView;
 @property (nonatomic, weak) UIImageView *backgroundImageView;
 @property (nonatomic, weak) UIImageView *manImageView;
 @property (nonatomic, weak) UIButton *goButton;
@@ -148,6 +152,18 @@
     walkAmountLabel.font = [UIFont systemFontOfSize:9];
     walkAmountLabel.textColor = [UIColor whiteColor];
     self.walkAmountLabel = walkAmountLabel;
+    
+    
+    MGYStoryContentView *storyContentView = [MGYStoryContentView new];
+    storyContentView.hidden = YES;
+    [self.view addSubview:storyContentView];
+    self.storyContentView = storyContentView;
+    
+    MGYRiceMoveEquipView *equipView = [MGYRiceMoveEquipView new];
+    equipView.hidden = YES;
+    [self.view addSubview:equipView];
+    self.equipView = equipView;
+    
     [self setup];
 
     [self.manImageView setImage:[UIImage imageNamed:@"manImage1"]];
@@ -173,10 +189,24 @@
     _addPowerCallback = addPowerCallback;
     [MGYStoryPlayer defaultPlayer].addPowerCallback = _addPowerCallback;
     
-    [[MGYStoryPlayer defaultPlayer] play:^{
+    [[MGYStoryPlayer defaultPlayer] play:^(NSString *manImagePath){
         MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
         NSArray *progressArray = [MGYStoryPlayer defaultPlayer].progressArray;
         
+        if (manImagePath) {
+            [self.manImageView setImage:[UIImage imageNamed:manImagePath]];
+        }
+        /**
+         *  装备提示框
+         */
+        if (![[MGYStoryPlayer defaultPlayer] isplaying]) {
+            MGYStoryNode *node = [MGYStoryPlayer defaultPlayer].playNode;
+            if (node.storyTips) {
+                [self.equipView reset:node.storyTips.imagePath
+                              content:node.storyTips.content];
+                self.equipView.hidden = NO;
+            }
+        }
         
         //剧情相关
         if (progressArray) {
@@ -190,7 +220,11 @@
         }
         [self.backgroundImageView setImage:[UIImage imageNamed:[[MGYStoryPlayer defaultPlayer] getCurStoryName]]];
         
+    } firstCallback:^(NSString *storyContent) {
+        [self.storyContentView resetContent:storyContent];
+        self.storyContentView.hidden = NO;
     }];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -273,23 +307,47 @@
         make.centerY.equalTo(self.tipsView);
         make.centerX.equalTo(self.tipsView);
     }];
+    
+    [self.storyContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view);
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view);
+    }];
+    
+    [self.equipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view);
+        //make.width.mas_equalTo(177.5);
+        make.width.mas_equalTo(200);
+        make.height.mas_equalTo(320);
+    }];
 }
 
 - (void)click:(id)sender
 {
     if (self.goButton == sender) {
         [[MGYStoryPlayer defaultPlayer] goAhead:^(MGYStoryNode *node, MGYStorySelectCallback selectCallback) {
-            if (selectCallback && node) {
+            
+            MGYRiceMoveContentViewTipsCallback tipsCallback;
+            MGYRiceMoveContentViewSelectCallback viewSelectCallback;
+            
+            if (selectCallback) {
+                viewSelectCallback = ^(NSString *storyContent) {
+                    [self.storyContentView resetContent:storyContent];
+                    self.storyContentView.hidden = NO;
+                };
+            }
+            
+            NSLog(@"%d", [MGYStoryPlayer defaultPlayer].isplaying);
+            if ([MGYStoryPlayer defaultPlayer].isplaying) {
                 MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithNode:node
-                                                                                                           selectCallback:selectCallback];
+                                                            selectCallback:selectCallback
+                                                        viewSelectCallback:viewSelectCallback
+                                                              tipsCallback:tipsCallback];
                 [self.navigationController pushViewController:viewController animated:YES];
             }
-            else if(node)
-            {
-                MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithNode:node
-                                                            selectCallback:nil];
-                [self.navigationController pushViewController:viewController animated:YES];
-            }
+            
             MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
             NSArray *progressArray = [MGYStoryPlayer defaultPlayer].progressArray;
             

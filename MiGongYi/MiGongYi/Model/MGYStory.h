@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSInteger progress;
 @property (nonatomic, assign) NSInteger playnodeIndex;
 @property (nonatomic, strong) NSMutableDictionary *mutableDicBuff;
+@property (nonatomic, assign) BOOL isfirstPlay;
 //@property (nonatomic, copy) NSMutableArray *nodeArray;
 
 @end
