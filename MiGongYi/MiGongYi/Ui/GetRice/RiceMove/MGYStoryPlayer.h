@@ -33,32 +33,18 @@ typedef void (^MGYStoryPlayCallback)(NSString *manImagePath);
  *  @param                        人物图(对应BUFF)
  *  @param BOOL                   是否显示装备TIPS
  */
-typedef void (^MGYStoryGoAheadCallback)(MGYStoryNode *, MGYStorySelectCallback);
+typedef void (^MGYStoryGoAheadCallback)(MGYStorySelectCallback);
 typedef void (^MGYStoryAddPowerCallback)();
 
 
 @interface MGYStoryPlayer : NSObject
-{
-    NSMutableArray *_progressArray;
-    NSArray *_fileNameArray;
-    NSMutableArray *_nodes;
-}
 
-//@property (nonatomic, strong) NSMutableDictionary *mutableDicBuff;
-//@property (nonatomic, copy) NSArray *nodes;
-//@property (nonatomic, assign) NSInteger progress;
 @property (nonatomic, weak, readonly) MGYStoryNode *playNode;
-@property (nonatomic, strong) NSMutableArray *actionNodeArray;
-//@property (nonatomic, copy) NSString *storyName;
-//@property (nonatomic, assign) NSInteger storyIndex;
-@property (nonatomic, strong, readonly) NSArray *progressArray;
-@property (nonatomic, strong) NSLock *lock;
-@property (nonatomic, strong) MGYTotalWalk *totalWalk;
+@property (nonatomic, strong, readonly) NSArray *mutableProgress;
+@property (nonatomic, strong, readonly) MGYTotalWalk *totalWalk;
 @property (nonatomic, strong, readonly) MGYStory *story;
-@property (nonatomic, weak) MGYStoryAddPowerCallback addPowerCallback;
 @property (nonatomic, assign, readonly) BOOL isplaying;
-
-- (instancetype)initWithNodes:(NSArray *)nodes;
+@property (nonatomic, weak) MGYStoryAddPowerCallback addPowerCallback;
 
 /**
  *  回调图片等信息
@@ -73,6 +59,16 @@ typedef void (^MGYStoryAddPowerCallback)();
 
 - (NSString *)getStoryContent:(NSString *)storyName
                         index:(NSInteger)index;
+
+- (NSString *)storyDescription;
+
+- (BOOL)isMizhiNode;
+
+- (BOOL)isBoxingNode;
+
+- (BOOL)isBoxingBranch;
+
+- (BOOL)isBoxingAndSelectNode;
 
 - (NSString *)getNextStory;
 

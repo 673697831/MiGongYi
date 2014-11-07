@@ -12,13 +12,15 @@
 #import "MGYStoryPlayer.h"
 
 typedef void (^MGYRiceMoveContentViewSelectCallback)(NSString *);
-typedef void (^MGYRiceMoveContentViewTipsCallback)();
+typedef void (^MGYRiceMoveContentViewDidDisappearCallback)();
 
 @interface MGYRiceMoveContentViewController : MGYSubViewController
 
-- (instancetype)initWithNode:(MGYStoryNode *)node
-              selectCallback:(MGYStorySelectCallback)selectCallback
-          viewSelectCallback:(MGYRiceMoveContentViewSelectCallback)viewSelectCallback
-                tipsCallback:(MGYRiceMoveContentViewTipsCallback)tipsCallback;
+- (instancetype)initWithSelectCallback:(MGYStorySelectCallback)selectCallback
+             contentViewSelectCallback:(MGYRiceMoveContentViewSelectCallback)contentViewSelectCallback
+       contentViewDidDisappearCallback:(MGYRiceMoveContentViewDidDisappearCallback)contentViewDidDisappearCallback;
+
+
+
 
 @end

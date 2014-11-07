@@ -13,10 +13,15 @@
 
 @interface MGYStoryPlayer ()
 {
-    NSMutableDictionary *_mutableStory;
+    NSMutableArray *_mutableProgress;
 }
 
 @property (nonatomic, strong) CMMotionManager *motionManager;
+@property (nonatomic, strong) NSLock *lock;
+@property (nonatomic, strong) NSMutableDictionary *mutableStory;
+//@property (nonatomic, strong) NSMutableArray *mutableProgress;
+@property (nonatomic, strong) NSArray *arrayFileName;
+@property (nonatomic, strong) NSMutableArray *mutableNodes;
 
 @end
 
@@ -29,7 +34,7 @@
         //读取配置文件 这里读取第一个故事
         
         _story = [MGYStory new];
-        _story.storyName = @"story1";
+        _story.storyName = @"story5";
         _story.storyIndex = 0;
         _story.progress = 0;
         _story.playnodeIndex = 0;
@@ -38,11 +43,9 @@
         _totalWalk = [MGYTotalWalk new];
         _totalWalk.timeSp = [[NSDate date] timeIntervalSince1970];
         _totalWalk.power = 999999999;
-        //_actionNodeArray = [NSMutableArray array];
-        _progressArray = [NSMutableArray array];
         _mutableStory = [NSMutableDictionary dictionary];
-        //_mutableDicBuff = [NSMutableDictionary dictionary];
-        _nodes = [NSMutableArray array];
+        _mutableProgress = [NSMutableArray array];
+        _mutableNodes = [NSMutableArray array];
         _motionManager = [CMMotionManager new];
         _motionManager.accelerometerUpdateInterval = 1./60;
         [_motionManager startAccelerometerUpdates];
@@ -53,19 +56,16 @@
                                         repeats:YES];
         
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
-        NSArray *fileNameArray = [NSArray arrayWithContentsOfFile:plistPath];
-        _fileNameArray = fileNameArray;
+        NSArray *arrayFileName = [NSArray arrayWithContentsOfFile:plistPath];
+        _arrayFileName = arrayFileName;
         NSString *filePath = [[NSBundle mainBundle] pathForResource:_story.storyName ofType:@"plist"];
         NSArray *nodeArray = [NSArray arrayWithContentsOfFile:filePath];
         for (NSDictionary *dic in nodeArray) {
             MGYStoryNode *node = [MTLJSONAdapter modelOfClass:[MGYStoryNode class] fromJSONDictionary:dic error:nil];
-            [_nodes addObject:node];
-//            if (node.nodeType != MGYStoryNodeTypeHead) {
-//                [_actionNodeArray addObject:node];
-//            }
+            [_mutableNodes addObject:node];
         }
         
-        for (NSString *fileName in fileNameArray) {
+        for (NSString *fileName in arrayFileName) {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
             NSArray *nodeArray = [NSArray arrayWithContentsOfFile:filePath];
             NSMutableArray *mutableNode = [NSMutableArray array];
@@ -77,10 +77,9 @@
             [_mutableStory setObject:mutableNode
                               forKey:fileName];
         }
-        //self.nodes = nodes;
         
         for (int i=0; i < 4; i++) {
-            [_progressArray addObject:@(0)];
+            [_mutableProgress addObject:@(0)];
         }
         
         self.lock = [NSLock new];
@@ -106,6 +105,7 @@
         _story.progress = node.progress;
         _story.playnodeIndex = node.identifier;
         _playNode = node;
+        [self resetProgressArray];
     }
 }
 
@@ -121,7 +121,7 @@
 
 - (void)play:(MGYStoryPlayCallback)callback firstCallback:(MGYStoryFirstPlayCallback)firstCallback
 {
-    _playNode = _nodes[_story.playnodeIndex];
+    _playNode = _mutableNodes[_story.playnodeIndex];
     
     [self resetProgressArray];
     for (MGYStoryBuff *buff in self.playNode.arrayBuff) {
@@ -135,22 +135,27 @@
         _story.isfirstPlay = NO;
         firstCallback(self.playNode.storyContent);
     }
+    MGYStoryNode *node = _mutableNodes[4];
+    NSLog(@"%@", node.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeBoxingBrach]]);
 }
-
+/**
+ *  更新进度
+ *
+ *  @param callback 更新进度条 如果已经进入剧情则不用执行改函数 用play执行
+ */
 - (void)goAhead:(MGYStoryGoAheadCallback)callback
 {
     //判断分支
     if (self.isplaying && self.playNode.branch.count > 1) {
         MGYStorySelectCallback selectCallback = ^(NSInteger num){
             //无条件返回剧情
-            MGYStoryNode *node = _nodes[num];
+            MGYStoryNode *node = _mutableNodes[num];
             [self save:node];
             _isplaying = NO;
-            [self resetProgressArray];
-            callback(nil, nil);
+            //callback(nil);
         };
         
-        callback(_nodes[_story.playnodeIndex], selectCallback);
+        callback(selectCallback);
         return;
     }
     
@@ -161,18 +166,22 @@
     if (_story.progress < self.playNode.progress) {
         return;
     }
-    
+    /**
+     *  判断已经到达尾节点
+     */
     if (self.playNode.nodeType == MGYStoryNodeTypeTrail) {
         return;
     }
     
     MGYStoryLevel *nextLevel = self.playNode.nextLevel;
-    __block MGYStoryNode *next = _nodes[nextLevel.nodeIndex];
+    __block MGYStoryNode *next = _mutableNodes[nextLevel.nodeIndex];
     
     if (_story.progress == next.progress) {
         return;
     }
-    
+    /**
+     *  米动力足够就进入剧情
+     */
     if (_story.progress + _totalWalk.power >= next.progress) {
         
         _isplaying = YES;
@@ -180,26 +189,38 @@
         _totalWalk.power = _totalWalk.power - next.progress + _story.progress;
         [self.lock unlock];
         [self save:next];
-        [self resetProgressArray];
         
         if (next.branch.count > 1) {
             MGYStorySelectCallback selectCallback = ^(NSInteger num){
                 //无条件返回剧情
-                next = _nodes[num];
+                next = _mutableNodes[num];
+#warning 剧情
+                if ([self isBoxingNode] && num == _playNode.identifier) {
+                    _story.boxingBranch = YES;
+                    _arrayFileName = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
+                }
+
                 [self save:next];
                 _isplaying = NO;
-                [self resetProgressArray];
-                callback(nil, nil);
-                NSLog(@"%@", _progressArray);
+                
+                /**
+                 *    分支判断 暂时只能这样处理了
+                 */
+
+                //callback(nil);
             };
-            /**
-             *  分支判断时候默认没有播完剧情, 不返还imageTips
-             */
-            callback(next, selectCallback);
+            callback(selectCallback);
             
         }else
         {
-            callback(next, nil);
+#warning 剧情
+            if ([self isBoxingNode] && false) {
+                MGYStoryBranch *branch = _playNode.branch[0];
+                MGYStoryNode *node = _mutableNodes[branch.identifier];
+                [self save:node];
+            }
+            
+            callback(nil);
             _isplaying = NO;
         }
         return;
@@ -211,33 +232,33 @@
         _totalWalk.power = 0;
         [self.lock unlock];
         [self save:nil];
-        [self resetProgressArray];
     }
-    
-    callback(nil,nil);
-    //_isplaying = NO;
+    /**
+     *  不弹剧情 但要更新进度条 所以要返回
+     */
+    callback(nil);
 }
 
 
 - (void)resetProgressArray
 {
-    for (int i = 1; i < _nodes.count; i++) {
+    for (int i = 1; i < _mutableNodes.count; i++) {
         if ( i-1 < _story.playnodeIndex) {
-            _progressArray[i-1] = @1;
+            _mutableProgress[i-1] = @1;
         }else
         {
-            _progressArray[i-1] = @(0);
+            _mutableProgress[i-1] = @(0);
         }
     }
     
     if (_story.playnodeIndex <= 3 ) {
-        MGYStoryNode *nextNode = _nodes[_story.playnodeIndex + 1];
+        MGYStoryNode *nextNode = _mutableNodes[_story.playnodeIndex + 1];
         CGFloat progress = (_story.progress - self.playNode.progress) * 1.0 / (nextNode.progress - self.playNode.progress);
-        NSLog(@"%f", progress);
         
-        _progressArray[nextNode.identifier - 1] = @(progress);
+        _mutableProgress[nextNode.identifier - 1] = @(progress);
         
     }
+    NSLog(@"%@", _mutableProgress);
 }
 
 - (void)addPower:(NSInteger)num
@@ -271,20 +292,19 @@
     _story.playnodeIndex = 0;
     _story.progress = 0;
     _story.isfirstPlay = YES;
-    [_nodes removeAllObjects];
+    [_mutableNodes removeAllObjects];
     
-    NSArray *nodeArray = [_mutableStory objectForKey:storyName];
+    NSArray *arrayNode = [_mutableStory objectForKey:storyName];
     
-    [_nodes addObjectsFromArray:nodeArray];
-    _playNode = nodeArray[_story.playnodeIndex];
-    //_story.storyIndex = _fileNameArray
+    [_mutableNodes addObjectsFromArray:arrayNode];
+    _playNode = arrayNode[_story.playnodeIndex];
 }
 
 - (MGYStoryLockState)getMapLockState:(NSString *)mapName
 {
     if (_playNode.nodeType == MGYStoryNodeTypeTrail) {
         
-        if ([_fileNameArray[_playNode.nextLevel.mapIndex] isEqualToString:mapName]) {
+        if ([_arrayFileName[_playNode.nextLevel.mapIndex] isEqualToString:mapName]) {
             return MGYStoryLockStateUnLocked;
         }
     }
@@ -318,11 +338,70 @@
     return nil;
 }
 
+- (NSString *)storyDescription
+{
+    MGYStoryNode *node = _mutableNodes[0];
+    return  node.storyContent;
+}
+
 - (NSString *)getNextStory
 {
-    MGYStoryNode *node = _nodes[4];
+    MGYStoryNode *node = _mutableNodes[4];
     MGYStoryBranch *branch = node.branch[0];
     return branch.mapName;
+}
+/**
+ *  此方法不好 慎用或不要用
+ *
+ *  @return 是否
+ */
+- (BOOL)isMizhiNode
+{
+#warning 剧情
+    if (_playNode.mutableNodeType && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeMiZhiBrach]] && false) {
+        MGYStoryBranch *branch = _playNode.branch[0];
+        MGYStoryNode *node = _mutableNodes[branch.identifier];
+        [self save:node];
+        
+        return YES;
+    }
+    return NO;
+}
+/**
+ *  此方法不好 慎用或不要用
+ *
+ *  @return 是否
+ */
+- (BOOL)isBoxingNode
+{
+#warning 剧情
+    if (_playNode.mutableNodeType && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeBoxingBrach]]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+/**
+ *  奇葩
+ *
+ *  @return 是否
+ */
+- (BOOL)isBoxingBranch
+{
+    if (_story.boxingBranch) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)isBoxingAndSelectNode
+{
+#warning 剧情
+    if (_playNode.mutableNodeType && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeBoxingBrach]] && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeSelect]] && false) {
+        return  YES;
+    }
+    return NO;
 }
 
 - (NSString *)getCurStoryName

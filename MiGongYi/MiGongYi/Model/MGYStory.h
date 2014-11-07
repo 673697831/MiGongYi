@@ -20,6 +20,10 @@
 @property (nonatomic, assign) NSInteger playnodeIndex;
 @property (nonatomic, strong) NSMutableDictionary *mutableDicBuff;
 @property (nonatomic, assign) BOOL isfirstPlay;
+/**
+ *  走的是哪个路线? 正常和跳过第6关 坑啊
+ */
+@property (nonatomic, assign) BOOL boxingBranch;
 //@property (nonatomic, copy) NSMutableArray *nodeArray;
 
 @end

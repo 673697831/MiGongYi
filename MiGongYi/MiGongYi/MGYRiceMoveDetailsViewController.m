@@ -45,6 +45,7 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
 @property (nonatomic, strong) NSArray *imageArray;
 @property (nonatomic, assign) NSInteger curMapIndex;
 @property (nonatomic, assign) NSInteger storyIndex;
+@property (nonatomic, copy) NSString *mapName;
 
 @end
 
@@ -65,11 +66,16 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
     self = [self init];
     if (self) {
         
-        _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story6", @"story7", @"story8"];
+        if ([[MGYStoryPlayer defaultPlayer] isBoxingBranch]) {
+            _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
+        }else{
+            _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story6", @"story7", @"story8"];
+        }
         for (int i = 0; i < _imageArray.count; i ++) {
             if ([mapName isEqualToString:_imageArray[i]]) {
                 self.curMapIndex = i;
                 self.storyIndex = i;
+                self.mapName = mapName;
                 break;
             }
         }
@@ -180,7 +186,6 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
 
 - (void)clickLock:(id)sender
 {
-    NSLog(@"jjjjjjjjjjjjjjj");
     if (stateFormMapName(_imageArray[_curMapIndex]) == MGYStoryLockStateUnLocked) {
         [self.lockButton setImage:[UIImage imageNamed:@"lock2"]
                          forState:UIControlStateNormal];

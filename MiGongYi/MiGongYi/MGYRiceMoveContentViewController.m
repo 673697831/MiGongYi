@@ -17,26 +17,23 @@
 @property (nonatomic, weak) UIButton *leftButton;
 @property (nonatomic, weak) UIButton *rightButton;
 
-@property (nonatomic, strong) MGYStoryNode *node;
 @property (nonatomic, copy) MGYStorySelectCallback selectCallback;
-@property (nonatomic, copy) MGYRiceMoveContentViewSelectCallback viewSelectCallback;
-@property (nonatomic, copy) MGYRiceMoveContentViewTipsCallback tipsCallback;
+@property (nonatomic, copy) MGYRiceMoveContentViewSelectCallback contentViewSelectCallback;
+@property (nonatomic, copy) MGYRiceMoveContentViewDidDisappearCallback contentViewDidDisappearCallback;
 
 @end
 
 @implementation MGYRiceMoveContentViewController
 
-- (instancetype)initWithNode:(MGYStoryNode *)node
-              selectCallback:(MGYStorySelectCallback)selectCallback
-          viewSelectCallback:(MGYRiceMoveContentViewSelectCallback)viewSelectCallback
-                tipsCallback:(MGYRiceMoveContentViewTipsCallback)tipsCallback
+- (instancetype)initWithSelectCallback:(MGYStorySelectCallback)selectCallback
+             contentViewSelectCallback:(MGYRiceMoveContentViewSelectCallback)contentViewSelectCallback
+       contentViewDidDisappearCallback:(MGYRiceMoveContentViewDidDisappearCallback)contentViewDidDisappearCallback
 {
     self = [self init];
     if (self) {
-        self.node = [MGYStoryPlayer defaultPlayer].playNode;
         self.selectCallback = selectCallback;
-        self.viewSelectCallback = viewSelectCallback;
-        self.tipsCallback = tipsCallback;
+        self.contentViewSelectCallback = contentViewSelectCallback;
+        self.contentViewDidDisappearCallback = contentViewDidDisappearCallback;
     }
     
     return self;
@@ -48,10 +45,29 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
+    MGYStoryNode *_node = [MGYStoryPlayer defaultPlayer].playNode;
+    
     UILabel *contentLabel = [UILabel new];
     contentLabel.numberOfLines = 0;
     contentLabel.font = [UIFont systemFontOfSize:13];
     contentLabel.text = _node.storyContent;
+    /**
+     *  特殊处理 只有一处地方
+     */
+#warning 剧情
+    if ([[MGYStoryPlayer defaultPlayer] isMizhiNode] && false) {
+        MGYStoryBranch *branch = _node.branch[0];
+        contentLabel.text = branch.content;
+    }
+    /**
+     *  特殊处理 只有一处地方
+     */
+#warning 剧情
+    if ([[MGYStoryPlayer defaultPlayer] isBoxingNode] && ![[MGYStoryPlayer defaultPlayer] isBoxingAndSelectNode] && false) {
+        MGYStoryBranch *branch = _node.branch[0];
+        contentLabel.text = branch.content;
+    }
+    
     [self.view addSubview:contentLabel];
     self.contentLabel = contentLabel;
     
@@ -109,7 +125,7 @@
         make.bottom.equalTo(self.view).with.offset(-20);
     }];
     
-    if (self.selectCallback && _node.branch.count == 2) {
+    if (self.selectCallback && _node.branch.count > 1) {
         MGYStoryBranch *branch0 = _node.branch[0];
         MGYStoryBranch *branch1 = _node.branch[1];
         [leftButton addTarget:self
@@ -128,27 +144,34 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
-    if (self.tipsCallback) {
-        self.tipsCallback();
+    if (self.contentViewDidDisappearCallback) {
+        self.contentViewDidDisappearCallback();
     }
 }
 
 - (void)click:(id)sender
 {
-    if (self.selectCallback && _node.branch.count == 2) {
+    MGYStoryNode *_node = [MGYStoryPlayer defaultPlayer].playNode;
+    
+    if (self.selectCallback && _node.branch.count > 1) {
         MGYStoryBranch *branch0 = _node.branch[0];
         MGYStoryBranch *branch1 = _node.branch[1];
+        
+#warning 剧情
+        if ([[MGYStoryPlayer defaultPlayer] isBoxingNode] ) {
+            branch1 = _node.branch[2];
+        }
+        
         if (sender == self.leftButton) {
             self.selectCallback(branch0.identifier);
-            if (self.viewSelectCallback) {
-                self.viewSelectCallback(branch0.content);
+            if (self.contentViewSelectCallback) {
+                self.contentViewSelectCallback(branch0.content);
             }
         }
         if (sender == self.rightButton) {
             self.selectCallback(branch1.identifier);
-            if (self.viewSelectCallback) {
-                self.viewSelectCallback(branch1.content);
+            if (self.contentViewSelectCallback) {
+                self.contentViewSelectCallback(branch1.content);
             }
         }
         

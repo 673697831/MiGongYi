@@ -13,9 +13,9 @@ typedef NS_ENUM(NSInteger, MGYStoryNodeType) {
     MGYStoryNodeTypeHead = 0,
     MGYStoryNodeTypeAction = 1,
     MGYStoryNodeTypeTrail = 2,
-    MGYStoryNodeTypeNormalBrach = 3,
-    MGYStoryNodeTypeMiZhiBrach = 4,
-    MGYStoryNodeTypeBoxingBrach = 5,
+    MGYStoryNodeTypeMiZhiBrach = 3,
+    MGYStoryNodeTypeBoxingBrach = 4,
+    MGYStoryNodeTypeSelect = 5,
 };
 
 typedef NS_ENUM(NSInteger, MGYStoryBuffType) {
@@ -63,6 +63,7 @@ typedef NS_ENUM(NSInteger, MGYStoryTipsType)
  */
 @property(nonatomic, assign) NSInteger identifier;
 @property(nonatomic, copy) NSString *mapName;
+@property(nonatomic, assign) NSInteger mapIndex;
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSString *content;
 
@@ -91,6 +92,7 @@ typedef NS_ENUM(NSInteger, MGYStoryTipsType)
 @property (nonatomic, strong) NSArray *branch;
 @property (nonatomic, assign) NSInteger identifier;
 @property (nonatomic, assign) MGYStoryNodeType nodeType;
+@property (nonatomic, strong) NSDictionary *mutableNodeType;
 @property (nonatomic, assign) NSInteger progress;
 @property (nonatomic, strong) NSArray *arrayBuff;
 @property (nonatomic, assign) NSInteger riceNum;

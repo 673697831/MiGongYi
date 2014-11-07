@@ -27,6 +27,7 @@
              @"mapName" : @"mapName",
              @"title" : @"title",
              @"content" : @"content",
+             @"mapIndex" : @"mapIndex",
              };
 }
 
@@ -85,6 +86,7 @@
              @"riceNum" : @"riceNum",
              @"nextLevel" : @"nextLevel",
              @"storyTips" : @"storyTips",
+             @"mutableNodeType" : @"mutableNodeType",
              };
 }
 
@@ -96,14 +98,14 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[MGYStoryTips class]];
 }
 
-+ (NSValueTransformer *)nodeTypeJSONTransformer {
-    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:
-            @{@(0):@(MGYStoryNodeTypeHead), @(1):@(MGYStoryNodeTypeAction),
-              @(2):@(MGYStoryNodeTypeTrail), @(3):@(MGYStoryNodeTypeNormalBrach),
-              @(4):@(MGYStoryNodeTypeMiZhiBrach),@(5):@(MGYStoryNodeTypeBoxingBrach),
-              }
-            ];
-}
+//+ (NSValueTransformer *)nodeTypeJSONTransformer {
+//    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:
+//            @{@(0):@(MGYStoryNodeTypeHead), @(1):@(MGYStoryNodeTypeAction),
+//              @(2):@(MGYStoryNodeTypeTrail), @(3):@(MGYStoryNodeTypeNormalBrach),
+//              @(4):@(MGYStoryNodeTypeMiZhiBrach),@(5):@(MGYStoryNodeTypeBoxingBrach),
+//              }
+//            ];
+//}
 
 + (NSValueTransformer *)arrayBuffJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MGYStoryBuff class]];

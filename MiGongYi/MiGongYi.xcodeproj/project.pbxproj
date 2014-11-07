@@ -38,6 +38,11 @@
 		203D13A21A08F216005A49B2 /* MGYRiceMoveContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D13A11A08F216005A49B2 /* MGYRiceMoveContentViewController.m */; };
 		203D13A51A0A1710005A49B2 /* MGYStoryContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D13A41A0A1710005A49B2 /* MGYStoryContentView.m */; };
 		203D13A81A0A75FE005A49B2 /* MGYRiceMoveEquipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D13A71A0A75FE005A49B2 /* MGYRiceMoveEquipView.m */; };
+		203D13AA1A0B702B005A49B2 /* story4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13A91A0B702B005A49B2 /* story4.plist */; };
+		203D13AC1A0C7B66005A49B2 /* story5.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13AB1A0C7B66005A49B2 /* story5.plist */; };
+		203D13AE1A0CB030005A49B2 /* story6.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13AD1A0CB030005A49B2 /* story6.plist */; };
+		203D13B01A0CBA5B005A49B2 /* story7.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13AF1A0CBA5B005A49B2 /* story7.plist */; };
+		203D13B21A0CBD02005A49B2 /* story8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13B11A0CBD02005A49B2 /* story8.plist */; };
 		203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D636619CAC7E800116ECA /* MGYDetailsViewController.m */; };
 		203D637019CB027D00116ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636C19CB027D00116ECA /* InfoPlist.strings */; };
 		203D637119CB027D00116ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636E19CB027D00116ECA /* Localizable.strings */; };
@@ -164,6 +169,11 @@
 		203D13A41A0A1710005A49B2 /* MGYStoryContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYStoryContentView.m; sourceTree = "<group>"; };
 		203D13A61A0A75FE005A49B2 /* MGYRiceMoveEquipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceMoveEquipView.h; sourceTree = "<group>"; };
 		203D13A71A0A75FE005A49B2 /* MGYRiceMoveEquipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceMoveEquipView.m; sourceTree = "<group>"; };
+		203D13A91A0B702B005A49B2 /* story4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story4.plist; sourceTree = "<group>"; };
+		203D13AB1A0C7B66005A49B2 /* story5.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story5.plist; sourceTree = "<group>"; };
+		203D13AD1A0CB030005A49B2 /* story6.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story6.plist; sourceTree = "<group>"; };
+		203D13AF1A0CBA5B005A49B2 /* story7.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story7.plist; sourceTree = "<group>"; };
+		203D13B11A0CBD02005A49B2 /* story8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story8.plist; sourceTree = "<group>"; };
 		203D636519CAC7E800116ECA /* MGYDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYDetailsViewController.h; path = Ui/Details/MGYDetailsViewController.h; sourceTree = "<group>"; };
 		203D636619CAC7E800116ECA /* MGYDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYDetailsViewController.m; path = Ui/Details/MGYDetailsViewController.m; sourceTree = "<group>"; };
 		203D636D19CB027D00116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -611,6 +621,11 @@
 				20DE25811A00E33C00F8EF7D /* story1.plist */,
 				20DE25821A00E33C00F8EF7D /* story2.plist */,
 				20DE25831A00E33C00F8EF7D /* story3.plist */,
+				203D13A91A0B702B005A49B2 /* story4.plist */,
+				203D13AB1A0C7B66005A49B2 /* story5.plist */,
+				203D13AD1A0CB030005A49B2 /* story6.plist */,
+				203D13AF1A0CBA5B005A49B2 /* story7.plist */,
+				203D13B11A0CBD02005A49B2 /* story8.plist */,
 				20DE25871A00EA2A00F8EF7D /* Config.plist */,
 			);
 			path = Config;
@@ -705,10 +720,15 @@
 				20DE25881A00EA2A00F8EF7D /* Config.plist in Resources */,
 				20DE25841A00E33C00F8EF7D /* story1.plist in Resources */,
 				20DE25851A00E33C00F8EF7D /* story2.plist in Resources */,
+				203D13B21A0CBD02005A49B2 /* story8.plist in Resources */,
 				20DE25861A00E33C00F8EF7D /* story3.plist in Resources */,
+				203D13AC1A0C7B66005A49B2 /* story5.plist in Resources */,
+				203D13B01A0CBA5B005A49B2 /* story7.plist in Resources */,
 				201EFE3B19ED55AA00B14853 /* Localizable.strings in Resources */,
 				2085C86819B6280C00E9FA3B /* Images.xcassets in Resources */,
 				201EFE3A19ED55AA00B14853 /* InfoPlist.strings in Resources */,
+				203D13AA1A0B702B005A49B2 /* story4.plist in Resources */,
+				203D13AE1A0CB030005A49B2 /* story6.plist in Resources */,
 				203D637119CB027D00116ECA /* Localizable.strings in Resources */,
 				203D637019CB027D00116ECA /* InfoPlist.strings in Resources */,
 			);
