@@ -11,7 +11,7 @@
 
 #define STEP 20000
 
-static __weak MGYStoryPlayer *instance;
+static MGYStoryPlayer *instance;
 
 @interface MGYStoryPlayer ()
 {
