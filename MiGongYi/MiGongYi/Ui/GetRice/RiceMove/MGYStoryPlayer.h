@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "MGYStoryNode.h"
 #import "MGYTotalWalk.h"
 #import "MGYStory.h"
@@ -37,7 +38,7 @@ typedef void (^MGYStoryGoAheadCallback)(MGYStorySelectCallback);
 typedef void (^MGYStoryAddPowerCallback)();
 
 
-@interface MGYStoryPlayer : NSObject
+@interface MGYStoryPlayer : NSObject<CLLocationManagerDelegate>
 
 @property (nonatomic, weak, readonly) MGYStoryNode *playNode;
 @property (nonatomic, strong, readonly) NSArray *mutableProgress;
@@ -70,10 +71,17 @@ typedef void (^MGYStoryAddPowerCallback)();
 
 - (BOOL)isBoxingAndSelectNode;
 
+- (void)openBoxingBranch;
+
 - (NSString *)getNextStory;
 
 - (NSString *)getCurStoryName;
 
 + (instancetype)defaultPlayer;
 
++ (void)enterBackground;
+
++ (void)outBackground;
+
 @end
+

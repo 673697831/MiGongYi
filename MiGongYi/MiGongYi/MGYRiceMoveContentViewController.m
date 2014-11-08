@@ -157,11 +157,6 @@
         MGYStoryBranch *branch0 = _node.branch[0];
         MGYStoryBranch *branch1 = _node.branch[1];
         
-#warning 剧情
-        if ([[MGYStoryPlayer defaultPlayer] isBoxingNode] ) {
-            branch1 = _node.branch[2];
-        }
-        
         if (sender == self.leftButton) {
             self.selectCallback(branch0.identifier);
             if (self.contentViewSelectCallback) {
@@ -169,10 +164,18 @@
             }
         }
         if (sender == self.rightButton) {
+#warning 剧情
+            if ([[MGYStoryPlayer defaultPlayer] isBoxingNode] ) {
+                branch1 = _node.branch[2];
+                [[MGYStoryPlayer defaultPlayer] openBoxingBranch];
+            }
+            
             self.selectCallback(branch1.identifier);
             if (self.contentViewSelectCallback) {
                 self.contentViewSelectCallback(branch1.content);
             }
+            
+            
         }
         
     }

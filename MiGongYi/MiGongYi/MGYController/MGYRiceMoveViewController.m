@@ -370,7 +370,6 @@
         MGYRiceMoveDetailsViewController *viewController = [[MGYRiceMoveDetailsViewController alloc] initWithMapName:[[MGYStoryPlayer defaultPlayer] getCurStoryName]];
         
         [self.navigationController pushViewController:viewController animated:YES];
-        
     }
 }
 /*

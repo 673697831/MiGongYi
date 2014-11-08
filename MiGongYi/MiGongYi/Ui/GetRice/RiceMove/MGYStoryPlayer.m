@@ -11,17 +11,20 @@
 
 #define STEP 20000
 
+static __weak MGYStoryPlayer *instance;
+
 @interface MGYStoryPlayer ()
 {
     NSMutableArray *_mutableProgress;
 }
-
+@property (nonatomic, strong) CLLocationManager *myLocationManager;// 定位管理
 @property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, strong) NSLock *lock;
 @property (nonatomic, strong) NSMutableDictionary *mutableStory;
 //@property (nonatomic, strong) NSMutableArray *mutableProgress;
 @property (nonatomic, strong) NSArray *arrayFileName;
 @property (nonatomic, strong) NSMutableArray *mutableNodes;
+
 
 @end
 
@@ -34,7 +37,7 @@
         //读取配置文件 这里读取第一个故事
         
         _story = [MGYStory new];
-        _story.storyName = @"story5";
+        _story.storyName = @"story1";
         _story.storyIndex = 0;
         _story.progress = 0;
         _story.playnodeIndex = 0;
@@ -49,6 +52,11 @@
         _motionManager = [CMMotionManager new];
         _motionManager.accelerometerUpdateInterval = 1./60;
         [_motionManager startAccelerometerUpdates];
+        _myLocationManager = [[CLLocationManager alloc] init];// 初始化
+        [_myLocationManager setDesiredAccuracy:kCLLocationAccuracyBest];// 设置精度值
+        [_myLocationManager setDelegate:self];// 设置代理
+        [_myLocationManager startUpdatingLocation];
+        
         [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
                                          target:self
                                        selector:@selector(timerAction)
@@ -117,6 +125,13 @@
 
     }
     return  self;
+}
+
+- (void)dealloc
+{
+    if (_myLocationManager) {
+        [_myLocationManager stopUpdatingLocation];
+    }
 }
 
 - (void)play:(MGYStoryPlayCallback)callback firstCallback:(MGYStoryFirstPlayCallback)firstCallback
@@ -194,12 +209,6 @@
             MGYStorySelectCallback selectCallback = ^(NSInteger num){
                 //无条件返回剧情
                 next = _mutableNodes[num];
-#warning 剧情
-                if ([self isBoxingNode] && num == _playNode.identifier) {
-                    _story.boxingBranch = YES;
-                    _arrayFileName = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
-                }
-
                 [self save:next];
                 _isplaying = NO;
                 
@@ -404,6 +413,12 @@
     return NO;
 }
 
+- (void)openBoxingBranch
+{
+    _story.boxingBranch = YES;
+    _arrayFileName = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
+}
+
 - (NSString *)getCurStoryName
 {
     return _story.storyName;
@@ -411,7 +426,6 @@
 
 + (instancetype)defaultPlayer
 {
-    static MGYStoryPlayer *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [MGYStoryPlayer new];
@@ -419,4 +433,19 @@
     return instance;
 }
 
++ (void)enterBackground
+{
+    if (instance) {
+        [instance.myLocationManager startUpdatingLocation];
+    }
+}
+
++ (void)outBackground
+{
+    if (instance) {
+        [instance.myLocationManager stopUpdatingLocation];
+    }
+}
+
 @end
+
