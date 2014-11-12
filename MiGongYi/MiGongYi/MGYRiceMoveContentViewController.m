@@ -42,6 +42,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //self.navigationController.navigationBar.hidden = YES;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
@@ -80,7 +82,7 @@
     
     UILabel *riceLabel = [UILabel new];
     riceLabel.font = [UIFont systemFontOfSize:20];
-    riceLabel.text = [NSString stringWithFormat:@"%d", _node.riceNum];
+    riceLabel.text = [NSString stringWithFormat:@"%ld", (long)_node.riceNum];
     riceLabel.textColor = [UIColor orangeColor];
     [self.view addSubview:riceLabel];
     self.riceLabel = riceLabel;

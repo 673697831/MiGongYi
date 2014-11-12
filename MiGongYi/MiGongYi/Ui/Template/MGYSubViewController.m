@@ -28,6 +28,12 @@
     
     // Do any additional setup after loading the view.
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"%f %f", self.titleView.bounds.size.width, self.titleView.bounds.size.height);
+}
 /*
 #pragma mark - Navigation
 

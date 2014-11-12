@@ -10,4 +10,9 @@
 
 @implementation MGYStory
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{};
+}
+
 @end

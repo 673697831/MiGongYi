@@ -43,6 +43,8 @@
 		203D13AE1A0CB030005A49B2 /* story6.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13AD1A0CB030005A49B2 /* story6.plist */; };
 		203D13B01A0CBA5B005A49B2 /* story7.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13AF1A0CBA5B005A49B2 /* story7.plist */; };
 		203D13B21A0CBD02005A49B2 /* story8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203D13B11A0CBD02005A49B2 /* story8.plist */; };
+		203D14061A111101005A49B2 /* MGYRiceMoveSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D14041A111101005A49B2 /* MGYRiceMoveSelectViewController.m */; };
+		203D14071A111101005A49B2 /* MGYRiceMoveSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203D14051A111101005A49B2 /* MGYRiceMoveSelectViewController.xib */; };
 		203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D636619CAC7E800116ECA /* MGYDetailsViewController.m */; };
 		203D637019CB027D00116ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636C19CB027D00116ECA /* InfoPlist.strings */; };
 		203D637119CB027D00116ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636E19CB027D00116ECA /* Localizable.strings */; };
@@ -174,6 +176,9 @@
 		203D13AD1A0CB030005A49B2 /* story6.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story6.plist; sourceTree = "<group>"; };
 		203D13AF1A0CBA5B005A49B2 /* story7.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story7.plist; sourceTree = "<group>"; };
 		203D13B11A0CBD02005A49B2 /* story8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = story8.plist; sourceTree = "<group>"; };
+		203D14031A111101005A49B2 /* MGYRiceMoveSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceMoveSelectViewController.h; sourceTree = "<group>"; };
+		203D14041A111101005A49B2 /* MGYRiceMoveSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceMoveSelectViewController.m; sourceTree = "<group>"; };
+		203D14051A111101005A49B2 /* MGYRiceMoveSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGYRiceMoveSelectViewController.xib; sourceTree = "<group>"; };
 		203D636519CAC7E800116ECA /* MGYDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYDetailsViewController.h; path = Ui/Details/MGYDetailsViewController.h; sourceTree = "<group>"; };
 		203D636619CAC7E800116ECA /* MGYDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYDetailsViewController.m; path = Ui/Details/MGYDetailsViewController.m; sourceTree = "<group>"; };
 		203D636D19CB027D00116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -318,6 +323,9 @@
 				203D13951A072B72005A49B2 /* MGYRiceMoveDetailsViewController.m */,
 				203D13A01A08F216005A49B2 /* MGYRiceMoveContentViewController.h */,
 				203D13A11A08F216005A49B2 /* MGYRiceMoveContentViewController.m */,
+				203D14031A111101005A49B2 /* MGYRiceMoveSelectViewController.h */,
+				203D14041A111101005A49B2 /* MGYRiceMoveSelectViewController.m */,
+				203D14051A111101005A49B2 /* MGYRiceMoveSelectViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -729,6 +737,7 @@
 				201EFE3A19ED55AA00B14853 /* InfoPlist.strings in Resources */,
 				203D13AA1A0B702B005A49B2 /* story4.plist in Resources */,
 				203D13AE1A0CB030005A49B2 /* story6.plist in Resources */,
+				203D14071A111101005A49B2 /* MGYRiceMoveSelectViewController.xib in Resources */,
 				203D637119CB027D00116ECA /* Localizable.strings in Resources */,
 				203D637019CB027D00116ECA /* InfoPlist.strings in Resources */,
 			);
@@ -829,6 +838,7 @@
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				20AB149A19F6030C0088106A /* MGYNetManager.m in Sources */,
+				203D14061A111101005A49B2 /* MGYRiceMoveSelectViewController.m in Sources */,
 				203D139C1A075977005A49B2 /* MGYStory.m in Sources */,
 				201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */,
 				202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */,

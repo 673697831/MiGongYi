@@ -9,6 +9,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import "MGYRiceMoveViewController.h"
 #import "MGYRiceMoveContentViewController.h"
+#import "MGYRiceMoveSelectViewController.h"
 #import "MGYStoryContentView.h"
 #import "MGYRiceMoveEquipView.h"
 #import "Masonry.h"
@@ -335,10 +336,18 @@
                         self.storyContentView.hidden = NO;
                     };
                 }
-                
-                MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithSelectCallback:selectCallback contentViewSelectCallback:contentViewSelectCallback
-              contentViewDidDisappearCallback:contentViewDidDisappearCallback];
-                [self.navigationController pushViewController:viewController animated:YES];
+#warning 功能分开
+                if(selectCallback && false)
+                {
+                    MGYRiceMoveSelectViewController *selectViewControll = [MGYRiceMoveSelectViewController new];
+                    [self.navigationController pushViewController:selectViewControll animated:YES];
+                }else
+                {
+                    MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithSelectCallback:selectCallback contentViewSelectCallback:contentViewSelectCallback
+                  contentViewDidDisappearCallback:contentViewDidDisappearCallback];
+                    //[self presentViewController:viewController animated:YES completion:nil];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
             }
             
             MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;

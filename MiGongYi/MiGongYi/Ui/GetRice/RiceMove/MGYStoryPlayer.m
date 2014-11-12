@@ -37,7 +37,7 @@ static MGYStoryPlayer *instance;
         //读取配置文件 这里读取第一个故事
         
         _story = [MGYStory new];
-        _story.storyName = @"story1";
+        _story.storyName = @"story2";
         _story.storyIndex = 0;
         _story.progress = 0;
         _story.playnodeIndex = 0;

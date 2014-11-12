@@ -47,9 +47,6 @@
 
 - (void)requestForWeibo
 {
-#warning 每次请求数据把缓存清空
-    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
-    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
     
     NSString *url = @"https://api.weibo.com/2/statuses/public_timeline.json";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

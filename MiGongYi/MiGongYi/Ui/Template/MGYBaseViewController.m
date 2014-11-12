@@ -34,7 +34,8 @@
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.height.mas_equalTo(self.navigationController.navigationBar.frame.size.height + 20);
+        make.height.mas_equalTo(CGRectGetHeight(self.navigationController.navigationBar.bounds) + 20);
+        //make.height.mas_equalTo(64);
     }];
     self.titleView = titleView;
     
