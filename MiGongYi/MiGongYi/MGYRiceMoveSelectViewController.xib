@@ -6,6 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MGYRiceMoveSelectViewController">
             <connections>
+                <outlet property="leftButton" destination="Pu3-Lt-Teq" id="7uR-q2-iLa"/>
+                <outlet property="rightButton" destination="Eou-zv-AE6" id="KZJ-Ax-sNK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,12 +28,48 @@
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pu3-Lt-Teq">
+                    <rect key="frame" x="20" y="410" width="90" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="0.36104504999999998" blue="0.072904552720000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="zMR-bY-qhe"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="leftClick:" destination="-1" eventType="touchUpInside" id="BpU-tf-oCt"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eou-zv-AE6">
+                    <rect key="frame" x="210" y="410" width="90" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="0.36104504999999998" blue="0.072904552720000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="GNp-1C-qoS"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="rightClick:" destination="-1" eventType="touchUpInside" id="alO-FB-E4p"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="b6Y-nQ-Aj4" firstAttribute="top" secondItem="Eou-zv-AE6" secondAttribute="bottom" constant="28" id="4rf-4V-oDB"/>
                 <constraint firstItem="b6Y-nQ-Aj4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="CAg-RS-H3e"/>
+                <constraint firstAttribute="trailing" secondItem="Pu3-Lt-Teq" secondAttribute="trailing" constant="210" id="DaK-6d-y2J"/>
+                <constraint firstItem="b6Y-nQ-Aj4" firstAttribute="top" secondItem="Pu3-Lt-Teq" secondAttribute="bottom" constant="28" id="Q44-Ub-hJw"/>
                 <constraint firstAttribute="bottom" secondItem="b6Y-nQ-Aj4" secondAttribute="bottom" constant="50" id="jgf-eb-agY"/>
+                <constraint firstItem="Eou-zv-AE6" firstAttribute="leading" secondItem="Pu3-Lt-Teq" secondAttribute="trailing" constant="100" id="k2j-jT-QQL"/>
+                <constraint firstItem="Pu3-Lt-Teq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="lsu-xb-5y4"/>
                 <constraint firstAttribute="trailing" secondItem="b6Y-nQ-Aj4" secondAttribute="trailing" constant="20" id="m67-6N-bue"/>
+                <constraint firstAttribute="trailing" secondItem="Eou-zv-AE6" secondAttribute="trailing" constant="20" id="uqb-YX-Qzd"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYSubViewController.h"
+#import "MGYStoryPlayer.h"
+
+typedef void (^MGYRiceMoveSelectViewSelectCallback)(NSString *);
+typedef void (^MGYRiceMoveSelectViewDidDisappearCallback)();
 
 @interface MGYRiceMoveSelectViewController : MGYSubViewController
+
+@property (nonatomic , weak) IBOutlet UIButton *leftButton;
+@property (nonatomic , weak) IBOutlet UIButton *rightButton;
+
+- (void)setCallback:(MGYStorySelectCallback)storySelectCallback
+selectViewSelectCallback:(MGYRiceMoveSelectViewSelectCallback)selectViewSelectCallback
+selectViewDidDisappearCallback:(MGYRiceMoveSelectViewDidDisappearCallback)selectViewDidDisappearCallback;
 
 @end

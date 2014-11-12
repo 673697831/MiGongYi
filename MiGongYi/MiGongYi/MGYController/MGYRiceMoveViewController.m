@@ -336,10 +336,30 @@
                         self.storyContentView.hidden = NO;
                     };
                 }
-#warning 功能分开
-                if(selectCallback && false)
+                
+                MGYRiceMoveSelectViewDidDisappearCallback selectViewDidDisappearCallback = ^{
+                    MGYStoryNode *node = [MGYStoryPlayer defaultPlayer].playNode;
+                    if (node.storyTips && ![[MGYStoryPlayer defaultPlayer] isplaying]) {
+                        [self.equipView reset:node.storyTips.imagePath
+                                      content:node.storyTips.content];
+                        self.equipView.hidden = NO;
+                    }
+                };
+                
+                MGYRiceMoveSelectViewSelectCallback selectViewSelectCallback;
+                if ([MGYStoryPlayer defaultPlayer].playNode.branch.count > 1) {
+                    selectViewSelectCallback = ^(NSString *storyContent){
+                        [self.storyContentView resetContent:storyContent];
+                        self.storyContentView.hidden = NO;
+                    };
+                }
+                
+                if(selectCallback)
                 {
                     MGYRiceMoveSelectViewController *selectViewControll = [MGYRiceMoveSelectViewController new];
+                    [selectViewControll setCallback:selectCallback
+                           selectViewSelectCallback:selectViewSelectCallback
+                     selectViewDidDisappearCallback:selectViewDidDisappearCallback];
                     [self.navigationController pushViewController:selectViewControll animated:YES];
                 }else
                 {
