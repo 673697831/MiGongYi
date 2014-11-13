@@ -266,7 +266,7 @@
 		20DE25871A00EA2A00F8EF7D /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		20E445A719B63030007B2900 /* BlackMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackMagic.h; sourceTree = "<group>"; };
 		20E445A819B63030007B2900 /* BlackMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackMagic.m; sourceTree = "<group>"; };
-		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYTabBarController.h; sourceTree = "<group>"; };
+		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYTabBarController.h; path = ../../MGYTabBarController.h; sourceTree = "<group>"; };
 		20E445AB19B637EA007B2900 /* MGYTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYTabBarController.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -315,7 +315,6 @@
 				202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */,
 				20D0BE5519CC36510051BFD2 /* MGYAboutMeViewController.h */,
 				20D0BE5619CC36510051BFD2 /* MGYAboutMeViewController.m */,
-				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
 				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
 				20DE25771A00D3F000F8EF7D /* MGYRiceMoveViewController.h */,
 				20DE25781A00D3F000F8EF7D /* MGYRiceMoveViewController.m */,
@@ -589,6 +588,7 @@
 				20CC640219C2A807007230A1 /* MGYBaseViewController.h */,
 				20CC640319C2A807007230A1 /* MGYBaseViewController.m */,
 				20CC640519C2AAF5007230A1 /* MGYBaseProgressView.h */,
+				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
 				20CC640619C2AAF5007230A1 /* MGYBaseProgressView.m */,
 				20CC640C19C2FB61007230A1 /* MGYProgressView.h */,
 				20CC640D19C2FB61007230A1 /* MGYProgressView.m */,

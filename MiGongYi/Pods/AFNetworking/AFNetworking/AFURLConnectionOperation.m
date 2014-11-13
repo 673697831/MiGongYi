@@ -731,7 +731,6 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (void)connection:(NSURLConnection *)connection
 willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-    NSLog(@"connection:willSendRequestForAuthenticationChallenge:");
     if (self.authenticationChallenge) {
         self.authenticationChallenge(connection, challenge);
         return;
@@ -765,7 +764,6 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
  *  @return return value description
  */
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection __unused *)connection {
-    NSLog(@"connectionShouldUseCredentialStorage:");
     return self.shouldUseCredentialStorage;
 }
 /**
@@ -781,7 +779,6 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
              willSendRequest:(NSURLRequest *)request
             redirectResponse:(NSURLResponse *)redirectResponse
 {
-    NSLog(@"connection:willSendRequest:redirectResponse:");
     if (self.redirectResponse) {
         return self.redirectResponse(connection, request, redirectResponse);
     } else {
@@ -801,7 +798,6 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
  totalBytesWritten:(NSInteger)totalBytesWritten
 totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
-    NSLog(@"connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:");
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.uploadProgress) {
             self.uploadProgress((NSUInteger)bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
@@ -817,7 +813,6 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 - (void)connection:(NSURLConnection __unused *)connection
 didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"connection:didReceiveResponse:");
     self.response = response;
     
     [self.outputStream open];
@@ -831,7 +826,6 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)connection:(NSURLConnection __unused *)connection
     didReceiveData:(NSData *)data
 {
-    NSLog(@"connection:didReceiveData:");
     NSUInteger length = [data length];
     while (YES) {
         NSInteger totalNumberOfBytesWritten = 0;
@@ -841,7 +835,6 @@ didReceiveResponse:(NSURLResponse *)response
             NSInteger numberOfBytesWritten = 0;
             while (totalNumberOfBytesWritten < (NSInteger)length) {
                 numberOfBytesWritten = [self.outputStream write:&dataBuffer[(NSUInteger)totalNumberOfBytesWritten] maxLength:(length - (NSUInteger)totalNumberOfBytesWritten)];
-                NSLog(@"numberOfBytesWritten == %d", numberOfBytesWritten);
                 if (numberOfBytesWritten == -1) {
                     break;
                 }
@@ -872,7 +865,6 @@ didReceiveResponse:(NSURLResponse *)response
  *  @param connection connection description
  */
 - (void)connectionDidFinishLoading:(NSURLConnection __unused *)connection {
-    NSLog(@"connectionDidFinishLoading:");
     self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 
     [self.outputStream close];
@@ -893,7 +885,6 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)connection:(NSURLConnection __unused *)connection
   didFailWithError:(NSError *)error
 {
-    NSLog(@"connection:didFailWithError:");
     self.error = error;
 
     [self.outputStream close];
@@ -909,7 +900,6 @@ didReceiveResponse:(NSURLResponse *)response
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse *)cachedResponse
 {
-    NSLog(@"connection:willCacheResponse:");
     if (self.cacheResponse) {
         return self.cacheResponse(connection, cachedResponse);
     } else {

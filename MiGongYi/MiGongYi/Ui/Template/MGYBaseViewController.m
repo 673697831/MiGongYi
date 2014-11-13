@@ -28,6 +28,12 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     
+    //添加多个按钮
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share:)];
+    //    UIBarButtonItem *cameraItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:nil];
+    NSArray *actionButtonItems = @[shareItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
+    
     MGYBaseProgressView *titleView = [MGYBaseProgressView new];
     [self.view addSubview:titleView];
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,6 +90,11 @@
     [super viewWillAppear:animated];
     [self.view bringSubviewToFront:self.titleView];
     [self.view bringSubviewToFront:self.barView];
+}
+
+- (void)share:(id)sender
+{
+    
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
