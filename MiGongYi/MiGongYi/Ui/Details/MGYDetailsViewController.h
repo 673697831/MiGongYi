@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGYBaseViewController.h"
+#import "MGYSubViewController.h"
 
 @interface MGYDetailsViewController : MGYBaseViewController<UITableViewDataSource, UITableViewDelegate>
 

@@ -10,6 +10,9 @@
 
 @interface MGYRiceMoveSelectViewController ()
 
+@property (nonatomic, weak) IBOutlet UILabel *contentLabel;
+@property (nonatomic, weak) IBOutlet UILabel *riceLabel;
+
 @property (nonatomic, copy) MGYStorySelectCallback storySelectCallback;
 @property (nonatomic, copy) MGYRiceMoveSelectViewSelectCallback selectViewSelectCallback;
 @property (nonatomic, copy) MGYRiceMoveSelectViewDidDisappearCallback selectViewDidDisappearCallback;
@@ -61,6 +64,8 @@
         [self.rightButton setTitle:branch1.title
                      forState:UIControlStateNormal];
     }
+    self.contentLabel.text = node.storyContent;
+    self.riceLabel.text = [NSString stringWithFormat:@"%ld", (long)node.riceNum];
     // Do any additional setup after loading the view from its nib.
 }
 

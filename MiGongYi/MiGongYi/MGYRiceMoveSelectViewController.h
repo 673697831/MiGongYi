@@ -15,8 +15,8 @@ typedef void (^MGYRiceMoveSelectViewDidDisappearCallback)();
 
 @interface MGYRiceMoveSelectViewController : MGYSubViewController
 
-@property (nonatomic , weak) IBOutlet UIButton *leftButton;
-@property (nonatomic , weak) IBOutlet UIButton *rightButton;
+@property (nonatomic, weak) IBOutlet UIButton *leftButton;
+@property (nonatomic, weak) IBOutlet UIButton *rightButton;
 
 - (void)setCallback:(MGYStorySelectCallback)storySelectCallback
 selectViewSelectCallback:(MGYRiceMoveSelectViewSelectCallback)selectViewSelectCallback

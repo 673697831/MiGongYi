@@ -32,6 +32,7 @@
 {
     
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = nil;
     self.title = @"获取大米";
     
     UIImageView *backgroundImageView = [UIImageView new];

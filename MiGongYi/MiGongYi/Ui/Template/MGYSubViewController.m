@@ -18,6 +18,7 @@
 {
     [super viewDidLoad];
     self.barView.hidden = YES;
+    self.navigationItem.rightBarButtonItem = nil;
     //[self.navigationItem setTitleView:<#(UIView *)#>];
     // 自定义返回
     //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStyleBordered target:self action:@selector(click)];

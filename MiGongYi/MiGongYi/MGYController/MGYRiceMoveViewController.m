@@ -61,6 +61,7 @@
     [self.view addSubview:backgroundImageView];
     self.backgroundImageView = backgroundImageView;
     UIImageView *manImageView = [UIImageView new];
+    manImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:manImageView];
     self.manImageView = manImageView;
     UIButton *goButton = [UIButton new];
@@ -211,7 +212,6 @@
         [self.storyContentView resetContent:[[MGYStoryPlayer defaultPlayer] storyDescription]];
         self.storyContentView.hidden = NO;
     }];
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -229,6 +229,7 @@
     [self.manImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-10);
+        make.top.equalTo(self.view).with.offset(180);
     }];
     
     [self.goButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -313,6 +314,7 @@
 
 - (void)click:(id)sender
 {
+    NSLogRect(self.manImageView.frame);
     if (self.goButton == sender) {
         [[MGYStoryPlayer defaultPlayer] goAhead:^(MGYStorySelectCallback selectCallback) {
             if ([MGYStoryPlayer defaultPlayer].isplaying) {
