@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>monsterId</key>
+		<integer>0</integer>
+		<key>monsterType</key>
+		<integer>0</integer>
+		<key>monsterName</key>
+		<string>奶嘴绿宝宝</string>
+		<key>rateContent</key>
+		<string>四处晃悠</string>
+		<key>maxHp</key>
+		<integer>200</integer>
+		<key>riceNum</key>
+		<integer>20</integer>
+		<key>skillContent</key>
+		<string>亲情加分，米聊聊单次任务结算时携带可获1.5倍米粒收成</string>
+		<key>levelContent</key>
+		<string>小流氓</string>
+		<key>storyContent</key>
+		<string>看似年芳18,实际深藏功名。因为双手短小，无法自己挠背，从而走上流氓的道路。经常以一蓝色奶嘴隐藏自己，对着路边野花卖萌，试图让他人帮忙挠痒。平生最恨别人嘲笑自己手短，发怒时会以奶嘴砸人，因其奶嘴常年不换，硬度媲美一般法式面包，能够造成一定杀伤，属于流氓中能扰民的小流氓行列。</string>
+		<key>gayImagePath</key>
+		<string>boxingGayMonster0</string>
+		<key>normalImagePath</key>
+		<string>boxingNormalMonster0</string>
+		<key>familyName</key>
+		<string>流氓</string>
+	</dict>
+</array>
+</plist>
