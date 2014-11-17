@@ -35,11 +35,13 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 @property (nonatomic, copy) NSString *storyContent;
 @property (nonatomic, copy) NSString *gayImagePath;
 @property (nonatomic, copy) NSString *normalImagePath;
+@property (nonatomic, copy) NSString *familyName;
+@property (nonatomic, copy) NSString *condition;
 @property (nonatomic, assign) MGYMonsterStatus monsterStatus;
 
 @end
 
-@interface MGYBoxing : MTLModel <MTLJSONSerializing>
+@interface MGYBoxingRecord : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, assign) NSInteger fightTimes;
 @property (nonatomic, assign) long long timesp;

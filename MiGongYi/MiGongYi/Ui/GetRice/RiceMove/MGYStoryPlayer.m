@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import <CoreMotion/CoreMotion.h>
 #import "MGYStoryPlayer.h"
 
 #define STEP 20000
@@ -18,7 +17,6 @@ static MGYStoryPlayer *instance;
     NSMutableArray *_mutableProgress;
 }
 @property (nonatomic, strong) CLLocationManager *myLocationManager;// 定位管理
-@property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, strong) NSLock *lock;
 @property (nonatomic, strong) NSMutableDictionary *mutableStory;
 //@property (nonatomic, strong) NSMutableArray *mutableProgress;

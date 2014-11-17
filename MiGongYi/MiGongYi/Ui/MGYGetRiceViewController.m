@@ -10,8 +10,8 @@
 #import "Masonry.h"
 #import "MGYMiZhiViewController.h"
 #import "MGYMiChatViewController.h"
-#import "SDViewController.h"
 #import "MGYRiceMoveViewController.h"
+#import "MGYRiceBoxingViewController.h"
 #define DIS 60
 
 @interface MGYGetRiceViewController ()
@@ -73,13 +73,19 @@
     // 得到全局队列
     //dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t concurrentQueue = dispatch_get_main_queue();
+    double delayInSeconds = 0.0;
     
     void (^block1)() = ^{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_boxing_selected@2x∏±±æ"]];
         self.boxingView.hidden = YES;
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            MGYRiceBoxingViewController *rbmvc = [MGYRiceBoxingViewController new];
+            [self.navigationController pushViewController:rbmvc animated:NO];
+        });
     };
     
     void (^block2)() = ^{
@@ -87,12 +93,9 @@
         [self pauseAllAnimation];
         [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
         self.shoeView.hidden = YES;
-        double delayInSeconds = 0.0;
-        dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            //SDViewController *sdView = [SDViewController new];
-            //[self.navigationController pushViewController:sdView animated:NO];
             MGYRiceMoveViewController *riceMove = [MGYRiceMoveViewController new];
             [self.navigationController pushViewController:riceMove animated:NO];
         });
@@ -101,10 +104,9 @@
     void (^block3)() = ^{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [self pauseAllAnimation];
-        double delayInSeconds = 2.0;
-        dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         self.knowView.hidden = YES;
         self.knowledgeImageView.hidden = NO;
+        dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             MGYMiZhiViewController *miZhiView = [MGYMiZhiViewController new];
@@ -115,10 +117,9 @@
     void (^block4)() = ^{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [self pauseAllAnimation];
-        double delayInSeconds = 2.0;
-        dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         self.phoneView.hidden = YES;
         [self.manImageView setImage:[UIImage imageNamed:@"page_call_selected@2x@png"]];
+        dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             MGYMiChatViewController *chatView = [MGYMiChatViewController new];

@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		20015A901A15051000CDCF6F /* MGYRiceBoxingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015A8F1A15051000CDCF6F /* MGYRiceBoxingViewController.m */; };
-		20015A931A15055800CDCF6F /* MGYBoxing.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015A921A15055800CDCF6F /* MGYBoxing.m */; };
-		20015A961A15976200CDCF6F /* MGYRiceBoxingDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015A951A15976200CDCF6F /* MGYRiceBoxingDataManager.m */; };
+		20015A931A15055800CDCF6F /* MGYBoxingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015A921A15055800CDCF6F /* MGYBoxingRecord.m */; };
+		20015A961A15976200CDCF6F /* MGYGetRiceDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015A951A15976200CDCF6F /* MGYGetRiceDataManager.m */; };
 		20015A9C1A159CD100CDCF6F /* Monster.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20015A9B1A159CD100CDCF6F /* Monster.plist */; };
 		20015AA01A15A12C00CDCF6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20015A9F1A15A12C00CDCF6F /* Images.xcassets */; };
+		20015AA71A15E40B00CDCF6F /* MGYAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015AA61A15E40B00CDCF6F /* MGYAccelerometer.m */; };
+		20015AAD1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015AAC1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m */; };
+		20015AB01A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20015AAF1A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.m */; };
+		20015AB21A19CD5000CDCF6F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20015AB11A19CD5000CDCF6F /* Security.framework */; };
 		201EFE1D19E3B9B700B14853 /* MGYMiChatDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE1C19E3B9B700B14853 /* MGYMiChatDetailsViewController.m */; };
 		201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE1F19E5268600B14853 /* MGYMiChatProgressView.m */; };
 		201EFE2319E6257600B14853 /* MGYMiChatRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE2219E6257600B14853 /* MGYMiChatRecord.m */; };
@@ -116,12 +120,19 @@
 		04CD75F1FDE84522A5B19FAD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		20015A8E1A15051000CDCF6F /* MGYRiceBoxingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYRiceBoxingViewController.h; path = ../../Ui/GetRice/RiceBoxing/MGYRiceBoxingViewController.h; sourceTree = "<group>"; };
 		20015A8F1A15051000CDCF6F /* MGYRiceBoxingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYRiceBoxingViewController.m; path = ../../Ui/GetRice/RiceBoxing/MGYRiceBoxingViewController.m; sourceTree = "<group>"; };
-		20015A911A15055800CDCF6F /* MGYBoxing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBoxing.h; sourceTree = "<group>"; };
-		20015A921A15055800CDCF6F /* MGYBoxing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBoxing.m; sourceTree = "<group>"; };
-		20015A941A15976200CDCF6F /* MGYRiceBoxingDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYRiceBoxingDataManager.h; path = ../Ui/GetRice/RiceBoxing/MGYRiceBoxingDataManager.h; sourceTree = "<group>"; };
-		20015A951A15976200CDCF6F /* MGYRiceBoxingDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYRiceBoxingDataManager.m; path = ../Ui/GetRice/RiceBoxing/MGYRiceBoxingDataManager.m; sourceTree = "<group>"; };
+		20015A911A15055800CDCF6F /* MGYBoxingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBoxingRecord.h; sourceTree = "<group>"; };
+		20015A921A15055800CDCF6F /* MGYBoxingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBoxingRecord.m; sourceTree = "<group>"; };
+		20015A941A15976200CDCF6F /* MGYGetRiceDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYGetRiceDataManager.h; path = ../Ui/GetRice/RiceBoxing/MGYGetRiceDataManager.h; sourceTree = "<group>"; };
+		20015A951A15976200CDCF6F /* MGYGetRiceDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYGetRiceDataManager.m; path = ../Ui/GetRice/RiceBoxing/MGYGetRiceDataManager.m; sourceTree = "<group>"; };
 		20015A9B1A159CD100CDCF6F /* Monster.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Monster.plist; sourceTree = "<group>"; };
 		20015A9F1A15A12C00CDCF6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		20015AA51A15E40B00CDCF6F /* MGYAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYAccelerometer.h; sourceTree = "<group>"; };
+		20015AA61A15E40B00CDCF6F /* MGYAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYAccelerometer.m; sourceTree = "<group>"; };
+		20015AAB1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingDetailsViewController.h; sourceTree = "<group>"; };
+		20015AAC1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingDetailsViewController.m; sourceTree = "<group>"; };
+		20015AAE1A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingDetailsTableViewCell.h; sourceTree = "<group>"; };
+		20015AAF1A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingDetailsTableViewCell.m; sourceTree = "<group>"; };
+		20015AB11A19CD5000CDCF6F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		201EFE1B19E3B9B700B14853 /* MGYMiChatDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYMiChatDetailsViewController.h; path = ../Ui/GetRice/MiChat/MGYMiChatDetailsViewController.h; sourceTree = "<group>"; };
 		201EFE1C19E3B9B700B14853 /* MGYMiChatDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYMiChatDetailsViewController.m; path = ../Ui/GetRice/MiChat/MGYMiChatDetailsViewController.m; sourceTree = "<group>"; };
 		201EFE1E19E5268600B14853 /* MGYMiChatProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiChatProgressView.h; sourceTree = "<group>"; };
@@ -277,7 +288,7 @@
 		20DE25871A00EA2A00F8EF7D /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		20E445A719B63030007B2900 /* BlackMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackMagic.h; sourceTree = "<group>"; };
 		20E445A819B63030007B2900 /* BlackMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackMagic.m; sourceTree = "<group>"; };
-		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYTabBarController.h; path = ../../MGYTabBarController.h; sourceTree = "<group>"; };
+		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYTabBarController.h; path = ../MGYTabBarController.h; sourceTree = "<group>"; };
 		20E445AB19B637EA007B2900 /* MGYTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYTabBarController.m; path = ../MGYTabBarController.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -287,6 +298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20015AB21A19CD5000CDCF6F /* Security.framework in Frameworks */,
 				2085C85819B6280C00E9FA3B /* CoreGraphics.framework in Frameworks */,
 				2085C85A19B6280C00E9FA3B /* UIKit.framework in Frameworks */,
 				2085C85619B6280C00E9FA3B /* Foundation.framework in Frameworks */,
@@ -310,6 +322,8 @@
 		20015A8D1A15035200CDCF6F /* RiceBoxing */ = {
 			isa = PBXGroup;
 			children = (
+				20015AAE1A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.h */,
+				20015AAF1A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.m */,
 			);
 			path = RiceBoxing;
 			sourceTree = "<group>";
@@ -335,6 +349,7 @@
 				202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */,
 				20D0BE5519CC36510051BFD2 /* MGYAboutMeViewController.h */,
 				20D0BE5619CC36510051BFD2 /* MGYAboutMeViewController.m */,
+				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
 				20E445AB19B637EA007B2900 /* MGYTabBarController.m */,
 			);
 			path = Controller;
@@ -345,6 +360,8 @@
 			children = (
 				20015A8E1A15051000CDCF6F /* MGYRiceBoxingViewController.h */,
 				20015A8F1A15051000CDCF6F /* MGYRiceBoxingViewController.m */,
+				20015AAB1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.h */,
+				20015AAC1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m */,
 			);
 			path = RiceBoxing;
 			sourceTree = "<group>";
@@ -370,10 +387,19 @@
 			children = (
 				20A2D29819BAAFC0004C7697 /* DataManager.h */,
 				20A2D29919BAAFC0004C7697 /* DataManager.m */,
-				20015A941A15976200CDCF6F /* MGYRiceBoxingDataManager.h */,
-				20015A951A15976200CDCF6F /* MGYRiceBoxingDataManager.m */,
+				20015A941A15976200CDCF6F /* MGYGetRiceDataManager.h */,
+				20015A951A15976200CDCF6F /* MGYGetRiceDataManager.m */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		20015AA11A15E29D00CDCF6F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				20015AA51A15E40B00CDCF6F /* MGYAccelerometer.h */,
+				20015AA61A15E40B00CDCF6F /* MGYAccelerometer.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		201EFE3519ED55AA00B14853 /* en.lproj */ = {
@@ -481,6 +507,7 @@
 		2085C85419B6280C00E9FA3B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				20015AB11A19CD5000CDCF6F /* Security.framework */,
 				2085C85519B6280C00E9FA3B /* Foundation.framework */,
 				2085C85719B6280C00E9FA3B /* CoreGraphics.framework */,
 				2085C85919B6280C00E9FA3B /* UIKit.framework */,
@@ -493,6 +520,7 @@
 		2085C85B19B6280C00E9FA3B /* MiGongYi */ = {
 			isa = PBXGroup;
 			children = (
+				20015AA11A15E29D00CDCF6F /* Common */,
 				20015A9F1A15A12C00CDCF6F /* Images.xcassets */,
 				20015A9A1A159A5300CDCF6F /* DataManager */,
 				20DE25801A00E33C00F8EF7D /* Config */,
@@ -605,8 +633,8 @@
 				203D138F1A06195F005A49B2 /* MGYTotalWalk.m */,
 				203D139A1A075977005A49B2 /* MGYStory.h */,
 				203D139B1A075977005A49B2 /* MGYStory.m */,
-				20015A911A15055800CDCF6F /* MGYBoxing.h */,
-				20015A921A15055800CDCF6F /* MGYBoxing.m */,
+				20015A911A15055800CDCF6F /* MGYBoxingRecord.h */,
+				20015A921A15055800CDCF6F /* MGYBoxingRecord.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -637,7 +665,6 @@
 				20CC640219C2A807007230A1 /* MGYBaseViewController.h */,
 				20CC640319C2A807007230A1 /* MGYBaseViewController.m */,
 				20CC640519C2AAF5007230A1 /* MGYBaseProgressView.h */,
-				20E445AA19B637EA007B2900 /* MGYTabBarController.h */,
 				20CC640619C2AAF5007230A1 /* MGYBaseProgressView.m */,
 				20CC640C19C2FB61007230A1 /* MGYProgressView.h */,
 				20CC640D19C2FB61007230A1 /* MGYProgressView.m */,
@@ -848,6 +875,7 @@
 				202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */,
 				202E2AA319DA9E01000E072B /* MGYMiChatLabelView.m in Sources */,
 				203D13931A0711C5005A49B2 /* MGYRiceMoveProgressSubView.m in Sources */,
+				20015AA71A15E40B00CDCF6F /* MGYAccelerometer.m in Sources */,
 				202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */,
 				20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */,
 				2087137F19CFF4670035B21B /* MGYDetailsRelationshipView.m in Sources */,
@@ -879,7 +907,7 @@
 				2087137919CEA5200035B21B /* MGYProjectDetails.m in Sources */,
 				20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */,
 				203D139F1A07617B005A49B2 /* MGYRiceMoveContentTableViewCell.m in Sources */,
-				20015A931A15055800CDCF6F /* MGYBoxing.m in Sources */,
+				20015A931A15055800CDCF6F /* MGYBoxingRecord.m in Sources */,
 				2085C86619B6280C00E9FA3B /* AppDelegate.m in Sources */,
 				203D13901A06195F005A49B2 /* MGYTotalWalk.m in Sources */,
 				201EFE5319F2247800B14853 /* SDViewController.m in Sources */,
@@ -889,15 +917,17 @@
 				20A2D28D19B9DCDC004C7697 /* MGYProgramListCell.m in Sources */,
 				20AB14AD19F8A38E0088106A /* MGYWebImageManager.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
-				20015A961A15976200CDCF6F /* MGYRiceBoxingDataManager.m in Sources */,
+				20015A961A15976200CDCF6F /* MGYGetRiceDataManager.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				20AB149A19F6030C0088106A /* MGYNetManager.m in Sources */,
 				203D14061A111101005A49B2 /* MGYRiceMoveSelectViewController.m in Sources */,
 				203D139C1A075977005A49B2 /* MGYStory.m in Sources */,
+				20015AB01A1741CA00CDCF6F /* MGYRiceBoxingDetailsTableViewCell.m in Sources */,
 				201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */,
 				202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */,
 				203D13A21A08F216005A49B2 /* MGYRiceMoveContentViewController.m in Sources */,
 				202E2A9D19DA84A5000E072B /* MGYSubViewController.m in Sources */,
+				20015AAD1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m in Sources */,
 				203D13A51A0A1710005A49B2 /* MGYStoryContentView.m in Sources */,
 				20DE25791A00D3F000F8EF7D /* MGYRiceMoveViewController.m in Sources */,
 				20AB14A619F75F740088106A /* MGYURLSessionManager.m in Sources */,

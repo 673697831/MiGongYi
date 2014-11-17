@@ -24,7 +24,7 @@
 @property(nonatomic, readonly) NSArray* projectDetailsList;
 @property(nonatomic, strong) MGYPersonalDetails *personalDetails;
 @property(nonatomic, readonly) MGYMiZhi* miZhi;
-@property(nonatomic, assign) NSInteger uid;
+@property(nonatomic, copy) NSString *uid;
 @property(nonatomic, readonly) MGYRiceFlow *myRiceFlow;
 @property(nonatomic, readonly) MGYMyFavList *myFavList;
 @property(nonatomic, readonly) NSArray* miChatRecordList;
@@ -81,6 +81,8 @@ typedef void (^MGYFailure)(NSError *);
                                     failure:(MGYFailure)failure;
 
 - (void)saveRiceWalk:(MGYTotalWalk *)totalWalk;
+
+- (NSString *)baseUrl;
 
 //- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
 //                                    failure:(MGYFailure)failure;

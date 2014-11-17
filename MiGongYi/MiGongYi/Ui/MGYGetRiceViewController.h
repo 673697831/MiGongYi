@@ -11,6 +11,4 @@
 
 @interface MGYGetRiceViewController : MGYBaseViewController
 
-@property (nonatomic , retain) IBOutlet UIButton *userNameText;
-
 @end

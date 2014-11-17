@@ -1,0 +1,189 @@
+//
+//  MGYRiceBoxingDetailsViewController.m
+//  MiGongYi
+//
+//  Created by megil on 11/14/14.
+//  Copyright (c) 2014 megil. All rights reserved.
+//
+
+#import "MGYRiceBoxingDetailsViewController.h"
+#import "MGYGetRiceDataManager.h"
+#import "MGYRiceBoxingDetailsTableViewCell.h"
+#import "Masonry.h"
+
+@interface MGYRiceBoxingDetailsViewController ()
+
+@property (nonatomic, assign) NSInteger monsterId;
+@property (nonatomic, copy) NSString *curFamilyName;
+@property (nonatomic, assign) NSInteger maxIndex;
+@property (nonatomic, assign) NSInteger curIndex;
+@property (nonatomic, strong) NSMutableArray *mutableFamilyName;
+
+@property (nonatomic, weak) UILabel *familyLabel;
+@property (nonatomic, weak) UIButton *preButton;
+@property (nonatomic, weak) UIButton *nextButton;
+@property (nonatomic, weak) UITableView *detailsTableView;
+
+@end
+
+@implementation MGYRiceBoxingDetailsViewController
+
+- (instancetype)initWithMonsterId:(NSInteger)monsterId
+{
+    self = [self init];
+    if (self) {
+        self.monsterId = monsterId;
+        self.curIndex = monsterId / 3;
+        NSArray *arrayMonster = [MGYGetRiceDataManager manager].record.arrayMonster;
+        self.maxIndex = arrayMonster.count / 3;
+        self.mutableFamilyName = [NSMutableArray array];
+        for (int i = 0; i<arrayMonster.count; i++) {
+            MGYMonster *monster = arrayMonster[i];
+            if (self.mutableFamilyName.count && [self.mutableFamilyName[self.mutableFamilyName.count - 1] isEqualToString:monster.familyName]) {
+                continue;
+            }
+            [self.mutableFamilyName addObject:monster.familyName];
+        }
+        NSLog(@"%@", self.mutableFamilyName);
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    UILabel *familyLabel = [UILabel new];
+    familyLabel.font = [UIFont systemFontOfSize:25];
+    familyLabel.textAlignment = NSTextAlignmentCenter;
+    familyLabel.textColor = [UIColor whiteColor];
+    familyLabel.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:familyLabel];
+    self.familyLabel = familyLabel;
+    
+    UIButton *preButton = [UIButton new];
+    [preButton setImage:[UIImage imageNamed:@"riceMoveIconLeft"]
+               forState:UIControlStateNormal];
+    [preButton addTarget:self
+                  action:@selector(click:)
+        forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:preButton];
+    self.preButton = preButton;
+    
+    UIButton *nextButton = [UIButton new];
+    [nextButton setImage:[UIImage imageNamed:@"riceMoveIconRight"]
+                forState:UIControlStateNormal];
+    [nextButton addTarget:self
+                   action:@selector(click:)
+         forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:nextButton];
+    self.nextButton = nextButton;
+    
+    UITableView *detailsTableView = [UITableView new];
+    detailsTableView.delegate = self;
+    detailsTableView.dataSource = self;
+    [detailsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [detailsTableView registerClass:[MGYRiceBoxingDetailsTableViewCell class]
+             forCellReuseIdentifier:@"detailsTableViewCell"];
+    [self.view addSubview:detailsTableView];
+    self.detailsTableView = detailsTableView;
+    
+    [self.familyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(50);
+        make.width.equalTo(self.view);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.titleView.mas_bottom);
+    }];
+    
+    [self.preButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.familyLabel);
+        make.left.equalTo(self.familyLabel).with.offset(20);
+    }];
+    
+    [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.familyLabel);
+        make.right.equalTo(self.familyLabel).with.offset(-20);
+    }];
+    
+    [self.detailsTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.familyLabel.mas_bottom);
+        make.bottom.equalTo(self.view);
+       // make.edges.equalTo(self.view);
+    }];
+    
+    [self updateButonStatus];
+    // Do any additional setup after loading the view.
+}
+
+- (void)click:(id)sender
+{
+    if (sender == self.preButton) {
+        if (self.curIndex <= 0) {
+            return;
+        }
+        self.curIndex --;
+    }
+    
+    if (sender == self.nextButton) {
+        if (self.curIndex >= self.maxIndex) {
+            return;
+        }
+        self.curIndex ++;
+    }
+    
+    [self updateButonStatus];
+}
+
+- (void)updateButonStatus
+{
+    self.preButton.hidden = NO;
+    self.nextButton.hidden = NO;
+    if (self.curIndex <= 0) {
+        self.preButton.hidden = YES;
+    }
+    if (self.curIndex >= self.maxIndex) {
+        self.nextButton.hidden = YES;
+    }
+    self.familyLabel.text = self.mutableFamilyName[self.curIndex];
+    [self.detailsTableView reloadData];
+}
+
+#pragma tableView delegate
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MGYRiceBoxingDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableViewCell" forIndexPath:indexPath];
+    NSInteger monsterId = self.curIndex * 3 + indexPath.row;
+    MGYMonster *monster = [MGYGetRiceDataManager manager].record.arrayMonster[monsterId];
+    [cell setDetails:monster];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.curIndex == self.maxIndex ? 2 : 3;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 500;
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

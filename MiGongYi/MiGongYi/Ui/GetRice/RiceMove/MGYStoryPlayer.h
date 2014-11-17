@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 #import "MGYStoryNode.h"
 #import "MGYTotalWalk.h"
 #import "MGYStory.h"
@@ -40,6 +41,7 @@ typedef void (^MGYStoryAddPowerCallback)();
 
 @interface MGYStoryPlayer : NSObject<CLLocationManagerDelegate>
 
+@property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, weak, readonly) MGYStoryNode *playNode;
 @property (nonatomic, strong, readonly) NSArray *mutableProgress;
 @property (nonatomic, strong, readonly) MGYTotalWalk *totalWalk;

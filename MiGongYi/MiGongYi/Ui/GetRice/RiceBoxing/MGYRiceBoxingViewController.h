@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGYSubViewController.h"
 
-@interface MGYRiceBoxingViewController : UIViewController
+@interface MGYRiceBoxingViewController : MGYSubViewController
 
 @end

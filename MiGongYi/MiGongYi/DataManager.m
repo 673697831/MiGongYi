@@ -13,6 +13,8 @@
 #import "MGYMiChatRecord.h"
 #import "MGYStoryNode.h"
 #import "MGYStoryPlayer.h"
+#import "SSKeychain.h"
+#import "OpenUDID.h"
 #define fuck 1
 #define test 1
 
@@ -52,12 +54,6 @@
         self.manager = [AFHTTPRequestOperationManager manager];
         //测试专用
         
-#if fuck
-#warning 仅测试用
-        self.uid = 1;
-        [self setupAccount];
-#endif
-        
         [self loadSetup];
         
         if (!self.uid) {
@@ -81,7 +77,7 @@
 
 - (NSString *)filePath
 {
-    return [[self libraryPath] stringByAppendingString:[NSString stringWithFormat:@"/%d", self.uid]];
+    return [[self libraryPath] stringByAppendingString:[NSString stringWithFormat:@"/%@", self.uid]];
 }
 
 - (NSString *)baseUrl
@@ -115,7 +111,8 @@
     }
     
     NSString *fileName = [[self libraryPath] stringByAppendingString:@"/defaultUid.plist"];
-    NSArray *array = @[@(self.uid)];
+    NSArray *array = @[self.uid];
+    NSLog(@"%@", array);
     [array writeToFile:fileName atomically:YES];
 }
 
@@ -124,8 +121,7 @@
     NSString* fileName = [[self libraryPath] stringByAppendingString:@"/defaultUid.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         NSArray *data = [NSArray arrayWithContentsOfFile:fileName];
-        self.uid = [data[0] integerValue];
-        //NSLog(@"cccccccccccc %@",fileName);
+        self.uid = data[0];
     }
 }
 
@@ -167,7 +163,7 @@
     if (_myRiceFlow) {
         dicRiceFlow = [MTLJSONAdapter JSONDictionaryFromModel:_myRiceFlow];
     }
-    [data addObject:@(_uid)];
+    [data addObject:self.uid];
     [data addObject:dicRiceFlow];
     [data addObject:dicFavList];
     [data writeToFile:fileName atomically:YES];
@@ -386,7 +382,7 @@
     NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=detail"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url
-             parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
+             parameters:@{@"uid": self.uid, @"project_id":@(projectId)}
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     MGYProjectDetails *projectDetails = [MTLJSONAdapter modelOfClass:[MGYProjectDetails class] fromJSONDictionary:responseObject[@"data"] error:nil];
                     [self setProjectDetails:projectDetails];
@@ -434,7 +430,7 @@
     NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=addfav"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url
-             parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
+             parameters:@{@"uid": self.uid, @"project_id":@(projectId)}
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     success();
                 }
@@ -451,7 +447,7 @@
     NSString *url = [[self baseUrl] stringByAppendingString:@"/project.php?type=cancelfav"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url
-             parameters:@{@"uid": @(self.uid), @"project_id":@(projectId)}
+             parameters:@{@"uid": self.uid, @"project_id":@(projectId)}
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     success();
                 }
@@ -464,16 +460,18 @@
 #pragma mark - 首次登陆
 - (AFHTTPRequestOperation *)requestForEnterUID
 {
+    CFUUIDRef uuid = CFUUIDCreate(NULL);
+    CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
+    NSString *uuidString = [[NSString stringWithFormat:@"%@", uuidStr] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    
+    NSDictionary *parameters = @{@"guid":uuidString};
     NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=reg&reg_type=startup"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url
-             parameters:nil
+             parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
-                    self.uid = [responseObject[@"data"][@"uid"] integerValue];
-#if fuck
-#warning 仅测试用     
-                    self.uid = 1;
-#endif
+                    self.uid = responseObject[@"data"][@"uid"];
+                    NSLog(@"%@", responseObject);
                     
                     [self setupAccount];
                     [self checkAccountDirectory];
@@ -489,7 +487,7 @@
     NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=detail"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url
-             parameters:@{@"uid": @(self.uid)}
+             parameters:@{@"uid": self.uid}
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     MGYPersonalDetails *newPersonalDetails = [MTLJSONAdapter modelOfClass:[MGYPersonalDetails class]fromJSONDictionary:responseObject[@"data"] error:nil];
                     self.personalDetails = newPersonalDetails;
@@ -506,7 +504,7 @@
 {
     NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=riceflow"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"uid":@(self.uid), @"start":@(start), @"limit":@(limit)};
+    NSDictionary *parameters = @{@"uid":self.uid, @"start":@(start), @"limit":@(limit)};
     return [manager GET:url
              parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
@@ -529,7 +527,7 @@
 {
     NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=favlist"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"uid":@(self.uid), @"start":@(start), @"limit":@(limit)};
+    NSDictionary *parameters = @{@"uid":self.uid, @"start":@(start), @"limit":@(limit)};
     return [manager GET:url
              parameters:parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
@@ -565,7 +563,7 @@
 {
     NSString *url = [[self baseUrl] stringByAppendingString:@"/gain.php?type=chat"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    return [manager GET:url parameters:@{@"uid": @(self.uid)}
+    return [manager GET:url parameters:@{@"uid": self.uid}
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     NSInteger errorCode = [responseObject[@"error"] integerValue];
                     if (errorCode == 0) {
