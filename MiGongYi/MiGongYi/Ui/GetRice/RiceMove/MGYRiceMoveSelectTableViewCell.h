@@ -1,5 +1,5 @@
 //
-//  MGYRiceMoveContentTableViewCell.h
+//  MGYRiceMoveSelectTableViewCell.h
 //  MiGongYi
 //
 //  Created by megil on 11/17/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGYRiceMoveContentTableViewCell : UITableViewCell
+@interface MGYRiceMoveSelectTableViewCell : UITableViewCell
 
 @end

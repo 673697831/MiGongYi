@@ -1,14 +1,14 @@
 //
-//  MGYRiceMoveContentTableViewCell.m
+//  MGYRiceMoveSelectTableViewCell.m
 //  MiGongYi
 //
 //  Created by megil on 11/17/14.
 //  Copyright (c) 2014 megil. All rights reserved.
 //
 
-#import "MGYRiceMoveContentTableViewCell.h"
+#import "MGYRiceMoveSelectTableViewCell.h"
 
-@implementation MGYRiceMoveContentTableViewCell
+@implementation MGYRiceMoveSelectTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

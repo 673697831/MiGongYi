@@ -2,12 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "btn_clan@2x.png"
+      "filename" : "green_light@2x.png"
     }
   ],
   "info" : {
