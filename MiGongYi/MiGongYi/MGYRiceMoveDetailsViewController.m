@@ -8,9 +8,10 @@
 
 #import "MGYRiceMoveDetailsViewController.h"
 #import "MGYRiceMoveMapTableViewCell.h"
-#import "MGYRiceMoveContentTableViewCell.h"
+#import "MGYRiceMoveDetailsTableViewCell.h"
 #import "Masonry.h"
 #import "MGYStoryPlayer.h"
+#import "UIColor+Expanded.h"
 
 #define MAX_MAP 8
 
@@ -46,6 +47,7 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
 @property (nonatomic, assign) NSInteger curMapIndex;
 @property (nonatomic, assign) NSInteger storyIndex;
 @property (nonatomic, copy) NSString *mapName;
+@property (nonatomic, strong) NSDictionary *dicMapName;
 
 @end
 
@@ -71,6 +73,9 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
         }else{
             _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story6", @"story7", @"story8"];
         }
+        
+        self.dicMapName = @{@"story1": @"伊顿斯堡", @"story2" : @"沃尔夫密林", @"story3" : @"阿诺斯灵山",@"story4" : @"科尔伯拉火焰谷",@"story5" : @"黑暗星河I",@"story6" : @"黑暗星河II",@"story7" : @"阿波罗亚港口",@"story8" : @"世界的尽头",};
+        
         for (int i = 0; i < _imageArray.count; i ++) {
             if ([mapName isEqualToString:_imageArray[i]]) {
                 self.curMapIndex = i;
@@ -90,6 +95,13 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    UILabel *mapNameLabel = [UILabel new];
+    mapNameLabel.textAlignment = NSTextAlignmentCenter;
+    mapNameLabel.backgroundColor = [UIColor colorWithHexString:@"563765"];
+    mapNameLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:mapNameLabel];
+    self.mapNameLabel = mapNameLabel;
+    
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -97,15 +109,12 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
     [tableView registerClass:[MGYRiceMoveMapTableViewCell class]
       forCellReuseIdentifier:@"mapCell"];
     
-    [tableView registerClass:[MGYRiceMoveContentTableViewCell class]
+    [tableView registerClass:[MGYRiceMoveDetailsTableViewCell class]
       forCellReuseIdentifier:@"contentCell"];
     
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     tableView.delegate = self;
     tableView.dataSource  = self;
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
     
     UIButton *leftButton = [UIButton new];
     [leftButton setImage:[UIImage imageNamed:@"riceMoveIconLeft"]
@@ -135,14 +144,21 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
                     action:@selector(click:)
           forControlEvents:UIControlEventTouchUpInside];
     
+    [mapNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(46);
+        make.left.equalTo(self.view);
+        make.top.equalTo(self.titleView.mas_bottom);
+    }];
+    
     [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(50);
+        make.centerY.equalTo(self.mapNameLabel);
     }];
     
     [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view);
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(50);
+        make.centerY.equalTo(self.mapNameLabel);
     }];
     
     [lockButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,15 +166,14 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
         make.bottom.equalTo(self.view);
     }];
     
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mapNameLabel.mas_bottom);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
     
-//    UILabel *mapNameLabel = [UILabel new];
-//    mapNameLabel.backgroundColor = [UIColor blueColor];
-//    mapNameLabel.textColor = [UIColor whiteColor];
-//    mapNameLabel.text = @"abcde";
-//    [self.view addSubview:mapNameLabel];
-//    self.mapNameLabel = mapNameLabel;
-    
-    
+    [self refrush];
 }
 
 - (void)click:(id)sender
@@ -209,6 +224,19 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
                          forState:UIControlStateNormal];
         //self.lockButton.hidden = YES;
     }
+    
+    self.leftButton.hidden = NO;
+    self.rightButton.hidden = NO;
+    
+    if (self.curMapIndex <= 0) {
+        self.leftButton.hidden = YES;
+    }
+    
+    if (self.curMapIndex >= MAX_MAP - 1) {
+        self.rightButton.hidden = YES;
+    }
+    
+    self.mapNameLabel.text = self.dicMapName[_imageArray[_curMapIndex]];
 }
 
 #pragma mark - TableViewDelegate
@@ -221,10 +249,10 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
         return cell;
     }else
     {
-        MGYRiceMoveContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
-        NSString *string = [[MGYStoryPlayer defaultPlayer] getStoryContent:_imageArray[_curMapIndex]
-                                                                     index:indexPath.row];
-        [cell resetContent:string];
+        MGYRiceMoveDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
+        MGYStoryNode *node = [[MGYStoryPlayer defaultPlayer] getStoryNode:_imageArray[_curMapIndex] index:indexPath.row];
+        
+        [cell resetContent:node.storyContent dateString:node.dateString];
         return cell;
     }
     
@@ -240,8 +268,8 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
     {
         NSString *string = [[MGYStoryPlayer defaultPlayer] getStoryContent:_imageArray[_curMapIndex]
                                                                      index:indexPath.row];
-        CGSize labelSize = [string boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size;
-        return labelSize.height;
+        CGSize labelSize = [string boundingRectWithSize:CGSizeMake(400/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]} context:nil].size;
+        return labelSize.height + 53;
     }
 }
 

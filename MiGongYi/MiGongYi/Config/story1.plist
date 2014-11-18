@@ -55,6 +55,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan1</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -83,6 +85,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan2</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -111,6 +115,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan3</string>
 	</dict>
 	<dict>
 		<key>storyTips</key>
@@ -155,10 +161,12 @@
 				<integer>0</integer>
 				<key>buffState</key>
 				<integer>1</integer>
-                <key>buffImagePath</key>
+				<key>buffImagePath</key>
 				<string>manImage2</string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan4</string>
 	</dict>
 </array>
 </plist>

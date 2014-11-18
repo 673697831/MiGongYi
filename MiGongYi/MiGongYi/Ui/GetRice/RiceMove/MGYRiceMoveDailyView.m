@@ -7,16 +7,59 @@
 //
 
 #import "MGYRiceMoveDailyView.h"
+#import "UIColor+Expanded.h"
+#import "Masonry.h"
+
+@interface MGYRiceMoveDailyView ()
+
+@property (nonatomic, weak) UILabel *myContentLabel;
+@property (nonatomic, weak) UIButton *hideButton;
+
+@end
 
 @implementation MGYRiceMoveDailyView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        // Initialization code
+        UILabel *myContentLabel = [UILabel new];
+        myContentLabel.font = [UIFont systemFontOfSize:9];
+        myContentLabel.backgroundColor = [UIColor whiteColor];
+        myContentLabel.textColor = [UIColor colorWithHexString:@"838383"];
+        myContentLabel.numberOfLines = 0;
+        myContentLabel.text = @"efefefoiewhfiowejofwjioefjowjefoijwoefjoiwjfeiowjofjwfejwojfowofjwofjwffwfewef";
+        [self addSubview:myContentLabel];
+        self.myContentLabel = myContentLabel;
+        
+        UIButton *hideButton = [UIButton new];
+        [hideButton addTarget:self
+                       action:@selector(click:)
+             forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:hideButton];
+        self.hideButton = hideButton;
+        
+        [self.myContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).with.offset(27);
+            make.right.equalTo(self).with.offset(-27);
+            make.top.equalTo(self);
+        }];
+        
+        [self.hideButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
     }
     return self;
+}
+
+- (void)setText:(NSString *)text
+{
+
+}
+
+- (void)click:(id)sender
+{
+    self.hidden = YES;
 }
 
 /*

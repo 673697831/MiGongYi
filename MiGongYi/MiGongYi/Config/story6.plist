@@ -37,6 +37,8 @@
 		<string>“数十年前，人类伙同上层世界的其他生物，把我们赶入了这片黑暗的星河，我们就在这里扎下了根……”大郎听了既愤怒又觉得滑稽，这不正是米怪对自己做的事情吗，怎么到这里就成了人类的罪过？！躲在课室一角的大郎，内心已充满怒火。</string>
 		<key>progress</key>
 		<real>20000</real>
+		<key>mapIcon</key>
+		<string>yuan17</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -77,6 +79,8 @@
 				</string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan18</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -105,6 +109,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan19</string>
 	</dict>
 	<dict>
 		<key>mutableNodeType</key>
@@ -138,6 +144,8 @@
 				<string>“别发呆了，我们快点走吧。”应着小美的提醒，大郎恍惚了片刻，起身回程。刚到山脚，大郎别过小美，却被眼前新的挑战拦住了去路。“这是什么？指纹识别器？”（解锁该关卡需使用米怪的指纹，快去驯服一只米怪来遛弯儿吧）大郎说罢便拿出了拳套，跃跃欲试地准备着。</string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan20</string>
 	</dict>
 </array>
 </plist>

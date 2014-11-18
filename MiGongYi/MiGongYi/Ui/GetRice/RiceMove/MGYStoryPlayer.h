@@ -63,6 +63,9 @@ typedef void (^MGYStoryAddPowerCallback)();
 - (NSString *)getStoryContent:(NSString *)storyName
                         index:(NSInteger)index;
 
+- (MGYStoryNode *)getStoryNode:(NSString *)storyName
+                         index:(NSInteger)index;
+
 - (NSString *)storyDescription;
 
 - (BOOL)isMizhiNode;

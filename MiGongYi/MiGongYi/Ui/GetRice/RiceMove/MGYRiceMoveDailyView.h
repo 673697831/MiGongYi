@@ -10,4 +10,6 @@
 
 @interface MGYRiceMoveDailyView : UIView
 
+- (void)setText:(NSString *)text;
+
 @end

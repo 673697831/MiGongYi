@@ -35,7 +35,7 @@ static MGYStoryPlayer *instance;
         //读取配置文件 这里读取第一个故事
         
         _story = [MGYStory new];
-        _story.storyName = @"story2";
+        _story.storyName = @"story1";
         _story.storyIndex = 0;
         _story.progress = 0;
         _story.playnodeIndex = 0;
@@ -111,6 +111,13 @@ static MGYStoryPlayer *instance;
         _story.progress = node.progress;
         _story.playnodeIndex = node.identifier;
         _playNode = node;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
+        MGYStoryNode *snode = [self getStoryNode:_story.storyName
+                                           index:node.identifier - 1];
+        snode.dateString = [dateFormatter stringFromDate:[NSDate date]];
         [self resetProgressArray];
     }
 }
@@ -311,7 +318,7 @@ static MGYStoryPlayer *instance;
 {
     if (_playNode.nodeType == MGYStoryNodeTypeTrail) {
         
-        if ([_arrayFileName[_playNode.nextLevel.mapIndex] isEqualToString:mapName]) {
+        if ([_arrayFileName[_playNode.nextLevel.mapIndex] isEqualToString:mapName] || !mapName) {
             return MGYStoryLockStateUnLocked;
         }
     }
@@ -325,6 +332,13 @@ static MGYStoryPlayer *instance;
     MGYStoryNode *node = arrayNode[index + 1];
     
     return node.storyContent;
+}
+
+- (MGYStoryNode *)getStoryNode:(NSString *)storyName
+                         index:(NSInteger)index
+{
+    NSArray *arrayNode = [_mutableStory objectForKey:storyName];
+    return arrayNode[index + 1];
 }
 
 - (NSString *)getBuffImagePath

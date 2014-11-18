@@ -74,6 +74,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan9</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -111,6 +113,8 @@
 			<key>imagePath</key>
 			<string>event3</string>
 		</dict>
+		<key>mapIcon</key>
+		<string>yuan10</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -140,6 +144,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan11</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -192,6 +198,8 @@
 			<key>imagePath</key>
 			<string>event5</string>
 		</dict>
+		<key>mapIcon</key>
+		<string>yuan12</string>
 	</dict>
 </array>
 </plist>

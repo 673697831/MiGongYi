@@ -66,6 +66,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan5</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -94,6 +96,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan6</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -132,6 +136,8 @@
 				<string>“这种不收门票的景点想必也没什么意思，什么鬼林子啊，半天走不出去真是的。”扎拉赞恩一直在注视着大郎的一举一动，满腹疑问，谨慎地移动着树木和幽径，领着大郎在密林里穿行，又兜回了最开头的岔路口。</string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan7</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -182,6 +188,8 @@
 			<key>imagePath</key>
 			<string>event2</string>
 		</dict>
+		<key>mapIcon</key>
+		<string>yuan8</string>
 	</dict>
 </array>
 </plist>

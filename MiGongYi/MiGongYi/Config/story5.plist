@@ -37,6 +37,8 @@
 		<string>“你是谁，为什么会来到这里？”大郎左顾右盼寻找声音的来源，他不敢相信竟是这跳动的微光发出了清脆的声音，既惶恐又好奇，“看你是第一次来这里吧？这里是埃尼亚克，我是星河光族，小美，嘘！有人来了，快趴下。”只见远处几只米怪正在搜索，应该是刚才大郎的坠落惊动了他们。可这里为什么会出现成群的米怪呢？</string>
 		<key>progress</key>
 		<integer>20000</integer>
+		<key>mapIcon</key>
+		<string>yuan17</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -56,6 +58,8 @@
 		<string>“这里原本是我们的家，我们星河光族几千年来一直都在精灵大陆和平行世界间奔走，为精灵大陆的生命输送自然之力，维护着它的能量平衡。”小美一边在黑暗中引路，一边解答着大郎的疑问。“后来有一天，他们破解了大门的咒语，还把出口封了起来，借助自然之力成倍增殖，就抢占了这片星河，我们现在是逃犯，所以处处都得小心。”</string>
 		<key>progress</key>
 		<integer>40000</integer>
+		<key>mapIcon</key>
+		<string>yuan18</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -75,6 +79,8 @@
 		<string>“放开我！”又一队米怪擦身而过，但奇怪的是，被羁押的竟然是他们自己的同胞，这是怎么一回事？“叫你跟丢了那个人类，我们怎么向大王交代，水晶碎片上哪儿找？本来计划好好的，跟着把剩下的碎片都抢到手，现在可好，你就等着大王发落吧！”大郎听着心凉了半截，一路走来竟没发现近在咫尺的危险，这种疏忽，是致命的。</string>
 		<key>progress</key>
 		<integer>60000</integer>
+		<key>mapIcon</key>
+		<string>yuan19</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -143,6 +149,8 @@
 				</string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan20</string>
 	</dict>
 </array>
 </plist>

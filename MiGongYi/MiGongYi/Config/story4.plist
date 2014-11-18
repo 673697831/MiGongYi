@@ -46,6 +46,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan13</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -74,6 +76,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan14</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -102,6 +106,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan15</string>
 	</dict>
 	<dict>
 		<key>mutableNodeType</key>
@@ -135,6 +141,8 @@
 				<string>“这么多图形，是不是要解开它们才能过啊？……我去，这么难，简直无情啊，还是先去看看米知好了。”（解锁该关卡需连续阅读米知3天或以上，积累智慧，攻克难题）大郎说罢便翻出了米知，仔细搜索着答案。</string>
 			</dict>
 		</array>
+		<key>mapIcon</key>
+		<string>yuan16</string>
 	</dict>
 </array>
 </plist>

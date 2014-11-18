@@ -46,6 +46,8 @@
 		<string>“你给我站住！”如梦初醒的大郎刚一睁眼，就发现自己的包裹正在被几头丑陋的猩猩随意摆弄，情急之下，大郎本想吓退他们，却没料想“厄尔斯”碎片也在自己的包裹里。这下坏了，在黑暗星河里都没被抢，眼下却被几只猴子抢了去，大郎一跃，奋起直追。</string>
 		<key>progress</key>
 		<real>20000</real>
+		<key>mapIcon</key>
+		<string>yuan21</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -65,6 +67,8 @@
 		<string>三支急速飞来的长矛准确地戳在了大郎跟前，像是一种警告。抬头远眺，三五成队的猿群都在摇曳奔走，这一定不是大郎的威风。果然，回过头的场景让小伙伴们都惊呆了：一头雄壮的猩猩，领着二三十头缓缓走来，右眼的三道抓痕，显然给这位领袖的气质加了不少分，“去你该去的地方吧，年轻人。”这是猿族正统后裔，他们叫他：尤尼奥尔·凯撒。</string>
 		<key>progress</key>
 		<real>40000</real>
+		<key>mapIcon</key>
+		<string>yuan22</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -84,6 +88,8 @@
 		<string>“那里边的东西非常重要，关乎精灵大陆的未来，请您一定要帮助我！”大郎第一眼，就被这位眼神里透出坚毅的领袖征服了，尽管这些天紧绷的神经和连续的奔波，已经接近他的身体极限，他还是一口气倾吐了自己的来意和这些天的遭遇，并恳请猿族帮助他夺回被抢的碎片。凯撒犹豫了。</string>
 		<key>progress</key>
 		<integer>60000</integer>
+		<key>mapIcon</key>
+		<string>yuan23</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -103,6 +109,8 @@
 		<string>“自从祖父死后，柯尔巴叔叔就策反了族群里的激进派，他们专门抢夺过往的商贾，表面上说是要还猿族一块净土，但结果是现在没人愿意来了，猿族根本得不到进步和发展，我们一直都在对抗他们的势力，你要是愿意的话，少年，少年……？”还没听完凯撒的话，大郎终于体力不支，倒下了。</string>
 		<key>progress</key>
 		<real>80000</real>
+		<key>mapIcon</key>
+		<string>yuan24</string>
 	</dict>
 </array>
 </plist>

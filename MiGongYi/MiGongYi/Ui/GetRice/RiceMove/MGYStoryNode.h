@@ -98,5 +98,7 @@ typedef NS_ENUM(NSInteger, MGYStoryTipsType)
 @property (nonatomic, assign) NSInteger riceNum;
 @property (nonatomic, strong) MGYStoryLevel *nextLevel;
 @property (nonatomic, strong) MGYStoryTips *storyTips;
+@property (nonatomic, copy) NSString *dateString;
+@property (nonatomic, copy) NSString *mapIcon;
 
 @end

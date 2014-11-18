@@ -37,6 +37,8 @@
 		<string>七彩水晶不是真的水晶，性质上，它只是一种魔力结晶物，传说中由上层世界七位最有名望的君王合力锻造，具有无法估量的魔力。但由于七种魔力本身都异常强大，它只能在未被激活的状态下共存，一旦魔力被激活，不久就会四散到各地。</string>
 		<key>progress</key>
 		<real>20000</real>
+		<key>mapIcon</key>
+		<string>yuan25</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -56,6 +58,8 @@
 		<string>现存资料中对七块碎片的收录是不完整的，已经知道的分别是代表自然之力的“厄尔斯”，代表治愈之力的“沃尔特”和半个世纪前“费尔星登惨案”的罪魁祸首——黑魔法“布雷克”。它们正安静地躺在上层世界的7块大陆中，等待着被唤醒。</string>
 		<key>progress</key>
 		<real>40000</real>
+		<key>mapIcon</key>
+		<string>yuan26</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -75,6 +79,8 @@
 		<string>米怪是数十年前人类实验室的产物，当时领导这个项目的科学家萨穆埃尔，是第238届诺贝尔化学奖的获得者，对人类粮食再生工程做出了突出的贡献。这个项目最终因“费尔星登惨案”被迫结束，因为当时派往费尔星登工业区的米怪发生了大规模的暴动，他们燃尽了工业区的一切，并残忍地杀害了正在巡视中的萨穆埃尔。</string>
 		<key>progress</key>
 		<integer>60000</integer>
+		<key>mapIcon</key>
+		<string>yuan27</string>
 	</dict>
 	<dict>
 		<key>nextLevel</key>
@@ -94,6 +100,8 @@
 		<string>本期更新的所有地图已经走完，但别担心，米小编同样期待在奥加大陆上发生的一切。还有一大波地图正在袭来哦，赶快储备你的米能量吧！</string>
 		<key>progress</key>
 		<real>80000</real>
+		<key>mapIcon</key>
+		<string>yuan28</string>
 	</dict>
 </array>
 </plist>

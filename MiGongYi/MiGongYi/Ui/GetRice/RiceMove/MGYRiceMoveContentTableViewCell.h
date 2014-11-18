@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGYRiceMoveTableViewCell.h"
 
-@interface MGYRiceMoveContentTableViewCell : UITableViewCell
+@interface MGYRiceMoveContentTableViewCell : MGYRiceMoveTableViewCell
 
 @end

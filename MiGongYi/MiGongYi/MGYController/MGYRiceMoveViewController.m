@@ -15,15 +15,22 @@
 #import "Masonry.h"
 #import "MGYRiceMoveProgressView.h"
 #import "MGYTotalWalk.h"
+#import "MGYRiceMoveDailyView.h"
+#import "UIColor+Expanded.h"
+#import "MGYRiceMoveTableViewController.h"
+#import "MGYHelpView.h"
+#import "MGYBorderHelpView.h"
 
 @interface MGYRiceMoveViewController ()
 
+@property (nonatomic, weak) MGYHelpView *helpView;
 @property (nonatomic, weak) MGYStoryContentView *storyContentView;
 @property (nonatomic, weak) MGYRiceMoveEquipView *equipView;
 @property (nonatomic, weak) UIImageView *backgroundImageView;
 @property (nonatomic, weak) UIImageView *manImageView;
 @property (nonatomic, weak) UIButton *goButton;
 @property (nonatomic, weak) UIButton *detailsButton;
+@property (nonatomic, weak) UIImageView *noticeDetailsImageView;
 @property (nonatomic, weak) MGYRiceMoveProgressView *progressView;
 @property (nonatomic, weak) UIView *tipsView;
 @property (nonatomic, weak) UILabel *dateTimeLabel;
@@ -34,6 +41,8 @@
 @property (nonatomic ,weak) UIButton *leftButton;
 @property (nonatomic ,weak) UIButton *rightButton;
 @property (nonatomic, weak) UILabel *walkAmountLabel;
+@property (nonatomic, weak) MGYBorderHelpView *borderHelpView;
+@property (nonatomic, weak) MGYRiceMoveDailyView *dailyView;
 @property (nonatomic, copy) MGYStoryAddPowerCallback addPowerCallback;
 
 @end
@@ -44,6 +53,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIButton *helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [helpButton addTarget:self
+                   action:@selector(showHelp)
+         forControlEvents:UIControlEventTouchUpInside];
+    [helpButton setImage:[UIImage imageNamed:@"know_help"] forState:UIControlStateNormal];
+    [helpButton sizeToFit];
+    UIBarButtonItem *helpItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
+    self.navigationItem.rightBarButtonItem = helpItem;
     
     UIButton *button = [UIButton new];
     [button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -75,10 +93,14 @@
     [detailsButton addTarget:self
                       action:@selector(click:)
             forControlEvents:UIControlEventTouchUpInside];
-    [detailsButton setImage:[UIImage imageNamed:@"button_handbook_normal"] forState:UIControlStateNormal];
-    [detailsButton setImage:[UIImage imageNamed:@"button_handbook_warn"] forState:UIControlStateSelected];
+    [detailsButton setImage:[UIImage imageNamed:@"details_button"] forState:UIControlStateNormal];
     [self.view addSubview:detailsButton];
     self.detailsButton = detailsButton;
+    
+    UIImageView *noticeDetailsImageView = [UIImageView new];
+    [noticeDetailsImageView setImage:[UIImage imageNamed:@"details_new"]];
+    [self.view addSubview:noticeDetailsImageView];
+    self.noticeDetailsImageView = noticeDetailsImageView;
     
     MGYRiceMoveProgressView *progressView = [MGYRiceMoveProgressView new];
     [self.view addSubview:progressView];
@@ -89,6 +111,10 @@
     tipsView.alpha = 0.42;
     [self.view addSubview:tipsView];
     self.tipsView = tipsView;
+    
+    MGYRiceMoveDailyView *dailyView = [MGYRiceMoveDailyView new];
+    [self.view addSubview:dailyView];
+    self.dailyView = dailyView;
     
     UILabel *dateTimeLabel = [UILabel new];
     dateTimeLabel.text = @"今天";
@@ -163,10 +189,20 @@
     [self.view addSubview:equipView];
     self.equipView = equipView;
     
+    MGYHelpView *helpView = [[MGYHelpView alloc] initRiceMoveHelpView];
+    helpView.hidden = YES;
+    [self.view addSubview:helpView];
+    self.helpView = helpView;
+    
+    MGYBorderHelpView *borderHelpView = [[MGYBorderHelpView alloc] initRiceMoveHelpView];
+    [self.view addSubview:borderHelpView];
+    self.borderHelpView = borderHelpView;
+    
     [self setup];
 
     [self.manImageView setImage:[UIImage imageNamed:@"manImage1"]];
 
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -212,12 +248,19 @@
         [self.storyContentView resetContent:[[MGYStoryPlayer defaultPlayer] storyDescription]];
         self.storyContentView.hidden = NO;
     }];
+    
+    self.noticeDetailsImageView.hidden = ![[MGYStoryPlayer defaultPlayer] getMapLockState:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     self.addPowerCallback = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)setup
@@ -240,6 +283,11 @@
     [self.detailsButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).with.offset(-10);
         make.right.equalTo(self.view).with.offset(-10);
+    }];
+    
+    [self.noticeDetailsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.detailsButton).with.offset(0);
+        make.top.equalTo(self.detailsButton).with.offset(0);
     }];
     
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -297,10 +345,10 @@
     }];
     
     [self.storyContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view);
-        make.height.equalTo(self.view);
-        make.centerX.equalTo(self.view);
-        make.centerY.equalTo(self.view);
+        make.top.equalTo(self.titleView.mas_bottom);
+        make.bottom.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
     }];
     
     [self.equipView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -310,11 +358,31 @@
         make.width.mas_equalTo(200);
         make.height.mas_equalTo(320);
     }];
+    
+    [self.dailyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.top.equalTo(self.tipsView.mas_bottom).with.offset(4.5);
+        make.bottom.equalTo(self.view);
+    }];
+    
+    [self.helpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.titleView.mas_bottom);
+        make.bottom.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+    }];
+    
+    [self.borderHelpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.titleView.mas_bottom);
+        make.bottom.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+    }];
 }
 
 - (void)click:(id)sender
 {
-    NSLogRect(self.manImageView.frame);
     if (self.goButton == sender) {
         [[MGYStoryPlayer defaultPlayer] goAhead:^(MGYStorySelectCallback selectCallback) {
             if ([MGYStoryPlayer defaultPlayer].isplaying) {
@@ -356,7 +424,7 @@
                     };
                 }
                 
-                if(selectCallback)
+                if(selectCallback && false)
                 {
                     MGYRiceMoveSelectViewController *selectViewControll = [MGYRiceMoveSelectViewController new];
                     [selectViewControll setCallback:selectCallback
@@ -365,9 +433,10 @@
                     [self.navigationController pushViewController:selectViewControll animated:YES];
                 }else
                 {
-                    MGYRiceMoveContentViewController *viewController = [[MGYRiceMoveContentViewController alloc] initWithSelectCallback:selectCallback contentViewSelectCallback:contentViewSelectCallback
+                    MGYRiceMoveTableViewController *viewController = [[MGYRiceMoveTableViewController alloc] initWithSelectCallback:selectCallback contentViewSelectCallback:contentViewSelectCallback
                   contentViewDidDisappearCallback:contentViewDidDisappearCallback];
                     //[self presentViewController:viewController animated:YES completion:nil];
+//                    MGYRiceMoveTableViewController *viewController = [MGYRiceMoveTableViewController new];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
             }
@@ -402,6 +471,13 @@
         
         [self.navigationController pushViewController:viewController animated:YES];
     }
+    
+    
+}
+
+- (void)showHelp
+{
+    self.helpView.hidden = NO;
 }
 /*
 #pragma mark - Navigation

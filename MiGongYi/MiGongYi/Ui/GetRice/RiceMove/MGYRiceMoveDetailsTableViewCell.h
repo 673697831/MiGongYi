@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGYRiceMoveContentTableViewCell : UITableViewCell
+@interface MGYRiceMoveDetailsTableViewCell : UITableViewCell
 
-- (void)resetContent:(NSString *)content;
+- (void)resetContent:(NSString *)content
+          dateString:(NSString *)dateString;
 
 @end

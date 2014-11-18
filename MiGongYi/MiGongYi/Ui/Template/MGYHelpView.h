@@ -10,4 +10,6 @@
 
 @interface MGYHelpView : UIView
 
+- (instancetype)initRiceMoveHelpView;
+
 @end

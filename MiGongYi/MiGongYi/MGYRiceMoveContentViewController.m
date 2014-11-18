@@ -11,6 +11,8 @@
 
 @interface MGYRiceMoveContentViewController ()
 
+@property (nonatomic, weak) UIImageView *mapImageView;
+@property (nonatomic, weak) UIImageView *bookImageView;
 @property (nonatomic, weak) UILabel *contentLabel;
 @property (nonatomic, weak) UILabel *getRiceLabel;
 @property (nonatomic, weak) UILabel *riceLabel;
@@ -48,6 +50,19 @@
     // Do any additional setup after loading the view.
     
     MGYStoryNode *_node = [MGYStoryPlayer defaultPlayer].playNode;
+    
+    UIImageView *mapImageView = [UIImageView new];
+    [mapImageView setImage:[UIImage imageNamed:_node.mapIcon]];
+    [self.view addSubview:mapImageView];
+    self.mapImageView = mapImageView;
+    
+    UIImageView *bookImageView = [UIImageView new];
+    UIImage *bookImage = [UIImage imageNamed:@"book_image"];
+    bookImage = [bookImage resizableImageWithCapInsets:UIEdgeInsetsMake(22, 20, 23, 20)
+                              resizingMode:UIImageResizingModeStretch];
+    [bookImageView setImage:bookImage];
+    [self.view addSubview:bookImageView];
+    self.bookImageView = bookImageView;
     
     UILabel *contentLabel = [UILabel new];
     contentLabel.numberOfLines = 0;
@@ -97,10 +112,15 @@
     [self.view addSubview:rightButton];
     self.rightButton = rightButton;
     
+    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(5);
+    }];
+    
     [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(512/2);
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(50);
+        make.top.equalTo(self.mapImageView.mas_bottom).with.offset(30);
     }];
     
     [getRiceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -125,6 +145,13 @@
         make.height.mas_equalTo(50);
         make.right.equalTo(self.view).with.offset(-20);
         make.bottom.equalTo(self.view).with.offset(-20);
+    }];
+    
+    [self.bookImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view);
+        make.top.equalTo(self.contentLabel).with.offset(-25);
+        make.bottom.equalTo(self.contentLabel).with.offset(25);
+        make.centerX.equalTo(self.view);
     }];
     
     if (self.selectCallback && _node.branch.count > 1) {

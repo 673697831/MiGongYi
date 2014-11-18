@@ -10,4 +10,6 @@
 
 @interface MGYBorderHelpView : UIView
 
+- (instancetype)initRiceMoveHelpView;
+
 @end
