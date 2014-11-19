@@ -42,7 +42,7 @@
         
         UILabel *contentLabel = [UILabel new];
         contentLabel.textColor = [UIColor blackColor];
-        //contentLabel.font = [UIFont systemFontOfSize:12];
+        contentLabel.font = [UIFont systemFontOfSize:12];
         contentLabel.numberOfLines = 0;
         [self addSubview:contentLabel];
         self.contentLabel = contentLabel;

@@ -10,6 +10,7 @@
 #import "MGYBoxingRecord.h"
 #import "MGYRiceMoveLevelRecord.h"
 #import "DataManager.h"
+#import "MGYStory.h"
 
 @interface MGYGetRiceDataManager : DataManager
 
@@ -30,13 +31,33 @@
 - (NSString *)dateString:(NSInteger)storyIndex
                    index:(NSInteger)index;
 
-//- (NSDictionary *)riceMoveLevelRecord;
+- (MGYStory *)story;
+
+- (void)synStory;
+
+- (void)saveStoryName:(NSString *)storyName;
+
+- (void)saveStoryProgress:(NSInteger)progress;
+
+- (void)saveStoryPlaynodeIndex:(NSInteger)index;
+
+- (void)saveStoryBuff:(NSArray *)arrayBuff;
+
+- (void)saveStoryIsfirstPlay:(BOOL)isfirstPlay;
+
+- (void)saveStoryIsplaying:(BOOL)isplaying;
+
+- (void)saveStoryBoxingBranch:(BOOL)isBoxingBranch;
 
 - (MGYTotalWalk *)totalWalk;
 
+- (BOOL)bshowRiceMoveHelp;
+
 - (void)addStep:(NSInteger)step;
 
-- (void)addPower:(NSInteger)power;
+- (void)addPower:(CGFloat)power;
+
+- (void)resetPower;
 
 + (instancetype)manager;
 

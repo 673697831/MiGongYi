@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *mutableRiceMoveLevelRecord;
 @property (nonatomic, strong) MGYTotalWalk *personalTotalWalk;
+@property (nonatomic, strong) MGYStory *personalStory;
 
 @end
 
@@ -103,6 +104,93 @@
     return self.mutableRiceMoveLevelRecord?:[NSDictionary dictionaryWithContentsOfFile:[[self filePath] stringByAppendingString:@"/riceMoveLevelRecord.plist"]];
 }
 
+- (MGYStory *)story
+{
+    if (self.personalStory) {
+        return self.personalStory;
+    }
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:[[self filePath] stringByAppendingString:@"/story.plist"]];
+    
+    if (dic) {
+        return [MTLJSONAdapter modelOfClass:[MGYStory class]
+                         fromJSONDictionary:dic
+                                      error:nil];
+    }
+    
+    MGYStoryBuff *buff0 = [MGYStoryBuff new];
+    buff0.buffType = MGYStoryBuffTypeShoes;
+    buff0.buffState = MGYStoryBuffStateTypeClose;
+    buff0.buffImagePath = @"sfsdfssf";
+    MGYStoryBuff *buff1 = [MGYStoryBuff new];
+    buff1.buffType = MGYStoryBuffTypeBear;
+    buff1.buffState = MGYStoryBuffStateTypeClose;
+    buff1.buffImagePath = @"fsdfdsfsf";
+    
+    MGYStory *story = [MTLJSONAdapter modelOfClass:[MGYStory class]
+                                fromJSONDictionary:@{@"storyName": @"story1", @"isfirstPlay": @1}
+                                             error:nil];
+    story.arrayBuff = [NSMutableArray arrayWithObjects:buff0, buff1, nil];
+
+    return story;
+}
+
+- (void)synStory
+{
+
+    self.personalStory.arrayBuff = self.personalStory.arrayBuff ? :[NSMutableArray array];
+    NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalStory];
+    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+    NSLog(@"%d", [mutableDic writeToFile:[[self filePath] stringByAppendingString:@"/story.plist"] atomically:YES]);
+}
+
+- (void)saveStoryName:(NSString *)storyName
+{
+    self.personalStory = [self story];
+    self.personalStory.storyName = storyName;
+}
+
+- (void)saveStoryProgress:(NSInteger)progress
+{
+    self.personalStory = [self story];
+    self.personalStory.progress = progress;
+}
+
+- (void)saveStoryPlaynodeIndex:(NSInteger)index
+{
+    self.personalStory = [self story];
+    self.personalStory.playnodeIndex = index;
+}
+
+- (void)saveStoryBuff:(NSArray *)arrayBuff
+{
+    self.personalStory = [self story];
+    NSMutableArray *mutableBuff = [NSMutableArray arrayWithArray:self.personalStory.arrayBuff];
+    for (int i = 0; i < arrayBuff.count; i++) {
+        MGYStoryBuff *buff = arrayBuff[i];
+        mutableBuff[buff.buffType] = buff;
+    }
+    self.personalStory.arrayBuff = mutableBuff;
+}
+
+- (void)saveStoryIsfirstPlay:(BOOL)isfirstPlay
+{
+    self.personalStory = [self story];
+    self.personalStory.isfirstPlay = isfirstPlay;
+}
+
+- (void)saveStoryIsplaying:(BOOL)isplaying
+{
+    self.personalStory = [self story];
+    self.personalStory.isplaying = isplaying;
+}
+
+- (void)saveStoryBoxingBranch:(BOOL)isBoxingBranch
+{
+    self.personalStory = self.personalStory = [self story];
+    self.personalStory.boxingBranch = isBoxingBranch;
+}
+
 - (MGYTotalWalk *)totalWalk
 {
     if (self.personalTotalWalk) {
@@ -112,18 +200,26 @@
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"]];
     
     if (dic) {
-        return [MTLJSONAdapter modelOfClass:[MGYTotalWalk class]
-                         fromJSONDictionary:dic
-                                      error:nil];
+        self.personalTotalWalk = [MTLJSONAdapter modelOfClass:[MGYTotalWalk class]
+                                           fromJSONDictionary:dic
+                                                        error:nil];
     }
     
-    return nil;
+    return self.personalTotalWalk ? :[MTLJSONAdapter modelOfClass:[MGYTotalWalk class] fromJSONDictionary:@{@"power": @(1000000)} error:nil];
 }
 
-- (void)addPower:(NSInteger)power
+- (void)addPower:(CGFloat)power
 {
     self.personalTotalWalk = [self totalWalk]?:[MGYTotalWalk new];
     self.personalTotalWalk.power = self.personalTotalWalk.power + power;
+    NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalTotalWalk];
+    [dic writeToFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"] atomically:YES];
+}
+
+- (void)resetPower
+{
+    self.personalTotalWalk = [self totalWalk]?:[MGYTotalWalk new];
+    self.personalTotalWalk.power = 0;
     NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalTotalWalk];
     [dic writeToFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"] atomically:YES];
 }
@@ -147,6 +243,14 @@
         self.personalTotalWalk.timeSp = [[NSDate date] timeIntervalSince1970];
     }
     self.personalTotalWalk.curStep = self.personalTotalWalk.curStep + step;
+    NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalTotalWalk];
+    [dic writeToFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"] atomically:YES];
+}
+
+- (BOOL)bshowRiceMoveHelp
+{
+    MGYStory *story = [self story];
+    return story.isfirstPlay && [story.storyName isEqualToString:@"story1"];
 }
 
 - (NSArray *)arrayRiceMoveRecordFromLocal

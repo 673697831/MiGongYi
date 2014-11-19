@@ -12,14 +12,16 @@
 /**
  *  存放当前剧情进度
  */
+
 @interface MGYStory : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, assign) NSInteger storyIndex;
 @property (nonatomic, copy) NSString *storyName;
 @property (nonatomic, assign) NSInteger progress;
 @property (nonatomic, assign) NSInteger playnodeIndex;
-@property (nonatomic, strong) NSMutableDictionary *mutableDicBuff;
+@property (nonatomic, strong) NSArray *arrayBuff;
 @property (nonatomic, assign) BOOL isfirstPlay;
+@property (nonatomic, assign) BOOL isplaying;
 /**
  *  走的是哪个路线? 正常和跳过第6关 坑啊
  */

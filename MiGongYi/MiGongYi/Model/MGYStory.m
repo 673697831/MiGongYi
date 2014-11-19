@@ -15,4 +15,8 @@
     return @{};
 }
 
++ (NSValueTransformer *)arrayBuffJSONTransformer{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MGYStoryBuff class]];
+}
+
 @end

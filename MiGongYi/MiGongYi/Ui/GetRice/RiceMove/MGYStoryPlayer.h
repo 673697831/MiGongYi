@@ -44,9 +44,9 @@ typedef void (^MGYStoryAddPowerCallback)();
 @property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, weak, readonly) MGYStoryNode *playNode;
 @property (nonatomic, strong, readonly) NSArray *mutableProgress;
-@property (nonatomic, strong, readonly) MGYTotalWalk *totalWalk;
-@property (nonatomic, strong, readonly) MGYStory *story;
-@property (nonatomic, assign, readonly) BOOL isplaying;
+//@property (nonatomic, strong, readonly) MGYTotalWalk *totalWalk;
+//@property (nonatomic, strong, readonly) MGYStory *story;
+//@property (nonatomic, assign, readonly) BOOL isplaying;
 @property (nonatomic, weak) MGYStoryAddPowerCallback addPowerCallback;
 
 /**
@@ -77,6 +77,8 @@ typedef void (^MGYStoryAddPowerCallback)();
 - (BOOL)isBoxingAndSelectNode;
 
 - (void)openBoxingBranch;
+
+- (BOOL)isplaying;
 
 - (NSString *)getNextStory;
 

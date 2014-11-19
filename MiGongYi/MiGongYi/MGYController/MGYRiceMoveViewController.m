@@ -14,12 +14,12 @@
 #import "MGYRiceMoveEquipView.h"
 #import "Masonry.h"
 #import "MGYRiceMoveProgressView.h"
-#import "MGYTotalWalk.h"
 #import "MGYRiceMoveDailyView.h"
 #import "UIColor+Expanded.h"
 #import "MGYRiceMoveTableViewController.h"
 #import "MGYHelpView.h"
 #import "MGYBorderHelpView.h"
+#import "MGyGetRiceDataManager.h"
 
 @interface MGYRiceMoveViewController ()
 
@@ -197,6 +197,8 @@
     MGYBorderHelpView *borderHelpView = [[MGYBorderHelpView alloc] initRiceMoveHelpView];
     [self.view addSubview:borderHelpView];
     self.borderHelpView = borderHelpView;
+    BOOL bhide = ![[MGYGetRiceDataManager manager] bshowRiceMoveHelp];
+    self.borderHelpView.hidden = bhide;
     
     [self setup];
 
@@ -209,7 +211,7 @@
 {
     [super viewDidAppear:animated];
     MGYStoryAddPowerCallback addPowerCallback = ^() {
-        MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
+        MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
         _powerAccount.text = [NSString stringWithFormat:@"%d", (int)totalWalk.power];
         
         if (_leftButton.isHidden) {
@@ -225,7 +227,7 @@
     [MGYStoryPlayer defaultPlayer].addPowerCallback = _addPowerCallback;
     
     [[MGYStoryPlayer defaultPlayer] play:^(NSString *manImagePath){
-        MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
+        MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
         NSArray *progressArray = [MGYStoryPlayer defaultPlayer].mutableProgress;
         
         if (manImagePath) {
@@ -441,7 +443,7 @@
                 }
             }
             
-            MGYTotalWalk *totalWalk = [MGYStoryPlayer defaultPlayer].totalWalk;
+            MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
             NSArray *progressArray = [MGYStoryPlayer defaultPlayer].mutableProgress;
             
             if (progressArray) {
@@ -465,7 +467,6 @@
         self.rightButton.hidden = YES;
         self.dateTimeLabel.text = @"总共";
     }
-    
     if (self.detailsButton == sender) {
         MGYRiceMoveDetailsViewController *viewController = [[MGYRiceMoveDetailsViewController alloc] initWithMapName:[[MGYStoryPlayer defaultPlayer] getCurStoryName]];
         
