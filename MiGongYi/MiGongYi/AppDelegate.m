@@ -25,7 +25,6 @@
     MGYTabBarController *bar = [[MGYTabBarController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = bar;
     [application setStatusBarStyle:UIStatusBarStyleLightContent];
-    NSLog(@"%@", NSHomeDirectory());
     return YES;
 }
 

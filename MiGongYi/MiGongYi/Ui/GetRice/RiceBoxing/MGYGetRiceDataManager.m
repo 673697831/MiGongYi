@@ -140,8 +140,11 @@
 
     self.personalStory.arrayBuff = self.personalStory.arrayBuff ? :[NSMutableArray array];
     NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalStory];
-    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dic];
-    NSLog(@"%d", [mutableDic writeToFile:[[self filePath] stringByAppendingString:@"/story.plist"] atomically:YES]);
+    //NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+    if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/story.plist"] atomically:YES]) {
+        NSLog(@"fsfewfwfewfwf %@", dic);
+    }
+    
 }
 
 - (void)saveStoryName:(NSString *)storyName

@@ -73,7 +73,7 @@
     // 得到全局队列
     //dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t concurrentQueue = dispatch_get_main_queue();
-    double delayInSeconds = 0.0;
+    double delayInSeconds = 2;
     
     void (^block1)() = ^{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -91,7 +91,7 @@
     void (^block2)() = ^{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [self pauseAllAnimation];
-        [self.manImageView setImage:[UIImage imageNamed:@"page_aerobic exercise_selected@2x∏±±æ"]];
+        [self.manImageView setImage:[UIImage imageNamed:@"manImage1"]];
         self.shoeView.hidden = YES;
         dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(delayInNanoSeconds, concurrentQueue, ^(void){

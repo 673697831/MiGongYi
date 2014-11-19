@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/Ui/GetRice/RiceBoxing/MGYGetRiceDataManager.m"
-            timestampString = "438090196.418626"
+            timestampString = "438093129.969286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "-bshowRiceMoveHelp"
             landmarkType = "5">
          </BreakpointContent>
@@ -84,12 +84,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/Ui/GetRice/RiceBoxing/MGYGetRiceDataManager.m"
-            timestampString = "438089800.308157"
+            timestampString = "438093129.969286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "-saveStoryBuff:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/Ui/GetRice/RiceBoxing/MGYGetRiceDataManager.m"
+            timestampString = "438093090.414629"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "-synStory"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

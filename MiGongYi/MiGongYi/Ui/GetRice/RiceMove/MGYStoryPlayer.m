@@ -329,9 +329,14 @@ static MGYStoryPlayer *instance;
 {
     if (_playNode.nodeType == MGYStoryNodeTypeTrail) {
         
-        if ([_arrayFileName[_playNode.nextLevel.mapIndex] isEqualToString:mapName] || !mapName) {
+        NSInteger index = _playNode.nextLevel.mapIndex;
+        if ([self isBoxingBranch]&& [self isBoxingNode]) {
+            index = index + 1;
+        }
+        if ([_arrayFileName[index] isEqualToString:mapName] || !mapName) {
             return MGYStoryLockStateUnLocked;
         }
+        
     }
     return MGYStoryLockStateLocked;
 }
@@ -431,7 +436,7 @@ static MGYStoryPlayer *instance;
 - (BOOL)isBoxingAndSelectNode
 {
 #warning 剧情
-    if (_playNode.mutableNodeType && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeBoxingBrach]] && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeSelect]] && false) {
+    if (_playNode.mutableNodeType && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeBoxingBrach]] && _playNode.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeSelect]]) {
         return  YES;
     }
     return NO;
@@ -440,7 +445,7 @@ static MGYStoryPlayer *instance;
 - (void)openBoxingBranch
 {
     [[MGYGetRiceDataManager manager] saveStoryBoxingBranch:YES];
-    _arrayFileName = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
+    //_arrayFileName = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
 }
 
 - (BOOL)isplaying

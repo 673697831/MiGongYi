@@ -102,6 +102,8 @@
 				<integer>1</integer>
 				<key>buffState</key>
 				<integer>0</integer>
+                <key>buffImagePath</key>
+				<string>bear</string>
 			</dict>
 		</array>
         <key>storyTips</key>

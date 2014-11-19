@@ -13,8 +13,6 @@
 #import "MGYStoryPlayer.h"
 #import "UIColor+Expanded.h"
 
-#define MAX_MAP 8
-
 static inline NSString *imageKeyFormMapName(NSString *storyName){
     MGYStoryLockState state = [[MGYStoryPlayer defaultPlayer] getMapLockState:storyName];
     switch (state) {
@@ -70,6 +68,7 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
         
         if ([[MGYStoryPlayer defaultPlayer] isBoxingBranch]) {
             _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
+            
         }else{
             _imageArray = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story6", @"story7", @"story8"];
         }
@@ -188,7 +187,7 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
     }
     
     if (sender == self.rightButton) {
-        if (_curMapIndex >= MAX_MAP - 1) {
+        if (_curMapIndex >= self.imageArray.count - 1) {
             return ;
         }
         _curMapIndex = _curMapIndex + 1;
@@ -232,7 +231,7 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
         self.leftButton.hidden = YES;
     }
     
-    if (self.curMapIndex >= MAX_MAP - 1) {
+    if (self.curMapIndex >= self.imageArray.count - 1) {
         self.rightButton.hidden = YES;
     }
     
