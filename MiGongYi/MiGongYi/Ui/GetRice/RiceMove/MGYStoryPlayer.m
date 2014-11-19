@@ -7,6 +7,7 @@
 //
 
 #import "MGYStoryPlayer.h"
+#import "MGYGetRiceDataManager.h"
 
 #define STEP 20000
 
@@ -21,6 +22,7 @@ static MGYStoryPlayer *instance;
 @property (nonatomic, strong) NSMutableDictionary *mutableStory;
 //@property (nonatomic, strong) NSMutableArray *mutableProgress;
 @property (nonatomic, strong) NSArray *arrayFileName;
+@property (nonatomic, strong) NSMutableDictionary *mutableFileName;
 @property (nonatomic, strong) NSMutableArray *mutableNodes;
 
 
@@ -43,10 +45,11 @@ static MGYStoryPlayer *instance;
         _story.mutableDicBuff = [NSMutableDictionary dictionary];
         _totalWalk = [MGYTotalWalk new];
         _totalWalk.timeSp = [[NSDate date] timeIntervalSince1970];
-        _totalWalk.power = 999999999;
+        _totalWalk.power = 1000000;
         _mutableStory = [NSMutableDictionary dictionary];
         _mutableProgress = [NSMutableArray array];
         _mutableNodes = [NSMutableArray array];
+        _mutableFileName = [NSMutableDictionary dictionary];
         _motionManager = [CMMotionManager new];
         _motionManager.accelerometerUpdateInterval = 1./60;
         [_motionManager startAccelerometerUpdates];
@@ -55,11 +58,13 @@ static MGYStoryPlayer *instance;
         [_myLocationManager setDelegate:self];// 设置代理
         [_myLocationManager startUpdatingLocation];
         
-        [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
+        [NSTimer scheduledTimerWithTimeInterval:1.0/20.0
                                          target:self
                                        selector:@selector(timerAction)
                                        userInfo:nil
                                         repeats:YES];
+        
+        NSInteger storyIndex = 0;
         
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
         NSArray *arrayFileName = [NSArray arrayWithContentsOfFile:plistPath];
@@ -72,6 +77,8 @@ static MGYStoryPlayer *instance;
         }
         
         for (NSString *fileName in arrayFileName) {
+            [self.mutableFileName setValue:@(storyIndex ++)
+                                    forKey:fileName];
             NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
             NSArray *nodeArray = [NSArray arrayWithContentsOfFile:filePath];
             NSMutableArray *mutableNode = [NSMutableArray array];
@@ -100,8 +107,8 @@ static MGYStoryPlayer *instance;
     CGFloat x = _motionManager.accelerometerData.acceleration.x;
     CGFloat y = _motionManager.accelerometerData.acceleration.y;
     CGFloat z = _motionManager.accelerometerData.acceleration.z;
-    if (sqrt(x*x+y*y+z*z) >2){
-        [self addPower:STEP];
+    if (sqrt(x*x+y*y+z*z) > 2){
+        [self addPower:1];
     }
 }
 
@@ -112,12 +119,9 @@ static MGYStoryPlayer *instance;
         _story.playnodeIndex = node.identifier;
         _playNode = node;
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         
-        MGYStoryNode *snode = [self getStoryNode:_story.storyName
-                                           index:node.identifier - 1];
-        snode.dateString = [dateFormatter stringFromDate:[NSDate date]];
+        [[MGYGetRiceDataManager manager] saveRiceMoveLevelRecord:[[self.mutableFileName objectForKey:self.story.storyName] integerValue]
+                                                       nodeIndex:node.identifier];
         [self resetProgressArray];
     }
 }
@@ -155,8 +159,6 @@ static MGYStoryPlayer *instance;
         _story.isfirstPlay = NO;
         firstCallback(self.playNode.storyContent);
     }
-    MGYStoryNode *node = _mutableNodes[4];
-    NSLog(@"%@", node.mutableNodeType[[NSString stringWithFormat:@"%d", MGYStoryNodeTypeBoxingBrach]]);
 }
 /**
  *  更新进度
@@ -291,7 +293,7 @@ static MGYStoryPlayer *instance;
         _totalWalk.power = _totalWalk.power + num;
     }else
     {
-        _totalWalk.power = _totalWalk.power + num / 2;
+        _totalWalk.power = _totalWalk.power + num / 2.0;
     }
     
     [self.lock unlock];
@@ -325,20 +327,11 @@ static MGYStoryPlayer *instance;
     return MGYStoryLockStateLocked;
 }
 
-- (NSString *)getStoryContent:(NSString *)storyName
-                        index:(NSInteger)index
-{
-    NSArray *arrayNode = [_mutableStory objectForKey:storyName];
-    MGYStoryNode *node = arrayNode[index + 1];
-    
-    return node.storyContent;
-}
-
 - (MGYStoryNode *)getStoryNode:(NSString *)storyName
                          index:(NSInteger)index
 {
     NSArray *arrayNode = [_mutableStory objectForKey:storyName];
-    return arrayNode[index + 1];
+    return arrayNode[index];
 }
 
 - (NSString *)getBuffImagePath
@@ -370,6 +363,15 @@ static MGYStoryPlayer *instance;
     MGYStoryNode *node = _mutableNodes[4];
     MGYStoryBranch *branch = node.branch[0];
     return branch.mapName;
+}
+
+- (NSString *)dateString:(NSString *)storyName
+                   index:(NSInteger)index
+{
+    NSInteger storyIndex = [[self.mutableFileName objectForKey:storyName] integerValue];
+    
+    return [[MGYGetRiceDataManager manager] dateString:storyIndex index:index];
+    
 }
 /**
  *  此方法不好 慎用或不要用

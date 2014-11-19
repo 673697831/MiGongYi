@@ -60,11 +60,11 @@ typedef void (^MGYStoryAddPowerCallback)();
 
 - (MGYStoryLockState)getMapLockState:(NSString *)mapName;
 
-- (NSString *)getStoryContent:(NSString *)storyName
-                        index:(NSInteger)index;
-
 - (MGYStoryNode *)getStoryNode:(NSString *)storyName
                          index:(NSInteger)index;
+
+- (NSString *)dateString:(NSString *)storyName
+                   index:(NSInteger)index;
 
 - (NSString *)storyDescription;
 

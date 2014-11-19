@@ -250,9 +250,10 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
     }else
     {
         MGYRiceMoveDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
-        MGYStoryNode *node = [[MGYStoryPlayer defaultPlayer] getStoryNode:_imageArray[_curMapIndex] index:indexPath.row];
+        MGYStoryNode *node = [[MGYStoryPlayer defaultPlayer] getStoryNode:_imageArray[_curMapIndex] index:indexPath.row + 1];
         
-        [cell resetContent:node.storyContent dateString:node.dateString];
+        NSString *string = [[MGYStoryPlayer defaultPlayer] dateString:_imageArray[_curMapIndex] index:indexPath.row + 1];
+        [cell resetContent:node.storyContent dateString:string];
         return cell;
     }
     
@@ -266,9 +267,8 @@ static inline MGYStoryLockState stateFormMapName(NSString *storyName)
         return 1136/2;
     }else
     {
-        NSString *string = [[MGYStoryPlayer defaultPlayer] getStoryContent:_imageArray[_curMapIndex]
-                                                                     index:indexPath.row];
-        CGSize labelSize = [string boundingRectWithSize:CGSizeMake(400/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]} context:nil].size;
+        MGYStoryNode *node = [[MGYStoryPlayer defaultPlayer] getStoryNode:_imageArray[_curMapIndex] index:indexPath.row + 1];
+        CGSize labelSize = [node.storyContent boundingRectWithSize:CGSizeMake(400/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]} context:nil].size;
         return labelSize.height + 53;
     }
 }

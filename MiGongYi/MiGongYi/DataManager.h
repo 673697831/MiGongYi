@@ -84,6 +84,10 @@ typedef void (^MGYFailure)(NSError *);
 
 - (NSString *)baseUrl;
 
+- (NSString *)libraryPath;
+
+- (NSString *)filePath;
+
 //- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
 //                                    failure:(MGYFailure)failure;
 
