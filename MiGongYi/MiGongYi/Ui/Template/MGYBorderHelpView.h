@@ -12,4 +12,6 @@
 
 - (instancetype)initRiceMoveHelpView;
 
+- (instancetype)initRiceBoxingHelpView;
+
 @end

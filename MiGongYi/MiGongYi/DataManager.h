@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#import "MGYGetRiceDataManager.h"
 #import "MGYProject.h"
 #import "MGYPersonalDetails.h"
 #import "MGYProjectDetails.h"
@@ -16,6 +17,8 @@
 #import "MGYMiZhi.h"
 #import "MGYError.h"
 #import "MGYTotalWalk.h"
+
+@class MGYGetRiceDataManager;
 
 @interface DataManager : NSObject
 
@@ -32,6 +35,8 @@
 @property(nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property(nonatomic, strong, readonly) NSDictionary *walkAmount;
 @property(nonatomic, strong) MGYTotalWalk *totalWalk;
+@property(nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
+@property (nonatomic, strong) MGYGetRiceDataManager *getRiceDataManager;
 
 typedef void (^MGYSuccess)();
 typedef void (^MGYGainRiceSuccess)(NSInteger);

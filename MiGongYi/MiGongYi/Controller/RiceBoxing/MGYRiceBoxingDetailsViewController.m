@@ -23,6 +23,7 @@
 @property (nonatomic, weak) UIButton *preButton;
 @property (nonatomic, weak) UIButton *nextButton;
 @property (nonatomic, weak) UITableView *detailsTableView;
+@property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
 
 @end
 
@@ -32,9 +33,11 @@
 {
     self = [self init];
     if (self) {
+        
+        self.dataManager = [DataManager shareInstance].getRiceDataManager;
         self.monsterId = monsterId;
         self.curIndex = monsterId / 3;
-        NSArray *arrayMonster = [MGYGetRiceDataManager manager].record.arrayMonster;
+        NSArray *arrayMonster = self.dataManager.record.arrayMonster;
         self.maxIndex = arrayMonster.count / 3;
         self.mutableFamilyName = [NSMutableArray array];
         for (int i = 0; i<arrayMonster.count; i++) {
@@ -155,7 +158,7 @@
 {
     MGYRiceBoxingDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableViewCell" forIndexPath:indexPath];
     NSInteger monsterId = self.curIndex * 3 + indexPath.row;
-    MGYMonster *monster = [MGYGetRiceDataManager manager].record.arrayMonster[monsterId];
+    MGYMonster *monster = self.dataManager.record.arrayMonster[monsterId];
     [cell setDetails:monster];
     return cell;
 }

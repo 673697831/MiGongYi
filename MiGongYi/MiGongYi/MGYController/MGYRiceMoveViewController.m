@@ -44,10 +44,21 @@
 @property (nonatomic, weak) MGYBorderHelpView *borderHelpView;
 @property (nonatomic, weak) MGYRiceMoveDailyView *dailyView;
 @property (nonatomic, copy) MGYStoryAddPowerCallback addPowerCallback;
+@property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
 
 @end
 
 @implementation MGYRiceMoveViewController
+
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.dataManager = [DataManager shareInstance].getRiceDataManager;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -197,7 +208,7 @@
     MGYBorderHelpView *borderHelpView = [[MGYBorderHelpView alloc] initRiceMoveHelpView];
     [self.view addSubview:borderHelpView];
     self.borderHelpView = borderHelpView;
-    BOOL bhide = ![[MGYGetRiceDataManager manager] bshowRiceMoveHelp];
+    BOOL bhide = ![self.dataManager bshowRiceMoveHelp];
     self.borderHelpView.hidden = bhide;
     
     [self setup];
@@ -211,7 +222,7 @@
 {
     [super viewDidAppear:animated];
     MGYStoryAddPowerCallback addPowerCallback = ^() {
-        MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
+        MGYTotalWalk *totalWalk = [self.dataManager totalWalk];
         _powerAccount.text = [NSString stringWithFormat:@"%d", (int)totalWalk.power];
         
         if (_leftButton.isHidden) {
@@ -227,7 +238,7 @@
     [MGYStoryPlayer defaultPlayer].addPowerCallback = _addPowerCallback;
     
     [[MGYStoryPlayer defaultPlayer] play:^(NSString *manImagePath){
-        MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
+        MGYTotalWalk *totalWalk = [self.dataManager totalWalk];
         NSArray *progressArray = [MGYStoryPlayer defaultPlayer].mutableProgress;
         
         if (manImagePath) {
@@ -443,7 +454,7 @@
                 }
             }
             
-            MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
+            MGYTotalWalk *totalWalk = [self.dataManager totalWalk];
             NSArray *progressArray = [MGYStoryPlayer defaultPlayer].mutableProgress;
             
             if (progressArray) {

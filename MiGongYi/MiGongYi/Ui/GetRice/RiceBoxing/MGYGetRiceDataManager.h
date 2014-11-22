@@ -7,14 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFNetworking.h"
 #import "MGYBoxingRecord.h"
 #import "MGYRiceMoveLevelRecord.h"
 #import "DataManager.h"
 #import "MGYStory.h"
+#import "MGYTotalWalk.h"
 
-@interface MGYGetRiceDataManager : DataManager
+@class DataManager;
+
+@interface MGYGetRiceDataManager : NSObject
 
 @property (nonatomic, strong, readonly) MGYBoxingRecord *record;
+
+- (instancetype)initWithManager:(DataManager *)manager;
 
 - (AFHTTPRequestOperation *)requestForRiceBoxing:(NSInteger)family
                  monsterType:(MGYMonsterType)monsterType
@@ -24,6 +30,8 @@
                                      nodeIndex:(NSInteger)nodeIndex;
 
 - (AFHTTPRequestOperation *)requestForRiceMoveFromLocal;
+
+- (AFHTTPRequestOperation *)requestForRiceMoveLevels;
 
 - (void)saveRiceMoveLevelRecord:(NSInteger)storyIndex
                       nodeIndex:(NSInteger)nodeIndex;
@@ -59,6 +67,6 @@
 
 - (void)resetPower;
 
-+ (instancetype)manager;
+//+ (instancetype)manager;
 
 @end

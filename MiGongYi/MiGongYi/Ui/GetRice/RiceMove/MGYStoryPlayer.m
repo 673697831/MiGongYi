@@ -18,6 +18,7 @@ static MGYStoryPlayer *instance;
     NSMutableArray *_mutableProgress;
 }
 @property (nonatomic, strong) CLLocationManager *myLocationManager;// 定位管理
+@property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
 @property (nonatomic, strong) NSLock *lock;
 @property (nonatomic, strong) NSMutableDictionary *mutableStory;
 //@property (nonatomic, strong) NSMutableArray *mutableProgress;
@@ -43,6 +44,7 @@ static MGYStoryPlayer *instance;
 //        _story.playnodeIndex = 0;
 //        _story.isfirstPlay = YES;
 //        _story.mutableDicBuff = [NSMutableDictionary dictionary];
+        self.dataManager = [DataManager shareInstance].getRiceDataManager;
         _mutableStory = [NSMutableDictionary dictionary];
         _mutableProgress = [NSMutableArray array];
         _mutableNodes = [NSMutableArray array];
@@ -67,7 +69,7 @@ static MGYStoryPlayer *instance;
         NSArray *arrayFileName = [NSArray arrayWithContentsOfFile:plistPath];
         _arrayFileName = arrayFileName;
         
-        NSString *storyName = [[MGYGetRiceDataManager manager] story].storyName;
+        NSString *storyName = [self.dataManager story].storyName;
         NSString *filePath = [[NSBundle mainBundle] pathForResource:storyName ofType:@"plist"];
         NSArray *nodeArray = [NSArray arrayWithContentsOfFile:filePath];
         for (NSDictionary *dic in nodeArray) {
@@ -114,17 +116,17 @@ static MGYStoryPlayer *instance;
    isplaying:(BOOL)isplaying
 {
     if (node) {
-        [[MGYGetRiceDataManager manager] saveStoryBuff:node.arrayBuff];
-        [[MGYGetRiceDataManager manager] saveStoryProgress:node.progress];
-        [[MGYGetRiceDataManager manager] saveStoryPlaynodeIndex:node.identifier];
-        [[MGYGetRiceDataManager manager] saveStoryIsplaying:isplaying];
+        [self.dataManager saveStoryBuff:node.arrayBuff];
+        [self.dataManager saveStoryProgress:node.progress];
+        [self.dataManager saveStoryPlaynodeIndex:node.identifier];
+        [self.dataManager saveStoryIsplaying:isplaying];
         _playNode = node;
         
-        NSString *storyName = [[MGYGetRiceDataManager manager] story].storyName;
+        NSString *storyName = [self.dataManager story].storyName;
         
-        [[MGYGetRiceDataManager manager] saveRiceMoveLevelRecord:[[self.mutableFileName objectForKey:storyName] integerValue]
+        [self.dataManager saveRiceMoveLevelRecord:[[self.mutableFileName objectForKey:storyName] integerValue]
                                                        nodeIndex:node.identifier];
-        [[MGYGetRiceDataManager manager] synStory];
+        [self.dataManager synStory];
     }
     
     [self resetProgressArray];
@@ -149,19 +151,17 @@ static MGYStoryPlayer *instance;
 
 - (void)play:(MGYStoryPlayCallback)callback firstCallback:(MGYStoryFirstPlayCallback)firstCallback
 {
-    MGYStory *story = [[MGYGetRiceDataManager manager] story];
+    MGYStory *story = [self.dataManager story];
     _playNode = _mutableNodes[story.playnodeIndex];
     
     [self resetProgressArray];
-//    for (MGYStoryBuff *buff in self.playNode.arrayBuff) {
-//        story.mutableDicBuff[@(buff.buffType)] = buff;
-//    }
+    
     if (callback) {
         callback([self getBuffImagePath]);
     }
     
     if (firstCallback && story.isfirstPlay && self.playNode.nodeType == MGYStoryNodeTypeHead) {
-        [[MGYGetRiceDataManager manager] saveStoryIsfirstPlay:NO];
+        [self.dataManager saveStoryIsfirstPlay:NO];
         firstCallback(self.playNode.storyContent);
     }
 }
@@ -206,16 +206,16 @@ static MGYStoryPlayer *instance;
      */
     
     
-    MGYTotalWalk *totalWalk = [[MGYGetRiceDataManager manager] totalWalk];
+    MGYTotalWalk *totalWalk = [self.dataManager totalWalk];
     
     if (totalWalk.power <= 0) {
         return;
     }
-    MGYStory *story = [[MGYGetRiceDataManager manager] story];
+    MGYStory *story = [self.dataManager story];
     if (story.progress + totalWalk.power >= next.progress) {
         
         [self.lock lock];
-        [[MGYGetRiceDataManager manager] addPower:(story.progress - next.progress)];
+        [self.dataManager addPower:(story.progress - next.progress)];
         [self.lock unlock];
         [self save:next isplaying:YES];
         
@@ -243,18 +243,18 @@ static MGYStoryPlayer *instance;
             }
             
             callback(nil);
-            [[MGYGetRiceDataManager manager] saveStoryIsplaying:NO];
-            [[MGYGetRiceDataManager manager] synStory];
+            [self.dataManager saveStoryIsplaying:NO];
+            [self.dataManager synStory];
         }
         return;
         
     }else
     {
         NSInteger progress = story.progress + totalWalk.power;
-        [[MGYGetRiceDataManager manager] saveStoryProgress:progress];
-        [[MGYGetRiceDataManager manager] synStory];
+        [self.dataManager saveStoryProgress:progress];
+        [self.dataManager synStory];
         [self.lock lock];
-        [[MGYGetRiceDataManager manager] resetPower];
+        [self.dataManager resetPower];
         [self.lock unlock];
         [self save:nil isplaying:NO];
     }
@@ -267,7 +267,7 @@ static MGYStoryPlayer *instance;
 
 - (void)resetProgressArray
 {
-    MGYStory *story = [[MGYGetRiceDataManager manager] story];
+    MGYStory *story = [self.dataManager story];
     for (int i = 1; i < _mutableNodes.count; i++) {
         if ( i-1 < story.playnodeIndex) {
             _mutableProgress[i-1] = @1;
@@ -289,18 +289,18 @@ static MGYStoryPlayer *instance;
 
 - (void)addPower:(NSInteger)num
 {
-    [[MGYGetRiceDataManager manager] addStep:num];
+    [self.dataManager addStep:num];
     [self.lock lock];
     /**
      *  正常情况下两步一个动力 有鞋子一步一个动力
      */
-    MGYStoryBuff *buffShoes = [[MGYGetRiceDataManager manager] story].arrayBuff[MGYStoryBuffTypeShoes];
+    MGYStoryBuff *buffShoes = [self.dataManager story].arrayBuff[MGYStoryBuffTypeShoes];
     
     if (buffShoes && buffShoes.buffState) {
-        [[MGYGetRiceDataManager manager] addPower:num];
+        [self.dataManager addPower:num];
     }else
     {
-        [[MGYGetRiceDataManager manager] addPower:num / 2.0];
+        [self.dataManager addPower:num / 2.0];
     }
     
     [self.lock unlock];
@@ -311,7 +311,7 @@ static MGYStoryPlayer *instance;
 
 - (void)resetStory:(NSString *)storyName
 {
-    MGYGetRiceDataManager *manager = [MGYGetRiceDataManager manager];
+    MGYGetRiceDataManager *manager = self.dataManager;
     [manager saveStoryName:storyName];
     [manager saveStoryPlaynodeIndex:0];
     [manager saveStoryProgress:0];
@@ -350,7 +350,7 @@ static MGYStoryPlayer *instance;
 
 - (NSString *)getBuffImagePath
 {
-    MGYStory *story = [MGYGetRiceDataManager manager].story;
+    MGYStory *story = self.dataManager.story;
     if (story.arrayBuff[MGYStoryBuffTypeBear]) {
         MGYStoryBuff *buff = story.arrayBuff[MGYStoryBuffTypeBear];
         if (buff.buffState == MGYStoryBuffStateTypeOpen) {
@@ -385,7 +385,7 @@ static MGYStoryPlayer *instance;
 {
     NSInteger storyIndex = [[self.mutableFileName objectForKey:storyName] integerValue];
     
-    return [[MGYGetRiceDataManager manager] dateString:storyIndex index:index];
+    return [self.dataManager dateString:storyIndex index:index];
     
 }
 /**
@@ -427,7 +427,7 @@ static MGYStoryPlayer *instance;
  */
 - (BOOL)isBoxingBranch
 {
-    if ([MGYGetRiceDataManager manager].story.boxingBranch) {
+    if (self.dataManager.story.boxingBranch) {
         return YES;
     }
     return NO;
@@ -444,18 +444,18 @@ static MGYStoryPlayer *instance;
 
 - (void)openBoxingBranch
 {
-    [[MGYGetRiceDataManager manager] saveStoryBoxingBranch:YES];
+    [self.dataManager saveStoryBoxingBranch:YES];
     //_arrayFileName = @[@"story1", @"story2", @"story3", @"story4", @"story5", @"story7", @"story8"];
 }
 
 - (BOOL)isplaying
 {
-    return [[MGYGetRiceDataManager manager] story].isplaying;
+    return [self.dataManager story].isplaying;
 }
 
 - (NSString *)getCurStoryName
 {
-    return [MGYGetRiceDataManager manager].story.storyName;
+    return self.dataManager.story.storyName;
 }
 
 + (instancetype)defaultPlayer

@@ -27,6 +27,7 @@
     NSMutableArray *_miChatRecordList;
     NSMutableArray *_weibo;
 }
+
 @end
 
 @implementation DataManager
@@ -50,6 +51,7 @@
         _projectDetailsList = [NSMutableArray array];
         _projectRecentList = [NSMutableArray array];
         _miChatRecordList = [NSMutableArray array];
+        self.requestManager = [AFHTTPRequestOperationManager manager];
         self.canGainRiceFromMiChat = YES;
         self.manager = [AFHTTPRequestOperationManager manager];
         //测试专用
@@ -64,10 +66,8 @@
         }
         [self loadMiChatRecord:nil failure:nil];
         [self requestForConfig];
-        NSDictionary *dateDic = @{@"isSend": @1, @"timeSp": @99999999};
-        NSDictionary *dic = @{@"dfdfdf": dateDic};
-        NSString* fileName = [[self filePath] stringByAppendingString:@"/fuck.plist"];
-        [dic writeToFile:fileName atomically:YES];
+        
+        self.getRiceDataManager = [[MGYGetRiceDataManager alloc] initWithManager:self];
     }
     return self;
 }

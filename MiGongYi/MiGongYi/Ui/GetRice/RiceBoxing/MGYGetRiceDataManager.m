@@ -15,10 +15,27 @@
 @property (nonatomic, strong) NSMutableDictionary *mutableRiceMoveLevelRecord;
 @property (nonatomic, strong) MGYTotalWalk *personalTotalWalk;
 @property (nonatomic, strong) MGYStory *personalStory;
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *baseUrl;
+@property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, weak) AFHTTPRequestOperationManager *requestManager;
+
 
 @end
 
 @implementation MGYGetRiceDataManager
+
+- (instancetype)initWithManager:(DataManager *)manager
+{
+    self = [self init];
+    if (self) {
+        self.uid = manager.uid;
+        self.baseUrl = manager.baseUrl;
+        self.filePath = manager.filePath;
+        self.requestManager = manager.requestManager;
+    }
+    return self;
+}
 
 - (instancetype)init
 {
@@ -36,8 +53,9 @@
                                                    fromJSONArray:arrayMonster
                                                            error:nil];
         }
+
     }
-    return self;
+    return  self;
 }
 
 - (AFHTTPRequestOperation *)requestForRiceBoxing:(NSInteger)family
@@ -67,6 +85,18 @@
 //{
 //
 //}
+
+- (AFHTTPRequestOperation *)requestForRiceMoveLevels
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/game.php?type=getwalkprocess"];
+    return [self.requestManager GET:url
+                         parameters:nil
+                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                
+                            }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                
+                            }];
+}
 
 - (void)saveRiceMoveLevelRecord:(NSInteger)storyIndex
                       nodeIndex:(NSInteger)nodeIndex
@@ -216,7 +246,10 @@
     self.personalTotalWalk = [self totalWalk]?:[MGYTotalWalk new];
     self.personalTotalWalk.power = self.personalTotalWalk.power + power;
     NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalTotalWalk];
-    [dic writeToFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"] atomically:YES];
+    if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"] atomically:YES]) {
+        NSLog(@"fwefewfewfwfe");
+    }
+    
 }
 
 - (void)resetPower

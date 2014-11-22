@@ -73,7 +73,7 @@
     // 得到全局队列
     //dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t concurrentQueue = dispatch_get_main_queue();
-    double delayInSeconds = 2;
+    double delayInSeconds = 0;
     
     void (^block1)() = ^{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];

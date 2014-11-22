@@ -12,19 +12,33 @@
 #import "MGYRiceBoxingDetailsViewController.h"
 #import "Masonry.h"
 #import "MGYGetRiceDataManager.h"
+#import "MGYRiceBoxingMonsterProgressView.h"
+#import "JEProgressView.h"
 
 @interface MGYRiceBoxingViewController ()
 
 @property (nonatomic, strong) MGYMonster *monster;
 @property (nonatomic, weak) UIImageView *backgroundImageView;
 @property (nonatomic, weak) UILabel *monsterNameLabel;
-@property (nonatomic, weak) UIProgressView *progressView;
+@property (nonatomic, weak) JEProgressView *progressView;
 @property (nonatomic, weak) UIImageView *monsterImageView;
 @property (nonatomic, weak) UIButton *detailsButton;
+@property (nonatomic, weak) MGYRiceBoxingMonsterProgressView *monsterTipsView;
+
+@property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
 
 @end
 
 @implementation MGYRiceBoxingViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.dataManager = [DataManager shareInstance].getRiceDataManager;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -36,16 +50,30 @@
     self.backgroundImageView = backgroundImageView;
     [self.view addSubview:backgroundImageView];
     
-    MGYMonster *monster =  [MGYGetRiceDataManager manager].record.arrayMonster[[MGYGetRiceDataManager manager].record.monsterId];
+    MGYMonster *monster =  self.dataManager.record.arrayMonster[self.dataManager.record.monsterId];
     self.monster = monster;
+    
+    MGYRiceBoxingMonsterProgressView *monsterTipsView = [MGYRiceBoxingMonsterProgressView new];
+    [self.view addSubview:monsterTipsView];
+    self.monsterTipsView = monsterTipsView;
+    
     [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
                                      target:self
                                    selector:@selector(timerAction)
                                    userInfo:nil
                                     repeats:YES];
-    UIProgressView *progressView = [UIProgressView new];
-    progressView.progressTintColor = [UIColor orangeColor];
-    progressView.progress = 1;
+    JEProgressView *progressView = [JEProgressView new] ;
+    //progressView.tintColor = [UIColor clearColor];
+    //progressView.trackTintColor = [UIColor clearColor];
+    //progressView.progressTintColor = [UIColor clearColor];
+//    progressView.progressImage = [UIImage imageNamed:@"blood_red"];
+//    progressView.trackImage = [UIImage imageNamed:@"blood_white"];
+//    UIImage *track = [[UIImage imageNamed:@"blood_white"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
+//    UIImage *progress = [[UIImage imageNamed:@"blood_red"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
+    [progressView setTrackImage:[UIImage imageNamed:@"blood_white"]];
+    [progressView setProgressImage:[UIImage imageNamed:@"blood_red"]];
+    [progressView sizeToFit];
+    progressView.progress = 0.5;
     [self.view addSubview:progressView];
     self.progressView = progressView;
     
@@ -75,18 +103,26 @@
         make.edges.equalTo(self.view);
     }];
     
+    [self.monsterTipsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(42);
+        make.top.equalTo(self.titleView.mas_bottom);
+        make.centerX.equalTo(self.view);
+    }];
+    
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(512/2);
-        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(192/2);
+        make.height.mas_equalTo(14/2);
         make.centerX.equalTo(self.view);
         make.centerY.equalTo(self.view);
     }];
     
     [self.monsterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.equalTo(self.progressView);
-        make.top.equalTo(self.progressView.mas_bottom).with.offset(10);
-        make.bottom.equalTo(self.view).with.offset(-10);
+        make.width.mas_equalTo(150);
+        make.height.mas_equalTo(150);
+        //make.top.equalTo(self.progressView.mas_bottom).with.offset(10);
+        make.bottom.equalTo(self.view).with.offset(-25);
     }];
     
     [self.monsterNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,7 +135,7 @@
         make.right.equalTo(self.view).with.offset(-10);
     }];
     
-    [[MGYGetRiceDataManager manager] requestForRiceBoxing:0
+    [self.dataManager requestForRiceBoxing:0
                                               monsterType:1
                                               coefficient:0];
 }
