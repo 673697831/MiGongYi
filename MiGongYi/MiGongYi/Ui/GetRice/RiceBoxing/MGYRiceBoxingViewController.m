@@ -24,7 +24,9 @@
 @property (nonatomic, weak) UIImageView *monsterImageView;
 @property (nonatomic, weak) UIButton *detailsButton;
 @property (nonatomic, weak) MGYRiceBoxingMonsterProgressView *monsterTipsView;
+@property (nonatomic, weak) UIButton *soundButton;
 
+@property (nonatomic, weak) MGYAccelerometer *accelerometer;
 @property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
 
 @end
@@ -36,6 +38,7 @@
     self = [super init];
     if (self) {
         self.dataManager = [DataManager shareInstance].getRiceDataManager;
+        self.accelerometer = [MGYAccelerometer shareInstance];
     }
     return self;
 }
@@ -63,13 +66,6 @@
                                    userInfo:nil
                                     repeats:YES];
     JEProgressView *progressView = [JEProgressView new] ;
-    //progressView.tintColor = [UIColor clearColor];
-    //progressView.trackTintColor = [UIColor clearColor];
-    //progressView.progressTintColor = [UIColor clearColor];
-//    progressView.progressImage = [UIImage imageNamed:@"blood_red"];
-//    progressView.trackImage = [UIImage imageNamed:@"blood_white"];
-//    UIImage *track = [[UIImage imageNamed:@"blood_white"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
-//    UIImage *progress = [[UIImage imageNamed:@"blood_red"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
     [progressView setTrackImage:[UIImage imageNamed:@"blood_white"]];
     [progressView setProgressImage:[UIImage imageNamed:@"blood_red"]];
     [progressView sizeToFit];
@@ -84,7 +80,7 @@
     self.monsterImageView = monsterImageView;
     
     UILabel *monsterNameLabel = [UILabel new];
-    monsterNameLabel.font = [UIFont systemFontOfSize:20];
+    monsterNameLabel.font = [UIFont systemFontOfSize:10];
     monsterNameLabel.textColor = [UIColor whiteColor];
     monsterNameLabel.text = monster.monsterName;
     [self.view addSubview:monsterNameLabel];
@@ -99,6 +95,17 @@
     [self.view addSubview:detailsButton];
     self.detailsButton = detailsButton;
     
+    UIButton *soundButton = [UIButton new];
+    [soundButton addTarget:self
+                    action:@selector(soundStatus)
+          forControlEvents:UIControlEventTouchUpInside];
+    [soundButton setImage:[UIImage imageNamed:@"sound_open"]
+                 forState:UIControlStateNormal];
+    [soundButton setImage:[UIImage imageNamed:@"sound_close"]
+                 forState:UIControlStateSelected];
+    [self.view addSubview:soundButton];
+    self.soundButton = soundButton;
+    
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -110,19 +117,19 @@
         make.centerX.equalTo(self.view);
     }];
     
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(192/2);
-        make.height.mas_equalTo(14/2);
-        make.centerX.equalTo(self.view);
-        make.centerY.equalTo(self.view);
-    }];
-    
     [self.monsterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.width.mas_equalTo(150);
         make.height.mas_equalTo(150);
         //make.top.equalTo(self.progressView.mas_bottom).with.offset(10);
         make.bottom.equalTo(self.view).with.offset(-25);
+    }];
+    
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(192/2);
+        make.height.mas_equalTo(14/2);
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.monsterImageView.mas_top).with.offset(-47/2);
     }];
     
     [self.monsterNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -135,9 +142,12 @@
         make.right.equalTo(self.view).with.offset(-10);
     }];
     
-    [self.dataManager requestForRiceBoxing:0
-                                              monsterType:1
-                                              coefficient:0];
+    [self.soundButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.monsterTipsView.mas_bottom).with.offset(32/2);
+        make.right.equalTo(self.view).with.offset(-75/2);
+    }];
+    
+    [self.accelerometer start];
 }
 
 - (void)click:(id)sender
@@ -146,10 +156,14 @@
     [self.navigationController pushViewController:mvc animated:NO];
 }
 
+- (void)soundStatus
+{
+    self.soundButton.selected = !self.soundButton.selected;
+}
+
 - (void)timerAction
 {
-//    MGYAccelerometer *accelerometer = [MGYAccelerometer shareInstance];
-//    NSLog(@"%f %f %f", accelerometer.x, accelerometer.y, accelerometer.z);
+    NSLog(@"%f %f %f", self.accelerometer.x, self.accelerometer.y, self.accelerometer.z);
 }
 
 /*
