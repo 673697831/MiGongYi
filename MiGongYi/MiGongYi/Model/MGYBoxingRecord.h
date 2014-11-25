@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 
 @interface MGYMonster :MTLModel <MTLJSONSerializing>
 
+@property (nonatomic, copy) NSString *backgroundImagePath;
 @property (nonatomic, assign) NSInteger fightTimes;
 @property (nonatomic, assign) NSInteger monsterId;
 @property (nonatomic, assign) MGYMonsterType monsterType;
@@ -38,6 +39,7 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 @property (nonatomic, copy) NSString *familyName;
 @property (nonatomic, copy) NSString *condition;
 @property (nonatomic, assign) MGYMonsterStatus monsterStatus;
+@property (nonatomic, assign) NSUInteger time;
 
 @end
 
@@ -48,5 +50,7 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 @property (nonatomic, strong) NSArray *arrayMonster;
 @property (nonatomic, assign) NSInteger monsterId;
 @property (nonatomic, assign) NSInteger curHp;
+@property (nonatomic, assign) NSInteger bossId;
+@property (nonatomic, assign) NSInteger bossHp;
 
 @end

@@ -51,11 +51,9 @@
     self.tableView = tableView;
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.top.equalTo(self.titleView);
-        make.bottom.equalTo(self.view);
+        make.edges.equalTo(self.view);
     }];
+    
     // Do any additional setup after loading the view.
 }
 

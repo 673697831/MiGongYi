@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MGYRiceBoxingMonsterProgressViewDelegate <NSObject>
+
+- (void)clickFightButton;
+
+@end
+
 @interface MGYRiceBoxingMonsterProgressView : UIView
+
+@property(nonatomic, weak) id<MGYRiceBoxingMonsterProgressViewDelegate> progressViewDelegate;
 
 @end

@@ -10,6 +10,7 @@
 #import "MGYGetRiceDataManager.h"
 #import "MGYRiceBoxingDetailsTableViewCell.h"
 #import "Masonry.h"
+#import "UIColor+Expanded.h"
 
 @interface MGYRiceBoxingDetailsViewController ()
 
@@ -37,7 +38,7 @@
         self.dataManager = [DataManager shareInstance].getRiceDataManager;
         self.monsterId = monsterId;
         self.curIndex = monsterId / 3;
-        NSArray *arrayMonster = self.dataManager.record.arrayMonster;
+        NSArray *arrayMonster = self.dataManager.arrayRiceBoxingMonster;
         self.maxIndex = arrayMonster.count / 3;
         self.mutableFamilyName = [NSMutableArray array];
         for (int i = 0; i<arrayMonster.count; i++) {
@@ -56,11 +57,12 @@
 {
     [super viewDidLoad];
 
+    CGFloat scale = 2;
     UILabel *familyLabel = [UILabel new];
-    familyLabel.font = [UIFont systemFontOfSize:25];
+    familyLabel.font = [UIFont systemFontOfSize:32/scale];
     familyLabel.textAlignment = NSTextAlignmentCenter;
     familyLabel.textColor = [UIColor whiteColor];
-    familyLabel.backgroundColor = [UIColor blueColor];
+    familyLabel.backgroundColor = [UIColor colorWithHexString:@"563765"];
     [self.view addSubview:familyLabel];
     self.familyLabel = familyLabel;
     
@@ -92,7 +94,7 @@
     self.detailsTableView = detailsTableView;
     
     [self.familyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(92/scale);
         make.width.equalTo(self.view);
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.titleView.mas_bottom);
@@ -100,12 +102,12 @@
     
     [self.preButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.familyLabel);
-        make.left.equalTo(self.familyLabel).with.offset(20);
+        make.left.equalTo(self.familyLabel).with.offset(20/scale);
     }];
     
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.familyLabel);
-        make.right.equalTo(self.familyLabel).with.offset(-20);
+        make.right.equalTo(self.familyLabel).with.offset(-20/scale);
     }];
     
     [self.detailsTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -158,7 +160,7 @@
 {
     MGYRiceBoxingDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableViewCell" forIndexPath:indexPath];
     NSInteger monsterId = self.curIndex * 3 + indexPath.row;
-    MGYMonster *monster = self.dataManager.record.arrayMonster[monsterId];
+    MGYMonster *monster = self.dataManager.arrayRiceBoxingMonster[monsterId];
     [cell setDetails:monster];
     return cell;
 }
@@ -175,7 +177,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 500;
+    NSInteger monsterId = self.curIndex * 3 + indexPath.row;
+    MGYMonster *monster = self.dataManager.arrayRiceBoxingMonster[monsterId];
+    CGSize labelSize = [monster.storyContent boundingRectWithSize:CGSizeMake(581.0/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size;
+    //UIImage *image = [UIImage imageNamed:monster.gayImagePath];
+    return [MGYRiceBoxingDetailsTableViewCell minHeight] + labelSize.height;
 }
 
 /*

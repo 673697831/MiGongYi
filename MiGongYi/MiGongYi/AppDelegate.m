@@ -17,27 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSUInteger downloaderOptions = 0;
-    
-    downloaderOptions |= SDWebImageDownloaderLowPriority;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderProgressiveDownload;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderUseNSURLCache;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderContinueInBackground;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderHandleCookies;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderAllowInvalidSSLCertificates;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderHighPriority;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions &= ~SDWebImageDownloaderProgressiveDownload;
-    NSLog(@"a%d", downloaderOptions);
-    downloaderOptions |= SDWebImageDownloaderIgnoreCachedResponse;
-    NSLog(@"a%d", downloaderOptions);
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

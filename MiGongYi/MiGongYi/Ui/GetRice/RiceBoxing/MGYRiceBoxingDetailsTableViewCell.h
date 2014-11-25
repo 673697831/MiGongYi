@@ -13,4 +13,6 @@
 
 - (void)setDetails:(MGYMonster *)monster;
 
++ (CGFloat)minHeight;
+
 @end

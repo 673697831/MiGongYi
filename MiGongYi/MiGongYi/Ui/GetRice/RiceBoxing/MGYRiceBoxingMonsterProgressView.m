@@ -45,21 +45,38 @@
                     forKey:[NSString stringWithFormat:@"middleBall%d", i]];
         }
         
-        UIImageView *bossImageView = [UIImageView new];
-        [bossImageView setImage:[UIImage imageNamed:@"fight_normal"]];
-        [self addSubview:bossImageView];
-        self.bossImageView = bossImageView;
-        
-        UILabel *bossLabel = [UILabel new];
-        bossLabel.text = @"Boss战";
-        bossLabel.font = [UIFont systemFontOfSize:11];
-        bossLabel.textColor = [UIColor whiteColor];
-        [self addSubview:bossLabel];
-        self.bossLabel = bossLabel;
+//        UIImageView *bossImageView = [UIImageView new];
+//        [bossImageView setImage:[UIImage imageNamed:@"fight_normal"]];
+//        [self addSubview:bossImageView];
+//        self.bossImageView = bossImageView;
+//        
+//        UILabel *bossLabel = [UILabel new];
+//        bossLabel.text = @"Boss战";
+//        bossLabel.font = [UIFont systemFontOfSize:11];
+//        bossLabel.textColor = [UIColor whiteColor];
+//        [self addSubview:bossLabel];
+//        self.bossLabel = bossLabel;
         
         UIButton *bossButton = [UIButton new];
+        bossButton.titleLabel.font = [UIFont systemFontOfSize:11];
+        [bossButton setBackgroundImage:[UIImage imageNamed:@"fight_normal"]
+                              forState:UIControlStateDisabled];
+        [bossButton setTitle:@"Boss战"
+                    forState:UIControlStateDisabled];
+        
+        [bossButton setBackgroundImage:[UIImage imageNamed:@"fight_hightlight"]
+                              forState:UIControlStateNormal];
+        [bossButton setTitle:@"Boss战"
+                    forState:UIControlStateNormal];
+        
+        [bossButton addTarget:self
+                       action:@selector(click)
+             forControlEvents:UIControlEventTouchUpInside];
+        
         [self addSubview:bossButton];
         self.bossButton = bossButton;
+        
+        
         
         [self.smallBall0 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).with.offset(18);
@@ -86,26 +103,37 @@
             make.centerY.equalTo(self);
         }];
         
-        [self.bossImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        [self.bossImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(self).with.offset(-18);
+//            make.centerY.equalTo(self);
+//            make.width.mas_equalTo(70);
+//            make.height.mas_equalTo(32);
+//        }];
+//        
+//        [self.bossLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerX.equalTo(self.bossImageView);
+//            make.centerY.equalTo(self.bossImageView);
+//        }];
+        
+        [self.bossButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).with.offset(-18);
             make.centerY.equalTo(self);
             make.width.mas_equalTo(70);
             make.height.mas_equalTo(32);
         }];
         
-        [self.bossLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.bossImageView);
-            make.centerY.equalTo(self.bossImageView);
-        }];
-        
-        [self.bossButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.bossImageView);
-        }];
-        
         self.backgroundColor = [UIColor colorWithHexString:@"2e2f31"];
     }
     
     return self;
+}
+
+- (void)click
+{
+    if (self.progressViewDelegate) {
+        [self.progressViewDelegate clickFightButton];
+    }
+    //self.bossButton.enabled = NO;
 }
 
 /*

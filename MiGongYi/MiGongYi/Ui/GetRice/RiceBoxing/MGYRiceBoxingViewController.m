@@ -7,12 +7,12 @@
 //
 
 #import "MGYRiceBoxingViewController.h"
+#import "MGYRiceBoxingContentViewController.h"
 #import "MGYAccelerometer.h"
 #import "MGYGetRiceDataManager.h"
 #import "MGYRiceBoxingDetailsViewController.h"
 #import "Masonry.h"
 #import "MGYGetRiceDataManager.h"
-#import "MGYRiceBoxingMonsterProgressView.h"
 #import "JEProgressView.h"
 
 @interface MGYRiceBoxingViewController ()
@@ -27,7 +27,10 @@
 @property (nonatomic, weak) UIButton *soundButton;
 
 @property (nonatomic, weak) MGYAccelerometer *accelerometer;
+@property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
+@property (nonatomic, assign) BOOL isHiting;
+
 
 @end
 
@@ -49,40 +52,30 @@
     // Do any additional setup after loading the view.
     
     UIImageView *backgroundImageView = [UIImageView new];
-    [backgroundImageView setImage:[UIImage imageNamed:@"riceBoxingBackground6"]];
     self.backgroundImageView = backgroundImageView;
     [self.view addSubview:backgroundImageView];
     
-    MGYMonster *monster =  self.dataManager.record.arrayMonster[self.dataManager.record.monsterId];
-    self.monster = monster;
-    
     MGYRiceBoxingMonsterProgressView *monsterTipsView = [MGYRiceBoxingMonsterProgressView new];
+    monsterTipsView.progressViewDelegate = self;
     [self.view addSubview:monsterTipsView];
     self.monsterTipsView = monsterTipsView;
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
-                                     target:self
-                                   selector:@selector(timerAction)
-                                   userInfo:nil
-                                    repeats:YES];
     JEProgressView *progressView = [JEProgressView new] ;
     [progressView setTrackImage:[UIImage imageNamed:@"blood_white"]];
     [progressView setProgressImage:[UIImage imageNamed:@"blood_red"]];
     [progressView sizeToFit];
-    progressView.progress = 0.5;
+    
     [self.view addSubview:progressView];
     self.progressView = progressView;
     
     UIImageView *monsterImageView = [UIImageView new];
     monsterImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [monsterImageView setImage:[UIImage imageNamed:monster.normalImagePath]];
     [self.view addSubview:monsterImageView];
     self.monsterImageView = monsterImageView;
     
     UILabel *monsterNameLabel = [UILabel new];
-    monsterNameLabel.font = [UIFont systemFontOfSize:10];
+    monsterNameLabel.font = [UIFont systemFontOfSize:12];
     monsterNameLabel.textColor = [UIColor whiteColor];
-    monsterNameLabel.text = monster.monsterName;
     [self.view addSubview:monsterNameLabel];
     self.monsterNameLabel = monsterNameLabel;
     
@@ -119,8 +112,8 @@
     
     [self.monsterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.mas_equalTo(150);
-        make.height.mas_equalTo(150);
+        //make.width.mas_equalTo(150);
+        //make.height.mas_equalTo(150);
         //make.top.equalTo(self.progressView.mas_bottom).with.offset(10);
         make.bottom.equalTo(self.view).with.offset(-25);
     }];
@@ -150,6 +143,34 @@
     [self.accelerometer start];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self reflush];
+    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
+   
+    
+    self.monster = monster;
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
+                                                  target:self
+                                                selector:@selector(timerAction)
+                                                userInfo:nil
+                                                 repeats:YES];
+    
+    CGFloat curHp = self.dataManager.riceBoxingMonsterCurHp;
+    
+    self.progressView.progress = curHp / self.monster.maxHp *1.0;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
 - (void)click:(id)sender
 {
     MGYRiceBoxingDetailsViewController *mvc = [[MGYRiceBoxingDetailsViewController alloc] initWithMonsterId:self.monster.monsterId];
@@ -163,7 +184,61 @@
 
 - (void)timerAction
 {
-    NSLog(@"%f %f %f", self.accelerometer.x, self.accelerometer.y, self.accelerometer.z);
+    //NSLog(@"%f %f %f", self.accelerometer.x, self.accelerometer.y, self.accelerometer.z);
+    CGFloat x = self.accelerometer.x;
+    CGFloat y = self.accelerometer.y;
+    CGFloat z = self.accelerometer.z;
+    if (sqrt(x*x+y*y+z*z) > 2 && !self.isHiting){
+        @synchronized(self)
+        {
+            self.isHiting = YES;
+            CGRect originFrame = self.monsterImageView.frame;
+            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseIn |UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
+                             animations:^(void) {
+                                 [UIView setAnimationRepeatCount:1];
+                                 CGRect frame = self.monsterImageView.frame;
+                                 frame.origin.x= frame.origin.x + 100;
+                                 self.monsterImageView.frame = frame;
+                                 
+                                 }
+                             completion:^(BOOL finished){
+                                 
+                                 [UIView animateWithDuration:0.1 delay:0.0 options:
+                                  UIViewAnimationOptionCurveEaseIn animations:^{
+                                      self.monsterImageView.frame = originFrame;
+                                      
+                                  } completion:^ (BOOL completed) {
+                                      self.isHiting = NO;
+                                      CGFloat curHp = [self.dataManager hitMonster:^{
+                                          MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:self.monster];
+                                          [self.dataManager resetMonster];
+                                          [self.navigationController pushViewController:mvc animated:YES];
+                                          
+                                      } failure:^{
+                                          
+                                      }];
+                                      
+                                      self.progressView.progress = curHp *1.0 / self.monster.maxHp;
+                                      
+                                  }];
+                             }];
+        }
+    }
+
+}
+
+- (void)clickFightButton
+{
+    [self.dataManager riceBoxingResetBoss];
+    [self reflush];
+}
+
+- (void)reflush
+{
+    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
+    [self.backgroundImageView setImage:[UIImage imageNamed:monster.backgroundImagePath]];
+    [self.monsterImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%d", monster.monsterId]]];
+    self.monsterNameLabel.text = monster.monsterName;
 }
 
 /*

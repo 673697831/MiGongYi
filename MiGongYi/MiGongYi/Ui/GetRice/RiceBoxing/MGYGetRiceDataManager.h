@@ -18,7 +18,8 @@
 
 @interface MGYGetRiceDataManager : NSObject
 
-@property (nonatomic, strong, readonly) MGYBoxingRecord *record;
+typedef void (^MGYRiceBoxingKillSuccess)();
+typedef void (^MGYRiceBoxingKillFailure)();
 
 - (instancetype)initWithManager:(DataManager *)manager;
 
@@ -56,6 +57,19 @@
 - (void)saveStoryIsplaying:(BOOL)isplaying;
 
 - (void)saveStoryBoxingBranch:(BOOL)isBoxingBranch;
+
+- (NSArray *)arrayRiceBoxingMonster;
+
+- (CGFloat)riceBoxingMonsterCurHp;
+
+- (CGFloat)hitMonster:(MGYRiceBoxingKillSuccess)success
+              failure:(MGYRiceBoxingKillFailure)failure;
+
+- (MGYMonster *)riceBoxingCurMonster;
+
+- (void)resetMonster;
+
+- (void)riceBoxingResetBoss;
 
 - (MGYTotalWalk *)totalWalk;
 

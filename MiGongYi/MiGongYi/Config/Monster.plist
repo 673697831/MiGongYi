@@ -3,6 +3,8 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground6</string>
 		<key>monsterId</key>
 		<integer>0</integer>
 		<key>monsterType</key>
@@ -29,6 +31,8 @@
 		<string>流氓</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground6</string>
 		<key>monsterId</key>
 		<integer>1</integer>
 		<key>monsterType</key>
@@ -53,6 +57,8 @@
 		<string>流氓</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground6</string>
 		<key>monsterId</key>
 		<integer>2</integer>
 		<key>monsterType</key>
@@ -79,6 +85,8 @@
 		<string>仅重拳可以伤血</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground3</string>
 		<key>monsterId</key>
 		<integer>3</integer>
 		<key>monsterType</key>
@@ -105,6 +113,8 @@
 		<string>米饭帮</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground3</string>
 		<key>monsterId</key>
 		<integer>4</integer>
 		<key>monsterType</key>
@@ -129,6 +139,10 @@
 		<string>米饭帮</string>
 	</dict>
 	<dict>
+		<key>time</key>
+		<integer>90</integer>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground3</string>
 		<key>monsterId</key>
 		<integer>5</integer>
 		<key>monsterType</key>
@@ -155,6 +169,8 @@
 		<string>仅有轻拳才能打死，且在1分钟内</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground5</string>
 		<key>monsterId</key>
 		<integer>6</integer>
 		<key>monsterType</key>
@@ -181,6 +197,8 @@
 		<string>山贼</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground5</string>
 		<key>monsterId</key>
 		<integer>7</integer>
 		<key>monsterType</key>
@@ -205,6 +223,8 @@
 		<string>山贼</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground5</string>
 		<key>monsterId</key>
 		<integer>8</integer>
 		<key>monsterType</key>
@@ -231,6 +251,8 @@
 		<string>仅轻拳可以伤血</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground1</string>
 		<key>monsterId</key>
 		<integer>9</integer>
 		<key>monsterType</key>
@@ -257,6 +279,8 @@
 		<string>寿司怪</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground1</string>
 		<key>monsterId</key>
 		<integer>10</integer>
 		<key>monsterType</key>
@@ -281,6 +305,10 @@
 		<string>寿司怪</string>
 	</dict>
 	<dict>
+		<key>time</key>
+		<integer>60</integer>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground1</string>
 		<key>monsterId</key>
 		<integer>11</integer>
 		<key>monsterType</key>
@@ -307,6 +335,8 @@
 		<string>仅重拳可以伤血，1分钟内打死</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground2</string>
 		<key>monsterId</key>
 		<integer>12</integer>
 		<key>monsterType</key>
@@ -333,6 +363,8 @@
 		<string>粽子家族</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground2</string>
 		<key>monsterId</key>
 		<integer>13</integer>
 		<key>monsterType</key>
@@ -357,6 +389,10 @@
 		<string>粽子家族</string>
 	</dict>
 	<dict>
+		<key>time</key>
+		<integer>30</integer>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground2</string>
 		<key>monsterId</key>
 		<integer>14</integer>
 		<key>monsterType</key>
@@ -383,6 +419,8 @@
 		<string>30秒内打死</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground4</string>
 		<key>monsterId</key>
 		<integer>15</integer>
 		<key>monsterType</key>
@@ -409,6 +447,8 @@
 		<string>饭闹</string>
 	</dict>
 	<dict>
+		<key>backgroundImagePath</key>
+		<string>riceBoxingBackground4</string>
 		<key>monsterId</key>
 		<integer>16</integer>
 		<key>monsterType</key>

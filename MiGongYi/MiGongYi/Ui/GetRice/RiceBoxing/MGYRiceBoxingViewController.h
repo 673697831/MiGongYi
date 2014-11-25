@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYSubViewController.h"
+#import "MGYRiceBoxingMonsterProgressView.h"
 
-@interface MGYRiceBoxingViewController : MGYSubViewController
+@interface MGYRiceBoxingViewController : MGYSubViewController<MGYRiceBoxingMonsterProgressViewDelegate>
 
 @end

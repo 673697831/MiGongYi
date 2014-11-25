@@ -28,7 +28,6 @@
         myContentLabel.backgroundColor = [UIColor whiteColor];
         myContentLabel.textColor = [UIColor colorWithHexString:@"838383"];
         myContentLabel.numberOfLines = 0;
-        myContentLabel.text = @"efefefoiewhfiowejofwjioefjowjefoijwoefjoiwjfeiowjofjwfejwojfowofjwofjwffwfewef";
         [self addSubview:myContentLabel];
         self.myContentLabel = myContentLabel;
         
