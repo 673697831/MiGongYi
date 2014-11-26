@@ -15,4 +15,6 @@
 
 + (CGFloat)minHeight;
 
++ (CGFloat)hideHeight;
+
 @end

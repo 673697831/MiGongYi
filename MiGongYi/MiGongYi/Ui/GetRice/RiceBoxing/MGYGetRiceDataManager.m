@@ -21,8 +21,10 @@
 @property (nonatomic, copy) NSString *baseUrl;
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, weak) AFHTTPRequestOperationManager *requestManager;
-@property (nonatomic, assign) NSUInteger bossRemainTime;
+@property (nonatomic, assign) NSInteger bossRemainTime;
 @property (nonatomic, strong) NSArray *arrayMonsterRate;
+@property (nonatomic, weak) MGYRiceBoxingTimeBlock timeBlock;
+@property (nonatomic, strong) NSTimer *bossTimer;
 
 @end
 
@@ -46,10 +48,10 @@
     if (self) {
         if (!self.boxingRecord){
             self.boxingRecord = [MGYBoxingRecord new];
-            self.boxingRecord.monsterId = 0;
-            self.boxingRecord.curHp = 200;
             self.boxingRecord.timesp = [[NSDate date] timeIntervalSince1970];
             self.boxingRecord.fightTimes = 0;
+            self.boxingRecord.smallTimes = 0;
+            self.boxingRecord.middleTimes = 0;
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Monster" ofType:@"plist"];
             NSArray *arrayMonster = [NSArray arrayWithContentsOfFile:filePath];
             self.boxingRecord.arrayMonster = [MTLJSONAdapter modelsOfClass:[MGYMonster class]
@@ -60,6 +62,7 @@
             self.arrayMonsterRate = [MTLJSONAdapter modelsOfClass:[MGYRiceBoxingMonsterRate class]
                                                     fromJSONArray:self.arrayMonsterRate
                                                             error:nil];
+            [self resetMonster];
         }
 
     }
@@ -324,6 +327,7 @@
         }
         self.boxingRecord.bossHp = self.boxingRecord.bossHp - 20;
         if (self.boxingRecord.bossHp <= 0) {
+            self.boxingRecord.bossId = 0;
             success();
         }
         return self.boxingRecord.bossHp;
@@ -331,8 +335,15 @@
     {
         self.boxingRecord.curHp = self.boxingRecord.curHp - 20;
         if (self.boxingRecord.curHp <= 0) {
-            [self resetMonster];
             success();
+            MGYMonster *monster = self.boxingRecord.arrayMonster[self.boxingRecord.monsterId];
+            if(monster.monsterType == MGYMonsterTypeSmall){
+                self.boxingRecord.smallTimes ++;
+            }else{
+                self.boxingRecord.middleTimes ++;
+            }
+            monster.fightTimes ++;
+            [self resetMonster];
         }
         return self.boxingRecord.curHp;
     }
@@ -364,6 +375,11 @@
             MGYMonster *monster = self.boxingRecord.arrayMonster[monsterRate.monsterId];
             self.boxingRecord.monsterId = monster.monsterId;
             self.boxingRecord.curHp = monster.maxHp;
+            
+            if (monster.monsterStatus == MGYMonsterStatusLocked) {
+                monster.monsterStatus = MGYMonsterStatusUnLocked;
+            }
+            
             return;
         }
     }
@@ -371,15 +387,81 @@
 
 - (void)riceBoxingResetBoss
 {
+    [self.bossTimer invalidate];
+    self.bossTimer = nil;
+    [self resetRiceBoxingTimes];
+    int i = arc4random() % 17;
     while (1) {
-        self.boxingRecord.monsterId ++;
-        self.boxingRecord.monsterId = self.boxingRecord.monsterId % 17;
-        MGYMonster *monster = self.boxingRecord.arrayMonster[self.boxingRecord.monsterId];
-        //if (monster.monsterType == MGYMonsterTypeLarge) {
+        i = i % 17;
+        MGYMonster *monster = self.boxingRecord.arrayMonster[i];
+        if (monster.monsterType == MGYMonsterTypeLarge) {
             self.boxingRecord.bossHp = monster.maxHp;
+            self.boxingRecord.bossId = monster.monsterId;
+            
+            //需要倒计时
+            
+            if(monster.time)
+            {
+                self.bossRemainTime = monster.time * 10;
+                self.bossTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                                  target:self
+                                                                selector:@selector(bossTimerAciton)
+                                                                userInfo:nil
+                                                                 repeats:YES];
+                if (monster.monsterStatus == MGYMonsterStatusLocked) {
+                    monster.monsterStatus = MGYMonsterStatusUnLocked;
+                }
+            }
             break;
-        //}
+        }
+        i ++;
     }
+    
+    
+}
+
+- (void)bossTimerAciton
+{
+    self.bossRemainTime -=1 ;
+    if(self.timeBlock)
+    {
+        self.timeBlock();
+    }
+    
+    if(self.bossRemainTime <= 0)
+    {
+        self.bossRemainTime = 0;
+        [self.bossTimer invalidate];
+        self.bossTimer = nil;
+        self.boxingRecord.bossId = 0;
+    }
+    
+}
+
+- (NSInteger)getRiceBoxingBossRemainTime
+{
+    return self.bossRemainTime;
+}
+
+- (void)setRiceRiceBoxingTimeBlock:(MGYRiceBoxingTimeBlock)timeBlock
+{
+    self.timeBlock = timeBlock;
+}
+
+- (NSInteger)riceBoxingSmallTimes
+{
+    return self.boxingRecord.smallTimes;
+}
+
+- (NSInteger)riceBoxingMiddleTimes
+{
+    return self.boxingRecord.middleTimes;
+}
+
+- (void)resetRiceBoxingTimes
+{
+    self.boxingRecord.smallTimes = 0;
+    self.boxingRecord.middleTimes = 0;
 }
 
 + (instancetype)manager

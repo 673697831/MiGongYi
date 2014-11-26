@@ -12,6 +12,6 @@
 @interface MGYRiceBoxingMonsterRate :MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, assign) NSInteger monsterId;
-@property (nonatomic, assign) NSUInteger rate;
+@property (nonatomic, assign) NSInteger rate;
 
 @end

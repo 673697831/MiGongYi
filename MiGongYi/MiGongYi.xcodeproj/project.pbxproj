@@ -116,6 +116,8 @@
 		20DE25881A00EA2A00F8EF7D /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20DE25871A00EA2A00F8EF7D /* Config.plist */; };
 		20E445A919B63030007B2900 /* BlackMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445A819B63030007B2900 /* BlackMagic.m */; };
 		20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445AB19B637EA007B2900 /* MGYTabBarController.m */; };
+		20E52EBC1A25893400AB2A62 /* MGYPublicFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBB1A25893400AB2A62 /* MGYPublicFunction.m */; };
+		20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */; };
 		20FF32841A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -330,6 +332,10 @@
 		20E445A819B63030007B2900 /* BlackMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackMagic.m; sourceTree = "<group>"; };
 		20E445AA19B637EA007B2900 /* MGYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYTabBarController.h; path = ../MGYTabBarController.h; sourceTree = "<group>"; };
 		20E445AB19B637EA007B2900 /* MGYTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYTabBarController.m; path = ../MGYTabBarController.m; sourceTree = "<group>"; };
+		20E52EBA1A25893400AB2A62 /* MGYPublicFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYPublicFunction.h; sourceTree = "<group>"; };
+		20E52EBB1A25893400AB2A62 /* MGYPublicFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPublicFunction.m; sourceTree = "<group>"; };
+		20E52EBD1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingDetailsHideView.h; sourceTree = "<group>"; };
+		20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingDetailsHideView.m; sourceTree = "<group>"; };
 		20FF32821A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingMonsterProgressView.h; sourceTree = "<group>"; };
 		20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingMonsterProgressView.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +376,8 @@
 				20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */,
 				20AD49031A231CA1004D8667 /* MGYRiceBoxingContentTableViewCell.h */,
 				20AD49041A231CA1004D8667 /* MGYRiceBoxingContentTableViewCell.m */,
+				20E52EBD1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.h */,
+				20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */,
 			);
 			path = RiceBoxing;
 			sourceTree = "<group>";
@@ -431,6 +439,8 @@
 				20015AA51A15E40B00CDCF6F /* MGYAccelerometer.h */,
 				20015AA61A15E40B00CDCF6F /* MGYAccelerometer.m */,
 				20AD490C1A232D62004D8667 /* MGYGetRiceDisappearDelegate.h */,
+				20E52EBA1A25893400AB2A62 /* MGYPublicFunction.h */,
+				20E52EBB1A25893400AB2A62 /* MGYPublicFunction.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -999,6 +1009,7 @@
 				20AB14AD19F8A38E0088106A /* MGYWebImageManager.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
 				20015A961A15976200CDCF6F /* MGYGetRiceDataManager.m in Sources */,
+				20E52EBC1A25893400AB2A62 /* MGYPublicFunction.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				20AB149A19F6030C0088106A /* MGYNetManager.m in Sources */,
 				203D14061A111101005A49B2 /* MGYRiceMoveSelectViewController.m in Sources */,
@@ -1023,6 +1034,7 @@
 				203A4BC41A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.m in Sources */,
 				202E2AA019DA86F2000E072B /* MGYMiChatTableViewCell.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,
+				20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

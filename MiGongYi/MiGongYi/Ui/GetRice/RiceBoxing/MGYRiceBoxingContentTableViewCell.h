@@ -14,7 +14,8 @@
 
 @property (nonatomic, weak) id<MGYGetRiceCellDelegate> disappearDelegate;
 
-- (void)setDetails:(MGYMonster *)monster;
+- (void)setDetails:(MGYMonster *)monster
+         isSuccess:(BOOL)isSuccess;
 
 + (CGFloat)minHeight;
 

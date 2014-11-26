@@ -13,6 +13,7 @@
 
 @interface MGYRiceBoxingContentViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource, MGYGetRiceCellDelegate>
 
-- (instancetype)initWithMonster:(MGYMonster *)monster;
+- (instancetype)initWithMonster:(MGYMonster *)monster
+                      isSuccess:(BOOL)isSuccess;
 
 @end

@@ -17,6 +17,7 @@
 #import "MGYMiZhi.h"
 #import "MGYError.h"
 #import "MGYTotalWalk.h"
+#import "MGYPublicFunction.h"
 
 @class MGYGetRiceDataManager;
 

@@ -18,4 +18,7 @@
 
 @property(nonatomic, weak) id<MGYRiceBoxingMonsterProgressViewDelegate> progressViewDelegate;
 
+
+- (void)reset;
+
 @end

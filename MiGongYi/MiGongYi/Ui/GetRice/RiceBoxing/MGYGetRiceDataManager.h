@@ -20,6 +20,7 @@
 
 typedef void (^MGYRiceBoxingKillSuccess)();
 typedef void (^MGYRiceBoxingKillFailure)();
+typedef void (^MGYRiceBoxingTimeBlock)();
 
 - (instancetype)initWithManager:(DataManager *)manager;
 
@@ -70,6 +71,16 @@ typedef void (^MGYRiceBoxingKillFailure)();
 - (void)resetMonster;
 
 - (void)riceBoxingResetBoss;
+
+- (NSInteger)riceBoxingSmallTimes;
+
+- (NSInteger)riceBoxingMiddleTimes;
+
+- (void)resetRiceBoxingTimes;
+
+- (void)setRiceRiceBoxingTimeBlock:(MGYRiceBoxingTimeBlock)timeBlock;
+
+- (NSInteger)getRiceBoxingBossRemainTime;
 
 - (MGYTotalWalk *)totalWalk;
 

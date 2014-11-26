@@ -17,7 +17,7 @@
 
 @interface MGYRiceBoxingViewController ()
 
-@property (nonatomic, strong) MGYMonster *monster;
+//@property (nonatomic, strong) MGYMonster *monster;
 @property (nonatomic, weak) UIImageView *backgroundImageView;
 @property (nonatomic, weak) UILabel *monsterNameLabel;
 @property (nonatomic, weak) JEProgressView *progressView;
@@ -28,8 +28,13 @@
 
 @property (nonatomic, weak) MGYAccelerometer *accelerometer;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSTimer *alphaTimer;
 @property (nonatomic, weak) MGYGetRiceDataManager *dataManager;
 @property (nonatomic, assign) BOOL isHiting;
+@property (nonatomic, weak) UIView *backgroundView;
+@property (nonatomic, weak) UILabel *timeLabel;
+@property (nonatomic, copy) MGYRiceBoxingTimeBlock timerBlock;
+@property (nonatomic, assign) BOOL isIncrease;
 
 
 @end
@@ -99,6 +104,22 @@
     [self.view addSubview:soundButton];
     self.soundButton = soundButton;
     
+    UIView *backgroundView = [UIView new];
+    backgroundView.userInteractionEnabled = NO;
+    backgroundView.backgroundColor = [UIColor redColor];
+    backgroundView.hidden = YES;
+    [self.view addSubview:backgroundView];
+    self.backgroundView = backgroundView;
+    
+    UILabel *timeLabel = [UILabel new];
+    timeLabel.font = [UIFont systemFontOfSize:50];
+    //timeLabel.backgroundColor = [UIColor redColor];
+    timeLabel.textColor = [UIColor whiteColor];
+    //timeLabel.textAlignment = NSTextAlignmentCenter;
+    timeLabel.hidden = YES;
+    [self.view addSubview:timeLabel];
+    self.timeLabel = timeLabel;
+    
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -140,18 +161,52 @@
         make.right.equalTo(self.view).with.offset(-75/2);
     }];
     
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view);
+    }];
+    
+    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
     [self.accelerometer start];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    __weak typeof(self)wself = self;
+    self.timerBlock = ^(void)
+    {
+        dispatch_main_async_safe((^{
+            __strong typeof(self)sself = wself;
+            if(sself){
+                //NSLog(@"ewfwf %ld", (long)[sself.dataManager getRiceBoxingBossRemainTime]);
+                sself.timeLabel.hidden = NO;
+                NSInteger remainTime = [sself.dataManager getRiceBoxingBossRemainTime]/10;
+                sself.timeLabel.text = [NSString stringWithFormat:@"%ld", (long)remainTime];
+                
+                if(remainTime <= 0)
+                {
+                    sself.timeLabel.hidden = YES;
+                    MGYMonster *monster = sself.dataManager.riceBoxingCurMonster;
+                    MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:NO];
+                    [sself.navigationController pushViewController:mvc animated:YES];
+                    
+                }
+            }
+        }));
+    };
+    
+    [self.dataManager setRiceRiceBoxingTimeBlock:self.timerBlock];
     
     [self reflush];
-    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
-   
     
-    self.monster = monster;
+//    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
+//    self.monster = monster;
+    [self.timer invalidate];
+    
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
                                                   target:self
@@ -159,21 +214,24 @@
                                                 userInfo:nil
                                                  repeats:YES];
     
-    CGFloat curHp = self.dataManager.riceBoxingMonsterCurHp;
-    
-    self.progressView.progress = curHp / self.monster.maxHp *1.0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.timerBlock = nil;
     [self.timer invalidate];
     self.timer = nil;
+    [self.alphaTimer invalidate];
+    self.alphaTimer = nil;
+    self.timeLabel.hidden = YES;
 }
 
 - (void)click:(id)sender
 {
-    MGYRiceBoxingDetailsViewController *mvc = [[MGYRiceBoxingDetailsViewController alloc] initWithMonsterId:self.monster.monsterId];
+    MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
+    
+    MGYRiceBoxingDetailsViewController *mvc = [[MGYRiceBoxingDetailsViewController alloc] initWithMonsterId:monster.monsterId];
     [self.navigationController pushViewController:mvc animated:NO];
 }
 
@@ -209,22 +267,42 @@
                                       
                                   } completion:^ (BOOL completed) {
                                       self.isHiting = NO;
+                                      MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
                                       CGFloat curHp = [self.dataManager hitMonster:^{
-                                          MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:self.monster];
-                                          [self.dataManager resetMonster];
+                                          MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:YES];
                                           [self.navigationController pushViewController:mvc animated:YES];
                                           
                                       } failure:^{
-                                          
+                                          MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:NO];
+                                          [self.navigationController pushViewController:mvc animated:YES];
                                       }];
                                       
-                                      self.progressView.progress = curHp *1.0 / self.monster.maxHp;
+                                      self.progressView.progress = curHp *1.0 / monster.maxHp;
                                       
                                   }];
                              }];
         }
     }
 
+}
+
+- (void)timerAlpha
+{
+    if (self.backgroundView.alpha < 0.1) {
+        self.isIncrease = YES;
+    }
+    
+    if (self.backgroundView.alpha > 0.5) {
+        self.isIncrease = NO;
+    }
+    
+    NSInteger index = self.isIncrease ? 1: -1;
+    NSInteger int_alpha = (long)(self.backgroundView.alpha * 10);
+    CGFloat alpha = (int_alpha + index)/10.0;
+    dispatch_main_async_safe(^{
+        self.backgroundView.alpha = alpha;
+    })
+    
 }
 
 - (void)clickFightButton
@@ -239,6 +317,27 @@
     [self.backgroundImageView setImage:[UIImage imageNamed:monster.backgroundImagePath]];
     [self.monsterImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%d", monster.monsterId]]];
     self.monsterNameLabel.text = monster.monsterName;
+    self.timeLabel.text = @"";
+    
+    CGFloat curHp = self.dataManager.riceBoxingMonsterCurHp;
+    self.progressView.progress = curHp / monster.maxHp *1.0;
+    
+    [self.monsterTipsView reset];
+    
+    if (monster.monsterType == MGYMonsterTypeLarge) {
+        self.backgroundView.hidden = NO;
+        [self.alphaTimer invalidate];
+        self.alphaTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/10.0
+                                                           target:self
+                                                         selector:@selector(timerAlpha)
+                                                         userInfo:nil
+                                                          repeats:YES];
+    }else
+    {
+        [self.alphaTimer invalidate];
+        self.alphaTimer = nil;
+        self.backgroundView.hidden = YES;
+    }
 }
 
 /*

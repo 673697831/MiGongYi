@@ -1,3 +1,4 @@
+
 //
 //  MGYRiceBoxingContentViewController.m
 //  MiGongYi
@@ -14,16 +15,19 @@
 
 @property (nonatomic, strong) MGYMonster *monster;
 @property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, assign) BOOL isSuccess;
 
 @end
 
 @implementation MGYRiceBoxingContentViewController
 
 - (instancetype)initWithMonster:(MGYMonster *)monster
+                      isSuccess:(BOOL)isSuccess
 {
    self = [self init];
     if (self) {
         self.monster = monster;
+        self.isSuccess = isSuccess;
     }
     return self;
 }
@@ -75,7 +79,7 @@
         cell.disappearDelegate = self;
     }
     
-    [cell setDetails:self.monster];
+    [cell setDetails:self.monster isSuccess:self.isSuccess];
     
     return cell;
 }

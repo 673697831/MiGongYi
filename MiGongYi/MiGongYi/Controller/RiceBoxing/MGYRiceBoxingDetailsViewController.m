@@ -48,7 +48,6 @@
             }
             [self.mutableFamilyName addObject:monster.familyName];
         }
-        NSLog(@"%@", self.mutableFamilyName);
     }
     return self;
 }
@@ -87,7 +86,8 @@
     UITableView *detailsTableView = [UITableView new];
     detailsTableView.delegate = self;
     detailsTableView.dataSource = self;
-    [detailsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    //[detailsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    detailsTableView.separatorColor = [UIColor orangeColor];
     [detailsTableView registerClass:[MGYRiceBoxingDetailsTableViewCell class]
              forCellReuseIdentifier:@"detailsTableViewCell"];
     [self.view addSubview:detailsTableView];
@@ -179,9 +179,24 @@
 {
     NSInteger monsterId = self.curIndex * 3 + indexPath.row;
     MGYMonster *monster = self.dataManager.arrayRiceBoxingMonster[monsterId];
+    
+    if (monster.monsterStatus == MGYMonsterStatusLocked) {
+        return [MGYRiceBoxingDetailsTableViewCell hideHeight];
+    }
+    
     CGSize labelSize = [monster.storyContent boundingRectWithSize:CGSizeMake(581.0/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size;
+    CGFloat skillHeight = 0;
+    CGFloat conditionHeight = 0;
+    if(monster.skillContent){
+        NSString *string = [NSString stringWithFormat:@"跟随技能:%@", monster.skillContent];
+        skillHeight = [string boundingRectWithSize:CGSizeMake(581.0/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size.height;
+    }
+    if(monster.condition){
+        NSString *string = [NSString stringWithFormat:@"特殊:%@", monster.condition];
+        conditionHeight = [string boundingRectWithSize:CGSizeMake(581.0/2, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size.height;
+    }
     //UIImage *image = [UIImage imageNamed:monster.gayImagePath];
-    return [MGYRiceBoxingDetailsTableViewCell minHeight] + labelSize.height;
+    return [MGYRiceBoxingDetailsTableViewCell minHeight] + labelSize.height + skillHeight + conditionHeight;
 }
 
 /*

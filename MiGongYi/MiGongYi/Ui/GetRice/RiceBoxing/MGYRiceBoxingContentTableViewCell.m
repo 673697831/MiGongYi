@@ -164,9 +164,15 @@
 }
 
 - (void)setDetails:(MGYMonster *)monster
+         isSuccess:(BOOL)isSuccess
 {
-    self.monsterImageView.image = [UIImage imageNamed:monster.normalImagePath];
-    self.riceNumLabel.text = [NSString stringWithFormat:@"%ld", (long)monster.riceNum];
+    self.monsterImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%d", monster.monsterId]];
+    if(isSuccess){
+        self.riceNumLabel.text = [NSString stringWithFormat:@"%ld", (long)monster.riceNum];
+    }else
+    {
+        self.riceNumLabel.text = @"0";
+    }
     [self.continueButton setTitle:@"继续挑战(3)"
                          forState:UIControlStateNormal];
 }

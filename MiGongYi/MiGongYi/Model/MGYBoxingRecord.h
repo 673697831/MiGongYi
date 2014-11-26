@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 @property (nonatomic, copy) NSString *familyName;
 @property (nonatomic, copy) NSString *condition;
 @property (nonatomic, assign) MGYMonsterStatus monsterStatus;
-@property (nonatomic, assign) NSUInteger time;
+@property (nonatomic, assign) NSInteger time;
 
 @end
 
@@ -52,5 +52,7 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 @property (nonatomic, assign) NSInteger curHp;
 @property (nonatomic, assign) NSInteger bossId;
 @property (nonatomic, assign) NSInteger bossHp;
+@property (nonatomic, assign) NSInteger smallTimes;
+@property (nonatomic, assign) NSInteger middleTimes;
 
 @end

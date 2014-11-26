@@ -9,6 +9,7 @@
 #import "MGYRiceBoxingMonsterProgressView.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
+#import "DataManager.h"
 
 @interface MGYRiceBoxingMonsterProgressView ()
 
@@ -133,7 +134,43 @@
     if (self.progressViewDelegate) {
         [self.progressViewDelegate clickFightButton];
     }
-    //self.bossButton.enabled = NO;
+    self.bossButton.enabled = NO;
+}
+
+- (void)reset
+{
+    NSInteger smallTimes = [[DataManager shareInstance].getRiceDataManager riceBoxingSmallTimes];
+    NSInteger middleTimes = [[DataManager shareInstance].getRiceDataManager riceBoxingMiddleTimes];
+    smallTimes = smallTimes < 3?smallTimes:3;
+    middleTimes = middleTimes <2?middleTimes:2;
+    
+    for(int i = 0; i < smallTimes; i ++){
+        UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"smallBall%d", i]];
+        imageView.image = [UIImage imageNamed:@"small_monster_tips_hightlight"];
+    }
+    
+    for(int i = smallTimes; i < 3; i ++){
+        UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"smallBall%d", i]];
+        imageView.image = [UIImage imageNamed:@"small_monster_tips_normal"];
+    }
+    
+    for(int i = 0; i < middleTimes; i ++){
+        UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"middleBall%d", i]];
+        imageView.image = [UIImage imageNamed:@"middle_monster_tips_hightlight"];
+    }
+    
+    for(int i = middleTimes; i < 2; i ++){
+        UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"middleBall%d", i]];
+        imageView.image = [UIImage imageNamed:@"middle_monster_tips_normal"];
+    }
+    
+    if(smallTimes == 3 && middleTimes == 2)
+    {
+        self.bossButton.enabled = YES;
+    }else
+    {
+        self.bossButton.enabled = NO;
+    }
 }
 
 /*

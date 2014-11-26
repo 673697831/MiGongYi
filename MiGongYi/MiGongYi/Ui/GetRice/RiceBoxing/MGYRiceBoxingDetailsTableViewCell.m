@@ -9,6 +9,7 @@
 #import "MGYRiceBoxingDetailsTableViewCell.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
+#import "MGYRiceBoxingDetailsHideView.h"
 
 static inline UILabel *labelFactory(){
     UILabel *label = [UILabel new];
@@ -36,7 +37,10 @@ static inline UILabel *labelFactory(){
 @property (nonatomic, weak) UIImageView *levelImageView;
 @property (nonatomic, weak) UILabel *levelLabel;
 @property (nonatomic, weak) UIButton *anliButton;
+@property (nonatomic, weak) MGYRiceBoxingDetailsHideView *hideView;
 @property (nonatomic, weak) UILabel *storyContentLabel;
+@property (nonatomic, weak) UILabel *skillContentLabel;
+@property (nonatomic, weak) UILabel *conditionLabel;
 @property (nonatomic, weak) UIView *lineView;
 
 @end
@@ -146,10 +150,29 @@ static inline UILabel *labelFactory(){
         [self addSubview:storyContentLabel];
         self.storyContentLabel = storyContentLabel;
         
+        UILabel *skillContentLabel = [UILabel new];
+        skillContentLabel.numberOfLines = 0;
+        skillContentLabel.font = [UIFont systemFontOfSize:14];
+        skillContentLabel.textColor = [UIColor greenColor];
+        [self addSubview:skillContentLabel];
+        self.skillContentLabel = skillContentLabel;
+        
+        UILabel *conditionLabel = [UILabel new];
+        conditionLabel.numberOfLines = 0;
+        conditionLabel.font = [UIFont systemFontOfSize:14];
+        conditionLabel.textColor = [UIColor redColor];
+        [self addSubview:conditionLabel];
+        self.conditionLabel = conditionLabel;
+        
         UIView *lineView = [UIView new];
+        lineView.hidden = YES;
         lineView.backgroundColor = [UIColor orangeColor];
         [self addSubview:lineView];
         self.lineView = lineView;
+        
+        MGYRiceBoxingDetailsHideView *hideView = [MGYRiceBoxingDetailsHideView new];
+        [self addSubview:hideView];
+        self.hideView = hideView;
         
         [self.monsterNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(581.0/2);
@@ -252,11 +275,30 @@ static inline UILabel *labelFactory(){
             make.top.equalTo(self.anliButton.mas_bottom).with.offset(36/2);
         }];
         
+        [self.skillContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.bloodImageView);
+            make.width.mas_equalTo(581.0/2);
+            make.top.equalTo(self.storyContentLabel.mas_bottom);
+        }];
+        
+        [self.conditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.bloodImageView);
+            make.width.mas_equalTo(581.0/2);
+            make.top.equalTo(self.skillContentLabel.mas_bottom);
+        }];
+        
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(self);
             make.centerX.equalTo(self);
             make.height.mas_equalTo(1 / [UIScreen mainScreen].scale);
-            make.top.equalTo(self.storyContentLabel.mas_bottom).with.offset(27.0/2);
+            make.top.equalTo(self.mas_bottom);
+        }];
+        
+        [self.hideView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.top.equalTo(self.storyContentLabel);
+            make.width.equalTo(self.storyContentLabel);
+            make.height.mas_equalTo([self.hideView.class heightForView]);
         }];
         
     }
@@ -265,12 +307,63 @@ static inline UILabel *labelFactory(){
 
 - (void)setDetails:(MGYMonster *)monster
 {
-    self.monsterNameLabel.text = monster.monsterName;
-    self.monsterImageView.image = [UIImage imageNamed:monster.gayImagePath];
-    self.bloodNumLabel.text = [NSString stringWithFormat:@"x %ld", (long)monster.maxHp];
-    self.rateLabel.text = monster.rateContent;
-    self.levelLabel.text = monster.levelContent;
-    self.storyContentLabel.text = monster.storyContent;
+    if (monster.monsterStatus == MGYMonsterStatusLocked) {
+        self.monsterImageView.image = [UIImage imageNamed:monster.gayImagePath];
+    }else
+    {
+        self.monsterImageView.image = [UIImage imageNamed:monster.normalImagePath];
+    }
+    
+    self.followButton.hidden = YES;
+    self.skillContentLabel.text = @"";
+    self.conditionLabel.text = @"";
+    
+    if (monster.monsterType == MGYMonsterTypeSmall) {
+        self.followButton.hidden = NO;
+        NSInteger fightTimes = monster.fightTimes <= 5 ? monster.fightTimes : 5;
+        for (int i = 1; i <= fightTimes; i++) {
+            UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"tameImageView%d", i]];
+            imageView.image = [UIImage imageNamed:@"kulou_highlight"];
+        }
+        
+        for (int i = fightTimes + 1; i <= 5; i++) {
+            UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"tameImageView%d", i]];
+            imageView.image = [UIImage imageNamed:@"kulou_normal"];
+        }
+        
+        if (fightTimes >= 5) {
+            self.followButton.enabled = YES;
+        }else
+        {
+            self.followButton.enabled = NO;
+        }
+        
+    }
+    
+    if (monster.monsterStatus == MGYMonsterStatusUnLocked) {
+        self.monsterNameLabel.text = monster.monsterName;
+        self.storyContentLabel.text = monster.storyContent;
+        if(monster.skillContent){
+            self.skillContentLabel.text = [NSString stringWithFormat:@"跟随技能:%@", monster.skillContent];
+        }
+        if(monster.condition){
+            self.conditionLabel.text =[NSString stringWithFormat:@"特殊:%@", monster.condition];
+        }
+        self.bloodNumLabel.text = [NSString stringWithFormat:@"x %ld", (long)monster.maxHp];
+        self.rateLabel.text = monster.rateContent;
+        self.levelLabel.text = monster.levelContent;
+        self.hideView.hidden = YES;
+    }else
+    {
+        self.storyContentLabel.text = @"";
+        NSString *string = @"未知";
+        self.monsterNameLabel.text = string;
+        self.bloodNumLabel.text = [NSString stringWithFormat:@"x %@", string];
+        self.rateLabel.text = string;
+        self.levelLabel.text = string;
+        self.hideView.hidden = NO;
+    }
+    
     if (monster.monsterType == MGYMonsterTypeLarge) {
         self.manImageView.image = [UIImage imageNamed:@"man_dapei"];
     }else
@@ -290,6 +383,11 @@ static inline UILabel *labelFactory(){
 + (CGFloat)minHeight
 {
     return (31 + 64 + 500 + 109 + 47 + 38 + 35 + 32 + 36 + 27 + 1) / 2.0;
+}
+
++ (CGFloat)hideHeight
+{
+    return [MGYRiceBoxingDetailsTableViewCell minHeight] + [MGYRiceBoxingDetailsHideView heightForView];
 }
 
 @end

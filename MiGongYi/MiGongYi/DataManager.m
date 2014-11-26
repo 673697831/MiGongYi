@@ -68,6 +68,7 @@
         [self requestForConfig];
         
         self.getRiceDataManager = [[MGYGetRiceDataManager alloc] initWithManager:self];
+        
     }
     return self;
 }
@@ -467,12 +468,16 @@
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
     NSString *uuidString = [[NSString stringWithFormat:@"%@", uuidStr] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    
-    NSDictionary *parameters = @{@"guid":uuidString};
-    NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=reg&reg_type=startup"];
+    NSDictionary *parameters = @{@"guid":uuidString, @"reg_type":@"startup"};
+   
+    NSMutableDictionary *md5Parameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [md5Parameters setObject:[MGYPublicFunction signStringWithMD5:parameters] forKey:@"sign"];
+
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=reg"];
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     return [manager GET:url
-             parameters:parameters
+             parameters:md5Parameters
                 success:^(AFHTTPRequestOperation *operation, NSDictionary * responseObject) {
                     self.uid = responseObject[@"data"][@"uid"];
                     NSLog(@"%@", responseObject);
