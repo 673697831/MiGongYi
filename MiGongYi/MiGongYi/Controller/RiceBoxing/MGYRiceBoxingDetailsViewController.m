@@ -8,7 +8,6 @@
 
 #import "MGYRiceBoxingDetailsViewController.h"
 #import "MGYGetRiceDataManager.h"
-#import "MGYRiceBoxingDetailsTableViewCell.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
 
@@ -155,12 +154,27 @@
     [self.detailsTableView reloadData];
 }
 
+#pragma MGYRiceBoxingDetailsTableViewCellDelegate
+
+- (void)changeFollowMonster:(MGYMonster *)monster
+           isSelectedStatus:(BOOL)isSelectedStatus
+{
+    if (monster.monsterType == MGYMonsterTypeSmall && monster.fightTimes >= 5) {
+        NSInteger monsterId = isSelectedStatus? -1:monster.monsterId;
+        [[DataManager shareInstance].getRiceDataManager setRiceBoxingFollowId:monsterId];
+        [self.detailsTableView reloadData];
+    }
+}
+
 #pragma tableView delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MGYRiceBoxingDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsTableViewCell" forIndexPath:indexPath];
     NSInteger monsterId = self.curIndex * 3 + indexPath.row;
     MGYMonster *monster = self.dataManager.arrayRiceBoxingMonster[monsterId];
+    if (!cell.cellDelegate) {
+        cell.cellDelegate = self;
+    }
     [cell setDetails:monster];
     return cell;
 }

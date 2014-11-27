@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 
 @interface MGYBoxingRecord : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, assign) NSInteger fightTimes;
+@property (nonatomic, assign) NSInteger remainTimes;
 @property (nonatomic, assign) long long timesp;
 @property (nonatomic, strong) NSArray *arrayMonster;
 @property (nonatomic, assign) NSInteger monsterId;
@@ -54,5 +54,8 @@ typedef NS_ENUM(NSInteger, MGYMonsterStatus) {
 @property (nonatomic, assign) NSInteger bossHp;
 @property (nonatomic, assign) NSInteger smallTimes;
 @property (nonatomic, assign) NSInteger middleTimes;
+@property (nonatomic, assign) BOOL firstBlood;
+@property (nonatomic, assign) NSInteger followId;
 
 @end
+

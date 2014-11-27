@@ -10,6 +10,7 @@
 #import "MGYRiceBoxingContentViewController.h"
 #import "MGYRiceBoxingContentTableViewCell.h"
 #import "Masonry.h"
+#import "DataManager.h"
 
 @interface MGYRiceBoxingContentViewController ()
 
@@ -86,11 +87,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%d", self.monster.monsterId]];
+    if (self.monster.monsterType == MGYMonsterTypeLarge) {
+        return [MGYRiceBoxingContentTableViewCell minHeight]+image.size.height;
+    }
+    MGYProtocolRiceBoxingObtain *obtain = [DataManager shareInstance].getRiceDataManager.riceBoxingObtain;
     CGFloat fontSize = [MGYRiceBoxingContentTableViewCell heightForDailyContent];
     CGFloat width = [MGYRiceBoxingContentTableViewCell widthForDailyContent];
-    NSString *string = @"weoghwoihegowiehgowiehgowiehfwioehfwohgoewfjwepgjpw";
-    CGSize labelSize = [string boundingRectWithSize:CGSizeMake(width, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]} context:nil].size;
-    return labelSize.height + [MGYRiceBoxingContentTableViewCell minHeight];
+    CGSize labelSize = [obtain.dailyTips boundingRectWithSize:CGSizeMake(width, NSNotFound) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]} context:nil].size;
+    
+    
+    return labelSize.height + [MGYRiceBoxingContentTableViewCell minHeight]+image.size.height ;
 }
 
 /*

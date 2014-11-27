@@ -9,6 +9,7 @@
 #import "MGYRiceBoxingContentTableViewCell.h"
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
+#import "DataManager.h"
 
 @interface MGYRiceBoxingContentTableViewCell ()
 
@@ -166,20 +167,34 @@
 - (void)setDetails:(MGYMonster *)monster
          isSuccess:(BOOL)isSuccess
 {
+    MGYProtocolRiceBoxingObtain *obtain = [DataManager shareInstance].getRiceDataManager.riceBoxingObtain;
+    if (monster.monsterType == MGYMonsterTypeLarge) {
+        self.dailyLabel.hidden = YES;
+        self.dailyImageView.hidden = YES;
+        self.jiantouImageView.hidden = YES;
+        self.dailyLabel.text = @"";
+    }else
+    {
+        self.dailyLabel.hidden = NO;
+        self.dailyImageView.hidden = NO;
+        self.jiantouImageView.hidden = NO;
+        self.dailyLabel.text = obtain.dailyTips;
+    }
+    
     self.monsterImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%d", monster.monsterId]];
     if(isSuccess){
-        self.riceNumLabel.text = [NSString stringWithFormat:@"%ld", (long)monster.riceNum];
+        self.riceNumLabel.text = [NSString stringWithFormat:@"%ld", (long)obtain.rice];
     }else
     {
         self.riceNumLabel.text = @"0";
     }
-    [self.continueButton setTitle:@"继续挑战(3)"
+    [self.continueButton setTitle:[NSString stringWithFormat:@"继续挑战(%ld)", (long)obtain.remainTimes]
                          forState:UIControlStateNormal];
 }
 
 + (CGFloat)minHeight
 {
-    return 500;
+    return (56 + 10 + 10 +6+36+36+18+76+44+60+60+40)/2 + 20 + [UIImage imageNamed:@"rice_boxing_background"].size.height;
 }
 
 + (CGFloat)heightForDailyContent

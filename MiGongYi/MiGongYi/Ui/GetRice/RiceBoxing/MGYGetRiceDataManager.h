@@ -13,20 +13,25 @@
 #import "DataManager.h"
 #import "MGYStory.h"
 #import "MGYTotalWalk.h"
+#import "MGYProtocolRiceBoxingObtain.h"
+#import "MGYPublicFunction.h"
 
 @class DataManager;
 
 @interface MGYGetRiceDataManager : NSObject
 
-typedef void (^MGYRiceBoxingKillSuccess)();
-typedef void (^MGYRiceBoxingKillFailure)();
-typedef void (^MGYRiceBoxingTimeBlock)();
+@property (nonatomic, strong, readonly) MGYProtocolRiceBoxingObtain *riceBoxingObtain;
+@property (nonatomic, assign, readonly) NSInteger remainTimes;
+
+typedef void (^riceBoxingHitCallback)();
 
 - (instancetype)initWithManager:(DataManager *)manager;
 
 - (AFHTTPRequestOperation *)requestForRiceBoxing:(NSInteger)family
                  monsterType:(MGYMonsterType)monsterType
-                 coefficient:(CGFloat)coefficient;
+                 coefficient:(CGFloat)coefficient
+                     success:(MGYSuccess)success
+                     failure:(MGYFailure)failure;
 
 - (AFHTTPRequestOperation *)requestForRiceMove:(NSInteger)storyIndex
                                      nodeIndex:(NSInteger)nodeIndex;
@@ -61,10 +66,14 @@ typedef void (^MGYRiceBoxingTimeBlock)();
 
 - (NSArray *)arrayRiceBoxingMonster;
 
-- (CGFloat)riceBoxingMonsterCurHp;
+//- (CGFloat)riceBoxingMonsterCurHp;
 
-- (CGFloat)hitMonster:(MGYRiceBoxingKillSuccess)success
-              failure:(MGYRiceBoxingKillFailure)failure;
+- (CGFloat)riceBoxingMonsterProgress;
+
+- (void)hitMonster:(MGYSuccess)success
+              failure:(MGYFailure)failure
+    timeoutFailure:(MGYRiceTimeOutFailure)timoutFailure;
+//riceBoxingHitCallback:(riceBoxingHitCallback)riceBoxingHitCallback;
 
 - (MGYMonster *)riceBoxingCurMonster;
 
@@ -81,6 +90,20 @@ typedef void (^MGYRiceBoxingTimeBlock)();
 - (void)setRiceRiceBoxingTimeBlock:(MGYRiceBoxingTimeBlock)timeBlock;
 
 - (NSInteger)getRiceBoxingBossRemainTime;
+
+- (NSInteger)getRiceBoxingFollowId;
+
+- (void)setRiceBoxingFollowId:(NSInteger)followId;
+
+- (BOOL)checkMiChatCoefficient;
+
+- (BOOL)checkRiceMoveCoefficient;
+
+- (BOOL)checkGetRiceCoefficient;
+
+- (BOOL)checkRiceBoxingCoefficient;
+
+- (BOOL)checkMiZhiCoefficient;
 
 - (MGYTotalWalk *)totalWalk;
 

@@ -67,10 +67,16 @@
         [self loadMiChatRecord:nil failure:nil];
         [self requestForConfig];
         
-        self.getRiceDataManager = [[MGYGetRiceDataManager alloc] initWithManager:self];
-        
     }
     return self;
+}
+
+- (MGYGetRiceDataManager *)getRiceDataManager
+{
+    if (!_getRiceDataManager) {
+        self.getRiceDataManager = [[MGYGetRiceDataManager alloc] initWithManager:self];
+    }
+    return _getRiceDataManager;
 }
 
 #pragma mark - 私有定义
@@ -470,8 +476,7 @@
     NSString *uuidString = [[NSString stringWithFormat:@"%@", uuidStr] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSDictionary *parameters = @{@"guid":uuidString, @"reg_type":@"startup"};
    
-    NSMutableDictionary *md5Parameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    [md5Parameters setObject:[MGYPublicFunction signStringWithMD5:parameters] forKey:@"sign"];
+    NSDictionary *md5Parameters = [MGYPublicFunction md5Parameters:parameters];
 
     NSString *url = [[self baseUrl] stringByAppendingString:@"/user.php?type=reg"];
 

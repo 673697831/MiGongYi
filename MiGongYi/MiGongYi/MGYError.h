@@ -18,3 +18,9 @@ typedef NS_ENUM(NSInteger, MGYUserRiceflowError) {
     MGYUserRiceflowErrorUserNotExist = 1001,//用户不存在
 };
 
+#pragma mark - 
+
+#define MGYRiceBoxingErrorDomain @"MGYRiceBoxingError"
+typedef NS_ENUM(NSInteger, MGYRiceBoxingError) {
+    MGYRiceBoxingErrorRiceNull//没有剩余次数 结算不成功 怪会复活
+};

@@ -22,11 +22,6 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
     return @{
-             @"fightTimes" : @"fightTimes",
-             @"timesp" : @"timesp",
-             @"arrayMonster" : @"arrayMonster",
-             @"monsterId" : @"monsterId",
-             @"curHp" : @"curHp",
              };
 }
 

@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "UIColor+Expanded.h"
 #import "MGYRiceBoxingDetailsHideView.h"
+#import "DataManager.h"
 
 static inline UILabel *labelFactory(){
     UILabel *label = [UILabel new];
@@ -20,6 +21,7 @@ static inline UILabel *labelFactory(){
 
 @interface MGYRiceBoxingDetailsTableViewCell ()
 
+@property (nonatomic, strong) MGYMonster *monster;
 @property (nonatomic, weak) UILabel *monsterNameLabel;
 @property (nonatomic, weak) UILabel *tameLabel;
 @property (nonatomic, weak) UIImageView *tameImageView1;
@@ -82,17 +84,14 @@ static inline UILabel *labelFactory(){
         self.monsterImageView = monsterImageView;
         
         UIButton *followButton = [UIButton new];
+        [followButton addTarget:self
+                         action:@selector(clickFollowButton)
+               forControlEvents:UIControlEventTouchUpInside];
         [followButton setBackgroundImage:[UIImage imageNamed:@"follow_enable"]
-                      forState:UIControlStateDisabled];
-        [followButton setTitle:@"跟随"
                       forState:UIControlStateDisabled];
         [followButton setBackgroundImage:[UIImage imageNamed:@"follow_normal"]
                       forState:UIControlStateNormal];
-        [followButton setTitle:@"跟随"
-                      forState:UIControlStateNormal];
         [followButton setBackgroundImage:[UIImage imageNamed:@"follow_selected"]
-                      forState:UIControlStateSelected];
-        [followButton setTitle:@"跟随中"
                       forState:UIControlStateSelected];
         
         [self addSubview:followButton];
@@ -307,6 +306,8 @@ static inline UILabel *labelFactory(){
 
 - (void)setDetails:(MGYMonster *)monster
 {
+    self.monster = monster;
+    
     if (monster.monsterStatus == MGYMonsterStatusLocked) {
         self.monsterImageView.image = [UIImage imageNamed:monster.gayImagePath];
     }else
@@ -338,15 +339,22 @@ static inline UILabel *labelFactory(){
             self.followButton.enabled = NO;
         }
         
+        if ([DataManager shareInstance].getRiceDataManager.getRiceBoxingFollowId == monster.monsterId) {
+            self.followButton.selected = YES;
+        }else
+        {
+            self.followButton.selected = NO;
+        }
+        
     }
     
     if (monster.monsterStatus == MGYMonsterStatusUnLocked) {
         self.monsterNameLabel.text = monster.monsterName;
         self.storyContentLabel.text = monster.storyContent;
-        if(monster.skillContent){
+        if(monster.skillContent && ![monster.skillContent isEqualToString:@""]){
             self.skillContentLabel.text = [NSString stringWithFormat:@"跟随技能:%@", monster.skillContent];
         }
-        if(monster.condition){
+        if(monster.condition && ![monster.condition isEqualToString:@""]){
             self.conditionLabel.text =[NSString stringWithFormat:@"特殊:%@", monster.condition];
         }
         self.bloodNumLabel.text = [NSString stringWithFormat:@"x %ld", (long)monster.maxHp];
@@ -377,7 +385,15 @@ static inline UILabel *labelFactory(){
         UIImageView *imageView = [self valueForKey:[NSString stringWithFormat:@"tameImageView%d", i]];
         imageView.hidden = hide;
     }
-    
+}
+
+- (void)clickFollowButton
+{
+    if (self.cellDelegate) {
+        BOOL isSelected = self.followButton.isSelected ? YES:NO;
+        [self.cellDelegate changeFollowMonster:self.monster
+                              isSelectedStatus:isSelected];
+    }
 }
 
 + (CGFloat)minHeight

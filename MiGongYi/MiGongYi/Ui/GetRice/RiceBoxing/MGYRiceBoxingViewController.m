@@ -267,20 +267,29 @@
                                       
                                   } completion:^ (BOOL completed) {
                                       self.isHiting = NO;
-                                      MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
-                                      CGFloat curHp = [self.dataManager hitMonster:^{
-                                          MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:YES];
-                                          [self.navigationController pushViewController:mvc animated:YES];
-                                          
-                                      } failure:^{
-                                          MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:NO];
-                                          [self.navigationController pushViewController:mvc animated:YES];
-                                      }];
                                       
-                                      self.progressView.progress = curHp *1.0 / monster.maxHp;
                                       
                                   }];
                              }];
+            MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
+            [self.dataManager hitMonster:^{
+                MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:YES];
+                [self.navigationController pushViewController:mvc animated:YES];
+                
+            } failure:^(NSError *error){
+                if([error.domain isEqualToString:MGYRiceBoxingErrorDomain]&& error.code == MGYRiceBoxingErrorRiceNull){
+                    self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
+                }
+                
+                if (error.userInfo[NSUnderlyingErrorKey]) {
+                    self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
+                }
+                
+            } timeoutFailure:^{
+                MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:NO];
+                [self.navigationController pushViewController:mvc animated:YES];
+            }];
+            self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
         }
     }
 
@@ -319,8 +328,7 @@
     self.monsterNameLabel.text = monster.monsterName;
     self.timeLabel.text = @"";
     
-    CGFloat curHp = self.dataManager.riceBoxingMonsterCurHp;
-    self.progressView.progress = curHp / monster.maxHp *1.0;
+    self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
     
     [self.monsterTipsView reset];
     

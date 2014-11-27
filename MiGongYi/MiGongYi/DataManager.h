@@ -39,10 +39,6 @@
 @property(nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 @property (nonatomic, strong) MGYGetRiceDataManager *getRiceDataManager;
 
-typedef void (^MGYSuccess)();
-typedef void (^MGYGainRiceSuccess)(NSInteger);
-typedef void (^MGYFailure)(NSError *);
-
 + (DataManager *)shareInstance;
 
 - (MGYProjectDetails *)getProjectDetailsById:(NSInteger)parentId;
@@ -93,6 +89,7 @@ typedef void (^MGYFailure)(NSError *);
 - (NSString *)libraryPath;
 
 - (NSString *)filePath;
+
 
 //- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
 //                                    failure:(MGYFailure)failure;

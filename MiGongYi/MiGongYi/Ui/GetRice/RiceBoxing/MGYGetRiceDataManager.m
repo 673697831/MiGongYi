@@ -20,69 +20,110 @@
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *baseUrl;
 @property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, strong) NSDictionary *md5Parameters;
 @property (nonatomic, weak) AFHTTPRequestOperationManager *requestManager;
 @property (nonatomic, assign) NSInteger bossRemainTime;
 @property (nonatomic, strong) NSArray *arrayMonsterRate;
 @property (nonatomic, weak) MGYRiceBoxingTimeBlock timeBlock;
 @property (nonatomic, strong) NSTimer *bossTimer;
+@property (nonatomic, assign) BOOL riceBoxingIsHitting;
 
 @end
 
 @implementation MGYGetRiceDataManager
 
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if([keyPath isEqualToString:@"curHp"])
+//    {
+//        if(self.boxingRecord.curHp >= 500)
+//        {
+//        
+//        }
+//    }
+//}
+
 - (instancetype)initWithManager:(DataManager *)manager
 {
     self = [self init];
     if (self) {
-        self.uid = manager.uid;
-        self.baseUrl = manager.baseUrl;
-        self.filePath = manager.filePath;
-        self.requestManager = manager.requestManager;
+//        self.baseUrl = manager.baseUrl;
+//        self.filePath = manager.filePath;
+//        self.requestManager = manager.requestManager;
+        _remainTimes = 1;
+        
+        [self loadRiceBoxingRecord];
+        if (!self.boxingRecord){
+            self.boxingRecord = [MGYBoxingRecord new];
+            self.boxingRecord.timesp = [[NSDate date] timeIntervalSince1970];
+            self.boxingRecord.smallTimes = 0;
+            self.boxingRecord.middleTimes = 0;
+            self.boxingRecord.followId = -1;
+            self.boxingRecord.firstBlood = YES;
+            
+#if test
+#warning 测试
+
+            self.boxingRecord.smallTimes = 3;
+            self.boxingRecord.middleTimes = 2;
+#endif
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Monster" ofType:@"plist"];
+            NSArray *arrayMonster = [NSArray arrayWithContentsOfFile:filePath];
+            self.boxingRecord.arrayMonster = [MTLJSONAdapter modelsOfClass:[MGYMonster class]
+                                                             fromJSONArray:arrayMonster
+                                                                     error:nil];
+            
+            for (MGYMonster *monster in self.boxingRecord.arrayMonster) {
+                monster.skillContent = monster.skillContent? monster.skillContent: @"";
+#if test
+#warning 测试
+                monster.fightTimes = 5;
+                monster.monsterStatus = MGYMonsterStatusUnLocked;
+#endif
+                monster.condition = monster.condition? monster.condition: @"";
+            }
+            
+            MGYMonster *monster = self.boxingRecord.arrayMonster[0];
+            self.boxingRecord.monsterId = monster.monsterId;
+            self.boxingRecord.curHp = monster.maxHp;
+            
+            if (monster.monsterStatus == MGYMonsterStatusLocked) {
+                monster.monsterStatus = MGYMonsterStatusUnLocked;
+            }
+            
+            [self saveRiceBoxingRecord];
+            
+        }
+        
+        self.arrayMonsterRate = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"monster_rate" ofType:@"plist"]];
+        self.arrayMonsterRate = [MTLJSONAdapter modelsOfClass:[MGYRiceBoxingMonsterRate class]
+                                                fromJSONArray:self.arrayMonsterRate
+                                                        error:nil];
+        
+//        [self.boxingRecord addObserver:self forKeyPath:@"curHp" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+
     }
     return self;
 }
 
-- (instancetype)init
+- (NSString *)uid
 {
-    self = [super init];
-    if (self) {
-        if (!self.boxingRecord){
-            self.boxingRecord = [MGYBoxingRecord new];
-            self.boxingRecord.timesp = [[NSDate date] timeIntervalSince1970];
-            self.boxingRecord.fightTimes = 0;
-            self.boxingRecord.smallTimes = 0;
-            self.boxingRecord.middleTimes = 0;
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Monster" ofType:@"plist"];
-            NSArray *arrayMonster = [NSArray arrayWithContentsOfFile:filePath];
-            self.boxingRecord.arrayMonster = [MTLJSONAdapter modelsOfClass:[MGYMonster class]
-                                                   fromJSONArray:arrayMonster
-                                                           error:nil];
-            
-            self.arrayMonsterRate = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"monster_rate" ofType:@"plist"]];
-            self.arrayMonsterRate = [MTLJSONAdapter modelsOfClass:[MGYRiceBoxingMonsterRate class]
-                                                    fromJSONArray:self.arrayMonsterRate
-                                                            error:nil];
-            [self resetMonster];
-        }
-
-    }
-    return  self;
+    return [DataManager shareInstance].uid;
 }
 
-- (AFHTTPRequestOperation *)requestForRiceBoxing:(NSInteger)family
-                                     monsterType:(MGYMonsterType)monsterType
-                                     coefficient:(CGFloat)coefficient
+- (NSString *)baseUrl
 {
-    NSString *url = [[self baseUrl] stringByAppendingString:@"/gain.php?type=boxing"];
-    NSDictionary *parameters = @{@"uid":self.uid, @"family":@(family + 1), @"monster":@(monsterType + 1)};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    return [manager GET:url
-             parameters:parameters
-                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSLog(@"%@", responseObject);
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    
-                }];
+    return [DataManager shareInstance].baseUrl;
+}
+
+- (NSString *)filePath
+{
+    return [DataManager shareInstance].filePath;
+}
+
+- (AFHTTPRequestOperationManager *)requestManager
+{
+    return [DataManager shareInstance].requestManager;
 }
 
 //- (AFHTTPRequestOperation *)requestForRiceMove:(NSInteger)storyIndex nodeIndex:(NSInteger)nodeIndex
@@ -122,9 +163,11 @@
     self.mutableRiceMoveLevelRecord = [NSMutableDictionary dictionaryWithDictionary:dic];
     [self.mutableRiceMoveLevelRecord setValue:[MTLJSONAdapter JSONDictionaryFromModel:record]
                                    forKey:record.levelString];
+    if (![self.mutableRiceMoveLevelRecord writeToFile:[[self filePath] stringByAppendingString:@"/riceMoveLevelRecord.plist"]
+                                          atomically:YES]) {
+        assert(false);
+    }
     
-    [self.mutableRiceMoveLevelRecord writeToFile:[[self filePath] stringByAppendingString:@"/riceMoveLevelRecord.plist"]
-                                  atomically:YES];
 }
 
 - (NSString *)dateString:(NSInteger)storyIndex
@@ -183,7 +226,7 @@
     NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalStory];
     //NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dic];
     if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/story.plist"] atomically:YES]) {
-        NSLog(@"fsfewfwfewfwf %@", dic);
+        assert(false);
     }
     
 }
@@ -235,6 +278,26 @@
     self.personalStory.boxingBranch = isBoxingBranch;
 }
 
+- (void)saveRiceBoxingRecord
+{
+    NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.boxingRecord];
+    if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/boxingRecordTest.plist"] atomically:YES]) {
+        assert(false);
+    }
+}
+
+- (void)loadRiceBoxingRecord
+{
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/boxingRecordTest.plist"];
+    if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
+        NSDictionary *data = [NSDictionary dictionaryWithContentsOfFile:fileName];
+        self.boxingRecord = [MTLJSONAdapter modelOfClass:[MGYBoxingRecord class] fromJSONDictionary:data error:nil];
+        if (!self.boxingRecord) {
+            assert(false);
+        }
+    }
+}
+
 - (MGYTotalWalk *)totalWalk
 {
     if (self.personalTotalWalk) {
@@ -258,7 +321,6 @@
     self.personalTotalWalk.power = self.personalTotalWalk.power + power;
     NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.personalTotalWalk];
     if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/totalWalk.plist"] atomically:YES]) {
-        NSLog(@"fwefewfewfwfe");
     }
     
 }
@@ -310,9 +372,22 @@
     return self.boxingRecord.arrayMonster;
 }
 
-- (CGFloat)hitMonster:(MGYRiceBoxingKillSuccess)success
-              failure:(MGYRiceBoxingKillFailure)failure
+- (void)hitMonster:(MGYSuccess)success
+              failure:(MGYFailure)failure
+       timeoutFailure:(MGYRiceTimeOutFailure)timeoutFailure
 {
+    if(self.riceBoxingIsHitting){
+        return;
+    }
+    self.riceBoxingIsHitting = YES;
+    CGFloat coefficient = 1;
+    if ([self checkRiceBoxingCoefficient]) {
+        coefficient = 1.5;
+    }
+    else if ([self checkGetRiceCoefficient]){
+        coefficient = 1.2;
+    }
+    
     //判断是否是大怪
     if ((self.boxingRecord.bossId && self.boxingRecord.bossId == 2) || self.boxingRecord.bossId == 5 || self.boxingRecord.bossId == 8 || self.boxingRecord.bossId == 11 || self.boxingRecord.bossId == 14) {
         //判断是否需要倒计时
@@ -321,31 +396,73 @@
             if(!self.bossRemainTime)
             {
                 self.boxingRecord.bossId = 0;
-                failure();
-                return 0;
+                [self saveRiceBoxingRecord];
+                timeoutFailure();
+                self.riceBoxingIsHitting = NO;
+                return;
             }
         }
         self.boxingRecord.bossHp = self.boxingRecord.bossHp - 20;
+        //self.boxingRecord.bossHp = 0;
         if (self.boxingRecord.bossHp <= 0) {
-            self.boxingRecord.bossId = 0;
-            success();
+            MGYMonster *monster = self.boxingRecord.arrayMonster[self.boxingRecord.bossId];
+            [self requestForRiceBoxing:monster.monsterId % 3 + 1
+                           monsterType:monster.monsterType
+                           coefficient:coefficient
+                               success:^{
+                                   monster.fightTimes ++;
+                                   self.boxingRecord.bossId = 0;
+                                   [self saveRiceBoxingRecord];
+                                   self.bossRemainTime = 0;
+                                   self.riceBoxingIsHitting = NO;
+                                   success();
+                               }
+                               failure:^(NSError *error) {
+                                   self.bossRemainTime = 0;
+                                   self.boxingRecord.curHp = monster.maxHp;
+                                   self.riceBoxingIsHitting = NO;
+                               }];
+        }else
+        {
+            [self saveRiceBoxingRecord];
+            self.riceBoxingIsHitting = NO;
         }
-        return self.boxingRecord.bossHp;
     }else
     {
         self.boxingRecord.curHp = self.boxingRecord.curHp - 20;
+        //self.boxingRecord.curHp = 0;
         if (self.boxingRecord.curHp <= 0) {
-            success();
             MGYMonster *monster = self.boxingRecord.arrayMonster[self.boxingRecord.monsterId];
-            if(monster.monsterType == MGYMonsterTypeSmall){
-                self.boxingRecord.smallTimes ++;
-            }else{
-                self.boxingRecord.middleTimes ++;
-            }
-            monster.fightTimes ++;
-            [self resetMonster];
+            [self requestForRiceBoxing:monster.monsterId % 3 + 1
+                           monsterType:monster.monsterType
+                           coefficient:coefficient
+                               success:^{
+                                   if(monster.monsterType == MGYMonsterTypeSmall){
+                                       self.boxingRecord.smallTimes ++;
+                                   }else{
+                                       self.boxingRecord.middleTimes ++;
+                                   }
+                                   
+                                   if (self.boxingRecord.firstBlood) {
+                                       self.boxingRecord.firstBlood = NO;
+                                   }
+                                   monster.fightTimes ++;
+                                   [self resetMonster];
+                                   self.riceBoxingIsHitting = NO;
+                                   success();
+                               }
+                               failure:^(NSError *error) {
+                                   self.boxingRecord.curHp = monster.maxHp;
+                                   _remainTimes = 0;
+                                   failure(error);
+                                   self.riceBoxingIsHitting = NO;
+                               }];
+            
+        }else
+        {
+            [self saveRiceBoxingRecord];
+            self.riceBoxingIsHitting = NO;
         }
-        return self.boxingRecord.curHp;
     }
 }
 
@@ -355,6 +472,26 @@
         return self.boxingRecord.bossHp;
     }
     return self.boxingRecord.curHp;
+}
+
+- (CGFloat)riceBoxingMonsterProgress
+{
+    MGYMonster *monster;
+    CGFloat progress;
+    if (self.boxingRecord.bossId) {
+        monster = self.boxingRecord.arrayMonster[self.boxingRecord.bossId];
+        progress = self.boxingRecord.bossHp *1.0 / monster.maxHp;
+    }else
+    {
+        monster = self.boxingRecord.arrayMonster[self.boxingRecord.monsterId];
+        progress = self.boxingRecord.curHp *1.0 / monster.maxHp;
+    }
+    
+    
+    if(progress > 1){
+        assert(false);
+    }
+    return progress;
 }
 
 - (MGYMonster *)riceBoxingCurMonster
@@ -376,10 +513,15 @@
             self.boxingRecord.monsterId = monster.monsterId;
             self.boxingRecord.curHp = monster.maxHp;
             
+            if([self riceBoxingMonsterProgress] != 1)
+            {
+                assert(false);
+            }
             if (monster.monsterStatus == MGYMonsterStatusLocked) {
                 monster.monsterStatus = MGYMonsterStatusUnLocked;
             }
             
+            [self saveRiceBoxingRecord];
             return;
         }
     }
@@ -412,6 +554,7 @@
                     monster.monsterStatus = MGYMonsterStatusUnLocked;
                 }
             }
+            [self saveRiceBoxingRecord];
             break;
         }
         i ++;
@@ -443,6 +586,17 @@
     return self.bossRemainTime;
 }
 
+- (NSInteger)getRiceBoxingFollowId
+{
+    return self.boxingRecord.followId;
+}
+
+- (void)setRiceBoxingFollowId:(NSInteger)followId
+{
+    self.boxingRecord.followId = followId;
+    [self saveRiceBoxingRecord];
+}
+
 - (void)setRiceRiceBoxingTimeBlock:(MGYRiceBoxingTimeBlock)timeBlock
 {
     self.timeBlock = timeBlock;
@@ -462,6 +616,74 @@
 {
     self.boxingRecord.smallTimes = 0;
     self.boxingRecord.middleTimes = 0;
+}
+
+- (BOOL)checkRiceBoxingCoefficient
+{
+    return self.boxingRecord.followId == 15 ? YES:NO;
+}
+
+- (BOOL)checkRiceMoveCoefficient
+{
+    return self.boxingRecord.followId == 6? YES:NO;
+}
+
+- (BOOL)checkMiZhiCoefficient
+{
+    return self.boxingRecord.followId == 12? YES:NO;
+}
+
+- (BOOL)checkMiChatCoefficient
+{
+    return self.boxingRecord.followId == 0? YES:NO;
+}
+
+- (BOOL)checkGetRiceCoefficient
+{
+    return self.boxingRecord.followId == 9? YES:NO;
+}
+
+
+- (AFHTTPRequestOperation *)requestForRiceBoxing:(NSInteger)family
+                                     monsterType:(MGYMonsterType)monsterType
+                                     coefficient:(CGFloat)coefficient
+                                         success:(MGYSuccess)success
+                                         failure:(MGYFailure)failure
+{
+    NSString *url = [[self baseUrl] stringByAppendingString:@"/gain.php?type=boxing"];
+    AFHTTPRequestOperationManager *manager = self.requestManager;
+    NSDictionary *parameters = @{@"uid":self.uid, @"family":@(family + 1), @"monster":@(monsterType + 1), @"coefficient":@(coefficient)};
+    NSDictionary *md5Parameters = [MGYPublicFunction md5Parameters:parameters];
+    return [manager GET:url
+             parameters:md5Parameters
+                success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+                    
+                    NSLog(@"%@", responseObject);
+                    if (![responseObject[@"error"] integerValue]) {
+                        
+                        MGYProtocolRiceBoxingObtain *riceBoxingObtain = [MTLJSONAdapter modelOfClass:[MGYProtocolRiceBoxingObtain class] fromJSONDictionary:responseObject[@"data"] error:nil];
+                        
+                        _riceBoxingObtain = riceBoxingObtain;
+                        _remainTimes = riceBoxingObtain.remainTimes;
+                        if (riceBoxingObtain.rice) {
+                            success();
+                        }
+                        else
+                        {
+                            //没有剩余次数
+                            NSError *mgyError = [NSError errorWithDomain:MGYRiceBoxingErrorDomain
+                                                                    code:MGYRiceBoxingErrorRiceNull
+                                                                userInfo:nil];
+                            failure(mgyError);
+                        }
+                    }else{
+                        failure(nil);
+                    }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"error %@", error);
+                    failure(error);
+                }];
 }
 
 + (instancetype)manager

@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MGYBoxingRecord.h"
 
+@protocol MGYRiceBoxingDetailsTableViewCellDelegate <NSObject>
+
+- (void)changeFollowMonster:(MGYMonster *)monster
+           isSelectedStatus:(BOOL)isSelectedStatus;
+
+@end
+
 @interface MGYRiceBoxingDetailsTableViewCell : UITableViewCell
+
+@property (nonatomic, weak) id<MGYRiceBoxingDetailsTableViewCellDelegate> cellDelegate;
 
 - (void)setDetails:(MGYMonster *)monster;
 

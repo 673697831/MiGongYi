@@ -43,4 +43,11 @@
     return sha512;
 }
 
++ (NSDictionary *)md5Parameters:(NSDictionary *)parameters
+{
+    NSMutableDictionary *md5Parameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [md5Parameters setObject:[MGYPublicFunction signStringWithMD5:parameters] forKey:@"sign"];
+    return md5Parameters;
+}
+
 @end

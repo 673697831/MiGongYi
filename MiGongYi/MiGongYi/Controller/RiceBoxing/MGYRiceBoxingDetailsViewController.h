@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYSubViewController.h"
+#import "MGYRiceBoxingDetailsTableViewCell.h"
 
-@interface MGYRiceBoxingDetailsViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource>
+@interface MGYRiceBoxingDetailsViewController : MGYSubViewController<UITableViewDelegate, UITableViewDataSource, MGYRiceBoxingDetailsTableViewCellDelegate>
 
 - (instancetype)initWithMonsterId:(NSInteger)monsterId;
 

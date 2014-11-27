@@ -118,6 +118,7 @@
 		20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E445AB19B637EA007B2900 /* MGYTabBarController.m */; };
 		20E52EBC1A25893400AB2A62 /* MGYPublicFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBB1A25893400AB2A62 /* MGYPublicFunction.m */; };
 		20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */; };
+		20E52EC61A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */; };
 		20FF32841A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -336,6 +337,8 @@
 		20E52EBB1A25893400AB2A62 /* MGYPublicFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPublicFunction.m; sourceTree = "<group>"; };
 		20E52EBD1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingDetailsHideView.h; sourceTree = "<group>"; };
 		20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingDetailsHideView.m; sourceTree = "<group>"; };
+		20E52EC41A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProtocolRiceBoxingObtain.h; sourceTree = "<group>"; };
+		20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProtocolRiceBoxingObtain.m; sourceTree = "<group>"; };
 		20FF32821A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingMonsterProgressView.h; sourceTree = "<group>"; };
 		20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingMonsterProgressView.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -672,6 +675,7 @@
 		20A2D29E19BE97C6004C7697 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				20E52EC31A25BDDB00AB2A62 /* protocol */,
 				20A2D29F19BE98C5004C7697 /* MGYProject.h */,
 				20A2D2A019BE98C5004C7697 /* MGYProject.m */,
 				202E3F9819C6CE4500E58B4E /* MGYPersonalDetails.h */,
@@ -794,6 +798,15 @@
 				20AD49101A2420EB004D8667 /* monster_rate.plist */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		20E52EC31A25BDDB00AB2A62 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				20E52EC41A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.h */,
+				20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */,
+			);
+			path = protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -995,6 +1008,7 @@
 				20CC641119C3EDA8007230A1 /* MGYProgramItemViewController.m in Sources */,
 				20AD490F1A242045004D8667 /* MGYRiceBoxingMonsterRate.m in Sources */,
 				203D139F1A07617B005A49B2 /* MGYRiceMoveDetailsTableViewCell.m in Sources */,
+				20E52EC61A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m in Sources */,
 				20015A931A15055800CDCF6F /* MGYBoxingRecord.m in Sources */,
 				2085C86619B6280C00E9FA3B /* AppDelegate.m in Sources */,
 				203D13901A06195F005A49B2 /* MGYTotalWalk.m in Sources */,
