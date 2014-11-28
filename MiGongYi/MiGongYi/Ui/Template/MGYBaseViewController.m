@@ -47,7 +47,7 @@
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     
-    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem1", @"留守儿童")
+    UITabBarItem *tab1BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem1", @"一键捐赠")
                                                               image:[[UIImage imageNamed:@"tabbar_Child_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar_Child_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     tab1BarItem.tag = 0;
     UITabBarItem *tab2BarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"首页TabBarItem2", @"获得大米")

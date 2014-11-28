@@ -9,7 +9,7 @@
 #import "MGYGetRiceDataManager.h"
 #import "MGYBoxingRecord.h"
 #import "MGYRiceBoxingMonsterRate.h"
-#define test 1
+#define test 0
 
 @interface MGYGetRiceDataManager ()
 
@@ -86,10 +86,6 @@
             MGYMonster *monster = self.boxingRecord.arrayMonster[0];
             self.boxingRecord.monsterId = monster.monsterId;
             self.boxingRecord.curHp = monster.maxHp;
-            
-            if (monster.monsterStatus == MGYMonsterStatusLocked) {
-                monster.monsterStatus = MGYMonsterStatusUnLocked;
-            }
             
             [self saveRiceBoxingRecord];
             
@@ -466,6 +462,12 @@
     }
 }
 
+- (void)riceBoxingUnLockMonster:(NSInteger)monsterId
+{
+    MGYMonster *monster = self.boxingRecord.arrayMonster[monsterId];
+    monster.monsterStatus = MGYMonsterStatusUnLocked;
+}
+
 - (CGFloat)riceBoxingMonsterCurHp
 {
     if (self.boxingRecord.bossId){
@@ -517,9 +519,6 @@
             {
                 assert(false);
             }
-            if (monster.monsterStatus == MGYMonsterStatusLocked) {
-                monster.monsterStatus = MGYMonsterStatusUnLocked;
-            }
             
             [self saveRiceBoxingRecord];
             return;
@@ -550,9 +549,6 @@
                                                                 selector:@selector(bossTimerAciton)
                                                                 userInfo:nil
                                                                  repeats:YES];
-                if (monster.monsterStatus == MGYMonsterStatusLocked) {
-                    monster.monsterStatus = MGYMonsterStatusUnLocked;
-                }
             }
             [self saveRiceBoxingRecord];
             break;

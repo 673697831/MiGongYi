@@ -119,6 +119,7 @@
 		20E52EBC1A25893400AB2A62 /* MGYPublicFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBB1A25893400AB2A62 /* MGYPublicFunction.m */; };
 		20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */; };
 		20E52EC61A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */; };
+		20F4E6BC1A282CF5000622A4 /* MGYDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F4E6BB1A282CF5000622A4 /* MGYDonationViewController.m */; };
 		20FF32841A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -339,6 +340,8 @@
 		20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingDetailsHideView.m; sourceTree = "<group>"; };
 		20E52EC41A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProtocolRiceBoxingObtain.h; sourceTree = "<group>"; };
 		20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProtocolRiceBoxingObtain.m; sourceTree = "<group>"; };
+		20F4E6BA1A282CF5000622A4 /* MGYDonationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDonationViewController.h; sourceTree = "<group>"; };
+		20F4E6BB1A282CF5000622A4 /* MGYDonationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDonationViewController.m; sourceTree = "<group>"; };
 		20FF32821A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingMonsterProgressView.h; sourceTree = "<group>"; };
 		20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingMonsterProgressView.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,6 +391,7 @@
 		20015A971A1598AB00CDCF6F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				20F4E6B91A282C2D000622A4 /* Donation */,
 				20015ABC1A1A203400CDCF6F /* RiceMove */,
 				20015A981A15998400CDCF6F /* RiceBoxing */,
 				202E2A8F19D934EE000E072B /* MGYMiChatViewController.h */,
@@ -809,6 +813,15 @@
 			path = protocol;
 			sourceTree = "<group>";
 		};
+		20F4E6B91A282C2D000622A4 /* Donation */ = {
+			isa = PBXGroup;
+			children = (
+				20F4E6BA1A282CF5000622A4 /* MGYDonationViewController.h */,
+				20F4E6BB1A282CF5000622A4 /* MGYDonationViewController.m */,
+			);
+			path = Donation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1047,6 +1060,7 @@
 				20AC9F961A0110260038A206 /* MGYStoryManager.m in Sources */,
 				203A4BC41A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.m in Sources */,
 				202E2AA019DA86F2000E072B /* MGYMiChatTableViewCell.m in Sources */,
+				20F4E6BC1A282CF5000622A4 /* MGYDonationViewController.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,
 				20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,

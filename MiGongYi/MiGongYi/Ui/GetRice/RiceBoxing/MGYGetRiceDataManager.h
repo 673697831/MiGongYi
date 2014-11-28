@@ -87,6 +87,8 @@ typedef void (^riceBoxingHitCallback)();
 
 - (void)resetRiceBoxingTimes;
 
+- (void)riceBoxingUnLockMonster:(NSInteger)monsterId;
+
 - (void)setRiceRiceBoxingTimeBlock:(MGYRiceBoxingTimeBlock)timeBlock;
 
 - (NSInteger)getRiceBoxingBossRemainTime;

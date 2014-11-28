@@ -13,6 +13,7 @@
 #import "MGYAboutMeViewController.h"
 #import "MGYGetRiceViewController.h"
 #import "MGYBaseViewController.h"
+#import "MGYDonationViewController.h"
 
 @interface MGYTabBarController ()
 
@@ -38,10 +39,13 @@
         [self.tabBar setTintColor:[UIColor orangeColor]];
         UINavigationController *tab1Nav = [UINavigationController new];
 
-        MGYProgramChildrenViewController *listView = [MGYProgramChildrenViewController new];
-        //MGYBaseViewController *listView = [MGYBaseViewController new];
-        self.listView = listView;
-        [tab1Nav pushViewController:listView animated:YES];
+//        MGYProgramChildrenViewController *listView = [MGYProgramChildrenViewController new];
+//        //MGYBaseViewController *listView = [MGYBaseViewController new];
+//        self.listView = listView;
+        
+        MGYDonationViewController *dvc = [MGYDonationViewController new];
+        
+        [tab1Nav pushViewController:dvc animated:YES];
         
         UINavigationController *tab2Nav = [UINavigationController new];
         MGYGetRiceViewController *getRiceView = [MGYGetRiceViewController new];
@@ -64,44 +68,6 @@
         self.tabBar.hidden = YES;
         self.viewControllers = [NSArray arrayWithObjects:tab1Nav, tab2Nav, tab3Nav, tab4Nav, nil];
        // NSLog(@"iiiiiiiii %@", tab1BarItem.);
-        
-        
-        
-        
-        
-//        self.tabBar.translucent = NO;
-//        [self.tabBar setTintColor:[UIColor orangeColor]];
-//        self.tab1Nav = [UINavigationController new];
-//        self.tab1Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"留守儿童" image:[UIImage imageNamed:@"tabbar_Child_normal"] tag:1];
-//        self.listView = [ProgramListView new];
-//        [self.tab1Nav pushViewController:self.listView animated:YES];
-//        //ProgramListView *listView = [[ProgramListView alloc] initWithNibName:nil bundle:nil];
-//        [self.tab1Nav setHidesBottomBarWhenPushed:YES];
-//        //[tab1Nav pushViewController:tab1 animated:NO];
-//        // TabBar2
-//        self.tab2Nav = [[UINavigationController alloc] init];
-//        self.tab2Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"获得大米" image:[UIImage imageNamed:@"tabbar_Get rice_normal"] tag:2];
-//        // TabBar3
-//        
-//        self.tab3Nav = [[UINavigationController alloc] init];
-//        self.tab3Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"公益项目" image:[UIImage imageNamed:@"tabbar_Commonweal_normal"] tag:3];
-//        self.detailsView = [[DetailsMainView alloc] initWithStyle:UITableViewStylePlain];
-//        [self.tab3Nav pushViewController:self.detailsView animated:YES];
-//        [self.tab3Nav setHidesBottomBarWhenPushed:YES];
-//        
-//        // TabBar4
-//        self.tab4Nav = [[UINavigationController alloc] init];
-//        self.tab4Nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:[UIImage imageNamed:@"tabbar_Me_normal"] tag:4];
-//        
-////        self.tab1Nav.navigationBar.hidden = YES;
-////        
-////        self.tab2Nav.navigationBar.hidden = YES;
-////        self.tab3Nav.navigationBar.hidden = YES;
-////        self.tab4Nav.navigationBar.hidden = YES;
-//        // 组装TabBar
-//        self.viewControllers = [NSArray arrayWithObjects:self.tab1Nav, self.tab2Nav, self.tab3Nav, self.tab4Nav, nil];
-//        
-//        self.detailsSubView = [[ProgramDetailsView alloc] initWithNibName:nil bundle:nil];
 
     }
     return self;

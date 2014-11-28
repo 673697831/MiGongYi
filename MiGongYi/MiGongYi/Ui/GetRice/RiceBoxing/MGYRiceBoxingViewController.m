@@ -35,6 +35,7 @@
 @property (nonatomic, weak) UILabel *timeLabel;
 @property (nonatomic, copy) MGYRiceBoxingTimeBlock timerBlock;
 @property (nonatomic, assign) BOOL isIncrease;
+@property (nonatomic, weak) UILabel *bloodNumLabel;
 
 
 @end
@@ -120,6 +121,13 @@
     [self.view addSubview:timeLabel];
     self.timeLabel = timeLabel;
     
+    UILabel *bloodNumLabel = [UILabel new];
+    bloodNumLabel.font = [UIFont systemFontOfSize:30];
+    bloodNumLabel.textColor = [UIColor whiteColor];
+    bloodNumLabel.text = @"20";
+    [self.view addSubview:bloodNumLabel];
+    self.bloodNumLabel = bloodNumLabel;
+    
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -170,6 +178,12 @@
         make.edges.equalTo(self.view);
     }];
     
+    [self.bloodNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.monsterNameLabel.mas_top).with.offset(0);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    self.bloodNumLabel.hidden = YES;
     [self.accelerometer start];
 }
 
@@ -203,8 +217,13 @@
     
     [self reflush];
     
-//    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
-//    self.monster = monster;
+    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
+    if (monster.monsterType == MGYMonsterTypeLarge) {
+        self.backgroundView.hidden = NO;
+    }else
+    {
+        self.backgroundView.hidden = YES;
+    }
     [self.timer invalidate];
     
     
@@ -251,26 +270,45 @@
         {
             self.isHiting = YES;
             CGRect originFrame = self.monsterImageView.frame;
-            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseIn |UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
+            CGRect originBloodFrame = self.bloodNumLabel.frame;
+            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn |UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
                              animations:^(void) {
                                  [UIView setAnimationRepeatCount:1];
                                  CGRect frame = self.monsterImageView.frame;
                                  frame.origin.x= frame.origin.x + 100;
                                  self.monsterImageView.frame = frame;
                                  
+                                 self.backgroundView.hidden = NO;
+                                 
                                  }
                              completion:^(BOOL finished){
                                  
-                                 [UIView animateWithDuration:0.1 delay:0.0 options:
+                                 [UIView animateWithDuration:0.2 delay:0.0 options:
                                   UIViewAnimationOptionCurveEaseIn animations:^{
                                       self.monsterImageView.frame = originFrame;
                                       
                                   } completion:^ (BOOL completed) {
                                       self.isHiting = NO;
                                       
+                                      MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
+                                      if (monster.monsterType != MGYMonsterTypeLarge) {
+                                           self.backgroundView.hidden = YES;
+                                      }
+                                     
                                       
                                   }];
                              }];
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 self.bloodNumLabel.hidden = NO;
+                                 CGRect frame = self.bloodNumLabel.frame;
+                                 frame = self.bloodNumLabel.frame;
+                                 frame.origin.y = frame.origin.y - 50;
+                                 self.bloodNumLabel.frame = frame;
+                            } completion:^(BOOL finished) {
+                                 self.bloodNumLabel.frame = originBloodFrame;
+                                 self.bloodNumLabel.hidden = YES;
+                            }];
             MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
             [self.dataManager hitMonster:^{
                 MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:YES];
@@ -323,8 +361,11 @@
 - (void)reflush
 {
     MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
+    if (monster.monsterStatus == MGYMonsterStatusLocked) {
+        [self.dataManager riceBoxingUnLockMonster:monster.monsterId];
+    }
     [self.backgroundImageView setImage:[UIImage imageNamed:monster.backgroundImagePath]];
-    [self.monsterImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%d", monster.monsterId]]];
+    [self.monsterImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%ld", (long)monster.monsterId]]];
     self.monsterNameLabel.text = monster.monsterName;
     self.timeLabel.text = @"";
     
@@ -332,10 +373,10 @@
     
     [self.monsterTipsView reset];
     
-    if (monster.monsterType == MGYMonsterTypeLarge) {
-        self.backgroundView.hidden = NO;
+    if (monster.monsterType == MGYMonsterTypeLarge || true) {
+        //self.backgroundView.hidden = NO;
         [self.alphaTimer invalidate];
-        self.alphaTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/10.0
+        self.alphaTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
                                                            target:self
                                                          selector:@selector(timerAlpha)
                                                          userInfo:nil
@@ -346,6 +387,7 @@
         self.alphaTimer = nil;
         self.backgroundView.hidden = YES;
     }
+    
 }
 
 /*
