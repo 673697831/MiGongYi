@@ -7,8 +7,18 @@
 //
 
 #import "MGYDonationViewController.h"
+#import "Masonry.h"
+#import "UIColor+Expanded.h"
 
 @interface MGYDonationViewController ()
+
+@property (nonatomic, weak) UILabel *levelLabel;
+@property (nonatomic, weak) UILabel *riceDonateLabel;
+@property (nonatomic, weak) UILabel *itemCountLabel;
+@property (nonatomic, weak) UILabel *itemRiceDonateLabel;
+@property (nonatomic, weak) UILabel *deLabel;
+@property (nonatomic, weak) UIButton *shareButton;
+
 
 @end
 
@@ -17,6 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UILabel *levelLabel = [UILabel new];
+    levelLabel.font = [UIFont systemFontOfSize:22/2];
+    levelLabel.textColor = [UIColor colorWithHexString:@"BABABA"];
+    levelLabel.text = @"LV:18";
+    [self.view addSubview:levelLabel];
+    
+    self.title = @"一键捐赠";
     // Do any additional setup after loading the view.
 }
 
