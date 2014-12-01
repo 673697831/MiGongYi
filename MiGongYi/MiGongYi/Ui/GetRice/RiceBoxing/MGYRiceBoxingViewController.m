@@ -8,6 +8,7 @@
 
 #import "MGYRiceBoxingViewController.h"
 #import "MGYRiceBoxingContentViewController.h"
+#import "MGYRiceBoxingTimesTipsView.h"
 #import "MGYAccelerometer.h"
 #import "MGYGetRiceDataManager.h"
 #import "MGYRiceBoxingDetailsViewController.h"
@@ -36,7 +37,10 @@
 @property (nonatomic, copy) MGYRiceBoxingTimeBlock timerBlock;
 @property (nonatomic, assign) BOOL isIncrease;
 @property (nonatomic, weak) UILabel *bloodNumLabel;
+@property (nonatomic, weak) MGYRiceBoxingTimesTipsView *timesView;
+@property (nonatomic, weak) MGYRiceBoxingDisConnectView *disConnectView;
 
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 @end
 
@@ -48,6 +52,7 @@
     if (self) {
         self.dataManager = [DataManager shareInstance].getRiceDataManager;
         self.accelerometer = [MGYAccelerometer shareInstance];
+        self.operationQueue = [NSOperationQueue new];
     }
     return self;
 }
@@ -128,6 +133,14 @@
     [self.view addSubview:bloodNumLabel];
     self.bloodNumLabel = bloodNumLabel;
     
+    MGYRiceBoxingTimesTipsView *timesView = [MGYRiceBoxingTimesTipsView new];
+    [self.view addSubview:timesView];
+    self.timesView = timesView;
+    
+    //disConnectView.frame = CGRectMake(0, 0, 420/2, 286/2);
+//    [self.view addSubview:disConnectView];
+//    self.disConnectView = disConnectView;
+    
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -183,6 +196,12 @@
         make.centerX.equalTo(self.view);
     }];
     
+    [self.timesView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    self.disConnectView.hidden = NO;
+    
     self.bloodNumLabel.hidden = YES;
     [self.accelerometer start];
 }
@@ -190,6 +209,38 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    [self reflush];
+    
+    [self.alphaTimer invalidate];
+    self.alphaTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
+                                                       target:self
+                                                     selector:@selector(timerAlpha)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    
+}
+
+- (void)resetTimeBlock
+{
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    NSInteger remainTimes = self.dataManager.remainTimes;
+    MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
+    
+    if (monster.monsterType != MGYMonsterTypeLarge && !remainTimes) {
+        return;
+    }
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
+                                                  target:self
+                                                selector:@selector(timerAction)
+                                                userInfo:nil
+                                                 repeats:YES];
+    
+    if (monster.monsterType != MGYMonsterTypeLarge) {
+        return;
+    }
     __weak typeof(self)wself = self;
     self.timerBlock = ^(void)
     {
@@ -214,24 +265,6 @@
     };
     
     [self.dataManager setRiceRiceBoxingTimeBlock:self.timerBlock];
-    
-    [self reflush];
-    
-    MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
-    if (monster.monsterType == MGYMonsterTypeLarge) {
-        self.backgroundView.hidden = NO;
-    }else
-    {
-        self.backgroundView.hidden = YES;
-    }
-    [self.timer invalidate];
-    
-    
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
-                                                  target:self
-                                                selector:@selector(timerAction)
-                                                userInfo:nil
-                                                 repeats:YES];
     
 }
 
@@ -311,6 +344,9 @@
                             }];
             MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
             [self.dataManager hitMonster:^{
+                if (self.disConnectView) {
+                    [self.disConnectView close];
+                }
                 MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:YES];
                 [self.navigationController pushViewController:mvc animated:YES];
                 
@@ -320,7 +356,12 @@
                 }
                 
                 if (error.userInfo[NSUnderlyingErrorKey]) {
-                    self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
+                    if (!self.disConnectView) {
+                        MGYRiceBoxingDisConnectView * view = [MGYRiceBoxingDisConnectView new];
+                        view.disconnectDelegate = self;
+                        self.disConnectView = view;
+                    }
+                    //self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
                 }
                 
             } timeoutFailure:^{
@@ -360,36 +401,52 @@
 
 - (void)reflush
 {
+    
     MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
     if (monster.monsterStatus == MGYMonsterStatusLocked) {
         [self.dataManager riceBoxingUnLockMonster:monster.monsterId];
     }
+    
     [self.backgroundImageView setImage:[UIImage imageNamed:monster.backgroundImagePath]];
     [self.monsterImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"riceBoxingMonster%ld", (long)monster.monsterId]]];
     self.monsterNameLabel.text = monster.monsterName;
     self.timeLabel.text = @"";
-    
+    self.backgroundView.hidden = YES;
     self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
     
     [self.monsterTipsView reset];
+    [self resetTimeBlock];
     
-    if (monster.monsterType == MGYMonsterTypeLarge || true) {
-        //self.backgroundView.hidden = NO;
-        [self.alphaTimer invalidate];
-        self.alphaTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/5.0
-                                                           target:self
-                                                         selector:@selector(timerAlpha)
-                                                         userInfo:nil
-                                                          repeats:YES];
+    if (monster.monsterType == MGYMonsterTypeLarge) {
+        self.backgroundView.hidden = NO;
+    }
+    
+    NSInteger remainTimes = self.dataManager.remainTimes;
+    if (!remainTimes&& monster.monsterType != MGYMonsterTypeLarge) {
+        self.progressView.hidden = YES;
+        self.monsterImageView.hidden = YES;
+        self.monsterNameLabel.hidden = YES;
+        self.timesView.hidden = NO;
     }else
     {
-        [self.alphaTimer invalidate];
-        self.alphaTimer = nil;
-        self.backgroundView.hidden = YES;
+        self.progressView.hidden = NO;
+        self.monsterImageView.hidden = NO;
+        self.monsterNameLabel.hidden = NO;
+        self.timesView.hidden = YES;
+        
     }
     
 }
 
+- (void)riceBoxingCansel
+{
+    self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
+}
+
+- (void)riceBoxingConnect
+{
+    [[DataManager shareInstance] connectAgain ];
+}
 /*
 #pragma mark - Navigation
 

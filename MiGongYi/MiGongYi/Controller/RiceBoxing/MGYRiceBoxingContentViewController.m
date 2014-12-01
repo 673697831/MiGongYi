@@ -50,6 +50,7 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
     // Do any additional setup after loading the view.
 }
 

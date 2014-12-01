@@ -22,11 +22,11 @@
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, strong) NSDictionary *md5Parameters;
 @property (nonatomic, weak) AFHTTPRequestOperationManager *requestManager;
-@property (nonatomic, assign) NSInteger bossRemainTime;
 @property (nonatomic, strong) NSArray *arrayMonsterRate;
 @property (nonatomic, weak) MGYRiceBoxingTimeBlock timeBlock;
 @property (nonatomic, strong) NSTimer *bossTimer;
 @property (nonatomic, assign) BOOL riceBoxingIsHitting;
+@property (nonatomic, assign) NSInteger bossRemainTime;
 
 @end
 
@@ -429,7 +429,7 @@
         //self.boxingRecord.curHp = 0;
         if (self.boxingRecord.curHp <= 0) {
             MGYMonster *monster = self.boxingRecord.arrayMonster[self.boxingRecord.monsterId];
-            [self requestForRiceBoxing:monster.monsterId % 3 + 1
+            self.lastOp = [self requestForRiceBoxing:monster.monsterId % 3 + 1
                            monsterType:monster.monsterType
                            coefficient:coefficient
                                success:^{
@@ -446,10 +446,10 @@
                                    [self resetMonster];
                                    self.riceBoxingIsHitting = NO;
                                    success();
+
                                }
                                failure:^(NSError *error) {
                                    self.boxingRecord.curHp = monster.maxHp;
-                                   _remainTimes = 0;
                                    failure(error);
                                    self.riceBoxingIsHitting = NO;
                                }];
@@ -650,36 +650,47 @@
     AFHTTPRequestOperationManager *manager = self.requestManager;
     NSDictionary *parameters = @{@"uid":self.uid, @"family":@(family + 1), @"monster":@(monsterType + 1), @"coefficient":@(coefficient)};
     NSDictionary *md5Parameters = [MGYPublicFunction md5Parameters:parameters];
-    return [manager GET:url
+    
+    [DataManager shareInstance].afNetworkingSuccessBlock = ^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        NSLog(@"%@", responseObject);
+        if (![responseObject[@"error"] integerValue]) {
+            
+            MGYProtocolRiceBoxingObtain *riceBoxingObtain = [MTLJSONAdapter modelOfClass:[MGYProtocolRiceBoxingObtain class] fromJSONDictionary:responseObject[@"data"] error:nil];
+            
+            _riceBoxingObtain = riceBoxingObtain;
+            _remainTimes = riceBoxingObtain.remainTimes;
+            if (riceBoxingObtain.rice) {
+                success();
+            }
+            else
+            {
+                //没有剩余次数
+                NSError *mgyError = [NSError errorWithDomain:MGYRiceBoxingErrorDomain
+                                                        code:MGYRiceBoxingErrorRiceNull
+                                                    userInfo:nil];
+                _remainTimes = 0;
+                failure(mgyError);
+            }
+        }else{
+            failure(nil);
+        }
+    };
+    
+    [DataManager shareInstance].afNetworkingFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@", error);
+        failure(error);
+    };
+    
+    [DataManager shareInstance].requestMethod = @"GET";
+    [DataManager shareInstance].requestUrl = url;
+    [DataManager shareInstance].requestParameters = md5Parameters;
+
+    AFHTTPRequestOperation *op = [manager GET:url
              parameters:md5Parameters
-                success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-                    
-                    NSLog(@"%@", responseObject);
-                    if (![responseObject[@"error"] integerValue]) {
-                        
-                        MGYProtocolRiceBoxingObtain *riceBoxingObtain = [MTLJSONAdapter modelOfClass:[MGYProtocolRiceBoxingObtain class] fromJSONDictionary:responseObject[@"data"] error:nil];
-                        
-                        _riceBoxingObtain = riceBoxingObtain;
-                        _remainTimes = riceBoxingObtain.remainTimes;
-                        if (riceBoxingObtain.rice) {
-                            success();
-                        }
-                        else
-                        {
-                            //没有剩余次数
-                            NSError *mgyError = [NSError errorWithDomain:MGYRiceBoxingErrorDomain
-                                                                    code:MGYRiceBoxingErrorRiceNull
-                                                                userInfo:nil];
-                            failure(mgyError);
-                        }
-                    }else{
-                        failure(nil);
-                    }
-                }
-                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"error %@", error);
-                    failure(error);
-                }];
+                success:[DataManager shareInstance].afNetworkingSuccessBlock
+                failure:[DataManager shareInstance].afNetworkingFailureBlock];
+    
+    return op;
 }
 
 + (instancetype)manager

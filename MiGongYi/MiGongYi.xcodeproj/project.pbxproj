@@ -64,6 +64,7 @@
 		203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D636619CAC7E800116ECA /* MGYDetailsViewController.m */; };
 		203D637019CB027D00116ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636C19CB027D00116ECA /* InfoPlist.strings */; };
 		203D637119CB027D00116ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 203D636E19CB027D00116ECA /* Localizable.strings */; };
+		205D0E101A2C4777008F3F8C /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 205D0E0F1A2C4777008F3F8C /* CustomIOS7AlertView.m */; };
 		2085C85619B6280C00E9FA3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85519B6280C00E9FA3B /* Foundation.framework */; };
 		2085C85819B6280C00E9FA3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85719B6280C00E9FA3B /* CoreGraphics.framework */; };
 		2085C85A19B6280C00E9FA3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2085C85919B6280C00E9FA3B /* UIKit.framework */; };
@@ -120,6 +121,8 @@
 		20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */; };
 		20E52EC61A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */; };
 		20F4E6BC1A282CF5000622A4 /* MGYDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F4E6BB1A282CF5000622A4 /* MGYDonationViewController.m */; };
+		20F4E6BF1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F4E6BE1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.m */; };
+		20F4E6C51A2C0701000622A4 /* MGYRiceBoxingDisConnectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F4E6C41A2C0701000622A4 /* MGYRiceBoxingDisConnectView.m */; };
 		20FF32841A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */; };
 		B4B9B1BC309249DB8C7D74BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26A877FB02F41759F0DC181 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -239,6 +242,8 @@
 		203D636619CAC7E800116ECA /* MGYDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYDetailsViewController.m; path = ../Ui/Details/MGYDetailsViewController.m; sourceTree = "<group>"; };
 		203D636D19CB027D00116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		203D636F19CB027D00116ECA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
+		205D0E0E1A2C4777008F3F8C /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		205D0E0F1A2C4777008F3F8C /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		2085C85219B6280C00E9FA3B /* MiGongYi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiGongYi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2085C85519B6280C00E9FA3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2085C85719B6280C00E9FA3B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -342,6 +347,10 @@
 		20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProtocolRiceBoxingObtain.m; sourceTree = "<group>"; };
 		20F4E6BA1A282CF5000622A4 /* MGYDonationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDonationViewController.h; sourceTree = "<group>"; };
 		20F4E6BB1A282CF5000622A4 /* MGYDonationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDonationViewController.m; sourceTree = "<group>"; };
+		20F4E6BD1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingTimesTipsView.h; sourceTree = "<group>"; };
+		20F4E6BE1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingTimesTipsView.m; sourceTree = "<group>"; };
+		20F4E6C31A2C0701000622A4 /* MGYRiceBoxingDisConnectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingDisConnectView.h; sourceTree = "<group>"; };
+		20F4E6C41A2C0701000622A4 /* MGYRiceBoxingDisConnectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingDisConnectView.m; sourceTree = "<group>"; };
 		20FF32821A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingMonsterProgressView.h; sourceTree = "<group>"; };
 		20FF32831A1F1B1A00D0247B /* MGYRiceBoxingMonsterProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingMonsterProgressView.m; sourceTree = "<group>"; };
 		D26A877FB02F41759F0DC181 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,6 +393,10 @@
 				20AD49041A231CA1004D8667 /* MGYRiceBoxingContentTableViewCell.m */,
 				20E52EBD1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.h */,
 				20E52EBE1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m */,
+				20F4E6BD1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.h */,
+				20F4E6BE1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.m */,
+				20F4E6C31A2C0701000622A4 /* MGYRiceBoxingDisConnectView.h */,
+				20F4E6C41A2C0701000622A4 /* MGYRiceBoxingDisConnectView.m */,
 			);
 			path = RiceBoxing;
 			sourceTree = "<group>";
@@ -735,6 +748,8 @@
 		20CC640119C2A7ED007230A1 /* Template */ = {
 			isa = PBXGroup;
 			children = (
+				205D0E0E1A2C4777008F3F8C /* CustomIOS7AlertView.h */,
+				205D0E0F1A2C4777008F3F8C /* CustomIOS7AlertView.m */,
 				20C1E07C1A1F429700ACA4AA /* JEProgressView.h */,
 				20C1E07D1A1F429700ACA4AA /* JEProgressView.m */,
 				20CC640219C2A807007230A1 /* MGYBaseViewController.h */,
@@ -987,6 +1002,8 @@
 				20015AA71A15E40B00CDCF6F /* MGYAccelerometer.m in Sources */,
 				202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */,
 				20A2D29419B9E82D004C7697 /* MGYDetailsIcon.m in Sources */,
+				205D0E101A2C4777008F3F8C /* CustomIOS7AlertView.m in Sources */,
+				20F4E6C51A2C0701000622A4 /* MGYRiceBoxingDisConnectView.m in Sources */,
 				2087137F19CFF4670035B21B /* MGYDetailsRelationshipView.m in Sources */,
 				20D0BE5719CC36510051BFD2 /* MGYAboutMeViewController.m in Sources */,
 				202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */,
@@ -1054,6 +1071,7 @@
 				201EFE1D19E3B9B700B14853 /* MGYMiChatDetailsViewController.m in Sources */,
 				20015AC21A1A24AF00CDCF6F /* MGYRiceMoveContentTableViewCell.m in Sources */,
 				20AB14A919F7B2DE0088106A /* UIImageView+MGYNetworking.m in Sources */,
+				20F4E6BF1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.m in Sources */,
 				2087138819D15D170035B21B /* MGYProjectDevelopmentsTableViewCell.m in Sources */,
 				20CC640419C2A807007230A1 /* MGYBaseViewController.m in Sources */,
 				202E2A9A19D9620A000E072B /* MGYMiZhiTableViewCell.m in Sources */,

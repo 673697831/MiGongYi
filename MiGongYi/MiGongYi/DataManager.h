@@ -39,6 +39,12 @@
 @property(nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 @property (nonatomic, strong) MGYGetRiceDataManager *getRiceDataManager;
 
+@property(nonatomic, copy) NSString *requestMethod;
+@property(nonatomic, copy) NSString *requestUrl;
+@property(nonatomic, copy) NSDictionary *requestParameters;
+@property(nonatomic, copy) afNetworkingSuccessBlock afNetworkingSuccessBlock;
+@property(nonatomic, copy) afNetworkingFailureBlock afNetworkingFailureBlock;
+
 + (DataManager *)shareInstance;
 
 - (MGYProjectDetails *)getProjectDetailsById:(NSInteger)parentId;
@@ -90,6 +96,7 @@
 
 - (NSString *)filePath;
 
+- (AFHTTPRequestOperation *)connectAgain;
 
 //- (AFHTTPRequestOperation *)requestForWeibo:(MGYSuccess)success
 //                                    failure:(MGYFailure)failure;
