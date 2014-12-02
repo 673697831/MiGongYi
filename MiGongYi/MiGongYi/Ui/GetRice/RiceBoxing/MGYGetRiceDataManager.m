@@ -9,7 +9,7 @@
 #import "MGYGetRiceDataManager.h"
 #import "MGYBoxingRecord.h"
 #import "MGYRiceBoxingMonsterRate.h"
-#define test 0
+#define test 1
 
 @interface MGYGetRiceDataManager ()
 
@@ -638,6 +638,11 @@
 - (BOOL)checkGetRiceCoefficient
 {
     return self.boxingRecord.followId == 9? YES:NO;
+}
+
+- (BOOL)checkRiceRateCoefficient
+{
+    return self.boxingRecord.followId == 3? YES:NO;
 }
 
 

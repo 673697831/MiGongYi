@@ -109,6 +109,8 @@ typedef void (^riceBoxingHitCallback)();
 
 - (BOOL)checkMiZhiCoefficient;
 
+- (BOOL)checkRiceRateCoefficient;
+
 - (MGYTotalWalk *)totalWalk;
 
 - (BOOL)bshowRiceMoveHelp;
