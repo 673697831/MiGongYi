@@ -39,6 +39,7 @@
 @property (nonatomic, weak) UILabel *bloodNumLabel;
 @property (nonatomic, weak) MGYRiceBoxingTimesTipsView *timesView;
 @property (nonatomic, weak) MGYRiceBoxingDisConnectView *disConnectView;
+@property (nonatomic, weak) MGYRiceBoxingFirstTimeTipsView *firstTimeTipsView;
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
@@ -275,6 +276,13 @@
     [self.alphaTimer invalidate];
     self.alphaTimer = nil;
     self.timeLabel.hidden = YES;
+    
+    if (self.disConnectView) {
+        [self.disConnectView close];
+    }
+    if (self.firstTimeTipsView) {
+        [self.firstTimeTipsView close];
+    }
 }
 
 - (void)click:(id)sender
@@ -345,9 +353,6 @@
                             }];
             MGYMonster *monster = self.dataManager.riceBoxingCurMonster;
             [self.dataManager hitMonster:^{
-                if (self.disConnectView) {
-                    [self.disConnectView close];
-                }
                 MGYRiceBoxingContentViewController *mvc = [[MGYRiceBoxingContentViewController alloc] initWithMonster:monster isSuccess:YES];
                 [self.navigationController pushViewController:mvc animated:YES];
                 
@@ -410,8 +415,15 @@
 {
     
     MGYMonster *monster =  self.dataManager.riceBoxingCurMonster;
+    
+    if (self.firstTimeTipsView) {
+        [self.firstTimeTipsView close];
+    }
+    
     if (monster.monsterStatus == MGYMonsterStatusLocked) {
         [self.dataManager riceBoxingUnLockMonster:monster.monsterId];
+        MGYRiceBoxingFirstTimeTipsView *firstTimeTipsView = [[MGYRiceBoxingFirstTimeTipsView alloc]initWithMonster:monster];
+        self.firstTimeTipsView = firstTimeTipsView;
     }
     
     [self.backgroundImageView setImage:[UIImage imageNamed:monster.backgroundImagePath]];

@@ -46,6 +46,8 @@ CGFloat buttonSpacerHeight = 0;
         delegate = self;
         useMotionEffects = false;
         buttonTitles = @[@"Close"];
+        
+        self.useIOS7style = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -188,32 +190,34 @@ CGFloat buttonSpacerHeight = 0;
     UIView *dialogContainer = [[UIView alloc] initWithFrame:CGRectMake((screenSize.width - dialogSize.width) / 2, (screenSize.height - dialogSize.height) / 2, dialogSize.width, dialogSize.height)];
 
     // First, we style the dialog to match the iOS7 UIAlertView >>>
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = dialogContainer.bounds;
-    gradient.colors = [NSArray arrayWithObjects:
-                       (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
-                       (id)[[UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1.0f] CGColor],
-                       (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
-                       nil];
-
-    CGFloat cornerRadius = kCustomIOS7AlertViewCornerRadius;
-    gradient.cornerRadius = cornerRadius;
-    [dialogContainer.layer insertSublayer:gradient atIndex:0];
-
-    dialogContainer.layer.cornerRadius = cornerRadius;
-    dialogContainer.layer.borderColor = [[UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f] CGColor];
-    dialogContainer.layer.borderWidth = 1;
-    dialogContainer.layer.shadowRadius = cornerRadius + 5;
-    dialogContainer.layer.shadowOpacity = 0.1f;
-    dialogContainer.layer.shadowOffset = CGSizeMake(0 - (cornerRadius+5)/2, 0 - (cornerRadius+5)/2);
-    dialogContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    dialogContainer.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:dialogContainer.bounds cornerRadius:dialogContainer.layer.cornerRadius].CGPath;
-
-    // There is a line above the button
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, dialogContainer.bounds.size.height - buttonHeight - buttonSpacerHeight, dialogContainer.bounds.size.width, buttonSpacerHeight)];
-    lineView.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
-    [dialogContainer addSubview:lineView];
-    // ^^^
+    if (self.useIOS7style) {
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = dialogContainer.bounds;
+        gradient.colors = [NSArray arrayWithObjects:
+                           (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
+                           (id)[[UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1.0f] CGColor],
+                           (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
+                           nil];
+        
+        CGFloat cornerRadius = kCustomIOS7AlertViewCornerRadius;
+        gradient.cornerRadius = cornerRadius;
+        [dialogContainer.layer insertSublayer:gradient atIndex:0];
+        
+        dialogContainer.layer.cornerRadius = cornerRadius;
+        dialogContainer.layer.borderColor = [[UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f] CGColor];
+        dialogContainer.layer.borderWidth = 1;
+        dialogContainer.layer.shadowRadius = cornerRadius + 5;
+        dialogContainer.layer.shadowOpacity = 0.1f;
+        dialogContainer.layer.shadowOffset = CGSizeMake(0 - (cornerRadius+5)/2, 0 - (cornerRadius+5)/2);
+        dialogContainer.layer.shadowColor = [UIColor blackColor].CGColor;
+        dialogContainer.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:dialogContainer.bounds cornerRadius:dialogContainer.layer.cornerRadius].CGPath;
+        
+        // There is a line above the button
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, dialogContainer.bounds.size.height - buttonHeight - buttonSpacerHeight, dialogContainer.bounds.size.width, buttonSpacerHeight)];
+        lineView.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
+        [dialogContainer addSubview:lineView];
+    }
+        // ^^^
 
     // Add the custom container if there is any
     [dialogContainer addSubview:containerView];

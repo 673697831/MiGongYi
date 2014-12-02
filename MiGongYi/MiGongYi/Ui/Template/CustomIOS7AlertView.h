@@ -28,6 +28,7 @@ typedef void (^customIOS7AlertViewCloseCallBack)();
 @property (nonatomic, assign) id<CustomIOS7AlertViewDelegate> delegate;
 @property (nonatomic, retain) NSArray *buttonTitles;
 @property (nonatomic, assign) BOOL useMotionEffects;
+@property (nonatomic, assign) BOOL useIOS7style;
 
 @property (copy) void (^onButtonTouchUpInside)(CustomIOS7AlertView *alertView, int buttonIndex) ;
 

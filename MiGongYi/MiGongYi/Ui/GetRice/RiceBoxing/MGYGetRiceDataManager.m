@@ -277,14 +277,14 @@
 - (void)saveRiceBoxingRecord
 {
     NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:self.boxingRecord];
-    if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/boxingRecordTest.plist"] atomically:YES]) {
+    if (![dic writeToFile:[[self filePath] stringByAppendingString:@"/boxingRecord.plist"] atomically:YES]) {
         assert(false);
     }
 }
 
 - (void)loadRiceBoxingRecord
 {
-    NSString* fileName = [[self filePath] stringByAppendingString:@"/boxingRecordTest.plist"];
+    NSString* fileName = [[self filePath] stringByAppendingString:@"/boxingRecord.plist"];
     if ([[NSFileManager defaultManager]fileExistsAtPath:fileName]) {
         NSDictionary *data = [NSDictionary dictionaryWithContentsOfFile:fileName];
         self.boxingRecord = [MTLJSONAdapter modelOfClass:[MGYBoxingRecord class] fromJSONDictionary:data error:nil];
@@ -466,6 +466,7 @@
 {
     MGYMonster *monster = self.boxingRecord.arrayMonster[monsterId];
     monster.monsterStatus = MGYMonsterStatusUnLocked;
+    [self saveRiceBoxingRecord];
 }
 
 - (CGFloat)riceBoxingMonsterCurHp

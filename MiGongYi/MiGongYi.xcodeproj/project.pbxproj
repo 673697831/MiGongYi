@@ -42,6 +42,7 @@
 		202E2AA619E2E4D4000E072B /* MGYMiChatPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2AA519E2E4D4000E072B /* MGYMiChatPickerView.m */; };
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
+		203087DF1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203087DE1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m */; };
 		203A4BC11A1B264800D14BF8 /* MGYBorderHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BC01A1B264800D14BF8 /* MGYBorderHelpView.m */; };
 		203A4BC41A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BC31A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.m */; };
 		203D138D1A039B18005A49B2 /* MGYRiceMoveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D138C1A039B18005A49B2 /* MGYRiceMoveProgressView.m */; };
@@ -206,6 +207,8 @@
 		202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPersonalDetails.m; sourceTree = "<group>"; };
 		202E3F9F19C739FC00E58B4E /* MGYGetRiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYGetRiceViewController.h; path = ../Ui/MGYGetRiceViewController.h; sourceTree = "<group>"; };
 		202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYGetRiceViewController.m; path = ../Ui/MGYGetRiceViewController.m; sourceTree = "<group>"; };
+		203087DD1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingFirstTimeTipsView.h; sourceTree = "<group>"; };
+		203087DE1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingFirstTimeTipsView.m; sourceTree = "<group>"; };
 		203A4BBF1A1B264800D14BF8 /* MGYBorderHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBorderHelpView.h; sourceTree = "<group>"; };
 		203A4BC01A1B264800D14BF8 /* MGYBorderHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBorderHelpView.m; sourceTree = "<group>"; };
 		203A4BC21A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceMoveLevelRecord.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				20F4E6BE1A2ADB24000622A4 /* MGYRiceBoxingTimesTipsView.m */,
 				20F4E6C31A2C0701000622A4 /* MGYRiceBoxingDisConnectView.h */,
 				20F4E6C41A2C0701000622A4 /* MGYRiceBoxingDisConnectView.m */,
+				203087DD1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.h */,
+				203087DE1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m */,
 			);
 			path = RiceBoxing;
 			sourceTree = "<group>";
@@ -1011,6 +1016,7 @@
 				20D0BE5A19CD2D630051BFD2 /* MGYAboutMeTableViewCell.m in Sources */,
 				203D13991A072DD8005A49B2 /* MGYRiceMoveMapTableViewCell.m in Sources */,
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
+				203087DF1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m in Sources */,
 				201EFE2619E66DE100B14853 /* MGYMiChatMonsterTableViewCell.m in Sources */,
 				20CC640A19C2AEDC007230A1 /* MGYProgramChildrenViewController.m in Sources */,
 				20DE257019FFDC8E00F8EF7D /* MGYStoryPlayer.m in Sources */,

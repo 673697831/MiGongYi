@@ -134,9 +134,9 @@
     
 }
 
-- (void)close:(customIOS7AlertViewCloseCallBack)closeCallBack
+- (void)close
 {
-    [self.alertView close:closeCallBack];
+    [self.alertView close:nil];
 }
 
 - (void)show

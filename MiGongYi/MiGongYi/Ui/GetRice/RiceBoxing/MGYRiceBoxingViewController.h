@@ -10,6 +10,7 @@
 #import "MGYSubViewController.h"
 #import "MGYRiceBoxingMonsterProgressView.h"
 #import "MGYRiceBoxingDisConnectView.h"
+#import "MGYRiceBoxingFirstTimeTipsView.h"
 
 @interface MGYRiceBoxingViewController : MGYSubViewController<MGYRiceBoxingMonsterProgressViewDelegate, CustomIOS7AlertViewDelegate, MGYRiceBoxingDisconnectDelegate>
 
