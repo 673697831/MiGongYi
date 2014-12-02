@@ -28,14 +28,24 @@
 {
     [super viewDidLoad];
     
+    self.title = @"一键捐赠";
+    
     UILabel *levelLabel = [UILabel new];
     levelLabel.font = [UIFont systemFontOfSize:22/2];
     levelLabel.textColor = [UIColor colorWithHexString:@"BABABA"];
     levelLabel.text = @"LV:18";
     [self.view addSubview:levelLabel];
+    self.levelLabel = levelLabel;
     
-    self.title = @"一键捐赠";
+    UILabel *riceDonateLabel = [UILabel new];
+    
+    
     // Do any additional setup after loading the view.
+    
+    [self.levelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).with.offset(3);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(20);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
