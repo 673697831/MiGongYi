@@ -9,7 +9,7 @@
 #import "MGYGetRiceDataManager.h"
 #import "MGYBoxingRecord.h"
 #import "MGYRiceBoxingMonsterRate.h"
-#define test 1
+#define test 0
 
 @interface MGYGetRiceDataManager ()
 
