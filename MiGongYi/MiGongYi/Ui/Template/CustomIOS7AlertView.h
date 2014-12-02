@@ -17,6 +17,8 @@
 
 @end
 
+typedef void (^customIOS7AlertViewCloseCallBack)();
+
 @interface CustomIOS7AlertView : UIView<CustomIOS7AlertViewDelegate>
 
 @property (nonatomic, retain) UIView *parentView;    // The parent view this 'dialog' is attached to
@@ -37,7 +39,7 @@
 - (id)initWithParentView: (UIView *)_parentView __attribute__ ((deprecated));
 
 - (void)show;
-- (void)close;
+- (void)close:(customIOS7AlertViewCloseCallBack)closeCallback;
 
 - (IBAction)customIOS7dialogButtonTouchUpInside:(id)sender;
 - (void)setOnButtonTouchUpInside:(void (^)(CustomIOS7AlertView *alertView, int buttonIndex))onButtonTouchUpInside;

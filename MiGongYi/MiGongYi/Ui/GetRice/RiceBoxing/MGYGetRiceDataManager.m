@@ -449,7 +449,7 @@
 
                                }
                                failure:^(NSError *error) {
-                                   self.boxingRecord.curHp = monster.maxHp;
+                                   //self.boxingRecord.curHp = monster.maxHp;
                                    failure(error);
                                    self.riceBoxingIsHitting = NO;
                                }];

@@ -121,19 +121,22 @@
 
 - (void)closeSelf:(id)sender
 {
+    
     if (sender == self.canselButton&&self.disconnectDelegate) {
         [self.disconnectDelegate riceBoxingCansel];
+        [self.alertView close:self.canselCallBack];
     }
     
     if (sender == self.connectButton&&self.disconnectDelegate) {
         [self.disconnectDelegate riceBoxingConnect];
+        [self.alertView close:self.connectCallBack];
     }
-    [self.alertView close];
+    
 }
 
-- (void)close
+- (void)close:(customIOS7AlertViewCloseCallBack)closeCallBack
 {
-    [self.alertView close];
+    [self.alertView close:closeCallBack];
 }
 
 - (void)show
@@ -162,7 +165,7 @@
 
 - (void)dealloc
 {
-    self.alertView = nil;
+    //self.alertView = nil;
 }
 
 /*

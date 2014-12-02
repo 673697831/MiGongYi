@@ -20,6 +20,8 @@
 @interface MGYRiceBoxingDisConnectView : UIView
 
 @property (nonatomic, weak) id<MGYRiceBoxingDisconnectDelegate> disconnectDelegate;
+@property (nonatomic, copy) customIOS7AlertViewCloseCallBack connectCallBack;
+@property (nonatomic, copy) customIOS7AlertViewCloseCallBack canselCallBack;
 
 - (void)show;
 

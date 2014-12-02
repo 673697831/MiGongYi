@@ -625,7 +625,7 @@
 {
     if (self.requestMethod && self.requestUrl) {
         if ([self.requestMethod isEqualToString:@"GET"]) {
-            return [self.requestManager GET:self.requestUrl parameters:self.requestUrl success:self.afNetworkingSuccessBlock failure:self.afNetworkingFailureBlock];
+            return [self.requestManager GET:self.requestUrl parameters:self.requestParameters success:self.afNetworkingSuccessBlock failure:self.afNetworkingFailureBlock];
         }
     }
     return nil;

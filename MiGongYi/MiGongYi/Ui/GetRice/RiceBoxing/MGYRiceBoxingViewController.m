@@ -200,8 +200,6 @@
         make.edges.equalTo(self.view);
     }];
     
-    self.disConnectView.hidden = NO;
-    
     self.bloodNumLabel.hidden = YES;
     [self.accelerometer start];
 }
@@ -299,6 +297,9 @@
     CGFloat y = self.accelerometer.y;
     CGFloat z = self.accelerometer.z;
     if (sqrt(x*x+y*y+z*z) > 2 && !self.isHiting){
+        if (self.disConnectView) {
+            NSLog(@"dsfsfwdsfsdf");
+        }
         @synchronized(self)
         {
             self.isHiting = YES;
@@ -359,6 +360,12 @@
                     if (!self.disConnectView) {
                         MGYRiceBoxingDisConnectView * view = [MGYRiceBoxingDisConnectView new];
                         view.disconnectDelegate = self;
+                        view.connectCallBack = ^(){
+                            [[DataManager shareInstance] connectAgain];
+                        };
+                        view.canselCallBack = ^(){
+                            self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
+                        };
                         self.disConnectView = view;
                     }
                     //self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
@@ -440,12 +447,12 @@
 
 - (void)riceBoxingCansel
 {
-    self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
+    //self.progressView.progress = [self.dataManager riceBoxingMonsterProgress];
 }
 
 - (void)riceBoxingConnect
 {
-    [[DataManager shareInstance] connectAgain ];
+    
 }
 /*
 #pragma mark - Navigation

@@ -133,11 +133,11 @@ CGFloat buttonSpacerHeight = 0;
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"Button Clicked! %d, %d", (int)buttonIndex, (int)[alertView tag]);
-    [self close];
+    [self close:nil];
 }
 
 // Dialog close animation then cleaning and removing the view from the parent
-- (void)close
+- (void)close:(customIOS7AlertViewCloseCallBack)closeCallback
 {
     CATransform3D currentTransform = dialogView.layer.transform;
 
@@ -158,6 +158,10 @@ CGFloat buttonSpacerHeight = 0;
                              [v removeFromSuperview];
                          }
                          [self removeFromSuperview];
+                         
+                         if (closeCallback) {
+                             closeCallback();
+                         }
 					 }
 	 ];
 }
