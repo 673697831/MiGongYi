@@ -12,17 +12,20 @@
 #import "MGYMiChatViewController.h"
 #import "MGYRiceMoveViewController.h"
 #import "MGYRiceBoxingViewController.h"
+#import "DataManager.h"
 #define DIS 60
 
 @interface MGYGetRiceViewController ()
 @property(nonatomic, weak) UIImageView *backgroundImageView;
 @property(nonatomic, weak) UIImageView *knowledgeImageView;
 @property(nonatomic, weak) UIImageView *manImageView;
+@property(nonatomic, weak) UIImageView *followMonsterImageView;
 @property(nonatomic, weak) UIButton *boxingView;
 @property(nonatomic, weak) UIButton *knowView;
 @property(nonatomic, weak) UIButton *shoeView;
 @property(nonatomic, weak) UIButton *phoneView;
 @property(nonatomic, strong) NSDictionary *dic;
+@property(nonatomic, weak) MGYGetRiceDataManager *dataManager;
 
 @end
 
@@ -32,6 +35,9 @@
 {
     
     [super viewDidLoad];
+    
+    self.dataManager = [DataManager shareInstance].getRiceDataManager;
+    
     self.navigationItem.rightBarButtonItem = nil;
     self.title = @"获取大米";
     
@@ -44,6 +50,11 @@
     [self.view addSubview:knowledgeImageView];
     [knowledgeImageView setImage:[UIImage imageNamed:@"page_knowledge_selected"]];
     self.knowledgeImageView = knowledgeImageView;
+    
+    UIImageView *followMonsterImageView = [UIImageView new];
+    [self.view addSubview:followMonsterImageView];
+    followMonsterImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.followMonsterImageView = followMonsterImageView;
     
     UIImageView *manImageView = [UIImageView new];
     [self.view addSubview:manImageView];
@@ -145,11 +156,45 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    [self setSelectedIndex:1];
+    
     self.knowledgeImageView.hidden = YES;
     [self showAllButton];
     [self.manImageView setImage:[UIImage imageNamed:@"page_boy_normal@2x∏±±æ"]];
-    [super viewWillAppear:animated];
-    [self setSelectedIndex:1];
+    
+    self.followMonsterImageView.image = nil;
+    
+    if([self.dataManager checkMiZhiCoefficient]){
+        self.followMonsterImageView.image = [UIImage imageNamed:@"mizhiFollow"];
+        return;
+    }
+    
+    if([self.dataManager checkMiChatCoefficient]){
+        self.followMonsterImageView.image = [UIImage imageNamed:@"michatFollow"];
+        return;
+    }
+    
+    if([self.dataManager checkGetRiceCoefficient]){
+        self.followMonsterImageView.image = [UIImage imageNamed:@"getRiceFollow"];
+        return;
+    }
+    
+    if([self.dataManager checkRiceMoveCoefficient]){
+        self.followMonsterImageView.image = [UIImage imageNamed:@"riceMoveFollow"];
+        return;
+    }
+    
+    if([self.dataManager checkRiceBoxingCoefficient]){
+        self.followMonsterImageView.image = [UIImage imageNamed:@"riceBoxingFollow"];
+        return;
+    }
+    
+    if([self.dataManager checkRiceRateCoefficient]){
+        self.followMonsterImageView.image = [UIImage imageNamed:@"riceRateFollow"];
+        return;
+    }
+    
 }
 
 - (void)setup
@@ -173,6 +218,11 @@
         //make.top.equalTo(self.knowledgeImageView.mas_top).with.offset(30 * rate);
         //make.width.mas_equalTo(398/2 * rate);
         //make.height.mas_equalTo(808/2 * rate);
+    }];
+    
+    [self.followMonsterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.manImageView).with.offset(-10);
+        make.right.equalTo(self.phoneView.mas_centerX);
     }];
     
     [self.boxingView mas_makeConstraints:^(MASConstraintMaker *make) {
