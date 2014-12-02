@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFNetworking.h"
 
 @interface MGYPublicFunction : NSObject
 
@@ -15,6 +16,10 @@ typedef void (^MGYGainRiceSuccess)(NSInteger);
 typedef void (^MGYFailure)(NSError *);
 typedef void (^MGYRiceTimeOutFailure)();
 typedef void (^MGYRiceBoxingTimeBlock)();
+
+typedef void (^afNetworkingSuccessBlock)(AFHTTPRequestOperation *operation, NSDictionary * responseObject);
+
+typedef void (^afNetworkingFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
 
 + (NSString *)signStringWithMD5:(NSDictionary *)parameters;
 

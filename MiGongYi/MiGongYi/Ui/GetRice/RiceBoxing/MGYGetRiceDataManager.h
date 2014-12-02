@@ -23,6 +23,8 @@
 @property (nonatomic, strong, readonly) MGYProtocolRiceBoxingObtain *riceBoxingObtain;
 @property (nonatomic, assign, readonly) NSInteger remainTimes;
 
+@property (nonatomic, strong) AFHTTPRequestOperation *lastOp;
+
 typedef void (^riceBoxingHitCallback)();
 
 - (instancetype)initWithManager:(DataManager *)manager;

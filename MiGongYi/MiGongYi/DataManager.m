@@ -53,7 +53,6 @@
         _miChatRecordList = [NSMutableArray array];
         self.requestManager = [AFHTTPRequestOperationManager manager];
         self.canGainRiceFromMiChat = YES;
-        self.manager = [AFHTTPRequestOperationManager manager];
         //测试专用
         
         [self loadSetup];
@@ -620,6 +619,16 @@
 - (void)saveRiceWalk:(MGYTotalWalk *)totalWalk
 {
     
+}
+
+- (AFHTTPRequestOperation *)connectAgain
+{
+    if (self.requestMethod && self.requestUrl) {
+        if ([self.requestMethod isEqualToString:@"GET"]) {
+            return [self.requestManager GET:self.requestUrl parameters:self.requestParameters success:self.afNetworkingSuccessBlock failure:self.afNetworkingFailureBlock];
+        }
+    }
+    return nil;
 }
 
 @end
