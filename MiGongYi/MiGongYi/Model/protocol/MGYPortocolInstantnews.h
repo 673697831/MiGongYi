@@ -7,7 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle.h>
 
-@interface MGYPortocolInstantnews : NSObject
+typedef NS_ENUM(NSInteger, MGYInstantnewsCommentType) {
+    MGYInstantnewsCommentTypeUser = 1,
+    MGYInstantnewsCommentTypeSystem = 2,
+    MGYInstantnewsCommentTypeDonateSuccess = 3,
+};
+
+@interface MGYPortocolInstantnewsComment : MTLModel <MTLJSONSerializing>
+
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, assign) long long time;
+@property (nonatomic, assign) MGYInstantnewsCommentType type;
+
+@end
+
+@interface MGYPortocolInstantnews : MTLModel <MTLJSONSerializing>
+
+@property (nonatomic, assign) long long lastGetTime;
+@property (nonatomic, strong) NSArray *rs;
+
 
 @end

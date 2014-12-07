@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #import "MGYGetRiceDataManager.h"
+#import "MGYDonateDataManager.h"
 #import "MGYProject.h"
 #import "MGYPersonalDetails.h"
 #import "MGYProjectDetails.h"
@@ -20,6 +21,7 @@
 #import "MGYPublicFunction.h"
 
 @class MGYGetRiceDataManager;
+@class MGYDonateDataManager;
 
 @interface DataManager : NSObject
 
@@ -37,7 +39,8 @@
 @property(nonatomic, strong, readonly) NSDictionary *walkAmount;
 @property(nonatomic, strong) MGYTotalWalk *totalWalk;
 @property(nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
-@property (nonatomic, strong) MGYGetRiceDataManager *getRiceDataManager;
+@property (nonatomic, strong, readonly) MGYGetRiceDataManager *getRiceDataManager;
+@property (nonatomic, strong, readonly) MGYDonateDataManager *donateDataManager;
 
 @property(nonatomic, copy) NSString *requestMethod;
 @property(nonatomic, copy) NSString *requestUrl;

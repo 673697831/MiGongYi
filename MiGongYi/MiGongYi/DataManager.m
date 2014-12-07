@@ -26,6 +26,9 @@
     NSMutableArray *_projectRecentList;
     NSMutableArray *_miChatRecordList;
     NSMutableArray *_weibo;
+    
+    MGYGetRiceDataManager *_getRiceDataManager;
+    MGYDonateDataManager *_donateDataManager;
 }
 
 @end
@@ -73,9 +76,17 @@
 - (MGYGetRiceDataManager *)getRiceDataManager
 {
     if (!_getRiceDataManager) {
-        self.getRiceDataManager = [[MGYGetRiceDataManager alloc] initWithManager:self];
+        _getRiceDataManager = [[MGYGetRiceDataManager alloc] initWithManager:self];
     }
     return _getRiceDataManager;
+}
+
+- (MGYDonateDataManager *)donateDataManager
+{
+    if (!_donateDataManager) {
+        _donateDataManager = [MGYDonateDataManager new];
+    }
+    return _donateDataManager;
 }
 
 #pragma mark - 私有定义

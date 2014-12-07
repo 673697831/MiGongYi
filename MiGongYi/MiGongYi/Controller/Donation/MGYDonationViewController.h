@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYSubViewController.h"
+#import "MGYDonationCommentView.h"
+#import "MGYDonationTableViewCell.h"
 
-@interface MGYDonationViewController : MGYBaseViewController
+@interface MGYDonationViewController : MGYBaseViewController<UITableViewDelegate, UITableViewDataSource, MGYDonationCommentViewDelegate, UITextFieldDelegate, MGYDonationTableViewCellDelegate>
 
 @end

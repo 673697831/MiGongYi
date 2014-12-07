@@ -32,6 +32,10 @@
 		201EFE3E19EF98E200B14853 /* MGYMiChatPhoneListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE3D19EF98E200B14853 /* MGYMiChatPhoneListView.m */; };
 		201EFE5219F2247800B14853 /* SDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE4F19F2247800B14853 /* SDTableViewCell.m */; };
 		201EFE5319F2247800B14853 /* SDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 201EFE5119F2247800B14853 /* SDViewController.m */; };
+		202E14751A2F53F70026FD63 /* MGYDonationCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E14741A2F53F70026FD63 /* MGYDonationCommentView.m */; };
+		202E14781A303EC10026FD63 /* MGYDonateDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E14771A303EC10026FD63 /* MGYDonateDataManager.m */; };
+		202E147B1A3055730026FD63 /* MGYProtocolMyDonate.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E147A1A3055730026FD63 /* MGYProtocolMyDonate.m */; };
+		202E147E1A30816B0026FD63 /* MGYPortocolInstantnews.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E147D1A30816B0026FD63 /* MGYPortocolInstantnews.m */; };
 		202E2A8A19D8F940000E072B /* MGYMiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */; };
 		202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A8C19D910D9000E072B /* MGYMiZhi.m */; };
 		202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E2A9019D934EE000E072B /* MGYMiChatViewController.m */; };
@@ -43,6 +47,8 @@
 		202E3F9A19C6CE4500E58B4E /* MGYPersonalDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3F9919C6CE4500E58B4E /* MGYPersonalDetails.m */; };
 		202E3FA119C739FD00E58B4E /* MGYGetRiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */; };
 		203087DF1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203087DE1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m */; };
+		203087E51A2DBDD000249994 /* MGYDonationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 203087E41A2DBDD000249994 /* MGYDonationTableViewCell.m */; };
+		203087E81A2DDFE300249994 /* MGYDonationProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203087E71A2DDFE300249994 /* MGYDonationProgressView.m */; };
 		203A4BC11A1B264800D14BF8 /* MGYBorderHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BC01A1B264800D14BF8 /* MGYBorderHelpView.m */; };
 		203A4BC41A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BC31A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.m */; };
 		203D138D1A039B18005A49B2 /* MGYRiceMoveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 203D138C1A039B18005A49B2 /* MGYRiceMoveProgressView.m */; };
@@ -187,6 +193,14 @@
 		201EFE4F19F2247800B14853 /* SDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTableViewCell.m; sourceTree = "<group>"; };
 		201EFE5019F2247800B14853 /* SDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDViewController.h; sourceTree = "<group>"; };
 		201EFE5119F2247800B14853 /* SDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDViewController.m; sourceTree = "<group>"; };
+		202E14731A2F53F70026FD63 /* MGYDonationCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDonationCommentView.h; sourceTree = "<group>"; };
+		202E14741A2F53F70026FD63 /* MGYDonationCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDonationCommentView.m; sourceTree = "<group>"; };
+		202E14761A303EC10026FD63 /* MGYDonateDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDonateDataManager.h; sourceTree = "<group>"; };
+		202E14771A303EC10026FD63 /* MGYDonateDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDonateDataManager.m; sourceTree = "<group>"; };
+		202E14791A3055730026FD63 /* MGYProtocolMyDonate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYProtocolMyDonate.h; sourceTree = "<group>"; };
+		202E147A1A3055730026FD63 /* MGYProtocolMyDonate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYProtocolMyDonate.m; sourceTree = "<group>"; };
+		202E147C1A30816B0026FD63 /* MGYPortocolInstantnews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYPortocolInstantnews.h; sourceTree = "<group>"; };
+		202E147D1A30816B0026FD63 /* MGYPortocolInstantnews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYPortocolInstantnews.m; sourceTree = "<group>"; };
 		202E2A8819D8F940000E072B /* MGYMiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGYMiZhiViewController.h; path = ../Ui/GetRice/MiZhi/MGYMiZhiViewController.h; sourceTree = "<group>"; };
 		202E2A8919D8F940000E072B /* MGYMiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYMiZhiViewController.m; path = ../Ui/GetRice/MiZhi/MGYMiZhiViewController.m; sourceTree = "<group>"; };
 		202E2A8B19D910D9000E072B /* MGYMiZhi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYMiZhi.h; sourceTree = "<group>"; };
@@ -209,6 +223,10 @@
 		202E3FA019C739FC00E58B4E /* MGYGetRiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGYGetRiceViewController.m; path = ../Ui/MGYGetRiceViewController.m; sourceTree = "<group>"; };
 		203087DD1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceBoxingFirstTimeTipsView.h; sourceTree = "<group>"; };
 		203087DE1A2D5AE800249994 /* MGYRiceBoxingFirstTimeTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYRiceBoxingFirstTimeTipsView.m; sourceTree = "<group>"; };
+		203087E31A2DBDD000249994 /* MGYDonationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDonationTableViewCell.h; sourceTree = "<group>"; };
+		203087E41A2DBDD000249994 /* MGYDonationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDonationTableViewCell.m; sourceTree = "<group>"; };
+		203087E61A2DDFE300249994 /* MGYDonationProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYDonationProgressView.h; sourceTree = "<group>"; };
+		203087E71A2DDFE300249994 /* MGYDonationProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYDonationProgressView.m; sourceTree = "<group>"; };
 		203A4BBF1A1B264800D14BF8 /* MGYBorderHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYBorderHelpView.h; sourceTree = "<group>"; };
 		203A4BC01A1B264800D14BF8 /* MGYBorderHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGYBorderHelpView.m; sourceTree = "<group>"; };
 		203A4BC21A1B6ECB00D14BF8 /* MGYRiceMoveLevelRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGYRiceMoveLevelRecord.h; sourceTree = "<group>"; };
@@ -410,7 +428,6 @@
 			isa = PBXGroup;
 			children = (
 				20F4E6B91A282C2D000622A4 /* Donation */,
-				20015ABC1A1A203400CDCF6F /* RiceMove */,
 				20015A981A15998400CDCF6F /* RiceBoxing */,
 				202E2A8F19D934EE000E072B /* MGYMiChatViewController.h */,
 				202E2A9019D934EE000E072B /* MGYMiChatViewController.m */,
@@ -437,7 +454,7 @@
 		20015A981A15998400CDCF6F /* RiceBoxing */ = {
 			isa = PBXGroup;
 			children = (
-				20015A8E1A15051000CDCF6F /* MGYRiceBoxingViewController.h */,
+				20015ABC1A1A203400CDCF6F /* RiceMove */,
 				20015A8F1A15051000CDCF6F /* MGYRiceBoxingViewController.m */,
 				20015AAB1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.h */,
 				20015AAC1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m */,
@@ -454,6 +471,8 @@
 				20A2D29919BAAFC0004C7697 /* DataManager.m */,
 				20015A941A15976200CDCF6F /* MGYGetRiceDataManager.h */,
 				20015A951A15976200CDCF6F /* MGYGetRiceDataManager.m */,
+				202E14761A303EC10026FD63 /* MGYDonateDataManager.h */,
+				202E14771A303EC10026FD63 /* MGYDonateDataManager.m */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -473,6 +492,7 @@
 		20015ABC1A1A203400CDCF6F /* RiceMove */ = {
 			isa = PBXGroup;
 			children = (
+				20015A8E1A15051000CDCF6F /* MGYRiceBoxingViewController.h */,
 				20DE25771A00D3F000F8EF7D /* MGYRiceMoveViewController.h */,
 				20DE25781A00D3F000F8EF7D /* MGYRiceMoveViewController.m */,
 				203D13941A072B72005A49B2 /* MGYRiceMoveDetailsViewController.h */,
@@ -485,7 +505,8 @@
 				20015ABD1A1A205E00CDCF6F /* MGYRiceMoveTableViewController.h */,
 				20015ABE1A1A205E00CDCF6F /* MGYRiceMoveTableViewController.m */,
 			);
-			path = RiceMove;
+			name = RiceMove;
+			path = ../RiceMove;
 			sourceTree = "<group>";
 		};
 		201EFE3519ED55AA00B14853 /* en.lproj */ = {
@@ -559,6 +580,19 @@
 			);
 			name = AboutMe;
 			path = AboutME;
+			sourceTree = "<group>";
+		};
+		203087E21A2DBD9800249994 /* donation */ = {
+			isa = PBXGroup;
+			children = (
+				203087E31A2DBDD000249994 /* MGYDonationTableViewCell.h */,
+				203087E41A2DBDD000249994 /* MGYDonationTableViewCell.m */,
+				203087E61A2DDFE300249994 /* MGYDonationProgressView.h */,
+				203087E71A2DDFE300249994 /* MGYDonationProgressView.m */,
+				202E14731A2F53F70026FD63 /* MGYDonationCommentView.h */,
+				202E14741A2F53F70026FD63 /* MGYDonationCommentView.m */,
+			);
+			path = donation;
 			sourceTree = "<group>";
 		};
 		203D636B19CB027D00116ECA /* zh-Hans.lproj */ = {
@@ -657,6 +691,7 @@
 		20A2D28019B9DCDC004C7697 /* Ui */ = {
 			isa = PBXGroup;
 			children = (
+				203087E21A2DBD9800249994 /* donation */,
 				20CC640119C2A7ED007230A1 /* Template */,
 				202E2A8619D8F929000E072B /* GetRice */,
 				202E3FA219C8698400E58B4E /* AboutMe */,
@@ -829,6 +864,10 @@
 			children = (
 				20E52EC41A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.h */,
 				20E52EC51A25BFBD00AB2A62 /* MGYProtocolRiceBoxingObtain.m */,
+				202E14791A3055730026FD63 /* MGYProtocolMyDonate.h */,
+				202E147A1A3055730026FD63 /* MGYProtocolMyDonate.m */,
+				202E147C1A30816B0026FD63 /* MGYPortocolInstantnews.h */,
+				202E147D1A30816B0026FD63 /* MGYPortocolInstantnews.m */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -1013,6 +1052,7 @@
 				20D0BE5719CC36510051BFD2 /* MGYAboutMeViewController.m in Sources */,
 				202E2A8D19D910D9000E072B /* MGYMiZhi.m in Sources */,
 				20015ABB1A1A192500CDCF6F /* MGYRiceMoveTableViewCell.m in Sources */,
+				203087E81A2DDFE300249994 /* MGYDonationProgressView.m in Sources */,
 				20D0BE5A19CD2D630051BFD2 /* MGYAboutMeTableViewCell.m in Sources */,
 				203D13991A072DD8005A49B2 /* MGYRiceMoveMapTableViewCell.m in Sources */,
 				20E445AC19B637EA007B2900 /* MGYTabBarController.m in Sources */,
@@ -1036,6 +1076,7 @@
 				20CC640E19C2FB61007230A1 /* MGYProgressView.m in Sources */,
 				203D13961A072B72005A49B2 /* MGYRiceMoveDetailsViewController.m in Sources */,
 				203D138D1A039B18005A49B2 /* MGYRiceMoveProgressView.m in Sources */,
+				202E14751A2F53F70026FD63 /* MGYDonationCommentView.m in Sources */,
 				20AB149D19F604C60088106A /* MGYNetOperation.m in Sources */,
 				203D13A81A0A75FE005A49B2 /* MGYRiceMoveEquipView.m in Sources */,
 				201EFE2A19E9098100B14853 /* MGYShare.m in Sources */,
@@ -1058,8 +1099,10 @@
 				20A2D28D19B9DCDC004C7697 /* MGYProgramListCell.m in Sources */,
 				20AB14AD19F8A38E0088106A /* MGYWebImageManager.m in Sources */,
 				20A2D2A119BE98C5004C7697 /* MGYProject.m in Sources */,
+				202E147E1A30816B0026FD63 /* MGYPortocolInstantnews.m in Sources */,
 				20015A961A15976200CDCF6F /* MGYGetRiceDataManager.m in Sources */,
 				20E52EBC1A25893400AB2A62 /* MGYPublicFunction.m in Sources */,
+				202E14781A303EC10026FD63 /* MGYDonateDataManager.m in Sources */,
 				20A2D28C19B9DCDC004C7697 /* MGYDetailsViewCell.m in Sources */,
 				20AB149A19F6030C0088106A /* MGYNetManager.m in Sources */,
 				203D14061A111101005A49B2 /* MGYRiceMoveSelectViewController.m in Sources */,
@@ -1068,6 +1111,7 @@
 				201EFE2019E5268600B14853 /* MGYMiChatProgressView.m in Sources */,
 				202E2A9119D934EE000E072B /* MGYMiChatViewController.m in Sources */,
 				203D13A21A08F216005A49B2 /* MGYRiceMoveContentViewController.m in Sources */,
+				203087E51A2DBDD000249994 /* MGYDonationTableViewCell.m in Sources */,
 				202E2A9D19DA84A5000E072B /* MGYSubViewController.m in Sources */,
 				20015ABF1A1A205E00CDCF6F /* MGYRiceMoveTableViewController.m in Sources */,
 				20015AAD1A163E6800CDCF6F /* MGYRiceBoxingDetailsViewController.m in Sources */,
@@ -1087,6 +1131,7 @@
 				20F4E6BC1A282CF5000622A4 /* MGYDonationViewController.m in Sources */,
 				2087138519D071930035B21B /* MGYDetailsIconListView.m in Sources */,
 				20E52EBF1A25AC8300AB2A62 /* MGYRiceBoxingDetailsHideView.m in Sources */,
+				202E147B1A3055730026FD63 /* MGYProtocolMyDonate.m in Sources */,
 				203D636719CAC7E800116ECA /* MGYDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
