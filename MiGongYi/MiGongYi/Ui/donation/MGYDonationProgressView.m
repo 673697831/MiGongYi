@@ -14,7 +14,6 @@
 
 @property (nonatomic, weak) UIImageView *backgroundImageView;
 @property (nonatomic, weak) UIView *progressView;
-@property (nonatomic, weak) UIButton *donateButton;
 @property (nonatomic, assign) CGFloat progress;
 
 @end
@@ -39,23 +38,15 @@
         [self addSubview:progressView];
         self.progressView = progressView;
         
-        UIButton *donateButton = [UIButton new];
-        [donateButton setImage:[UIImage imageNamed:@"donate_button_normal"] forState:UIControlStateNormal];
-        [donateButton setImage:[UIImage imageNamed:@"donate_button_disable"] forState:UIControlStateHighlighted];
-        [self addSubview:donateButton];
-        self.donateButton = donateButton;
-        
         [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         
         [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
-        
-        [self.donateButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.centerY.equalTo(self);
+            make.left.equalTo(self.backgroundImageView).with.offset(2);
+            make.top.equalTo(self.backgroundImageView).with.offset(2);
+            make.right.equalTo(self.backgroundImageView).with.offset(-2);
+            make.bottom.equalTo(self.backgroundImageView).with.offset(-2);
         }];
     
     }
@@ -73,8 +64,8 @@
     CGFloat i = self.progress * 360;
     CGFloat ct = i /180.0 * M_PI - M_PI/2;
     
-    CGFloat height = self.bounds.size.height;
-    CGFloat width = self.bounds.size.width;
+    CGFloat height = self.progressView.bounds.size.height;
+    CGFloat width = self.progressView.bounds.size.width;
     UIBezierPath *aPath = [UIBezierPath bezierPath];
     [aPath addArcWithCenter:CGPointMake(width/2, height/2) radius:width/2 startAngle:-M_PI/2 endAngle:ct clockwise:YES];
     [aPath addLineToPoint:CGPointMake(width/2, height/2)];

@@ -2,12 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "riceDonateBackground@2x.png"
+      "filename" : "comment_button_highlight@2x.png"
     }
   ],
   "info" : {

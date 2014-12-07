@@ -8,9 +8,29 @@
 
 #import <UIKit/UIKit.h>
 #import "MGYDonationProgressView.h"
+#import "MGYDonationCommentView.h"
+#import "MGYProtocolMyDonate.h"
 
-@interface MGYDonationTableViewCell : UITableViewCell
+@protocol MGYDonationTableViewCellDelegate <NSObject>
 
-- (void)resetProgress:(CGFloat)progress;
+- (void)openKeyBoard;
+
+@end
+
+@interface MGYDonationTableViewCell : UITableViewCell<MGYDonationCommentViewDelegate>
+
+@property (nonatomic, weak) MGYDonationCommentView *commentView;
+
+@property (nonatomic, weak) id<MGYDonationTableViewCellDelegate> donationCellDelegate;
+
+//- (void)resetProgress:(CGFloat)progress;
+
+- (void)reset:(MGYProtocolMyDonate *)donate;
+
+- (void)resetComment:(NSArray *)arrayComment;
+
+- (void)move;
+
++ (CGFloat)minHeight;
 
 @end
