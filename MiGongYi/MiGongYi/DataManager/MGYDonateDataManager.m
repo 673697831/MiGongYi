@@ -19,6 +19,7 @@
 
 - (NSString *)uid
 {
+    NSLog(@"sdfsdfdsfdsf");
     return [DataManager shareInstance].uid;
 }
 
@@ -54,6 +55,7 @@
     if (self.myDonate) {
         progressId = self.myDonate.projectId;
     }
+    NSLog(@"%@", self.uid);
     NSDictionary *parameters = @{@"uid":self.uid, @"project_id":@(progressId)};
     NSDictionary *md5Parameters = [MGYPublicFunction md5Parameters:parameters];
     return [manager GET:url

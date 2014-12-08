@@ -153,7 +153,6 @@
         //[self.view bringSubviewToFront:self.pickView];
     }
 }
-
 - (void)deletePeople:(NSIndexPath *)indexPath
 {
     MGYMiChatRecord *miChatRecord = _miChatRecordList[indexPath.row];

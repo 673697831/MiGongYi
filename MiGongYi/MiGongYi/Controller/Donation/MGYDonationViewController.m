@@ -116,17 +116,17 @@
     self.dataManager = [DataManager shareInstance].donateDataManager;
     
     [MBProgressHUD showHUDAddedTo:self.containerView animated:YES];
-    [self.dataManager requestForMydonate:^{
-        [self.dataManager requestForInstantnews:^{
-            [self.tableView reloadData];
-            [MBProgressHUD hideHUDForView:self.containerView animated:YES];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.containerView animated:YES];
-        }];
-        
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.containerView animated:YES];
-    }];
+//    [self.dataManager requestForMydonate:^{
+//        [self.dataManager requestForInstantnews:^{
+//            [self.tableView reloadData];
+//            [MBProgressHUD hideHUDForView:self.containerView animated:YES];
+//        } failure:^(NSError *error) {
+//            [MBProgressHUD hideHUDForView:self.containerView animated:YES];
+//        }];
+//        
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD hideHUDForView:self.containerView animated:YES];
+//    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated

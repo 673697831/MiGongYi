@@ -9,8 +9,8 @@
 #import "AppDelegate.h"
 #import "BlackMagic.h"
 #import "MGYTabBarController.h"
-#import "UIImageView+WebCache.h"
-#import "MGYStoryPlayer.h"
+#import "DataManager.h"
+
 
 @implementation AppDelegate
 
@@ -22,6 +22,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [BlackMagic blackMagicAFJSONResponseSerializer];
+    [DataManager shareInstance].uid
     MGYTabBarController *bar = [[MGYTabBarController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = bar;
     [application setStatusBarStyle:UIStatusBarStyleLightContent];

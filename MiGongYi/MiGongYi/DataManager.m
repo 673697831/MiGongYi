@@ -66,8 +66,7 @@
         {
             [self checkAccountDirectory];
         }
-        [self loadMiChatRecord:nil failure:nil];
-        [self requestForConfig];
+        //[self requestForConfig];
         
     }
     return self;

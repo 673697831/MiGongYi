@@ -994,11 +994,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439445686.009682"
+            timestampString = "439659667.793369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "-requestForMydonate:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1010,11 +1010,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439445722.083149"
+            timestampString = "439659667.793369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "-requestForInstantnews:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1026,11 +1026,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439568087.306748"
+            timestampString = "439659667.793369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-requestForInstantnews"
             landmarkType = "5">
          </BreakpointContent>
@@ -1042,119 +1042,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439453695.726233"
+            timestampString = "439659667.793369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-requestForInstantnews:failure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MiGongYi/Controller/Donation/MGYDonationViewController.m"
-            timestampString = "439567985.467846"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[MGYDonationViewController viewDidLoad]_block_invoke52"
-                  moduleName = "MiGongYi"
-                  urlString = "file:///Users/megil/Desktop/MiGongYi/MiGongYi/MiGongYi/Controller/Donation/MGYDonationViewController.m"
-                  timestampString = "439453983.968036"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[MGYDonationViewController viewDidLoad]_block_invoke_2"
-                  moduleName = "MiGongYi"
-                  urlString = "file:///Users/megil/Desktop/MiGongYi/MiGongYi/MiGongYi/Controller/Donation/MGYDonationViewController.m"
-                  timestampString = "439453983.968279"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MiGongYi/Controller/Donation/MGYDonationViewController.m"
-            timestampString = "439567985.467846"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MGYDonationViewController viewDidLoad]"
-                  moduleName = "MiGongYi"
-                  urlString = "file:///Users/megil/Desktop/MiGongYi/MiGongYi/MiGongYi/Controller/Donation/MGYDonationViewController.m"
-                  timestampString = "439454006.439966"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "1028">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[MGYDonationViewController viewDidLoad]_block_invoke52"
-                  moduleName = "MiGongYi"
-                  urlString = "file:///Users/megil/Desktop/MiGongYi/MiGongYi/MiGongYi/Controller/Donation/MGYDonationViewController.m"
-                  timestampString = "439454006.440806"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "27">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439454613.971741"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "-requestForInstantnews:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1166,11 +1058,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439454862.178309"
+            timestampString = "439659667.793369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "-requestForInstantnews:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1182,11 +1074,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
-            timestampString = "439568063.629437"
+            timestampString = "439659667.793369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-requestForInstantnews:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
+            timestampString = "439659667.793369"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "-requestForAddInstantnews:success:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1204,6 +1112,86 @@
             startingLineNumber = "282"
             endingLineNumber = "282"
             landmarkName = "-scrollViewDidScroll:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/DataManager.m"
+            timestampString = "439698886.446085"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
+            landmarkName = "-requestForEnterUID"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/DataManager/MGYDonateDataManager.m"
+            timestampString = "439698935.589981"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-requestForMydonate:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/DataManager.m"
+            timestampString = "439698975.294846"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
+            landmarkName = "-requestForEnterUID"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/DataManager.m"
+            timestampString = "439698977.803293"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
+            landmarkName = "-requestForEnterUID"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiGongYi/DataManager.m"
+            timestampString = "439699004.179018"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
+            landmarkName = "-requestForEnterUID"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

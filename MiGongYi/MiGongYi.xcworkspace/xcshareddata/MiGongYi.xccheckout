@@ -10,29 +10,29 @@
 	<string>MiGongYi</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C4E6DB8D-80C5-45E8-931D-F645423CD74C</key>
+		<key>566B4921E02537507B76B8252709F59158650D73</key>
 		<string>https://github.com/673697831/MiGongYi.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>MiGongYi/MiGongYi.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C4E6DB8D-80C5-45E8-931D-F645423CD74C</key>
+		<key>566B4921E02537507B76B8252709F59158650D73</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/673697831/MiGongYi.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C4E6DB8D-80C5-45E8-931D-F645423CD74C</string>
+	<string>566B4921E02537507B76B8252709F59158650D73</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C4E6DB8D-80C5-45E8-931D-F645423CD74C</string>
+			<string>566B4921E02537507B76B8252709F59158650D73</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MiGongYi</string>
 		</dict>
